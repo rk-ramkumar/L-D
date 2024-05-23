@@ -1,0 +1,38 @@
+# Godot 4+ specific ignores
+.godot/
+# Godot specific files
+.import/
+export_presets.cfg
+
+# Imported assets
+*.import
+
+# Godot editor-specific files
+.editor_config
+.editor_settings-*
+
+# Mono-specific files (if you use C# with Godot)
+.mono/
+.mono/mono.crash.*
+mono_crash.*
+
+# Godot compiled scripts (if any)
+*.mono.dll
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Backup files
+*~
+*.tmp
+*.bak
+*.swp
+*.swo
+*.swn
+
+# Logs
+*.log
+
+# Godot generated files
+export/
