@@ -1,4 +1,20 @@
-[gd_scene load_steps=4 format=3 uid="uid://cifafwghuio7"]
+[gd_scene load_steps=9 format=3 uid="uid://cifafwghuio7"]
+
+[ext_resource type="Script" path="res://Scripts/Main.gd" id="1_6vw82"]
+[ext_resource type="PackedScene" uid="uid://dk6uw6el4ykws" path="res://Scenes/Dice.tscn" id="2_aspw8"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hd1qu"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_3hv3v"]
+sky_material = SubResource("ProceduralSkyMaterial_hd1qu")
+
+[sub_resource type="Environment" id="Environment_s3hao"]
+background_mode = 2
+sky = SubResource("Sky_3hv3v")
+tonemap_mode = 2
+glow_enabled = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8gnos"]
 albedo_color = Color(0, 0, 0, 1)
@@ -11,6 +27,14 @@ size = Vector3(30, 1, 30)
 size = Vector3(30, 1, 30)
 
 [node name="Main" type="Node3D"]
+script = ExtResource("1_6vw82")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_s3hao")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
 
 [node name="Ground" type="StaticBody3D" parent="."]
 
@@ -19,3 +43,37 @@ mesh = SubResource("BoxMesh_4fyap")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
 shape = SubResource("BoxShape3D_pghho")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -219.0
+offset_top = -121.0
+offset_right = -34.0
+offset_bottom = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 50
+text = "ROLL"
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, 0, 20, 0)
+
+[node name="Dice" parent="." instance=ExtResource("2_aspw8")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 1, 0)
+
+[connection signal="pressed" from="CanvasLayer/Control/Button" to="." method="_on_button_pressed"]
