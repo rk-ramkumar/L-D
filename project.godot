@@ -14,6 +14,10 @@ config/name="Ludo"
 config/features=PackedStringArray("4.1", "Mobile")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Helpers="*res://Scripts/Helpers.gd"
+
 [rendering]
 
 renderer/rendering_method="mobile"
