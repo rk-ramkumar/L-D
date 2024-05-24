@@ -1,16 +1,14 @@
 extends RigidBody3D
 
-@onready var pivot = $Pivot
+@export var StartPosition: Vector3 = Vector3.ZERO
+@export var rollStrength: int = 30
 
-var axes = {
-	1 : 300,
-	3 : 30,
-	0 : 210,
-	2 : 120  
-}
-var animDuration = 5
-
-func updateRotation(key):
-	var tween = get_tree().create_tween()
-	tween.tween_property(pivot, "rotation", Vector3(0, 0, axes[key]), animDuration)
-
+func roll():
+	sleeping = false
+	freeze = false
+	transform.origin = StartPosition
+	linear_velocity = Vector3.ZERO
+	angular_velocity = Vector3.ZERO
+	transform.basis = Basis(Vector3.RIGHT, randf_range(0, 2 * PI)) * transform.basis
+	
+	var throwVector = Vector3(randf_range(-1, 1), 0, randf_range(-1, 1)).normalized()
