@@ -1,9 +1,19 @@
 extends Node3D
 
-@onready var dice = $Dice
-@onready var dice2 = $Dice2
+@onready var dices = $Dices.get_children()
+
+var dieNumbers = {}
+var isRolling: bool = false
 
 func _on_button_pressed():
-	dice.roll()
-	dice2.roll()
+	if !isRolling:
+		for die in dices:
+			die.roll()
+		isRolling = true
+
+func _onDiceRollFinished(die, number):
+	dieNumbers.merge({die.name: number}, true)
+	
+	if (dices.all(func(dice): return dice.is_sleeping())):
+		isRolling = false
 	

@@ -1,3 +1,3 @@
 extends RayCast3D
 
-@export var oppositeSite: int
+@export var oppositeSide: int

@@ -126,11 +126,16 @@ transform = Transform3D(-4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 
 current = true
 size = 25.0
 
-[node name="Dice" parent="." instance=ExtResource("2_aspw8")]
+[node name="Dices" type="Node3D" parent="."]
+
+[node name="FirstDie" parent="Dices" instance=ExtResource("2_aspw8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
 StartPosition = Vector3(-1, 8, 0)
+rollStrength = 10
 
-[node name="Dice2" parent="." instance=ExtResource("2_aspw8")]
+[node name="SecondDie" parent="Dices" instance=ExtResource("2_aspw8")]
 StartPosition = Vector3(1, 8, 0)
 
 [connection signal="pressed" from="CanvasLayer/Control/Button" to="." method="_on_button_pressed"]
+[connection signal="rollFinished" from="Dices/FirstDie" to="." method="_onDiceRollFinished"]
+[connection signal="rollFinished" from="Dices/SecondDie" to="." method="_onDiceRollFinished"]
