@@ -128,13 +128,17 @@ size = 25.0
 
 [node name="Dices" type="Node3D" parent="."]
 
-[node name="FirstDie" parent="Dices" instance=ExtResource("2_aspw8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+[node name="FirstDie" parent="Dices" node_paths=PackedStringArray("level") instance=ExtResource("2_aspw8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, 0)
 StartPosition = Vector3(-1, 8, 0)
-rollStrength = 10
+rollStrength = 15
+level = NodePath("../..")
 
-[node name="SecondDie" parent="Dices" instance=ExtResource("2_aspw8")]
+[node name="SecondDie" parent="Dices" node_paths=PackedStringArray("level") instance=ExtResource("2_aspw8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0)
 StartPosition = Vector3(1, 8, 0)
+rollStrength = 15
+level = NodePath("../..")
 
 [connection signal="pressed" from="CanvasLayer/Control/Button" to="." method="_on_button_pressed"]
 [connection signal="rollFinished" from="Dices/FirstDie" to="." method="_onDiceRollFinished"]
