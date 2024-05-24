@@ -20,6 +20,15 @@ config/icon="res://icon.svg"
 
 Helpers="*res://Scripts/Helpers.gd"
 
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
+
 [rendering]
 
 renderer/rendering_method="mobile"
