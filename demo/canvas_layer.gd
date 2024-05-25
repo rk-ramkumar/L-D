@@ -32,10 +32,11 @@ func onPeerConnected(id):
 
 @rpc("any_peer")
 func sendPlayersInfo(data):
-	if !GameManager.Players.has(data.id):
+	if !GameManager.Players.has(data.uniqueId):
 		var team = teams[ (GameManager.Players.size()) % 2 ]
 		GameManager.playerLoaded += 1
-		GameManager.Players[data.id] =  {
+		GameManager.Players[data.uniqueId] =  {
+			uniqueId = data.uniqueId,
 			id = GameManager.playerLoaded, 
 			coins = 3000, 
 			Name = data.Name, 
@@ -49,11 +50,18 @@ func sendPlayersInfo(data):
 			var player = GameManager.Players[playerId]
 			sendPlayersInfo.rpc(player)
 
+@rpc("any_peer", "call_local")
+func updatePlayersInfo(id, data):
+	GameManager.Players[id].merge(data, true)
+
 func onPeerDisconnected(id):
 	pass
 
 func onConnectedToServer():
-	sendPlayersInfo.rpc({id = multiplayer.get_unique_id(), Name = Name})
+	lobby.get_node("StartLabel").visible = true
+	lobby.get_node("Start").visible = false
+	
+	sendPlayersInfo.rpc({uniqueId = multiplayer.get_unique_id(), Name = Name})
 
 func _on_join_pressed():
 	Name = line_edit.text
@@ -70,11 +78,11 @@ func _on_host_pressed():
 		return error
 	peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
 	multiplayer.set_multiplayer_peer(peer)
-	sendPlayersInfo({id = 1, Name = "Ram"})
-	onPeerConnected(1)
+	sendPlayersInfo({uniqueId = multiplayer.get_unique_id(), Name = "Ram"})
+	onPeerConnected(multiplayer.get_unique_id())
 
 func _on_texture_button_pressed(data):
-	GameManager.Players[multiplayer.get_unique_id()].team = data.team
+	updatePlayersInfo.rpc(multiplayer.get_unique_id(), data)
 	upadatePlayerDisplay.rpc()
 
 @rpc("call_local", "reliable")
@@ -89,23 +97,22 @@ func _on_start_pressed():
 @rpc("any_peer", "call_local")
 func upadatePlayerDisplay():
 	for team in teams:
-		var filteredTeams = Helpers.objectFilter(GameManager.Players, func(_key, player): return player.team == team)
-		var nodes = lobby.get_node("Team " + team).get_children()
+		var playerNodes = lobby.get_node("Team " + team).get_children()
 		
-		for node in nodes:
-			var id = node.name.to_int()
-			
-		for i in filteredTeams.size():
-			var player = filteredTeams[i]
-			var playerNode = nodes[i]
-			playerNode.get_node("TextureButton").texture_normal = load(player.icon)
-			playerNode.get_node("TextureButton").disabled = true
-			playerNode.get_node("Name").text = player.Name
+		for playerNode in playerNodes:
+			var id = playerNode.name.to_int()
+			var player = Helpers.objectFind(GameManager.Players, "id", id)
+			if player != {}:
+				playerNode.get_node("TextureButton").texture_normal = load(player.icon)
+				playerNode.get_node("TextureButton").disabled = true
+				playerNode.get_node("Name").text = player.Name
+			else:
+				playerNode.get_node("TextureButton").texture_normal = load("res://Assets/Textures/icons8-add-100.png")
+				playerNode.get_node("TextureButton").disabled = false
+				playerNode.get_node("Name").text = ''
 
-		for node in nodes.filter(func(n): return !n.get_node("TextureButton").disabled):
-			node.get_node("TextureButton").texture_normal = load("res://Assets/Textures/icons8-add-100.png")
-			node.get_node("TextureButton").disabled = false
-			node.get_node("Name").text = ''
+func isValidToPlay():
+	pass
 
 func _on_player_disconnected(id):
 	GameManager.Players.erase(id)

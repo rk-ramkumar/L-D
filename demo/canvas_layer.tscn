@@ -279,22 +279,41 @@ theme_override_font_sizes/font_size = 55
 disabled = true
 text = "PLAY"
 
+[node name="StartLabel" type="Label" parent="Lobby"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -92.0
+offset_top = -37.0
+offset_right = 92.0
+offset_bottom = 39.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 20
+text = "Host will start the game"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="pressed" from="Create UI/CenterContainer/Control/VBoxContainer/Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="Create UI/CenterContainer/Control/VBoxContainer/Join" to="." method="_on_join_pressed"]
 [connection signal="pressed" from="Lobby/Team L/Player 1/TextureButton" to="." method="_on_texture_button_pressed" binds= [{
-"Player": 1,
+"id": 1,
 "team": "L"
 }]]
 [connection signal="pressed" from="Lobby/Team L/Player 3/TextureButton" to="." method="_on_texture_button_pressed" binds= [{
-"Player": 3,
+"id": 3,
 "team": "L"
 }]]
 [connection signal="pressed" from="Lobby/Team D/Player 2/TextureButton" to="." method="_on_texture_button_pressed" binds= [{
-"Player": 2,
+"id": 2,
 "team": "D"
 }]]
 [connection signal="pressed" from="Lobby/Team D/Player 4/TextureButton" to="." method="_on_texture_button_pressed" binds= [{
-"Player": 4,
+"id": 4,
 "team": "D"
 }]]
 [connection signal="pressed" from="Lobby/Start" to="." method="_on_start_pressed"]
