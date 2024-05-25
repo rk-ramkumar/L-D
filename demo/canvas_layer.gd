@@ -92,7 +92,7 @@ func startGame():
 	hide()
 
 func _on_start_pressed():
-	startGame.rpc_id(1)
+	startGame.rpc()
 
 @rpc("any_peer", "call_local")
 func upadatePlayerDisplay():
