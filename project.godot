@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Helpers="*res://Scripts/Helpers.gd"
+GameManager="*res://Scripts/GameManager.gd"
 
 [display]
 
