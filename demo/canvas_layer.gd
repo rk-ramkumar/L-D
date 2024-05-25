@@ -110,9 +110,14 @@ func upadatePlayerDisplay():
 				playerNode.get_node("TextureButton").texture_normal = load("res://Assets/Textures/icons8-add-100.png")
 				playerNode.get_node("TextureButton").disabled = false
 				playerNode.get_node("Name").text = ''
+		
+		if multiplayer.is_server():
+			lobby.get_node("Start").disabled = !canPlay()
 
-func isValidToPlay():
-	pass
+func canPlay():
+	var size = teams.map(func(team):
+		return Helpers.objectFilter(GameManager.Players, func(key, value): return value.team == team).size())
+	return size[0] != 0 and size[1] != 0
 
 func _on_player_disconnected(id):
 	GameManager.Players.erase(id)
