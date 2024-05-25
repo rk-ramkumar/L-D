@@ -23,49 +23,52 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Host" type="Button" parent="Create UI"]
+[node name="CenterContainer" type="CenterContainer" parent="Create UI"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -193.5
-offset_top = -74.5
-offset_right = 193.5
-offset_bottom = 74.5
+offset_left = -167.0
+offset_top = -135.5
+offset_right = 167.0
+offset_bottom = 135.5
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Control" type="Control" parent="Create UI/CenterContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Create UI/CenterContainer/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -245.5
+offset_top = -154.0
+offset_right = 245.5
+offset_bottom = 154.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+
+[node name="LineEdit" type="LineEdit" parent="Create UI/CenterContainer/Control/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+placeholder_text = "Enter your Name..."
+
+[node name="Host" type="Button" parent="Create UI/CenterContainer/Control/VBoxContainer"]
+layout_mode = 2
 theme_override_font_sizes/font_size = 55
 text = "Host"
 
-[node name="Join" type="Button" parent="Create UI"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -193.0
-offset_top = 145.0
-offset_right = 194.0
-offset_bottom = 294.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Join" type="Button" parent="Create UI/CenterContainer/Control/VBoxContainer"]
+layout_mode = 2
 theme_override_font_sizes/font_size = 55
 text = "Join"
-
-[node name="LineEdit" type="LineEdit" parent="Create UI"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -196.0
-offset_top = 90.0
-offset_right = 199.0
-offset_bottom = 230.0
-grow_horizontal = 2
-theme_override_font_sizes/font_size = 25
 
 [node name="Lobby" type="Control" parent="."]
 visible = false
@@ -120,12 +123,12 @@ theme_override_font_sizes/font_size = 20
 text = "Ram"
 horizontal_alignment = 1
 
-[node name="Player 2" type="Control" parent="Lobby/Team L"]
+[node name="Player 3" type="Control" parent="Lobby/Team L"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="TextureButton" type="TextureButton" parent="Lobby/Team L/Player 2"]
+[node name="TextureButton" type="TextureButton" parent="Lobby/Team L/Player 3"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -137,7 +140,7 @@ grow_horizontal = 2
 texture_normal = ExtResource("2_xqof8")
 stretch_mode = 3
 
-[node name="Name" type="Label" parent="Lobby/Team L/Player 2"]
+[node name="Name" type="Label" parent="Lobby/Team L/Player 3"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -169,41 +172,6 @@ grow_horizontal = 0
 grow_vertical = 2
 theme_override_constants/separation = 300
 
-[node name="Player 1" type="Control" parent="Lobby/Team D"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="TextureButton" type="TextureButton" parent="Lobby/Team D/Player 1"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -64.0
-offset_right = 64.0
-offset_bottom = 128.0
-grow_horizontal = 2
-texture_normal = ExtResource("2_xqof8")
-stretch_mode = 3
-
-[node name="Name" type="Label" parent="Lobby/Team D/Player 1"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -22.0
-offset_top = 124.0
-offset_right = 18.0
-offset_bottom = 149.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_font_sizes/font_size = 20
-text = "
-"
-horizontal_alignment = 1
-
 [node name="Player 2" type="Control" parent="Lobby/Team D"]
 layout_mode = 2
 size_flags_horizontal = 4
@@ -222,6 +190,41 @@ texture_normal = ExtResource("2_xqof8")
 stretch_mode = 3
 
 [node name="Name" type="Label" parent="Lobby/Team D/Player 2"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -22.0
+offset_top = 124.0
+offset_right = 18.0
+offset_bottom = 149.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 20
+text = "
+"
+horizontal_alignment = 1
+
+[node name="Player 4" type="Control" parent="Lobby/Team D"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="TextureButton" type="TextureButton" parent="Lobby/Team D/Player 4"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -64.0
+offset_right = 64.0
+offset_bottom = 128.0
+grow_horizontal = 2
+texture_normal = ExtResource("2_xqof8")
+stretch_mode = 3
+
+[node name="Name" type="Label" parent="Lobby/Team D/Player 4"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -276,21 +279,21 @@ theme_override_font_sizes/font_size = 55
 disabled = true
 text = "PLAY"
 
-[connection signal="pressed" from="Create UI/Host" to="." method="_on_host_pressed"]
-[connection signal="pressed" from="Create UI/Join" to="." method="_on_join_pressed"]
+[connection signal="pressed" from="Create UI/CenterContainer/Control/VBoxContainer/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="Create UI/CenterContainer/Control/VBoxContainer/Join" to="." method="_on_join_pressed"]
 [connection signal="pressed" from="Lobby/Team L/Player 1/TextureButton" to="." method="_on_texture_button_pressed" binds= [{
 "Player": 1,
 "team": "L"
 }]]
-[connection signal="pressed" from="Lobby/Team L/Player 2/TextureButton" to="." method="_on_texture_button_pressed" binds= [{
-"Player": 2,
+[connection signal="pressed" from="Lobby/Team L/Player 3/TextureButton" to="." method="_on_texture_button_pressed" binds= [{
+"Player": 3,
 "team": "L"
 }]]
-[connection signal="pressed" from="Lobby/Team D/Player 1/TextureButton" to="." method="_on_texture_button_pressed" binds= [{
-"Player": 3,
+[connection signal="pressed" from="Lobby/Team D/Player 2/TextureButton" to="." method="_on_texture_button_pressed" binds= [{
+"Player": 2,
 "team": "D"
 }]]
-[connection signal="pressed" from="Lobby/Team D/Player 2/TextureButton" to="." method="_on_texture_button_pressed" binds= [{
+[connection signal="pressed" from="Lobby/Team D/Player 4/TextureButton" to="." method="_on_texture_button_pressed" binds= [{
 "Player": 4,
 "team": "D"
 }]]
