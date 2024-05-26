@@ -62,10 +62,10 @@ func sendPlayersInfo(data):
 			coins = 3000, 
 			Name = data.Name, 
 			icon = data.get("icon", "res://icon.svg"),
-			team = team
+			team = team,
 			}
 		upadatePlayerDisplay.rpc()
-
+		
 	if multiplayer.is_server():
 		for playerId in GameManager.Players:
 			var player = GameManager.Players[playerId]
@@ -80,10 +80,10 @@ func updatePlayerInfo(id, data):
 
 @rpc("call_local", "reliable")
 func startGame():
+	prepareGameConfig()
 	var level = load("res://Scenes/Main.tscn").instantiate()
 	get_tree().root.add_child(level)
 	hide()
-
 
 @rpc("any_peer", "call_local")
 func upadatePlayerDisplay():
@@ -106,10 +106,21 @@ func upadatePlayerDisplay():
 			lobby.get_node("Start").disabled = !canPlay()
 
 func canPlay():
-	var size = teams.map(func(team):
-		return Helpers.objectFilter(GameManager.Players, func(key, value): return value.team == team).size())
-	return size[0] != 0 and size[1] != 0
+	var size = filterByTeam()
+	return size[0].size() != 0 and size[1].size() != 0
 
+# filterByTeam()[0] == "L" , filterByTeam()[1] == "D"
+func filterByTeam():
+	return teams.map(func(team):
+		return Helpers.objectFilter(GameManager.Players, func(key, value): return value.team == team))
+
+func prepareGameConfig():
+	var filteredTeam = filterByTeam()
+	var idx = 0
+	for team in teams:
+		GameManager.teamList[team]["players"] = filteredTeam[idx]
+		GameManager.teamList[team]["actor"] = "mikasa" if team == "L" else "eren"
+		idx += 1
 
 func _on_join_pressed():
 	Name = line_edit.text
