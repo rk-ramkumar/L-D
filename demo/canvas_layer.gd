@@ -30,30 +30,6 @@ func onPeerConnected(id):
 	createUI.hide()
 	lobby.show()
 
-@rpc("any_peer")
-func sendPlayersInfo(data):
-	if !GameManager.Players.has(data.uniqueId):
-		var team = teams[ (GameManager.Players.size()) % 2 ]
-		GameManager.playerLoaded += 1
-		GameManager.Players[data.uniqueId] =  {
-			uniqueId = data.uniqueId,
-			id = GameManager.playerLoaded, 
-			coins = 3000, 
-			Name = data.Name, 
-			icon = data.get("icon", "res://icon.svg"),
-			team = team
-			}
-		upadatePlayerDisplay()
-
-	if multiplayer.is_server():
-		for playerId in GameManager.Players:
-			var player = GameManager.Players[playerId]
-			sendPlayersInfo.rpc(player)
-
-@rpc("any_peer", "call_local")
-func updatePlayersInfo(id, data):
-	GameManager.Players[id].merge(data, true)
-
 func onPeerDisconnected(id):
 	pass
 
@@ -62,28 +38,45 @@ func onConnectedToServer():
 	lobby.get_node("Start").visible = false
 	
 	sendPlayersInfo.rpc({uniqueId = multiplayer.get_unique_id(), Name = Name})
+	
+func _on_server_disconnected():
+	multiplayer.multiplayer_peer = null
+	GameManager.Players.clear()
+	server_disconnected.emit()
+	
+func _on_player_disconnected(id):
+	GameManager.Players.erase(id)
+	player_disconnected.emit(id)
 
-func _on_join_pressed():
-	Name = line_edit.text
-	peer = ENetMultiplayerPeer.new()
-	peer.create_client(DEFAULT_SERVER_IP, PORT)
-	peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
-	multiplayer.set_multiplayer_peer(peer)
+func _on_connected_fail():
+	multiplayer.multiplayer_peer = null
 
-func _on_host_pressed():
-	Name = line_edit.text
-	peer = ENetMultiplayerPeer.new()
-	var error = peer.create_server(PORT, MAX_CONNECTIONS)
-	if error:
-		return error
-	peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
-	multiplayer.set_multiplayer_peer(peer)
-	sendPlayersInfo({uniqueId = multiplayer.get_unique_id(), Name = "Ram"})
-	onPeerConnected(multiplayer.get_unique_id())
+@rpc("any_peer")
+func sendPlayersInfo(data):
+	if !GameManager.Players.has(data.uniqueId):
+		var team = teams[ (GameManager.Players.size()) % 2 ]
+		GameManager.playerLoaded += 1
+		GameManager.Players[data.uniqueId] =  {
+			uniqueId = data.uniqueId,
+			id = GameManager.availableId.pop_front(), 
+			coins = 3000, 
+			Name = data.Name, 
+			icon = data.get("icon", "res://icon.svg"),
+			team = team
+			}
+		upadatePlayerDisplay.rpc()
 
-func _on_texture_button_pressed(data):
-	updatePlayersInfo.rpc(multiplayer.get_unique_id(), data)
-	upadatePlayerDisplay.rpc()
+	if multiplayer.is_server():
+		for playerId in GameManager.Players:
+			var player = GameManager.Players[playerId]
+			sendPlayersInfo.rpc(player)
+
+# Need to improve the logic fcr update playerInfo flow.
+@rpc("any_peer", "call_local")
+func updatePlayerInfo(id, data):
+	GameManager.availableId.push_front(GameManager.Players[id].id)
+	GameManager.Players[id].merge(data, true)
+	GameManager.availableId = GameManager.availableId.filter(func(i): return i != data.id)
 
 @rpc("call_local", "reliable")
 func startGame():
@@ -91,8 +84,6 @@ func startGame():
 	get_tree().root.add_child(level)
 	hide()
 
-func _on_start_pressed():
-	startGame.rpc()
 
 @rpc("any_peer", "call_local")
 func upadatePlayerDisplay():
@@ -119,14 +110,28 @@ func canPlay():
 		return Helpers.objectFilter(GameManager.Players, func(key, value): return value.team == team).size())
 	return size[0] != 0 and size[1] != 0
 
-func _on_player_disconnected(id):
-	GameManager.Players.erase(id)
-	player_disconnected.emit(id)
 
-func _on_connected_fail():
-	multiplayer.multiplayer_peer = null
+func _on_join_pressed():
+	Name = line_edit.text
+	peer = ENetMultiplayerPeer.new()
+	peer.create_client(DEFAULT_SERVER_IP, PORT)
+	peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
+	multiplayer.set_multiplayer_peer(peer)
 
-func _on_server_disconnected():
-	multiplayer.multiplayer_peer = null
-	GameManager.Players.clear()
-	server_disconnected.emit()
+func _on_host_pressed():
+	Name = line_edit.text
+	peer = ENetMultiplayerPeer.new()
+	var error = peer.create_server(PORT, MAX_CONNECTIONS)
+	if error:
+		return error
+	peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
+	multiplayer.set_multiplayer_peer(peer)
+	sendPlayersInfo({uniqueId = multiplayer.get_unique_id(), Name = "Ram"})
+	onPeerConnected(multiplayer.get_unique_id())
+
+func _on_texture_button_pressed(data):
+	updatePlayerInfo.rpc(multiplayer.get_unique_id(), data)
+	upadatePlayerDisplay.rpc()
+
+func _on_start_pressed():
+	startGame.rpc()
