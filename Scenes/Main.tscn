@@ -1,10 +1,11 @@
-[gd_scene load_steps=18 format=3 uid="uid://cifafwghuio7"]
+[gd_scene load_steps=19 format=3 uid="uid://cifafwghuio7"]
 
 [ext_resource type="Script" path="res://Scripts/Main.gd" id="1_6vw82"]
 [ext_resource type="PhysicsMaterial" uid="uid://gyeic8p65k0p" path="res://Resources/wall_physics_material.tres" id="2_6sxp5"]
 [ext_resource type="PackedScene" uid="uid://dk6uw6el4ykws" path="res://Scenes/Dice.tscn" id="2_aspw8"]
 [ext_resource type="Script" path="res://Scripts/TurnTimer.gd" id="4_n0pxl"]
 [ext_resource type="Texture2D" uid="uid://bequamwrwrfvk" path="res://icon.svg" id="5_dqjj8"]
+[ext_resource type="PackedScene" uid="uid://bc01h5os8qx3o" path="res://Scenes/eren.tscn" id="6_j8pt1"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hd1qu"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -18,9 +19,10 @@ background_mode = 2
 sky = SubResource("Sky_3hv3v")
 tonemap_mode = 2
 glow_enabled = true
+fog_enabled = true
+fog_light_color = Color(0.192157, 0.211765, 0.243137, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ebsp7"]
-albedo_color = Color(0, 0, 0, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_4fyap"]
 material = SubResource("StandardMaterial3D_ebsp7")
@@ -79,10 +81,6 @@ script = ExtResource("1_6vw82")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_s3hao")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866024, -0.433016, 0.250001, 0, 0.499998, 0.866026, -0.500003, 0.749999, -0.43301, 0, 2, 0)
-shadow_enabled = true
-
 [node name="Ground" type="StaticBody3D" parent="."]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
@@ -129,6 +127,11 @@ physics_material_override = ExtResource("2_6sxp5")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/Walls/Wall4/StaticBody3D"]
 shape = SubResource("BoxShape3D_dss4m")
 
+[node name="Sprite3D" type="Sprite3D" parent="Ground"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1, 0)
+axis = 1
+texture = ExtResource("5_dqjj8")
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Control" type="Control" parent="CanvasLayer"]
@@ -158,9 +161,11 @@ text = "ROLL"
 metadata/_edit_use_anchors_ = true
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, 0, 23, 0)
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 30, 45, 30)
+projection = 1
 current = true
-size = 25.0
+size = 30.0
+far = 150.0
 
 [node name="Dices" type="Node3D" parent="."]
 
@@ -188,11 +193,6 @@ font_size = 200
 script = ExtResource("4_n0pxl")
 waitTime = 5.0
 
-[node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(-1.31134e-06, 0, 30, 0, 30, 0, -30, 0, -1.31134e-06, 0, 1, 0)
-axis = 1
-texture = ExtResource("5_dqjj8")
-
 [node name="actors" type="Node3D" parent="."]
 
 [node name="own" type="CSGBox3D" parent="actors"]
@@ -206,6 +206,9 @@ modulate = Color(0.0431373, 0.0431373, 0.0431373, 1)
 text = "L"
 font_size = 100
 
+[node name="Eren" parent="actors/own" instance=ExtResource("6_j8pt1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
 [node name="opponent" type="CSGBox3D" parent="actors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 2, 4)
 size = Vector3(2, 1, 1)
@@ -216,6 +219,15 @@ transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, 
 modulate = Color(0, 0, 0, 1)
 text = "D"
 font_size = 100
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 20, -4)
+light_energy = 1.5
+shadow_enabled = true
+shadow_normal_bias = 5.0
+shadow_blur = 3.913
+omni_range = 39.0
+omni_attenuation = 0.0049787
 
 [connection signal="pressed" from="CanvasLayer/Control/RollButton" to="." method="_on_roll_button_pressed"]
 [connection signal="rollFinished" from="Dices/FirstDie" to="." method="_onDiceRollFinished"]
