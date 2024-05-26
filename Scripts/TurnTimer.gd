@@ -18,9 +18,8 @@ func _onRollFinished():
 	startTimer()
 
 func getNextId():
-	var nextId = (GameManager.currentPlayerTurn) % GameManager.playerLoaded
-	print(nextId)
-	return nextId + 1
+	var nextId = ((GameManager.currentPlayerTurn) % GameManager.playerLoaded) + 1
+	return nextId 
 
 @rpc("any_peer", "call_local")
 func updatePlayerTurn(id):

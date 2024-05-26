@@ -15,7 +15,6 @@ var isRolling: bool = false
 var colors = {"eren": "green", "mikasa": "yellow"}
 var timeForEachTurn = 5
 
-#	multiplayer_synchronizer.set_multiplayer_authority(multiplayer.get_unique_id())
 func _ready():
 	GameManager.roundSwitched.connect(_onRoundSwitched)
 	var player = GameManager.Players[multiplayer.get_unique_id()]
