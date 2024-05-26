@@ -6,9 +6,17 @@ func _ready():
 	get_parent().rollFinsihed.connect(_onRollFinished)
 
 func startTimer():
+	if !multiplayer.is_server():
+		return
 	start(waitTime)
 
+@rpc("any_peer", "call_local", "reliable")
+func stopTimer():
+	stop()
+
 func _onRollFinished():
+	if !multiplayer.is_server():
+		return
 	stop()
 	updatePlayerTurn.rpc(getNextId())
 	startTimer()
