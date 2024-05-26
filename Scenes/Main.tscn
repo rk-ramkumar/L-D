@@ -4,6 +4,7 @@
 [ext_resource type="PhysicsMaterial" uid="uid://gyeic8p65k0p" path="res://Resources/wall_physics_material.tres" id="2_6sxp5"]
 [ext_resource type="PackedScene" uid="uid://dk6uw6el4ykws" path="res://Scenes/Dice.tscn" id="2_aspw8"]
 [ext_resource type="Script" path="res://Scripts/TurnTimer.gd" id="4_n0pxl"]
+[ext_resource type="Texture2D" uid="uid://bequamwrwrfvk" path="res://icon.svg" id="5_dqjj8"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hd1qu"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -40,47 +41,37 @@ size = Vector3(30, 40, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_dss4m"]
 size = Vector3(30, 40, 1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dcw80"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n1jqg"]
-
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ayjme"]
-properties/0/path = NodePath("own:position")
+properties/0/path = NodePath("Dices/FirstDie:position")
 properties/0/spawn = true
 properties/0/sync = true
 properties/0/watch = false
-properties/1/path = NodePath("opponent:position")
+properties/1/path = NodePath("Dices/FirstDie:rotation")
 properties/1/spawn = true
 properties/1/sync = true
 properties/1/watch = false
-properties/2/path = NodePath("Dices/FirstDie:position")
+properties/2/path = NodePath("Dices/FirstDie:angular_velocity")
 properties/2/spawn = true
 properties/2/sync = true
 properties/2/watch = false
-properties/3/path = NodePath("Dices/FirstDie:rotation")
+properties/3/path = NodePath("Dices/SecondDie:position")
 properties/3/spawn = true
 properties/3/sync = true
 properties/3/watch = false
-properties/4/path = NodePath("Dices/FirstDie:angular_velocity")
+properties/4/path = NodePath("Dices/SecondDie:rotation")
 properties/4/spawn = true
 properties/4/sync = true
 properties/4/watch = false
-properties/5/path = NodePath("Dices/SecondDie:position")
+properties/5/path = NodePath("Dices/SecondDie:angular_velocity")
 properties/5/spawn = true
 properties/5/sync = true
 properties/5/watch = false
-properties/6/path = NodePath("Dices/SecondDie:rotation")
+properties/6/path = NodePath(".:isRolling")
 properties/6/spawn = true
 properties/6/sync = true
 properties/6/watch = false
-properties/7/path = NodePath("Dices/SecondDie:angular_velocity")
-properties/7/spawn = true
-properties/7/sync = true
-properties/7/watch = false
-properties/8/path = NodePath(".:isRolling")
-properties/8/spawn = true
-properties/8/sync = true
-properties/8/watch = false
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n1jqg"]
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_6vw82")
@@ -185,16 +176,6 @@ StartPosition = Vector3(1, 8, 0)
 rollStrength = 15
 level = NodePath("../..")
 
-[node name="own" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 2, -7)
-size = Vector3(2, 1, 1)
-material = SubResource("StandardMaterial3D_dcw80")
-
-[node name="opponent" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 2, 4)
-size = Vector3(2, 1, 1)
-material = SubResource("StandardMaterial3D_n1jqg")
-
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_ayjme")
 
@@ -206,6 +187,35 @@ font_size = 200
 [node name="TurnTimer" type="Timer" parent="."]
 script = ExtResource("4_n0pxl")
 waitTime = 5.0
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(-1.31134e-06, 0, 30, 0, 30, 0, -30, 0, -1.31134e-06, 0, 1, 0)
+axis = 1
+texture = ExtResource("5_dqjj8")
+
+[node name="actors" type="Node3D" parent="."]
+
+[node name="own" type="CSGBox3D" parent="actors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 2, -7)
+size = Vector3(2, 1, 1)
+
+[node name="Label3D" type="Label3D" parent="actors/own"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+billboard = 1
+modulate = Color(0.0431373, 0.0431373, 0.0431373, 1)
+text = "L"
+font_size = 100
+
+[node name="opponent" type="CSGBox3D" parent="actors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 2, 4)
+size = Vector3(2, 1, 1)
+material = SubResource("StandardMaterial3D_n1jqg")
+
+[node name="Label3D" type="Label3D" parent="actors/opponent"]
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, 1, 0)
+modulate = Color(0, 0, 0, 1)
+text = "D"
+font_size = 100
 
 [connection signal="pressed" from="CanvasLayer/Control/RollButton" to="." method="_on_roll_button_pressed"]
 [connection signal="rollFinished" from="Dices/FirstDie" to="." method="_onDiceRollFinished"]

@@ -13,3 +13,11 @@ var currentPlayerTurn: int = 1:
 	set(id):
 		currentPlayerTurn = id
 		roundSwitched.emit(id)
+var currentDieNumber: int :
+	get:
+		return currentDieNumber
+	set(newNumber):
+		if newNumber == 0:
+			currentDieNumber = 12
+		else:
+			currentDieNumber = newNumber

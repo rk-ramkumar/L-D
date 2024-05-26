@@ -1,8 +1,8 @@
 extends Node3D
 
 @onready var dices = $Dices.get_children()
-@onready var own = $own
-@onready var opponent = $opponent
+@onready var own = $actors/own
+@onready var opponent = $actors/opponent
 @onready var label_3d = $Label3D
 @onready var multiplayer_synchronizer = $MultiplayerSynchronizer
 @onready var roll_button = $CanvasLayer/Control/RollButton
@@ -16,13 +16,15 @@ var colors = {"eren": "green", "mikasa": "yellow"}
 var timeForEachTurn = 5
 
 func _ready():
+	own.set_multiplayer_authority(multiplayer.get_unique_id())
+	opponent.set_multiplayer_authority(multiplayer.get_unique_id())
 	GameManager.roundSwitched.connect(_onRoundSwitched)
 	var player = GameManager.Players[multiplayer.get_unique_id()]
 	label_3d.text = player.Name
 	var opponentTeam = "D" if player.team == "L" else "L"
 	var color = colors[GameManager.teamList[player.team].actor]
-	own.material.set_albedo(Color(color))
-	opponent.material.set_albedo(Color( colors[GameManager.teamList[opponentTeam].actor]))
+	own.get_node("Label3D").text = player.team
+	opponent.get_node("Label3D").text = opponentTeam
 	startGame()
 
 func startGame():
@@ -32,11 +34,27 @@ func startGame():
 func _onDiceRollFinished(die, number):
 	dieNumbers.merge({die.name: number}, true)
 	if (dices.all(func(dice): return dice.is_sleeping())):
+		sendDieInfo.rpc(dieNumbers["FirstDie"] + dieNumbers["SecondDie"])
 		rollFinsihed.emit()
 		isRolling = false
 		_moveToStartPosition()
-		own.position.x += dieNumbers["FirstDie"] + dieNumbers["SecondDie"]
+		upadatePosition.rpc()
 
+@rpc("any_peer", "call_local", "reliable")
+func sendDieInfo(number):
+	GameManager.currentDieNumber = number
+
+@rpc("any_peer", "call_local", "reliable")
+func upadatePosition():
+	var uniqueId = Helpers.objectFind(GameManager.Players, "id", GameManager.currentPlayerTurn).uniqueId
+	var tween = get_tree().create_tween()
+	if multiplayer.get_unique_id() !=  uniqueId:
+		var newPosition = own.position + Vector3(GameManager.currentDieNumber, 0, 0)
+		tween.tween_property(own, "position", newPosition, 0.5)
+	else:
+		var newPosition = opponent.position + Vector3(GameManager.currentDieNumber, 0, 0)
+		tween.tween_property(opponent, "position", newPosition, 0.5)
+	
 func _moveToStartPosition():
 	for dice in dices:
 			var tween = get_tree().create_tween()
