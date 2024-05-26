@@ -31,6 +31,7 @@ func startGame():
 
 func _onDiceRollFinished(die, number):
 	dieNumbers.merge({die.name: number}, true)
+	printt(multiplayer.get_unique_id(), die)
 	
 	if (dices.all(func(dice): return dice.is_sleeping())):
 		rollFinsihed.emit()
@@ -46,11 +47,12 @@ func _moveToStartPosition():
 
 func _on_roll_button_pressed():
 	if !isRolling:
+		multiplayer.multiplayer_peer
 		for die in dices:
-			die.roll()
+			die.roll.rpc()
 		isRolling = true
 		turn_timer.stop()
-	
+
 func _onRoundSwitched(id):
 	if id == GameManager.Players[multiplayer.get_unique_id()].id:
 		roll_button.disabled = false

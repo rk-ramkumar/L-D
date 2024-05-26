@@ -7,7 +7,9 @@ extends RigidBody3D
 
 signal rollFinished(die: RigidBody3D, number: int)
 
+@rpc("any_peer", "call_local", "reliable")
 func roll():
+	print(multiplayer.get_remote_sender_id())
 	sleeping = false
 	freeze = false
 	var tween = get_tree().create_tween()
@@ -25,6 +27,10 @@ func roll():
 	apply_central_impulse(throwVector * rollStrength)
 
 func _on_sleeping_state_changed():
+	_onSleepingStateChanged.rpc()
+
+@rpc("any_peer", "call_local")
+func _onSleepingStateChanged():
 	if sleeping and level.isRolling :
 		var landedOnSide = false
 		for raycast in rayCasts.get_children():
