@@ -3,9 +3,9 @@
 [ext_resource type="Script" path="res://Scripts/Main.gd" id="1_6vw82"]
 [ext_resource type="PhysicsMaterial" uid="uid://gyeic8p65k0p" path="res://Resources/wall_physics_material.tres" id="2_6sxp5"]
 [ext_resource type="PackedScene" uid="uid://dk6uw6el4ykws" path="res://Scenes/Dice.tscn" id="2_aspw8"]
+[ext_resource type="Texture2D" uid="uid://rf3xj1vebxtb" path="res://Assets/Textures/seamless_tileable_grass_texture_by_demolitiondan_d4u41a9.jpg" id="2_ypfyc"]
+[ext_resource type="Texture2D" uid="uid://dep4ueqn8gg2s" path="res://Assets/Textures/Untitled.png" id="4_70xeq"]
 [ext_resource type="Script" path="res://Scripts/TurnTimer.gd" id="4_n0pxl"]
-[ext_resource type="Texture2D" uid="uid://bequamwrwrfvk" path="res://icon.svg" id="5_dqjj8"]
-[ext_resource type="PackedScene" uid="uid://bc01h5os8qx3o" path="res://Scenes/eren.tscn" id="6_j8pt1"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hd1qu"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -23,25 +23,28 @@ fog_enabled = true
 fog_light_color = Color(0.192157, 0.211765, 0.243137, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ebsp7"]
+albedo_texture = ExtResource("2_ypfyc")
+uv1_scale = Vector3(0.1, 0.1, 0.1)
+uv1_triplanar = true
 
 [sub_resource type="BoxMesh" id="BoxMesh_4fyap"]
 material = SubResource("StandardMaterial3D_ebsp7")
-size = Vector3(30, 1, 30)
+size = Vector3(44, 1, 44)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_pghho"]
-size = Vector3(30, 1, 30)
+size = Vector3(44, 1, 44)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ybspq"]
-size = Vector3(30, 40, 1)
+size = Vector3(44, 40, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xd3s7"]
-size = Vector3(30, 40, 1)
+size = Vector3(44, 40, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qvqo5"]
-size = Vector3(30, 40, 1)
+size = Vector3(44, 40, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dss4m"]
-size = Vector3(30, 40, 1)
+size = Vector3(44, 40, 1)
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ayjme"]
 properties/0/path = NodePath("Dices/FirstDie:position")
@@ -81,6 +84,15 @@ script = ExtResource("1_6vw82")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_s3hao")
 
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 20, -4)
+light_energy = 1.5
+shadow_enabled = true
+shadow_normal_bias = 5.0
+shadow_blur = 3.913
+omni_range = 39.0
+omni_attenuation = 0.0049787
+
 [node name="Ground" type="StaticBody3D" parent="."]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
@@ -92,16 +104,17 @@ shape = SubResource("BoxShape3D_pghho")
 [node name="Walls" type="Node3D" parent="Ground"]
 
 [node name="Wall" type="Node3D" parent="Ground/Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9, 0)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Ground/Walls/Wall"]
 physics_material_override = ExtResource("2_6sxp5")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/Walls/Wall/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -15)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -22)
 shape = SubResource("BoxShape3D_ybspq")
 
 [node name="Wall3" type="Node3D" parent="Ground/Walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9, 22)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Ground/Walls/Wall3"]
 physics_material_override = ExtResource("2_6sxp5")
@@ -110,7 +123,7 @@ physics_material_override = ExtResource("2_6sxp5")
 shape = SubResource("BoxShape3D_xd3s7")
 
 [node name="Wall2" type="Node3D" parent="Ground/Walls"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 15, 0, 0)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 22, 9, 0)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Ground/Walls/Wall2"]
 physics_material_override = ExtResource("2_6sxp5")
@@ -119,7 +132,7 @@ physics_material_override = ExtResource("2_6sxp5")
 shape = SubResource("BoxShape3D_qvqo5")
 
 [node name="Wall4" type="Node3D" parent="Ground/Walls"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15, 0, 0)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -22, 9, 0)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Ground/Walls/Wall4"]
 physics_material_override = ExtResource("2_6sxp5")
@@ -128,9 +141,9 @@ physics_material_override = ExtResource("2_6sxp5")
 shape = SubResource("BoxShape3D_dss4m")
 
 [node name="Sprite3D" type="Sprite3D" parent="Ground"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1, 0)
+transform = Transform3D(12, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0.8, -1)
 axis = 1
-texture = ExtResource("5_dqjj8")
+texture = ExtResource("4_70xeq")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -170,14 +183,14 @@ far = 150.0
 [node name="Dices" type="Node3D" parent="."]
 
 [node name="FirstDie" parent="Dices" node_paths=PackedStringArray("level") instance=ExtResource("2_aspw8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, 0)
-StartPosition = Vector3(-1, 8, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, 0)
+StartPosition = Vector3(-2, 10, 0)
 rollStrength = 15
 level = NodePath("../..")
 
 [node name="SecondDie" parent="Dices" node_paths=PackedStringArray("level") instance=ExtResource("2_aspw8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0)
-StartPosition = Vector3(1, 8, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 0)
+StartPosition = Vector3(2, 10, 0)
 rollStrength = 15
 level = NodePath("../..")
 
@@ -196,8 +209,8 @@ waitTime = 5.0
 [node name="actors" type="Node3D" parent="."]
 
 [node name="own" type="CSGBox3D" parent="actors"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 2, -7)
-size = Vector3(2, 1, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 1, -13)
+size = Vector3(2, 1, 2)
 
 [node name="Label3D" type="Label3D" parent="actors/own"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -205,9 +218,6 @@ billboard = 1
 modulate = Color(0.0431373, 0.0431373, 0.0431373, 1)
 text = "L"
 font_size = 100
-
-[node name="Eren" parent="actors/own" instance=ExtResource("6_j8pt1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="opponent" type="CSGBox3D" parent="actors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 2, 4)
@@ -219,15 +229,6 @@ transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, 
 modulate = Color(0, 0, 0, 1)
 text = "D"
 font_size = 100
-
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 20, -4)
-light_energy = 1.5
-shadow_enabled = true
-shadow_normal_bias = 5.0
-shadow_blur = 3.913
-omni_range = 39.0
-omni_attenuation = 0.0049787
 
 [connection signal="pressed" from="CanvasLayer/Control/RollButton" to="." method="_on_roll_button_pressed"]
 [connection signal="rollFinished" from="Dices/FirstDie" to="." method="_onDiceRollFinished"]
