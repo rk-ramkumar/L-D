@@ -1,10 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://cifafwghuio7"]
+[gd_scene load_steps=18 format=3 uid="uid://cifafwghuio7"]
 
 [ext_resource type="Script" path="res://Scripts/Main.gd" id="1_6vw82"]
 [ext_resource type="PhysicsMaterial" uid="uid://gyeic8p65k0p" path="res://Resources/wall_physics_material.tres" id="2_6sxp5"]
 [ext_resource type="PackedScene" uid="uid://dk6uw6el4ykws" path="res://Scenes/Dice.tscn" id="2_aspw8"]
 [ext_resource type="Texture2D" uid="uid://rf3xj1vebxtb" path="res://Assets/Textures/seamless_tileable_grass_texture_by_demolitiondan_d4u41a9.jpg" id="2_ypfyc"]
-[ext_resource type="Texture2D" uid="uid://dep4ueqn8gg2s" path="res://Assets/Textures/Untitled.png" id="4_70xeq"]
 [ext_resource type="Script" path="res://Scripts/TurnTimer.gd" id="4_n0pxl"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hd1qu"]
@@ -46,6 +45,8 @@ size = Vector3(44, 40, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_dss4m"]
 size = Vector3(44, 40, 1)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n1jqg"]
+
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ayjme"]
 properties/0/path = NodePath("Dices/FirstDie:position")
 properties/0/spawn = true
@@ -76,10 +77,36 @@ properties/6/spawn = true
 properties/6/sync = true
 properties/6/watch = false
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n1jqg"]
-
 [node name="Main" type="Node3D"]
 script = ExtResource("1_6vw82")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="RollButton" type="Button" parent="UI/Control"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -219.0
+offset_top = -121.0
+offset_right = -34.0
+offset_bottom = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 50
+text = "ROLL"
+metadata/_edit_use_anchors_ = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_s3hao")
@@ -140,39 +167,6 @@ physics_material_override = ExtResource("2_6sxp5")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/Walls/Wall4/StaticBody3D"]
 shape = SubResource("BoxShape3D_dss4m")
 
-[node name="Sprite3D" type="Sprite3D" parent="Ground"]
-transform = Transform3D(12, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0.8, -1)
-axis = 1
-texture = ExtResource("4_70xeq")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="Control" type="Control" parent="CanvasLayer"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-metadata/_edit_use_anchors_ = true
-
-[node name="RollButton" type="Button" parent="CanvasLayer/Control"]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -219.0
-offset_top = -121.0
-offset_right = -34.0
-offset_bottom = -40.0
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_font_sizes/font_size = 50
-text = "ROLL"
-metadata/_edit_use_anchors_ = true
-
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 30, 45, 30)
 projection = 1
@@ -193,14 +187,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 0)
 StartPosition = Vector3(2, 10, 0)
 rollStrength = 15
 level = NodePath("../..")
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_ayjme")
-
-[node name="Label3D" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-billboard = 1
-font_size = 200
 
 [node name="TurnTimer" type="Timer" parent="."]
 script = ExtResource("4_n0pxl")
@@ -230,7 +216,10 @@ modulate = Color(0, 0, 0, 1)
 text = "D"
 font_size = 100
 
-[connection signal="pressed" from="CanvasLayer/Control/RollButton" to="." method="_on_roll_button_pressed"]
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_ayjme")
+
+[connection signal="pressed" from="UI/Control/RollButton" to="." method="_on_roll_button_pressed"]
 [connection signal="rollFinished" from="Dices/FirstDie" to="." method="_onDiceRollFinished"]
 [connection signal="rollFinished" from="Dices/SecondDie" to="." method="_onDiceRollFinished"]
 [connection signal="timeout" from="TurnTimer" to="TurnTimer" method="_on_timeout"]
