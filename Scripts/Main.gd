@@ -20,12 +20,14 @@ var colors = {"eren": "green", "mikasa": "yellow"}
 
 func _ready():
 	GameManager.roundSwitched.connect(_onRoundSwitched)
-	var player = GameManager.Players[multiplayer.get_unique_id()]
-	var opponentTeam = "D" if player.team == "L" else "L"
-	var color = colors[GameManager.teamList[player.team].actor]
+	parseTiles()
 	addPawns()
 	startGame()
 
+func parseTiles():
+	var tiles = $Tiles.get_children()
+	for tile in tiles:
+		GameManager.tiles[tile.name] = tile
 func addPawns():
 	for team in teamsChildren:
 		for place in team.get_children():
@@ -60,9 +62,11 @@ func upadatePosition():
 	
 func _moveToStartPosition():
 	for dice in dices:
-			var tween = get_tree().create_tween()
-			tween.tween_property(dice, "rotation", Vector3(dice.rotation.x, 0, dice.rotation.z), 0.3)
-			tween.tween_property(dice, "position", Vector3(dice.StartPosition.x, 1, dice.StartPosition.z), 0.3)
+		var property =  {
+			"rotation": Vector3(dice.rotation.x, 0, dice.rotation.z),
+			"position": Vector3(dice.StartPosition.x, 1, dice.StartPosition.z)
+			}
+		Helpers.tween(dice, property, 0.3)
 
 func _onRoundSwitched(id):
 	if id == GameManager.Players[multiplayer.get_unique_id()].id:
@@ -83,5 +87,20 @@ func _onDiceRollFinished(die, number):
 		rollFinsihed.emit()
 		isRolling = false
 		_moveToStartPosition()
+		checkIsValidToMove()
 		upadatePosition.rpc()
 
+func checkIsValidToMove():
+	var player = GameManager.Players[multiplayer.get_unique_id()]
+	var pawns = teams[player.team].get_children()
+	var filterPawns = pawns.filter(func(pawn):
+		if pawn.number < 0:
+			true
+		var key = str(GameManager.currentDieNumber + pawn.number)
+		var tile = GameManager.tiles.get("L" + key, GameManager.tiles.get("LD" + key, GameManager.tiles.get("D" + key)))
+		if tile.capacity != 0:
+			pawn.tile = tile
+			return true 
+		)
+	for filterPawn in filterPawns:
+		filterPawn.set_process_input(true)

@@ -6,6 +6,7 @@ var Players = {}
 var playerLoaded: int = 0
 var availableId = [1,2, 3, 4]
 var teamList = { "L": {}, "D": {} }
+var tiles = {}
 var gameOver: bool = false
 var currentPlayerTurn: int = 1:
 	get:
@@ -21,3 +22,4 @@ var currentDieNumber: int :
 			currentDieNumber = 12
 		else:
 			currentDieNumber = newNumber
+
