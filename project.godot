@@ -30,6 +30,12 @@ window/size/viewport_height=720
 
 pointing/emulate_touch_from_mouse=true
 
+[layer_names]
+
+3d_physics/layer_1="floor"
+3d_physics/layer_2="die"
+3d_physics/layer_3="eren"
+
 [rendering]
 
 renderer/rendering_method="mobile"

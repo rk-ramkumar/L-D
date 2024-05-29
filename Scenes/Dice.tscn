@@ -9,6 +9,8 @@
 size = Vector3(1.92422, 1.61562, 5)
 
 [node name="Dice" type="RigidBody3D"]
+collision_layer = 2
+collision_mask = 3
 freeze = true
 script = ExtResource("1_iry3t")
 
