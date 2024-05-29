@@ -4,11 +4,15 @@ extends Node3D
 @onready var multiplayer_synchronizer = $MultiplayerSynchronizer
 @onready var roll_button = $UI/Control/RollButton
 @onready var turn_timer = $TurnTimer
-@onready var teams = $Teams.get_children()
-
+@onready var teamsChildren = $Teams.get_children()
+@onready var teams = {
+	"L": $L,
+	"D": $D
+}
 @export var erenScene: PackedScene
 
 signal rollFinsihed
+signal moveMade
 
 var dieNumbers = {}
 var isRolling: bool = false
@@ -23,15 +27,17 @@ func _ready():
 	startGame()
 
 func addPawns():
-	for team in teams:
+	for team in teamsChildren:
 		for place in team.get_children():
 			var pos = team.position + place.position
 			pos.y += 1
 			var eren = erenScene.instantiate()
+			eren.set_multiplayer_authority(multiplayer.get_unique_id())
 			eren.position = pos
+			eren.level = self
 			if team.name == "D":
 				eren.rotation.y = 90
-			add_child(eren)
+			teams[team.name].add_child(eren)
 
 func startGame():
 	turn_timer.startTimer()

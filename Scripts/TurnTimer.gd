@@ -3,7 +3,7 @@ extends Timer
 @export var waitTime: float
 
 func _ready():
-	get_parent().rollFinsihed.connect(_onRollFinished)
+	get_parent().moveMade.connect(_onMoveMade)
 
 func startTimer():
 	if !multiplayer.is_server():
@@ -14,7 +14,7 @@ func startTimer():
 func stopTimer():
 	stop()
 
-func _onRollFinished():
+func _onMoveMade():
 	if !multiplayer.is_server():
 		return
 	stop()
@@ -30,4 +30,4 @@ func updatePlayerTurn(id):
 	GameManager.currentPlayerTurn = id
 	
 func _on_timeout():
-	_onRollFinished()
+	_onMoveMade()

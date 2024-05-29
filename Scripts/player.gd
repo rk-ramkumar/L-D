@@ -1,34 +1,38 @@
 extends CharacterBody3D
 
 @onready var animation_player = $AnimationPlayer
+@onready var armature = $Armature
 
+@export var level: Node3D
 
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 
-# Get the gravity from the project settings to be synced with RigidBody nodes.
-var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+var isEntered: bool = false
 
 func _ready():
 	animation_player.play("FightIdle")
-func _physics_process(delta):
-	# Add the gravity.
-	if not is_on_floor():
-		velocity.y -= gravity * delta
+	level.rollFinsihed.connect(_onRollFinished)
 
-	# Handle Jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+func _input(event):
+	if isEntered and InputEventScreenTouch  and event.is_pressed() :
+		pass
+func _onRollFinished():
+	pass
+	
+func _on_mouse_entered():
+	isEntered = true
+	tween(armature, "scale", Vector3(0.25, 0.25, 0.25), 0.3)
 
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	if direction:
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.z = move_toward(velocity.z, 0, SPEED)
+func _on_mouse_exited():
+	isEntered = false
+	tween(armature, "scale", Vector3(0.15, 0.15, 0.15), 0.5)
 
-	move_and_slide()
+func tween(object, property: String, finalValue, duration = 1):
+	var tweenNode = get_tree().create_tween()
+	tweenNode.tween_property(object, property, finalValue, duration)
+	
+func playAnimation(action):
+	if animation_player.is_playing():
+		animation_player.stop()
+	animation_player.play(action)
