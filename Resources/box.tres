@@ -1,11 +1,11 @@
 [gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://dau0pblqatmwr"]
 
-[ext_resource type="Texture2D" uid="uid://guohyiw1r66w" path="res://Assets/Textures/craiyon_235617_flat_large_rock_texture.png" id="1_nreau"]
+[ext_resource type="Texture2D" uid="uid://b2bn74vndsokm" path="res://Assets/Textures/Color.png" id="1_sq0uc"]
 
 [resource]
 resource_name = "Bake"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
-albedo_texture = ExtResource("1_nreau")
+albedo_texture = ExtResource("1_sq0uc")
 metallic = 0.4
 roughness = 0.272166
+uv1_world_triplanar = true

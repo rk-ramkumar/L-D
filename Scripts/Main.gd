@@ -1,8 +1,6 @@
 extends Node3D
 
 @onready var dices = $Dices.get_children()
-@onready var own = $actors/own
-@onready var opponent = $actors/opponent
 @onready var multiplayer_synchronizer = $MultiplayerSynchronizer
 @onready var roll_button = $UI/Control/RollButton
 @onready var turn_timer = $TurnTimer
@@ -14,14 +12,10 @@ var isRolling: bool = false
 var colors = {"eren": "green", "mikasa": "yellow"}
 
 func _ready():
-	own.set_multiplayer_authority(multiplayer.get_unique_id())
-	opponent.set_multiplayer_authority(multiplayer.get_unique_id())
 	GameManager.roundSwitched.connect(_onRoundSwitched)
 	var player = GameManager.Players[multiplayer.get_unique_id()]
 	var opponentTeam = "D" if player.team == "L" else "L"
 	var color = colors[GameManager.teamList[player.team].actor]
-	own.get_node("Label3D").text = player.team
-	opponent.get_node("Label3D").text = opponentTeam
 	startGame()
 
 func startGame():
@@ -36,12 +30,12 @@ func sendDieInfo(number):
 func upadatePosition():
 	var uniqueId = Helpers.objectFind(GameManager.Players, "id", GameManager.currentPlayerTurn).uniqueId
 	var tween = get_tree().create_tween()
-	if multiplayer.get_unique_id() !=  uniqueId:
-		var newPosition = own.position + Vector3(GameManager.currentDieNumber, 0, 0)
-		tween.tween_property(own, "position", newPosition, 0.5)
-	else:
-		var newPosition = opponent.position + Vector3(GameManager.currentDieNumber, 0, 0)
-		tween.tween_property(opponent, "position", newPosition, 0.5)
+#	if multiplayer.get_unique_id() !=  uniqueId:
+#		var newPosition = own.position + Vector3(GameManager.currentDieNumber, 0, 0)
+#		tween.tween_property(own, "position", newPosition, 0.5)
+#	else:
+#		var newPosition = opponent.position + Vector3(GameManager.currentDieNumber, 0, 0)
+#		tween.tween_property(opponent, "position", newPosition, 0.5)
 	
 func _moveToStartPosition():
 	for dice in dices:
