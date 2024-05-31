@@ -1,34 +1,28 @@
 extends CharacterBody3D
 
-enum State {
-	AVAILABLE,
-	UNAVAILABLE,
-	INUSE
-}
-
 @onready var animation_player = $AnimationPlayer
 @onready var armature = $Armature
-
-@export var state: State = State.AVAILABLE
-@export var level: Node3D
-@export var number: int = 0
-@export var tile: StaticBody3D
-
+@onready var parent = get_parent()
 
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
+const animationDelay = 1.6
 
 var isEntered: bool = false
 
 func _ready():
 	playAnimation("FightIdle")
-	level.rollFinsihed.connect(_onRollFinished)
+	parent.level.rollFinsihed.connect(_onRollFinished)
 	set_process_input(false)
 
 func _input(event):
-	if isEntered and InputEventScreenTouch  and event.is_pressed():
+	if isEntered and InputEventScreenTouch and event.is_pressed():
 		playAnimation("WalkForward")
-		Helpers.tween(self, {"position": tile.get_parent().position + tile.position}, 0.5)
+		parent.number += GameManager.currentDieNumber
+		Helpers.tween(parent, {"progress": parent.number * parent.level.tileSize}, animationDelay)
+		reset()
+		await get_tree().create_timer(animationDelay).timeout
+		parent.level.moveMade.emit()
 
 func _onRollFinished():
 	pass
@@ -48,5 +42,5 @@ func playAnimation(action):
 
 func reset():
 	set_process_input(false)
-	playAnimation("FightIdle")	
-	tile = null
+	playAnimation("FightIdle")
+	parent.tile = null

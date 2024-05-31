@@ -10,6 +10,7 @@ extends Node3D
 	"D": $D
 }
 @export var erenScene: PackedScene
+@export var tileSize: int = 3
 
 signal rollFinsihed
 signal moveMade
@@ -28,18 +29,19 @@ func parseTiles():
 	var tiles = $Tiles.get_children()
 	for tile in tiles:
 		GameManager.tiles[tile.name] = tile
+
 func addPawns():
 	for team in teamsChildren:
 		for place in team.get_children():
 			var pos = team.position + place.position
 			pos.y += 1
 			var eren = erenScene.instantiate()
+			var path = teams[team.name].get_node("Path3D")
 			eren.set_multiplayer_authority(multiplayer.get_unique_id())
 			eren.position = pos
 			eren.level = self
-			if team.name == "D":
-				eren.rotation.y = 90
-			teams[team.name].add_child(eren)
+			path.add_child(eren)
+			GameManager.teamList[team.name]["actors"].append(eren)
 
 func startGame():
 	turn_timer.startTimer()
@@ -52,13 +54,6 @@ func sendDieInfo(number):
 @rpc("any_peer", "call_local", "reliable")
 func upadatePosition():
 	var uniqueId = Helpers.objectFind(GameManager.Players, "id", GameManager.currentPlayerTurn).uniqueId
-	var tween = get_tree().create_tween()
-#	if multiplayer.get_unique_id() !=  uniqueId:
-#		var newPosition = own.position + Vector3(GameManager.currentDieNumber, 0, 0)
-#		tween.tween_property(own, "position", newPosition, 0.5)
-#	else:
-#		var newPosition = opponent.position + Vector3(GameManager.currentDieNumber, 0, 0)
-#		tween.tween_property(opponent, "position", newPosition, 0.5)
 	
 func _moveToStartPosition():
 	for dice in dices:
@@ -92,10 +87,13 @@ func _onDiceRollFinished(die, number):
 
 func checkIsValidToMove():
 	var player = GameManager.Players[multiplayer.get_unique_id()]
-	var pawns = teams[player.team].get_children()
+	var pawns = GameManager.teamList[player.team].actors
+#	if pawns.all(func(pawn): return pawn.state == pawn.State.ATHOME):
+#		if GameManager.currentDieNumber != 1:
+#			moveMade.emit()
+#			return
+
 	var filterPawns = pawns.filter(func(pawn):
-		if pawn.number < 0:
-			true
 		var key = str(GameManager.currentDieNumber + pawn.number)
 		var tile = GameManager.tiles.get("L" + key, GameManager.tiles.get("LD" + key, GameManager.tiles.get("D" + key)))
 		if tile.capacity != 0:
@@ -103,4 +101,4 @@ func checkIsValidToMove():
 			return true 
 		)
 	for filterPawn in filterPawns:
-		filterPawn.set_process_input(true)
+		filterPawn.get_child(0).set_process_input(true)
