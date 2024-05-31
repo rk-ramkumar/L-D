@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cifafwghuio7"]
+[gd_scene load_steps=25 format=3 uid="uid://cifafwghuio7"]
 
 [ext_resource type="Script" path="res://Scripts/Main.gd" id="1_6vw82"]
 [ext_resource type="PhysicsMaterial" uid="uid://gyeic8p65k0p" path="res://Resources/wall_physics_material.tres" id="2_6sxp5"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://bkrxh0epjbktj" path="res://Scenes/elements/blockMovingLarge.tscn" id="6_uqvgq"]
 [ext_resource type="PackedScene" uid="uid://k0s4t1o77itb" path="res://Scenes/elements/blockGrassOverhangLowLarge.tscn" id="7_brxrj"]
 [ext_resource type="PackedScene" uid="uid://xx2fsm45sb6n" path="res://Scenes/elements/flag.tscn" id="7_nxjnh"]
+[ext_resource type="Curve3D" uid="uid://cauwws26qqsa6" path="res://Resources/LCurvePath.tres" id="12_ciwao"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hd1qu"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -46,10 +47,12 @@ size = Vector3(66, 40, 1)
 size = Vector3(66, 40, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qvqo5"]
-size = Vector3(66, 40, 1)
+size = Vector3(66, 20, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dss4m"]
 size = Vector3(66, 40, 1)
+
+[sub_resource type="Curve3D" id="Curve3D_0ncbx"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ayjme"]
 properties/0/path = NodePath("Dices/FirstDie:position")
@@ -186,6 +189,16 @@ StartPosition = Vector3(3, 10, 0)
 rollStrength = 20
 level = NodePath("../..")
 
+[node name="L" type="Node3D" parent="."]
+
+[node name="Path3D" type="Path3D" parent="L"]
+curve = ExtResource("12_ciwao")
+
+[node name="D" type="Node3D" parent="."]
+
+[node name="Path3D" type="Path3D" parent="D"]
+curve = SubResource("Curve3D_0ncbx")
+
 [node name="Teams" type="Node3D" parent="."]
 
 [node name="L" type="Node3D" parent="Teams"]
@@ -270,7 +283,7 @@ transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 6, -0.391668, 4)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -9)
 
 [node name="L1" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 18, 1, -18)
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 18.078, 1, -17.873)
 
 [node name="L2" parent="Tiles" instance=ExtResource("6_uqvgq")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 15, 1, -18)
@@ -576,6 +589,15 @@ transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 6, 1, 30)
 [node name="D79" parent="Tiles" instance=ExtResource("6_uqvgq")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 3, 1, 30)
 
+[node name="flag" parent="." instance=ExtResource("7_nxjnh")]
+transform = Transform3D(4.33013, 0, 2.5, 0, 5, 0, -2.5, 0, 4.33013, 0, 1, 21)
+
+[node name="L spwan background" parent="." instance=ExtResource("6_htgj2")]
+transform = Transform3D(8, 0, 0, 0, 2, 0, 0, 0, 5, 10.7233, -0.403235, -17.9295)
+
+[node name="D spawn background" parent="." instance=ExtResource("7_brxrj")]
+transform = Transform3D(8, 0, 0, 0, 1, 0, 0, 0, 5, -10.8105, 0.0757575, -17.9505)
+
 [node name="TurnTimer" type="Timer" parent="."]
 script = ExtResource("4_n0pxl")
 waitTime = 5.0
@@ -591,19 +613,6 @@ transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707106, 
 projection = 1
 size = 55.0
 far = 1500.0
-
-[node name="flag" parent="." instance=ExtResource("7_nxjnh")]
-transform = Transform3D(4.33013, 0, 2.5, 0, 5, 0, -2.5, 0, 4.33013, 0, 1, 21)
-
-[node name="L spwan background" parent="." instance=ExtResource("6_htgj2")]
-transform = Transform3D(8, 0, 0, 0, 2, 0, 0, 0, 5, 10.7233, -0.403235, -17.9295)
-
-[node name="D spawn background" parent="." instance=ExtResource("7_brxrj")]
-transform = Transform3D(8, 0, 0, 0, 1, 0, 0, 0, 5, -10.8105, 0.0757575, -17.9505)
-
-[node name="L" type="Node3D" parent="."]
-
-[node name="D" type="Node3D" parent="."]
 
 [connection signal="pressed" from="UI/Control/RollButton" to="." method="_on_roll_button_pressed"]
 [connection signal="rollFinished" from="Dices/FirstDie" to="." method="_onDiceRollFinished"]
