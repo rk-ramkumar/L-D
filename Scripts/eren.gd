@@ -1,4 +1,4 @@
-extends PathFollow3D
+extends Path3D
 
 enum State {
 	ATHOME,

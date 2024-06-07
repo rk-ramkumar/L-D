@@ -19,6 +19,7 @@ func roll():
 
 	linear_velocity = Vector3.ZERO
 	angular_velocity = Vector3.ZERO
+
 	transform.basis = Basis(Vector3.UP, randf_range(0, 2 * PI)) * transform.basis
 	transform.basis = Basis(Vector3.RIGHT, randf_range(0, 2 * PI)) * transform.basis
 	transform.basis = Basis(Vector3.FORWARD, randf_range(0, 2 * PI)) * transform.basis

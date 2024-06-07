@@ -2,7 +2,7 @@ extends CharacterBody3D
 
 @onready var animation_player = $AnimationPlayer
 @onready var armature = $Armature
-@onready var parent = get_parent()
+@onready var parent = get_owner()
 
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
@@ -17,13 +17,18 @@ func _ready():
 
 func _input(event):
 	if isEntered and InputEventScreenTouch and event.is_pressed():
+		if parent.number == 0:
+			parent.set_curve(GameManager.LCurvePath)
+
 		playAnimation("WalkForward")
 		parent.number += GameManager.currentDieNumber
-		Helpers.tween(parent, {"progress": parent.number * parent.level.tileSize}, animationDelay)
+		var tween = Helpers.tween(parent, {"progress": parent.number * parent.level.tileSize}, animationDelay)
+		tween.finished.connect(_onTwenFinished)
 		reset()
-		await get_tree().create_timer(animationDelay).timeout
-		parent.level.moveMade.emit()
 
+func _onTwenFinished():
+	parent.level.moveMade.emit()
+	
 func _onRollFinished():
 	pass
 	

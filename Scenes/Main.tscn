@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://cifafwghuio7"]
+[gd_scene load_steps=23 format=3 uid="uid://cifafwghuio7"]
 
 [ext_resource type="Script" path="res://Scripts/Main.gd" id="1_6vw82"]
 [ext_resource type="PhysicsMaterial" uid="uid://gyeic8p65k0p" path="res://Resources/wall_physics_material.tres" id="2_6sxp5"]
@@ -11,7 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://bkrxh0epjbktj" path="res://Scenes/elements/blockMovingLarge.tscn" id="6_uqvgq"]
 [ext_resource type="PackedScene" uid="uid://k0s4t1o77itb" path="res://Scenes/elements/blockGrassOverhangLowLarge.tscn" id="7_brxrj"]
 [ext_resource type="PackedScene" uid="uid://xx2fsm45sb6n" path="res://Scenes/elements/flag.tscn" id="7_nxjnh"]
-[ext_resource type="Curve3D" uid="uid://cauwws26qqsa6" path="res://Resources/LCurvePath.tres" id="12_ciwao"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hd1qu"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -47,12 +46,10 @@ size = Vector3(66, 40, 1)
 size = Vector3(66, 40, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qvqo5"]
-size = Vector3(66, 20, 1)
+size = Vector3(66, 40, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dss4m"]
 size = Vector3(66, 40, 1)
-
-[sub_resource type="Curve3D" id="Curve3D_0ncbx"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ayjme"]
 properties/0/path = NodePath("Dices/FirstDie:position")
@@ -139,9 +136,10 @@ shape = SubResource("BoxShape3D_pghho")
 [node name="Walls" type="Node3D" parent="Ground"]
 
 [node name="Wall" type="Node3D" parent="Ground/Walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 19.6396, 0)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Ground/Walls/Wall"]
+input_ray_pickable = false
 physics_material_override = ExtResource("2_6sxp5")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/Walls/Wall/StaticBody3D"]
@@ -149,27 +147,30 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -33.5)
 shape = SubResource("BoxShape3D_ybspq")
 
 [node name="Wall3" type="Node3D" parent="Ground/Walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9, 33)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 19.6396, 33)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Ground/Walls/Wall3"]
+input_ray_pickable = false
 physics_material_override = ExtResource("2_6sxp5")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/Walls/Wall3/StaticBody3D"]
 shape = SubResource("BoxShape3D_xd3s7")
 
 [node name="Wall2" type="Node3D" parent="Ground/Walls"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 33, 9, 0)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 33, 19.6396, 0)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Ground/Walls/Wall2"]
+input_ray_pickable = false
 physics_material_override = ExtResource("2_6sxp5")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/Walls/Wall2/StaticBody3D"]
 shape = SubResource("BoxShape3D_qvqo5")
 
 [node name="Wall4" type="Node3D" parent="Ground/Walls"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -33, 9, 0)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -33, 19.6396, 0)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Ground/Walls/Wall4"]
+input_ray_pickable = false
 physics_material_override = ExtResource("2_6sxp5")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/Walls/Wall4/StaticBody3D"]
@@ -191,13 +192,7 @@ level = NodePath("../..")
 
 [node name="L" type="Node3D" parent="."]
 
-[node name="Path3D" type="Path3D" parent="L"]
-curve = ExtResource("12_ciwao")
-
 [node name="D" type="Node3D" parent="."]
-
-[node name="Path3D" type="Path3D" parent="D"]
-curve = SubResource("Curve3D_0ncbx")
 
 [node name="Teams" type="Node3D" parent="."]
 

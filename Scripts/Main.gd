@@ -36,11 +36,10 @@ func addPawns():
 			var pos = team.position + place.position
 			pos.y += 1
 			var eren = erenScene.instantiate()
-			var path = teams[team.name].get_node("Path3D")
 			eren.set_multiplayer_authority(multiplayer.get_unique_id())
 			eren.position = pos
 			eren.level = self
-			path.add_child(eren)
+			teams[team.name].add_child(eren)
 			GameManager.teamList[team.name]["actors"].append(eren)
 
 func startGame():
