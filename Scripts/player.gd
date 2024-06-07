@@ -17,16 +17,22 @@ func _ready():
 
 func _input(event):
 	if isEntered and InputEventScreenTouch and event.is_pressed():
-		if parent.number == 0:
+		
+		# When user put 1 and the below code will take the pawn to the starting position.
+		if parent.number < 0:
+			parent.number = 0
+			parent.position = Vector3.ZERO
 			parent.set_curve(GameManager.LCurvePath)
+			get_parent().progress = 0
+			return
 
 		playAnimation("WalkForward")
 		parent.number += GameManager.currentDieNumber
-		var tween = Helpers.tween(parent, {"progress": parent.number * parent.level.tileSize}, animationDelay)
+		var tween = Helpers.tween(get_parent(), {"progress": parent.number * parent.level.tileSize}, animationDelay)
 		tween.finished.connect(_onTwenFinished)
-		reset()
 
 func _onTwenFinished():
+	reset()
 	parent.level.moveMade.emit()
 	
 func _onRollFinished():

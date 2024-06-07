@@ -95,9 +95,10 @@ func checkIsValidToMove():
 	var filterPawns = pawns.filter(func(pawn):
 		var key = str(GameManager.currentDieNumber + pawn.number)
 		var tile = GameManager.tiles.get("L" + key, GameManager.tiles.get("LD" + key, GameManager.tiles.get("D" + key)))
-		if tile.capacity != 0:
+
+		if tile and tile.capacity != 0:
 			pawn.tile = tile
-			return true 
+			return true
 		)
 	for filterPawn in filterPawns:
-		filterPawn.get_child(0).set_process_input(true)
+		filterPawn.get_node("PathFollow3D").get_child(0).set_process_input(true)
