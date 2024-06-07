@@ -24,12 +24,14 @@ func _input(event):
 			parent.position = Vector3.ZERO
 			parent.set_curve(GameManager.LCurvePath)
 			get_parent().progress = 0
+			set_process_input(false)
 			return
 
 		playAnimation("WalkForward")
 		parent.number += GameManager.currentDieNumber
 		var tween = Helpers.tween(get_parent(), {"progress": parent.number * parent.level.tileSize}, animationDelay)
 		tween.finished.connect(_onTwenFinished)
+		set_process_input(false)
 
 func _onTwenFinished():
 	reset()
@@ -52,6 +54,5 @@ func playAnimation(action):
 	animation_player.play(action)
 
 func reset():
-	set_process_input(false)
 	playAnimation("FightIdle")
 	parent.tile = null
