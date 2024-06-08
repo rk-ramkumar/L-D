@@ -126,6 +126,7 @@ omni_range = 80.0
 omni_attenuation = 0.00897421
 
 [node name="Ground" type="StaticBody3D" parent="."]
+transform = Transform3D(0.999943, 0, -0.0106987, 0, 1, 0, 0.0106987, 0, 0.999943, -0.048144, 0, -0.000257492)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
 mesh = SubResource("BoxMesh_4fyap")
@@ -199,7 +200,7 @@ level = NodePath("../..")
 [node name="L" type="Node3D" parent="Teams"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 1, -19)
 
-[node name="SpwanBottom" parent="Teams/L" instance=ExtResource("5_cwj3w")]
+[node name="SpwanBottom1" parent="Teams/L" instance=ExtResource("5_cwj3w")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -3, -0.47529, -2)
 
 [node name="SpwanBottom2" parent="Teams/L" instance=ExtResource("5_cwj3w")]
@@ -238,7 +239,7 @@ transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 6, -0.47529, 4)
 [node name="D" type="Node3D" parent="Teams"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 1, -19)
 
-[node name="SpwanBottom" parent="Teams/D" instance=ExtResource("5_cwj3w")]
+[node name="SpwanBottom1" parent="Teams/D" instance=ExtResource("5_cwj3w")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -3, -0.391668, -2)
 
 [node name="SpwanBottom2" parent="Teams/D" instance=ExtResource("5_cwj3w")]
@@ -275,7 +276,7 @@ transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 3, -0.391668, 4)
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 6, -0.391668, 4)
 
 [node name="Tiles" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -9)
+transform = Transform3D(0.999943, 0, -0.0106987, 0, 1, 0, 0.0106987, 0, 0.999943, 0.048144, 0, -8.99974)
 
 [node name="L1" parent="Tiles" instance=ExtResource("6_uqvgq")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 18.078, 1, -17.873)
@@ -605,6 +606,15 @@ transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot"]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707106, 0, 75, 75)
+projection = 1
+size = 55.0
+far = 1500.0
+
+[node name="CameraPivot2" type="Node3D" parent="."]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 0, 1, 0)
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot2"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 75, 75)
 projection = 1
 size = 55.0
 far = 1500.0

@@ -23,6 +23,7 @@ func _ready():
 	GameManager.roundSwitched.connect(_onRoundSwitched)
 	parseTiles()
 	addPawns()
+	setCameera()
 	startGame()
 
 func parseTiles():
@@ -30,6 +31,11 @@ func parseTiles():
 	for tile in tiles:
 		GameManager.tiles[tile.name] = tile
 
+func setCameera():
+	var player = GameManager.Players[multiplayer.get_unique_id()]
+	var camera = $CameraPivot/Camera3D if player.team == "L" else $CameraPivot2/Camera3D
+	camera.current = true
+	
 func addPawns():
 	for team in teamsChildren:
 		for place in team.get_children():
@@ -37,6 +43,7 @@ func addPawns():
 			pos.y += 1
 			var eren = erenScene.instantiate()
 			eren.set_multiplayer_authority(multiplayer.get_unique_id())
+			eren.name = str(place.name.to_int())
 			eren.position = pos
 			eren.level = self
 			teams[team.name].add_child(eren)
@@ -50,10 +57,6 @@ func startGame():
 func sendDieInfo(number):
 	GameManager.currentDieNumber = number
 
-@rpc("any_peer", "call_local", "reliable")
-func upadatePosition():
-	var uniqueId = Helpers.objectFind(GameManager.Players, "id", GameManager.currentPlayerTurn).uniqueId
-	
 func _moveToStartPosition():
 	for dice in dices:
 		var property =  {
@@ -82,7 +85,6 @@ func _onDiceRollFinished(die, number):
 		isRolling = false
 		_moveToStartPosition()
 		checkIsValidToMove()
-		upadatePosition.rpc()
 
 func checkIsValidToMove():
 	var player = GameManager.Players[multiplayer.get_unique_id()]
