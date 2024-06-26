@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://bkrxh0epjbktj" path="res://Scenes/elements/blockMovingLarge.tscn" id="1_cwdc0"]
 
 [node name="Tiles" type="Node3D"]
-transform = Transform3D(0.999943, 0, -0.0106987, 0, 1, 0, 0.0106987, 0, 0.999943, 0.0481424, -1.19209e-07, -8.99974)
+transform = Transform3D(0.999943, 0, -0.0106987, 0, 1, 0, 0.0106987, 0, 0.999943, 0, 0, -9)
 
 [node name="L1" parent="." instance=ExtResource("1_cwdc0")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 18, 1, -18)

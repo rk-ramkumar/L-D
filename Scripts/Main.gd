@@ -5,6 +5,7 @@ extends Node3D
 @onready var roll_button = $UI/Control/RollButton
 @onready var turnTimer = $TurnTimer
 @onready var spawnSides = $SpawnAreaMarker.get_children()
+@onready var tiles = $Tiles
 
 @export var erenScene: PackedScene
 @export var tileSize: int = 3
@@ -97,11 +98,10 @@ func checkIsValidToMove():
 		if pawn.number < 0:
 			return true
 		var key = GameManager.currentDieNumber + pawn.number
-		var pos = pawn.curve.get_point_position(key)
+		var pos = pawn.curve.get_point_position(key) - tiles.position
 		pos.y = 1
 		var tile 
-		for child in $Tiles.get_children(): 
-			printt(child.position, pos)
+		for child in tiles.get_children(): 
 			if child.position == pos:
 				tile = child
 
