@@ -8,8 +8,8 @@
 [ext_resource type="Script" path="res://Scripts/TurnTimer.gd" id="4_n0pxl"]
 [ext_resource type="PackedScene" uid="uid://cfmku48amukqr" path="res://Scenes/spwanBottom.tscn" id="5_cwj3w"]
 [ext_resource type="PackedScene" uid="uid://jh86yeron374" path="res://Scenes/elements/blockSnowOverhangLowLarge.tscn" id="6_htgj2"]
-[ext_resource type="PackedScene" uid="uid://bkrxh0epjbktj" path="res://Scenes/elements/blockMovingLarge.tscn" id="6_uqvgq"]
 [ext_resource type="PackedScene" uid="uid://k0s4t1o77itb" path="res://Scenes/elements/blockGrassOverhangLowLarge.tscn" id="7_brxrj"]
+[ext_resource type="PackedScene" uid="uid://celkghmbkfxis" path="res://Scenes/tiles.tscn" id="7_lxa14"]
 [ext_resource type="PackedScene" uid="uid://xx2fsm45sb6n" path="res://Scenes/elements/flag.tscn" id="7_nxjnh"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hd1qu"]
@@ -85,6 +85,10 @@ properties/6/watch = false
 script = ExtResource("1_6vw82")
 erenScene = ExtResource("2_8fc35")
 
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="Control" type="Control" parent="UI"]
@@ -115,15 +119,6 @@ metadata/_edit_use_anchors_ = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_s3hao")
-
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 27, -4)
-light_energy = 2.0
-shadow_enabled = true
-shadow_normal_bias = 5.0
-shadow_blur = 3.913
-omni_range = 80.0
-omni_attenuation = 0.00897421
 
 [node name="Ground" type="StaticBody3D" parent="."]
 transform = Transform3D(0.999943, 0, -0.0106987, 0, 1, 0, 0.0106987, 0, 0.999943, -0.048144, 0, -0.000257492)
@@ -191,407 +186,99 @@ StartPosition = Vector3(3, 10, 0)
 rollStrength = 20
 level = NodePath("../..")
 
-[node name="L" type="Node3D" parent="."]
+[node name="Right" type="Node3D" parent="."]
 
-[node name="D" type="Node3D" parent="."]
+[node name="Left" type="Node3D" parent="."]
 
-[node name="Teams" type="Node3D" parent="."]
+[node name="SpawnAreaMarker" type="Node3D" parent="."]
 
-[node name="L" type="Node3D" parent="Teams"]
+[node name="Right" type="Node3D" parent="SpawnAreaMarker"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 1, -19)
 
-[node name="SpwanBottom1" parent="Teams/L" instance=ExtResource("5_cwj3w")]
+[node name="SpwanBottom1" parent="SpawnAreaMarker/Right" instance=ExtResource("5_cwj3w")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -3, -0.47529, -2)
 
-[node name="SpwanBottom2" parent="Teams/L" instance=ExtResource("5_cwj3w")]
+[node name="SpwanBottom2" parent="SpawnAreaMarker/Right" instance=ExtResource("5_cwj3w")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, -0.47529, -2)
 
-[node name="SpwanBottom3" parent="Teams/L" instance=ExtResource("5_cwj3w")]
+[node name="SpwanBottom3" parent="SpawnAreaMarker/Right" instance=ExtResource("5_cwj3w")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 3, -0.47529, -2)
 
-[node name="SpwanBottom4" parent="Teams/L" instance=ExtResource("5_cwj3w")]
+[node name="SpwanBottom4" parent="SpawnAreaMarker/Right" instance=ExtResource("5_cwj3w")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 6, -0.47529, -2)
 
-[node name="SpwanBottom5" parent="Teams/L" instance=ExtResource("5_cwj3w")]
+[node name="SpwanBottom5" parent="SpawnAreaMarker/Right" instance=ExtResource("5_cwj3w")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -3, -0.47529, 1)
 
-[node name="SpwanBottom6" parent="Teams/L" instance=ExtResource("5_cwj3w")]
+[node name="SpwanBottom6" parent="SpawnAreaMarker/Right" instance=ExtResource("5_cwj3w")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, -0.47529, 1)
 
-[node name="SpwanBottom7" parent="Teams/L" instance=ExtResource("5_cwj3w")]
+[node name="SpwanBottom7" parent="SpawnAreaMarker/Right" instance=ExtResource("5_cwj3w")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 3, -0.47529, 1)
 
-[node name="SpwanBottom8" parent="Teams/L" instance=ExtResource("5_cwj3w")]
+[node name="SpwanBottom8" parent="SpawnAreaMarker/Right" instance=ExtResource("5_cwj3w")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 6, -0.47529, 1)
 
-[node name="SpwanBottom9" parent="Teams/L" instance=ExtResource("5_cwj3w")]
+[node name="SpwanBottom9" parent="SpawnAreaMarker/Right" instance=ExtResource("5_cwj3w")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -3, -0.47529, 4)
 
-[node name="SpwanBottom10" parent="Teams/L" instance=ExtResource("5_cwj3w")]
+[node name="SpwanBottom10" parent="SpawnAreaMarker/Right" instance=ExtResource("5_cwj3w")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, -0.47529, 4)
 
-[node name="SpwanBottom11" parent="Teams/L" instance=ExtResource("5_cwj3w")]
+[node name="SpwanBottom11" parent="SpawnAreaMarker/Right" instance=ExtResource("5_cwj3w")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 3, -0.47529, 4)
 
-[node name="SpwanBottom12" parent="Teams/L" instance=ExtResource("5_cwj3w")]
+[node name="SpwanBottom12" parent="SpawnAreaMarker/Right" instance=ExtResource("5_cwj3w")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 6, -0.47529, 4)
 
-[node name="D" type="Node3D" parent="Teams"]
+[node name="Left" type="Node3D" parent="SpawnAreaMarker"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 1, -19)
 
-[node name="SpwanBottom1" parent="Teams/D" instance=ExtResource("5_cwj3w")]
+[node name="SpwanBottom1" parent="SpawnAreaMarker/Left" instance=ExtResource("5_cwj3w")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -3, -0.391668, -2)
 
-[node name="SpwanBottom2" parent="Teams/D" instance=ExtResource("5_cwj3w")]
+[node name="SpwanBottom2" parent="SpawnAreaMarker/Left" instance=ExtResource("5_cwj3w")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, -0.391668, -2)
 
-[node name="SpwanBottom3" parent="Teams/D" instance=ExtResource("5_cwj3w")]
+[node name="SpwanBottom3" parent="SpawnAreaMarker/Left" instance=ExtResource("5_cwj3w")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 3, -0.391668, -2)
 
-[node name="SpwanBottom4" parent="Teams/D" instance=ExtResource("5_cwj3w")]
+[node name="SpwanBottom4" parent="SpawnAreaMarker/Left" instance=ExtResource("5_cwj3w")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 6, -0.391668, -2)
 
-[node name="SpwanBottom5" parent="Teams/D" instance=ExtResource("5_cwj3w")]
+[node name="SpwanBottom5" parent="SpawnAreaMarker/Left" instance=ExtResource("5_cwj3w")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -3, -0.391668, 1)
 
-[node name="SpwanBottom6" parent="Teams/D" instance=ExtResource("5_cwj3w")]
+[node name="SpwanBottom6" parent="SpawnAreaMarker/Left" instance=ExtResource("5_cwj3w")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, -0.391668, 1)
 
-[node name="SpwanBottom7" parent="Teams/D" instance=ExtResource("5_cwj3w")]
+[node name="SpwanBottom7" parent="SpawnAreaMarker/Left" instance=ExtResource("5_cwj3w")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 3, -0.391668, 1)
 
-[node name="SpwanBottom8" parent="Teams/D" instance=ExtResource("5_cwj3w")]
+[node name="SpwanBottom8" parent="SpawnAreaMarker/Left" instance=ExtResource("5_cwj3w")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 6, -0.391668, 1)
 
-[node name="SpwanBottom9" parent="Teams/D" instance=ExtResource("5_cwj3w")]
+[node name="SpwanBottom9" parent="SpawnAreaMarker/Left" instance=ExtResource("5_cwj3w")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -3, -0.391668, 4)
 
-[node name="SpwanBottom10" parent="Teams/D" instance=ExtResource("5_cwj3w")]
+[node name="SpwanBottom10" parent="SpawnAreaMarker/Left" instance=ExtResource("5_cwj3w")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, -0.391668, 4)
 
-[node name="SpwanBottom11" parent="Teams/D" instance=ExtResource("5_cwj3w")]
+[node name="SpwanBottom11" parent="SpawnAreaMarker/Left" instance=ExtResource("5_cwj3w")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 3, -0.391668, 4)
 
-[node name="SpwanBottom12" parent="Teams/D" instance=ExtResource("5_cwj3w")]
+[node name="SpwanBottom12" parent="SpawnAreaMarker/Left" instance=ExtResource("5_cwj3w")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 6, -0.391668, 4)
 
-[node name="Tiles" type="Node3D" parent="."]
-transform = Transform3D(0.999943, 0, -0.0106987, 0, 1, 0, 0.0106987, 0, 0.999943, 0.048144, 0, -8.99974)
-
-[node name="L1" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 18.078, 1, -17.873)
-
-[node name="L2" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 15, 1, -18)
-
-[node name="L3" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 12, 1, -18)
-
-[node name="L4" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 9, 1, -18)
-
-[node name="L5" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 6, 1, -18)
-
-[node name="L6" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 3, 1, -18)
-
-[node name="L14" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 3, 1, 0)
-
-[node name="L15" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 6, 1, 0)
-
-[node name="L16" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 9, 1, 0)
-
-[node name="L17" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 12, 1, 0)
-
-[node name="L18" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 15, 1, 0)
-
-[node name="L20" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 18, 1, 3)
-
-[node name="L21" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 18, 1, 6)
-
-[node name="L22" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 18, 1, 9)
-
-[node name="L23" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 18, 1, 12)
-
-[node name="L24" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 18, 1, 15)
-
-[node name="L26" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 18, 1, 21)
-
-[node name="L27" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 18, 1, 24)
-
-[node name="L28" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 18, 1, 27)
-
-[node name="L29" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 18, 1, 30)
-
-[node name="L30" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 18, 1, 33)
-
-[node name="L32" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 15, 1, 36)
-
-[node name="L33" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 12, 1, 36)
-
-[node name="L34" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 9, 1, 36)
-
-[node name="L35" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 6, 1, 36)
-
-[node name="L36" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 3, 1, 36)
-
-[node name="L38" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -3, 1, 36)
-
-[node name="L39" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -6, 1, 36)
-
-[node name="L40" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -9, 1, 36)
-
-[node name="L41" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -12, 1, 36)
-
-[node name="L42" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -15, 1, 36)
-
-[node name="L44" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -18, 1, 33)
-
-[node name="L45" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -18, 1, 30)
-
-[node name="L46" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -18, 1, 27)
-
-[node name="L47" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -18, 1, 24)
-
-[node name="L48" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -18, 1, 21)
-
-[node name="L50" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -18, 1, 15)
-
-[node name="L51" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -18, 1, 12)
-
-[node name="L52" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -18, 1, 9)
-
-[node name="L53" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -18, 1, 6)
-
-[node name="L54" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -18, 1, 3)
-
-[node name="L56" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -15, 1, 0)
-
-[node name="L57" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -12, 1, 0)
-
-[node name="L58" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -9, 1, 0)
-
-[node name="L59" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -6, 1, 0)
-
-[node name="L60" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -3, 1, 0)
-
-[node name="L61" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 3, 1, 3)
-
-[node name="L68" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -3, 1, 15)
-
-[node name="L69" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -6, 1, 15)
-
-[node name="L70" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -9, 1, 15)
-
-[node name="L71" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -12, 1, 15)
-capacity = 24
-
-[node name="L72" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -12, 1, 18)
-
-[node name="L73" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -12, 1, 21)
-
-[node name="L74" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -12, 1, 24)
-
-[node name="L75" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -12, 1, 27)
-
-[node name="L76" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -12, 1, 30)
-capacity = 24
-
-[node name="L77" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -9, 1, 30)
-
-[node name="L78" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -6, 1, 30)
-
-[node name="L79" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -3, 1, 30)
-capacity = 24
-
-[node name="LD62" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 1, 3)
-
-[node name="LD63" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 1, 6)
-
-[node name="LD64" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 1, 9)
-
-[node name="LD65" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 1, 12)
-
-[node name="LD66" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 1, 15)
-
-[node name="LD67" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 1, 18)
-capacity = 24
-
-[node name="LD55" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -18, 1, 0)
-
-[node name="LD49" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -18, 1, 18)
-
-[node name="LD43" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -18, 1, 36)
-capacity = 24
-
-[node name="LD37" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 1, 36)
-capacity = 24
-
-[node name="LD31" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 18, 1, 36)
-capacity = 24
-
-[node name="LD25" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 18, 1, 18)
-capacity = 24
-
-[node name="LD19" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 18, 1, 0)
-capacity = 24
-
-[node name="LD7" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 1, -18)
-capacity = 24
-
-[node name="LD8" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 1, -14.9847)
-
-[node name="LD9" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 1, -11.9332)
-
-[node name="LD10" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 1, -8.87898)
-
-[node name="LD11" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 1, -5.84735)
-
-[node name="LD12" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 1, -2.84396)
-
-[node name="LD13" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 1, 0)
-capacity = 24
-
-[node name="D6" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -3, 1, -18)
-
-[node name="D5" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -6, 1, -18)
-
-[node name="D4" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -9, 1, -18)
-
-[node name="D3" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -12, 1, -18)
-
-[node name="D2" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -15, 1, -18)
-
-[node name="D1" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -18, 1, -18)
-
-[node name="D61" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -3, 1, 3)
-
-[node name="D68" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 3, 1, 15)
-
-[node name="D69" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 6, 1, 15)
-
-[node name="D70" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 9, 1, 15)
-
-[node name="D71" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 12, 1, 15)
-capacity = 24
-
-[node name="D72" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 12, 1, 18)
-
-[node name="D73" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 12, 1, 21)
-
-[node name="D74" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 12, 1, 24)
-
-[node name="D75" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 12, 1, 27)
-
-[node name="D76" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 12, 1, 30)
-capacity = 24
-
-[node name="D77" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 9, 1, 30)
-
-[node name="D78" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 6, 1, 30)
-
-[node name="D79" parent="Tiles" instance=ExtResource("6_uqvgq")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 3, 1, 30)
+[node name="Tiles" parent="." instance=ExtResource("7_lxa14")]
 
 [node name="flag" parent="." instance=ExtResource("7_nxjnh")]
 transform = Transform3D(4.33013, 0, 2.5, 0, 5, 0, -2.5, 0, 4.33013, 0, 1, 21)
 
-[node name="L spwan background" parent="." instance=ExtResource("6_htgj2")]
+[node name="Right spwan background" parent="." instance=ExtResource("6_htgj2")]
 transform = Transform3D(8, 0, 0, 0, 2, 0, 0, 0, 5, 10.7233, -0.403235, -17.9295)
 
-[node name="D spawn background" parent="." instance=ExtResource("7_brxrj")]
+[node name="Left spawn background" parent="." instance=ExtResource("7_brxrj")]
 transform = Transform3D(8, 0, 0, 0, 1, 0, 0, 0, 5, -10.8105, 0.0757575, -17.9505)
 
 [node name="TurnTimer" type="Timer" parent="."]
@@ -606,15 +293,6 @@ transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot"]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707106, 0, 75, 75)
-projection = 1
-size = 55.0
-far = 1500.0
-
-[node name="CameraPivot2" type="Node3D" parent="."]
-transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 0, 1, 0)
-
-[node name="Camera3D" type="Camera3D" parent="CameraPivot2"]
-transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 75, 75)
 projection = 1
 size = 55.0
 far = 1500.0

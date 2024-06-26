@@ -3,27 +3,25 @@ extends Node3D
 @onready var dices = $Dices.get_children()
 @onready var multiplayer_synchronizer = $MultiplayerSynchronizer
 @onready var roll_button = $UI/Control/RollButton
-@onready var turn_timer = $TurnTimer
-@onready var teamsChildren = $Teams.get_children()
-@onready var teams = {
-	"L": $L,
-	"D": $D
-}
+@onready var turnTimer = $TurnTimer
+@onready var spawnSides = $SpawnAreaMarker.get_children()
+
 @export var erenScene: PackedScene
 @export var tileSize: int = 3
 
 signal rollFinsihed
 signal moveMade
 
+var player
 var dieNumbers = {}
 var isRolling: bool = false
-var colors = {"eren": "green", "mikasa": "yellow"}
 
 func _ready():
-	GameManager.roundSwitched.connect(_onRoundSwitched)
-	parseTiles()
+	player = GameManager.Players[multiplayer.get_unique_id()]
+	GameManager.switchTurn.connect(_onRoundSwitched)
+#	parseTiles()
 	addPawns()
-	setCameera()
+#	setCameera()
 	startGame()
 
 func parseTiles():
@@ -37,20 +35,20 @@ func setCameera():
 	camera.current = true
 	
 func addPawns():
-	for team in teamsChildren:
-		for place in team.get_children():
-			var pos = team.position + place.position
+	for side in spawnSides:
+		for place in side.get_children():
+			var pos = side.position + place.position
 			pos.y += 1
 			var eren = erenScene.instantiate()
 			eren.set_multiplayer_authority(multiplayer.get_unique_id())
 			eren.name = str(place.name.to_int())
 			eren.position = pos
 			eren.level = self
-			teams[team.name].add_child(eren)
-			GameManager.teamList[team.name]["actors"].append(eren)
+			eren.side = side.name
+			get_node(NodePath(side.name)).add_child(eren)
 
 func startGame():
-	turn_timer.startTimer()
+	turnTimer.startTimer()
 	_onRoundSwitched(GameManager.currentPlayerTurn)
 
 @rpc("any_peer", "call_local", "reliable")
@@ -66,7 +64,7 @@ func _moveToStartPosition():
 		Helpers.tween(dice, property, 0.3)
 
 func _onRoundSwitched(id):
-	if id == GameManager.Players[multiplayer.get_unique_id()].id:
+	if id == player.id:
 		roll_button.disabled = false
 	else:
 		roll_button.disabled = true
@@ -75,7 +73,7 @@ func _on_roll_button_pressed():
 	if !isRolling:
 		for die in dices:
 			die.roll.rpc()
-		turn_timer.stopTimer.rpc_id(1)
+		turnTimer.stopTimer.rpc_id(1)
 
 func _onDiceRollFinished(die, number):
 	dieNumbers.merge({die.name: number}, true)
@@ -87,16 +85,25 @@ func _onDiceRollFinished(die, number):
 		checkIsValidToMove()
 
 func checkIsValidToMove():
-	var player = GameManager.Players[multiplayer.get_unique_id()]
-	var pawns = GameManager.teamList[player.team].actors
+	var pawns = $Right.get_children()
+	
+#	Check for the player put one number when no pawns are not on the board
 #	if pawns.all(func(pawn): return pawn.state == pawn.State.ATHOME):
 #		if GameManager.currentDieNumber != 1:
 #			moveMade.emit()
 #			return
 
 	var filterPawns = pawns.filter(func(pawn):
-		var key = str(GameManager.currentDieNumber + pawn.number)
-		var tile = GameManager.tiles.get("L" + key, GameManager.tiles.get("LD" + key, GameManager.tiles.get("D" + key)))
+		if pawn.number < 0:
+			return true
+		var key = GameManager.currentDieNumber + pawn.number
+		var pos = pawn.curve.get_point_position(key)
+		pos.y = 1
+		var tile 
+		for child in $Tiles.get_children(): 
+			printt(child.position, pos)
+			if child.position == pos:
+				tile = child
 
 		if tile and tile.capacity != 0:
 			pawn.tile = tile

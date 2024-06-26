@@ -9,3 +9,5 @@ enum State {
 @export var level: Node3D
 @export var number: int = -1
 @export var tile: StaticBody3D
+
+var side: String = ""

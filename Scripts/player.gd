@@ -13,6 +13,7 @@ var isEntered: bool = false
 func _ready():
 	playAnimation("FightIdle")
 	parent.level.rollFinsihed.connect(_onRollFinished)
+	input_ray_pickable = parent.name != "Left"
 	set_process_input(false)
 
 func _input(event):
@@ -23,6 +24,7 @@ func _input(event):
 			parent.number = 0
 			parent.position = Vector3.ZERO
 			parent.set_curve(GameManager.LCurvePath)
+			parent.state = parent.State.INUSE
 			get_parent().progress = 0
 			set_process_input(false)
 			return
