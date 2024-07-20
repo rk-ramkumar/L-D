@@ -1,6 +1,6 @@
 [gd_scene load_steps=45 format=3 uid="uid://cesnpvcf7asln"]
 
-[ext_resource type="Texture2D" uid="uid://bpr84q5quvw5f" path="res://Assets/Spritesheets/spritesheet.png" id="1_tq040"]
+[ext_resource type="Texture2D" uid="uid://bpr84q5quvw5f" path="res://Assets/Spritesheets/dice_spritesheet.png" id="1_tq040"]
 [ext_resource type="Script" path="res://Scripts/2D/dice.gd" id="2_kctup"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fsjsy"]
