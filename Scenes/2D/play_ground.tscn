@@ -1,9 +1,26 @@
-[gd_scene load_steps=2 format=3 uid="uid://b0ud7gjcvmw17"]
+[gd_scene load_steps=8 format=3 uid="uid://b0ud7gjcvmw17"]
+
+[ext_resource type="Texture2D" uid="uid://7b8r3ycl6y2t" path="res://Assets/Textures/plane.png" id="2_1jq8v"]
+[ext_resource type="Texture2D" uid="uid://dtispff05qa8e" path="res://Assets/Textures/grass.png" id="2_iql2q"]
+[ext_resource type="Script" path="res://Scripts/2D/tile_map.gd" id="2_ka7o6"]
+[ext_resource type="Script" path="res://Scripts/2D/camera_2d.gd" id="2_qie20"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hxvtp"]
+texture = ExtResource("2_iql2q")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1ti75"]
+texture = ExtResource("2_1jq8v")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_iymmt"]
 tile_shape = 1
 tile_layout = 4
 tile_size = Vector2i(64, 32)
+sources/1 = SubResource("TileSetAtlasSource_hxvtp")
+sources/2 = SubResource("TileSetAtlasSource_1ti75")
 
 [node name="Node2D" type="Node2D"]
 
@@ -11,6 +28,10 @@ tile_size = Vector2i(64, 32)
 y_sort_enabled = true
 tile_set = SubResource("TileSet_iymmt")
 format = 2
+layer_0/name = "ground"
 layer_0/y_sort_enabled = true
+layer_0/tile_data = PackedInt32Array(-196616, 1, 0, -131080, 1, 0, -65544, 1, 0, -8, 1, 0, 65528, 1, 0, 131064, 1, 0, 196600, 1, 0, 262136, 1, 0, 327672, 1, 0, 393208, 1, 0, 458744, 1, 0, 524280, 1, 0, 589816, 1, 0, 655352, 1, 0, 720888, 1, 0, 786424, 1, 0, -196615, 1, 0, -131079, 1, 0, -65543, 1, 0, -7, 1, 0, 65529, 1, 0, 131065, 1, 0, 196601, 1, 0, 262137, 1, 0, 327673, 1, 0, 393209, 1, 0, 458745, 1, 0, 524281, 1, 0, 589817, 1, 0, 655353, 1, 0, 720889, 1, 0, 786425, 1, 0, -196614, 1, 0, -131078, 1, 0, -196613, 1, 0, -131077, 1, 0, -196612, 1, 0, -131076, 1, 0, -196611, 1, 0, -131075, 1, 0, -196610, 1, 0, -131074, 1, 0, -196609, 1, 0, -131073, 1, 0, -262144, 1, 0, -196608, 1, 0, -262143, 1, 0, -196607, 1, 0, -262142, 1, 0, -196606, 1, 0, -262141, 1, 0, -196605, 1, 0, -262140, 1, 0, -196604, 1, 0, -262139, 1, 0, -196603, 1, 0, -262138, 1, 0, -196602, 1, 0, -131067, 1, 0, -65531, 1, 0, 5, 1, 0, 65541, 1, 0, 131077, 1, 0, 196613, 1, 0, 262149, 1, 0, 327685, 1, 0, 393221, 1, 0, 458757, 1, 0, 524293, 1, 0, 589829, 1, 0, 655365, 1, 0, 720901, 1, 0, -131066, 1, 0, -65530, 1, 0, 6, 1, 0, 65542, 1, 0, 131078, 1, 0, 196614, 1, 0, 262150, 1, 0, 327686, 1, 0, 393222, 1, 0, 458758, 1, 0, 524294, 1, 0, 589830, 1, 0, 655366, 1, 0, 720902, 1, 0, 720890, 1, 0, 786426, 1, 0, 720891, 1, 0, 786427, 1, 0, 720892, 1, 0, 786428, 1, 0, 720893, 1, 0, 786429, 1, 0, 720894, 1, 0, 786430, 1, 0, 720895, 1, 0, 786431, 1, 0, 655360, 1, 0, 720896, 1, 0, 655361, 1, 0, 720897, 1, 0, 655362, 1, 0, 720898, 1, 0, 655363, 1, 0, 720899, 1, 0, 655364, 1, 0, 720900, 1, 0)
+script = ExtResource("2_ka7o6")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource("2_qie20")
