@@ -1,24 +1,31 @@
-[gd_scene load_steps=8 format=3 uid="uid://b0ud7gjcvmw17"]
+[gd_scene load_steps=9 format=3 uid="uid://b0ud7gjcvmw17"]
 
 [ext_resource type="Texture2D" uid="uid://7b8r3ycl6y2t" path="res://Assets/Textures/plane.png" id="2_1jq8v"]
 [ext_resource type="Texture2D" uid="uid://dtispff05qa8e" path="res://Assets/Textures/grass.png" id="2_iql2q"]
 [ext_resource type="Script" path="res://Scripts/2D/tile_map.gd" id="2_ka7o6"]
 [ext_resource type="Script" path="res://Scripts/2D/camera_2d.gd" id="2_qie20"]
+[ext_resource type="PackedScene" uid="uid://h5dg4fhfj136" path="res://Scenes/2D/blackNoir.tscn" id="5_crbsa"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hxvtp"]
 texture = ExtResource("2_iql2q")
 texture_region_size = Vector2i(64, 32)
 0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-28.5, -1.75, 0, -16, 29, -1.5, 0, 16)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1ti75"]
 texture = ExtResource("2_1jq8v")
 texture_region_size = Vector2i(64, 32)
 0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
 
 [sub_resource type="TileSet" id="TileSet_iymmt"]
 tile_shape = 1
 tile_layout = 4
 tile_size = Vector2i(64, 32)
+physics_layer_0/collision_layer = 1
 sources/1 = SubResource("TileSetAtlasSource_hxvtp")
 sources/2 = SubResource("TileSetAtlasSource_1ti75")
 
@@ -35,3 +42,6 @@ script = ExtResource("2_ka7o6")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 script = ExtResource("2_qie20")
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("5_crbsa")]
+position = Vector2(-139, -127)
