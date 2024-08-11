@@ -22,6 +22,7 @@ func _input(event):
 			zoom = Vector2(zoom.x * 1.1, zoom.y * 1.1)
 		# Clamp the zoom level
 		zoom = Vector2(clamp(zoom.x, min_zoom, max_zoom), clamp(zoom.y, min_zoom, max_zoom))
+
 func move_camera(offset):
 	var new_pos = position - offset
 	# Clamp the camera position to the map boundaries
