@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-
+@export var dir: String = "E"
 const SPEED = 200.0
 const JUMP_VELOCITY = -400.0
 @onready var animated_sprite_2d = $AnimatedSprite2D
@@ -8,6 +8,8 @@ const JUMP_VELOCITY = -400.0
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
+func _ready():
+	animated_sprite_2d.play(dir)
 
 func _physics_process(delta):
 	# Add the gravity.
@@ -22,6 +24,7 @@ func _physics_process(delta):
 	# As good practice, you should replace UI actions with custom gameplay actions.
 
 	var direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	print(direction)
 #	if direction.x != 0 and direction.y != 0:
 #		velocity.x = direction * SPEED
 	velocity = cartesian_to_isometric(direction) * SPEED

@@ -44,4 +44,4 @@ script = ExtResource("2_ka7o6")
 script = ExtResource("2_qie20")
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("5_crbsa")]
-position = Vector2(58, 32)
+position = Vector2(35, 65)
