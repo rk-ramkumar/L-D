@@ -1453,11 +1453,11 @@ animations = [{
 "speed": 25.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lwq7c"]
-radius = 8.0
-height = 44.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_maou1"]
+size = Vector2(12, 8)
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
+y_sort_enabled = true
 script = ExtResource("1_7q140")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -1466,5 +1466,5 @@ sprite_frames = SubResource("SpriteFrames_w1wst")
 animation = &"N"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -2)
-shape = SubResource("CapsuleShape2D_lwq7c")
+position = Vector2(-5, 14)
+shape = SubResource("RectangleShape2D_maou1")
