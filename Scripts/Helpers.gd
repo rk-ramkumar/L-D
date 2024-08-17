@@ -16,10 +16,11 @@ func objectFilter(objects, cb: Callable):
 			res.append(objects[object])
 	return res
 
-func objectFind(objects:Dictionary, key, what) -> Dictionary:
+func objectFind(collections, key, what) -> Dictionary:
+	var objects = collections if typeof(collections) == TYPE_ARRAY else collections.values()
 	for object in objects:
-		if objects[object][key] == what:
-			return objects[object]
+		if object[key] == what:
+			return object
 	return {}
 
 func tween(object, property, duration = 1.0, finalValue = null) -> Tween:
