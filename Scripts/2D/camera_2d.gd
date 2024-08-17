@@ -2,7 +2,7 @@ extends Camera2D
 
 @export var map_width = 44 * 64  # Assuming 64 pixels per tile
 @export var map_height = 44 * 32  # Assuming 32 pixels per tile
-
+@onready var tile_map = $"../TileMap"
 @onready var viewport_size = get_viewport().size
 
 var min_zoom = 0.5
@@ -10,11 +10,20 @@ var max_zoom = 2.0
 var drag_start = Vector2()
 var dragging = false
 
+func _ready():
+	var tile_used_size = tile_map.get_used_rect().size
+	var tile_size = tile_map.tile_set.tile_size / 2
+	var tile_limit = tile_size  * tile_used_size
+	prints(tile_limit, tile_used_size)
+	limit_left = -tile_limit.x 
+	limit_right = tile_limit.x - tile_used_size.x
+	limit_top = -tile_limit.y
+	limit_bottom = tile_limit.y
+
 
 func _input(event):
 	if event is InputEventScreenDrag:
-		var offset = event.relative
-		move_camera(offset)
+		move_camera(event.relative)
 	elif event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
 			zoom = Vector2(zoom.x * 0.9, zoom.y * 0.9)
