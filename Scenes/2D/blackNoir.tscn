@@ -1463,9 +1463,12 @@ collision_mask = 3
 script = ExtResource("1_7q140")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+y_sort_enabled = true
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_w1wst")
+animation = &"E"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+texture_filter = 1
 position = Vector2(0, 15)
 shape = SubResource("RectangleShape2D_maou1")
