@@ -14,7 +14,6 @@ func _ready():
 	var tile_used_size = tile_map.get_used_rect().size
 	var tile_size = tile_map.tile_set.tile_size / 2
 	var tile_limit = tile_size  * tile_used_size
-	prints(tile_limit, tile_used_size)
 	limit_left = -tile_limit.x 
 	limit_right = tile_limit.x - tile_used_size.x
 	limit_top = -tile_limit.y
@@ -40,5 +39,4 @@ func move_camera(offset):
 	new_pos.x = clamp(new_pos.x, -max_width, max_width)
 	new_pos.y = clamp(new_pos.y, 0, max_height)
 
-	print(new_pos)
 	position = new_pos
