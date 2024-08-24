@@ -1454,17 +1454,18 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_maou1"]
-size = Vector2(12, 8)
+size = Vector2(18, 8)
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 y_sort_enabled = true
+collision_layer = 4
+collision_mask = 3
 script = ExtResource("1_7q140")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_w1wst")
-animation = &"N"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-5, 14)
+position = Vector2(0, 15)
 shape = SubResource("RectangleShape2D_maou1")
