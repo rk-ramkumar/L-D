@@ -34,7 +34,9 @@ pointing/emulate_touch_from_mouse=true
 
 2d_physics/layer_1="floor"
 3d_physics/layer_1="floor"
+2d_physics/layer_2="wall"
 3d_physics/layer_2="die"
+2d_physics/layer_3="player"
 3d_physics/layer_3="eren"
 
 [rendering]
