@@ -114,5 +114,6 @@ script = ExtResource("2_ka7o6")
 [node name="CharacterBody2D" parent="." node_paths=PackedStringArray("tilemap") instance=ExtResource("5_crbsa")]
 z_index = 1
 texture_filter = 1
+position = Vector2(64, 0)
 scale = Vector2(3, 3)
 tilemap = NodePath("../TileMap")

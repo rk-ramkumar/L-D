@@ -1465,6 +1465,7 @@ script = ExtResource("1_7q140")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 y_sort_enabled = true
 texture_filter = 1
+scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_w1wst")
 animation = &"NE_run"
 offset = Vector2(0, -35)
