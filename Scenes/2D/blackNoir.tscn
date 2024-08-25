@@ -2186,9 +2186,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_e6hjh")
 }],
-"loop": true,
+"loop": false,
 "name": &"E_jump",
-"speed": 5.0
+"speed": 30.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -2388,9 +2388,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_m1etw")
 }],
-"loop": true,
+"loop": false,
 "name": &"NE_jump",
-"speed": 5.0
+"speed": 30.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -2590,9 +2590,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_kayyc")
 }],
-"loop": true,
+"loop": false,
 "name": &"NW_jump",
-"speed": 5.0
+"speed": 30.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -2792,9 +2792,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_6mn7b")
 }],
-"loop": true,
+"loop": false,
 "name": &"N_jump",
-"speed": 5.0
+"speed": 30.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -2994,9 +2994,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_0kk0r")
 }],
-"loop": true,
+"loop": false,
 "name": &"SE_jump",
-"speed": 5.0
+"speed": 30.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -3196,9 +3196,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_wdjwx")
 }],
-"loop": true,
+"loop": false,
 "name": &"SW_jump",
-"speed": 5.0
+"speed": 30.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -3398,9 +3398,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_insmf")
 }],
-"loop": true,
+"loop": false,
 "name": &"S_jump",
-"speed": 5.0
+"speed": 30.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -3600,9 +3600,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_a7f6m")
 }],
-"loop": true,
+"loop": false,
 "name": &"W_jump",
-"speed": 5.0
+"speed": 30.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -3699,7 +3699,9 @@ y_sort_enabled = true
 texture_filter = 1
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_w1wst")
-animation = &"W_jump"
+animation = &"E_jump"
+frame = 38
+frame_progress = 1.0
 offset = Vector2(0, -35)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
