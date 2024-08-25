@@ -19,12 +19,10 @@ func _input(event):
 		_lerp_to_pos(pos)
 		pos = tilemap.local_to_map(pos)
 		tilemap.set_cell(0, pos, 2, Vector2i.ZERO)
-		print(pos)
 
 func _lerp_to_pos(pos):
 	var tween = get_tree().create_tween()
 	var time_delay = global_position.distance_to(pos) / SPEED
-	print(time_delay)
 	tween.tween_property(self, "position", pos, time_delay)
 
 func cartesian_to_isometric(cartesian_position: Vector2) -> Vector2:
