@@ -31,8 +31,8 @@ func _input(event):
 		# Clamp the zoom level
 		zoom = Vector2(clamp(zoom.x, min_zoom, max_zoom), clamp(zoom.y, min_zoom, max_zoom))
 
-func move_camera(offset):
-	var new_pos = position - offset
+func move_camera(position_offset):
+	var new_pos = position - position_offset
 	# Clamp the camera position to the map boundaries
 	var max_width = map_width - viewport_size.x
 	var max_height = map_height - viewport_size.y
