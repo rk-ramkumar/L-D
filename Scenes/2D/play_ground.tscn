@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://b0ud7gjcvmw17"]
+[gd_scene load_steps=20 format=3 uid="uid://b0ud7gjcvmw17"]
 
 [ext_resource type="Texture2D" uid="uid://7b8r3ycl6y2t" path="res://Assets/Textures/soft_grass.png" id="2_fxc78"]
 [ext_resource type="Texture2D" uid="uid://dtispff05qa8e" path="res://Assets/Textures/grass.png" id="2_iql2q"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dfisiaek8a647" path="res://Assets/Textures/light_grass.png" id="4_588lp"]
 [ext_resource type="PackedScene" uid="uid://h5dg4fhfj136" path="res://Scenes/2D/blackNoir.tscn" id="5_crbsa"]
 [ext_resource type="Texture2D" uid="uid://f17gojvncsk4" path="res://Assets/Textures/cube_light_grass.png" id="5_pnpur"]
+[ext_resource type="PackedScene" uid="uid://bmjy16bpw5kux" path="res://Scenes/2D/touch_indicator.tscn" id="9_jy2yl"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_t6d53"]
 tile_data = PackedInt32Array(0, 2, 0, 65536, 4, 0)
@@ -122,3 +123,6 @@ texture_filter = 1
 scale = Vector2(3, 3)
 tilemap = NodePath("../TileMap")
 current_direction = "E"
+
+[node name="TouchIndicator" parent="." node_paths=PackedStringArray("tile_map") instance=ExtResource("9_jy2yl")]
+tile_map = NodePath("../TileMap")
