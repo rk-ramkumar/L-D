@@ -1,12 +1,14 @@
 [gd_scene load_steps=3 format=3 uid="uid://bmjy16bpw5kux"]
 
-[ext_resource type="Texture2D" uid="uid://dp61q13rt57u2" path="res://Assets/kenney_particle/circle_01.png" id="1_51y3r"]
+[ext_resource type="Texture2D" uid="uid://bmt4c47t2do44" path="res://Assets/kenney_particle/magic_03.png" id="1_peqs7"]
 [ext_resource type="Script" path="res://Scripts/2D/touch_indicator.gd" id="2_o0iy1"]
 
 [node name="TouchIndicator" type="Sprite2D"]
+visible = false
 z_index = 2
 y_sort_enabled = true
+rotation = 0.453786
 scale = Vector2(0.1, 0.1)
-skew = 0.464258
-texture = ExtResource("1_51y3r")
+skew = 0.698132
+texture = ExtResource("1_peqs7")
 script = ExtResource("2_o0iy1")
