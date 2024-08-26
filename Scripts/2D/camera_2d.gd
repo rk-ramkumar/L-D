@@ -6,19 +6,12 @@ extends Camera2D
 @onready var viewport_size = get_viewport().size
 
 var min_zoom = 0.5
-var max_zoom = 2.0
+var max_zoom = 1.5
 var drag_start = Vector2()
 var dragging = false
 
 func _ready():
-	var tile_used_size = tile_map.get_used_rect().size
-	var tile_size = tile_map.tile_set.tile_size / 2
-	var tile_limit = tile_size  * tile_used_size
-	limit_left = -tile_limit.x 
-	limit_right = tile_limit.x - tile_used_size.x
-	limit_top = -tile_limit.y
-	limit_bottom = tile_limit.y
-
+	set_camera_limit()
 
 func _input(event):
 	if event is InputEventScreenDrag:
@@ -30,6 +23,15 @@ func _input(event):
 			zoom = Vector2(zoom.x * 1.1, zoom.y * 1.1)
 		# Clamp the zoom level
 		zoom = Vector2(clamp(zoom.x, min_zoom, max_zoom), clamp(zoom.y, min_zoom, max_zoom))
+
+func set_camera_limit():
+	var tile_used_size = tile_map.get_used_rect().size
+	var tile_size = tile_map.tile_set.tile_size / 2
+	var tile_limit = tile_size  * tile_used_size
+	limit_left = -tile_limit.x 
+	limit_right = tile_limit.x - tile_used_size.x
+	limit_top = -tile_limit.y
+	limit_bottom = tile_limit.y
 
 func move_camera(position_offset):
 	var new_pos = position - position_offset
