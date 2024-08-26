@@ -19,7 +19,7 @@ func _input(event):
 		var angle = snappedf(mouse_pos.angle(), (PI/4)) / (PI/4)
 		angle = wrapi(int(angle), 0, 8)
 		current_direction = str(directions[angle])
-		_update_animation("_run")
+		_update_animation("_walk")
 		var pos = get_global_mouse_position()
 		_lerp_to_pos(pos)
 		pos = tilemap.local_to_map(pos)
@@ -51,5 +51,5 @@ func _update_animation(animation_name):
 		animated_sprite_2d.scale = Vector2(0.6, 0.6)
 		await animated_sprite_2d.animation_finished
 		animated_sprite_2d.frame = 0
-		_update_animation("_run")
+		_update_animation("_walk")
 		animated_sprite_2d.scale = Vector2(0.5, 0.5)

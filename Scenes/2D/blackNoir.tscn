@@ -2068,6 +2068,11 @@ region = Rect2(512, 504, 128, 126)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_w1wst"]
 animations = [{
+"frames": [],
+"loop": true,
+"name": &"E_idle",
+"speed": 20.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_vr1ya")
@@ -2267,8 +2272,13 @@ animations = [{
 "texture": SubResource("AtlasTexture_ho0in")
 }],
 "loop": true,
-"name": &"E_run",
+"name": &"E_walk",
 "speed": 25.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"NE_idle",
+"speed": 16.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -2469,8 +2479,13 @@ animations = [{
 "texture": SubResource("AtlasTexture_yj2yi")
 }],
 "loop": true,
-"name": &"NE_run",
+"name": &"NE_walk",
 "speed": 25.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"NW_idle",
+"speed": 16.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -2671,8 +2686,13 @@ animations = [{
 "texture": SubResource("AtlasTexture_h0cn1")
 }],
 "loop": true,
-"name": &"NW_run",
+"name": &"NW_walk",
 "speed": 25.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"N_idle",
+"speed": 16.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -2873,8 +2893,13 @@ animations = [{
 "texture": SubResource("AtlasTexture_mmwu4")
 }],
 "loop": true,
-"name": &"N_run",
+"name": &"N_walk",
 "speed": 25.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"SE_idle",
+"speed": 16.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -3075,8 +3100,13 @@ animations = [{
 "texture": SubResource("AtlasTexture_o4w5x")
 }],
 "loop": true,
-"name": &"SE_run",
+"name": &"SE_walk",
 "speed": 25.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"SW_idle",
+"speed": 16.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -3277,8 +3307,13 @@ animations = [{
 "texture": SubResource("AtlasTexture_6bbt7")
 }],
 "loop": true,
-"name": &"SW_run",
+"name": &"SW_walk",
 "speed": 25.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"S_idle",
+"speed": 20.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -3479,8 +3514,13 @@ animations = [{
 "texture": SubResource("AtlasTexture_ri07a")
 }],
 "loop": true,
-"name": &"S_run",
+"name": &"S_walk",
 "speed": 25.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"W_idle",
+"speed": 16.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -3681,7 +3721,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_mhqsm")
 }],
 "loop": true,
-"name": &"W_run",
+"name": &"W_walk",
 "speed": 25.0
 }]
 
@@ -3699,6 +3739,7 @@ y_sort_enabled = true
 texture_filter = 1
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_w1wst")
+animation = &"W_walk"
 offset = Vector2(0, -35)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
