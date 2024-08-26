@@ -13,6 +13,9 @@ var tween
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
+func _ready():
+	_update_animation("_idle")
+
 func _input(event):
 	if event is InputEventScreenTouch:
 		var mouse_pos = get_local_mouse_position()
@@ -35,6 +38,7 @@ func _lerp_to_pos(pos):
 	tween = create_tween()
 	var time_delay = global_position.distance_to(pos) / SPEED
 	tween.tween_property(self, "position", pos, time_delay)
+	tween.tween_callback(_on_tween_position_finished)
 
 func cartesian_to_isometric(cartesian_position: Vector2) -> Vector2:
 	var isometric_x = cartesian_position.x - cartesian_position.y
@@ -51,5 +55,15 @@ func _update_animation(animation_name):
 		animated_sprite_2d.scale = Vector2(0.6, 0.6)
 		await animated_sprite_2d.animation_finished
 		animated_sprite_2d.frame = 0
-		_update_animation("_walk")
+		_update_animation("_idle")
 		animated_sprite_2d.scale = Vector2(0.5, 0.5)
+
+func _on_tween_position_finished():
+	if tween:
+		tween.kill()
+	tween = create_tween()
+	tween.tween_method(
+		animated_sprite_2d.play,
+		animated_sprite_2d.animation,
+		StringName(current_direction + "_idle"),
+		0.2)
