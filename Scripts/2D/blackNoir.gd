@@ -28,7 +28,7 @@ func _input(event):
 		pos = tilemap.local_to_map(pos)
 		tilemap.set_cell(0, pos, 2, Vector2i.ZERO)
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if Input.is_action_just_pressed("ui_up"):
 		_update_animation("_jump")
 
