@@ -1,10 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://2wh1w5oecrxg"]
 
-[ext_resource type="Script" path="res://demo/canvas_layer.gd" id="1_xqe7h"]
-[ext_resource type="Texture2D" uid="uid://b8e8t4mlv4fvt" path="res://Assets/Textures/icons8-add-100.png" id="2_xqof8"]
+[ext_resource type="Script" path="res://Scripts/match_making.gd" id="1_26lgm"]
+[ext_resource type="Texture2D" uid="uid://b8e8t4mlv4fvt" path="res://Assets/Textures/icons8-add-100.png" id="2_gmu5v"]
 
 [node name="CanvasLayer" type="CanvasLayer"]
-script = ExtResource("1_xqe7h")
+script = ExtResource("1_26lgm")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchors_preset = 15
@@ -103,7 +103,7 @@ offset_left = -64.0
 offset_right = 64.0
 offset_bottom = 128.0
 grow_horizontal = 2
-texture_normal = ExtResource("2_xqof8")
+texture_normal = ExtResource("2_gmu5v")
 stretch_mode = 3
 
 [node name="Name" type="Label" parent="Lobby/Team L/Player 1"]
@@ -137,7 +137,7 @@ offset_left = -64.0
 offset_right = 64.0
 offset_bottom = 128.0
 grow_horizontal = 2
-texture_normal = ExtResource("2_xqof8")
+texture_normal = ExtResource("2_gmu5v")
 stretch_mode = 3
 
 [node name="Name" type="Label" parent="Lobby/Team L/Player 3"]
@@ -186,7 +186,7 @@ offset_left = -64.0
 offset_right = 64.0
 offset_bottom = 128.0
 grow_horizontal = 2
-texture_normal = ExtResource("2_xqof8")
+texture_normal = ExtResource("2_gmu5v")
 stretch_mode = 3
 
 [node name="Name" type="Label" parent="Lobby/Team D/Player 2"]
@@ -221,7 +221,7 @@ offset_left = -64.0
 offset_right = 64.0
 offset_bottom = 128.0
 grow_horizontal = 2
-texture_normal = ExtResource("2_xqof8")
+texture_normal = ExtResource("2_gmu5v")
 stretch_mode = 3
 
 [node name="Name" type="Label" parent="Lobby/Team D/Player 4"]
