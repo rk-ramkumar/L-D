@@ -2,7 +2,6 @@ extends Node
 
 signal switchTurn(id)
 
-@onready var LCurvePath = preload("res://Resources/LCurvePath.tres")
 
 var Players = {}
 var playerLoaded: int = 0

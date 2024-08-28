@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://dtq6xwv2ebg3y"]
-
-[ext_resource type="Script" path="res://Scripts/RayCast.gd" id="1_5jyu7"]
-
-[node name="RayCast3D" type="RayCast3D"]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
-hit_from_inside = true
-script = ExtResource("1_5jyu7")
