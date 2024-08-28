@@ -3,9 +3,9 @@ extends Node
 func _ready():
 	randomize()
 	
-func getRandomNumbers(max = 3) -> Dictionary:
-	var first = randi() % max
-	var second = randi() % max
+func getRandomNumbers(max_value = 3) -> Dictionary:
+	var first = randi() % max_value
+	var second = randi() % max_value
 	
 	return {first = first, second = second}
 
@@ -24,13 +24,13 @@ func objectFind(collections, key, what) -> Dictionary:
 	return {}
 
 func tween(object, property, duration = 1.0, finalValue = null) -> Tween:
-	var tween: Tween = get_tree().create_tween()
+	var tween_node: Tween = get_tree().create_tween()
 
 	match typeof(property):
 		TYPE_STRING:
-			tween.tween_property(object, property, finalValue, duration)
+			tween_node.tween_property(object, property, finalValue, duration)
 		TYPE_DICTIONARY:
 			for key in property:
-				tween.tween_property(object, key, property[key], duration)
+				tween_node.tween_property(object, key, property[key], duration)
 			
-	return tween
+	return tween_node
