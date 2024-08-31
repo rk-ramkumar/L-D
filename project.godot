@@ -12,9 +12,10 @@ config_version=5
 
 config/name="Ludo"
 config/tags=PackedStringArray("main")
-run/main_scene="res://Scenes/2D/play_ground.tscn"
+run/main_scene="res://Scenes/loading.tscn"
+config/quit_on_go_back=false
 config/features=PackedStringArray("4.1", "Mobile")
-config/icon="res://icon.svg"
+config/icon="res://Assets/Textures/app_logo.png"
 
 [autoload]
 
