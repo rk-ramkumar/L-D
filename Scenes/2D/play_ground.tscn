@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://b0ud7gjcvmw17"]
+[gd_scene load_steps=33 format=3 uid="uid://b0ud7gjcvmw17"]
 
 [ext_resource type="Texture2D" uid="uid://dty6hh7ywj4ct" path="res://Assets/Textures/grass tile.png" id="2_2onu1"]
 [ext_resource type="Texture2D" uid="uid://7b8r3ycl6y2t" path="res://Assets/Textures/soft_grass.png" id="2_fxc78"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://dx5qwt4t247q8" path="res://Assets/Textures/Tiles/safe_tile.png" id="7_4c4sa"]
 [ext_resource type="Texture2D" uid="uid://bm3n3alq17ygs" path="res://Assets/Textures/plant.png" id="7_5pcav"]
 [ext_resource type="PackedScene" uid="uid://bmjy16bpw5kux" path="res://Scenes/2D/touch_indicator.tscn" id="9_jy2yl"]
+[ext_resource type="PackedScene" uid="uid://36fw7fg4ovuu" path="res://Scenes/exit_popup.tscn" id="16_ql5hj"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_t6d53"]
 tile_data = PackedInt32Array(0, 2, 0, 65536, 4, 0)
@@ -206,3 +207,5 @@ current_direction = "E"
 
 [node name="TouchIndicator" parent="." node_paths=PackedStringArray("tile_map") instance=ExtResource("9_jy2yl")]
 tile_map = NodePath("../TileMap")
+
+[node name="exit_popup" parent="." instance=ExtResource("16_ql5hj")]
