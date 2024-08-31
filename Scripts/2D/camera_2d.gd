@@ -29,11 +29,10 @@ func set_camera_limit():
 	var tile_used_size = tile_map.get_used_rect().size
 	var tile_size = tile_map.tile_set.tile_size / 2
 	var tile_limit = tile_size  * tile_used_size
-	var left_limit = -tile_limit.x - tile_size.x
-	var right_limit = tile_limit.x + tile_size.x
-	var top_limit = -tile_limit.y
-	var bottom_limit = tile_limit.y
-	return {left = left_limit, right = right_limit, top = top_limit, bottom = bottom_limit}
+	limit_left = -tile_limit.x - tile_size.x
+	limit_right = tile_limit.x + tile_size.x
+	limit_top = -tile_limit.y
+	limit_bottom = tile_limit.y	
 
 func _handle_touch(event: InputEventScreenTouch):
 	if event.pressed:
@@ -56,7 +55,6 @@ func _handle_drag(event: InputEventScreenDrag):
 	if touch_indexes.size() == 1:
 		# Panning logic
 		position -= event.relative * pan_speed
-		_clamp_camera_to_limits()
 
 	if touch_indexes.size() == 2:
 		# Zooming logic
@@ -75,10 +73,3 @@ func _handle_drag(event: InputEventScreenDrag):
 			var camera_offset = center_position - position
 			position += camera_offset * (zoom_delta - Vector2.ONE)
 			zoom = new_zoom
-			_clamp_camera_to_limits()  # Clamp position after zooming
-
-func _clamp_camera_to_limits():
-	# Adjust camera position to ensure it stays within bounds
-	var half_viewport_size = viewport_size * 0.5 * zoom
-	position.x = clamp(position.x, limit.left + half_viewport_size.x, limit.right - half_viewport_size.x)
-	position.y = clamp(position.y, limit.top + half_viewport_size.y, limit.bottom - half_viewport_size.y)
