@@ -65,5 +65,3 @@ script = ExtResource("1_btyht")
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_ccl7c")
 volume_db = -10.0
-
-[connection signal="pressed" from="." to="." method="_on_pressed"]
