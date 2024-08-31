@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cmrna0h0dmrhj"]
+[gd_scene load_steps=7 format=3 uid="uid://cmrna0h0dmrhj"]
 
 [ext_resource type="Script" path="res://Components/custom_button.gd" id="1_btyht"]
 [ext_resource type="StyleBox" uid="uid://bde6xgl0mvhb8" path="res://Assets/Resources/custom_button_normal_style.tres" id="1_rj7px"]
+[ext_resource type="AudioStream" uid="uid://bwjtx0hb5842h" path="res://Assets/Audio/pop_sound_effect.mp3" id="3_ccl7c"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ebhha"]
 bg_color = Color(0.0941176, 0.0941176, 0.0941176, 0.858824)
@@ -60,3 +61,9 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_ebhha")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_pbq53")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_viw72")
 script = ExtResource("1_btyht")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_ccl7c")
+volume_db = -10.0
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]
