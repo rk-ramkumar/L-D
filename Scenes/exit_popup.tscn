@@ -122,5 +122,5 @@ grow_horizontal = 0
 grow_vertical = 0
 text = "ok"
 
-[connection signal="pressed" from="Control/Popup/CancelButton" to="." method="_on_cancel_button_pressed"]
-[connection signal="pressed" from="Control/Popup/OkButton" to="." method="_on_ok_button_pressed"]
+[connection signal="clicked" from="Control/Popup/CancelButton" to="." method="_on_cancel_button_clicked"]
+[connection signal="clicked" from="Control/Popup/OkButton" to="." method="_on_ok_button_clicked"]
