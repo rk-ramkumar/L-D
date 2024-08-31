@@ -1,6 +1,5 @@
-[gd_scene load_steps=33 format=3 uid="uid://b0ud7gjcvmw17"]
+[gd_scene load_steps=30 format=3 uid="uid://b0ud7gjcvmw17"]
 
-[ext_resource type="Texture2D" uid="uid://dty6hh7ywj4ct" path="res://Assets/Textures/grass tile.png" id="2_2onu1"]
 [ext_resource type="Texture2D" uid="uid://7b8r3ycl6y2t" path="res://Assets/Textures/soft_grass.png" id="2_fxc78"]
 [ext_resource type="Texture2D" uid="uid://dtispff05qa8e" path="res://Assets/Textures/grass.png" id="2_iql2q"]
 [ext_resource type="Script" path="res://Scripts/2D/tile_map.gd" id="2_ka7o6"]
@@ -15,7 +14,6 @@
 [ext_resource type="Texture2D" uid="uid://dx5qwt4t247q8" path="res://Assets/Textures/Tiles/safe_tile.png" id="7_4c4sa"]
 [ext_resource type="Texture2D" uid="uid://bm3n3alq17ygs" path="res://Assets/Textures/plant.png" id="7_5pcav"]
 [ext_resource type="PackedScene" uid="uid://bmjy16bpw5kux" path="res://Scenes/2D/touch_indicator.tscn" id="9_jy2yl"]
-[ext_resource type="PackedScene" uid="uid://36fw7fg4ovuu" path="res://Scenes/exit_popup.tscn" id="16_ql5hj"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_t6d53"]
 tile_data = PackedInt32Array(0, 2, 0, 65536, 4, 0)
@@ -28,15 +26,6 @@ tile_data = PackedInt32Array(0, 5, 0, 65536, 4, 0, 131072, 5, 0, 196608, 4, 0, 2
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_0nxw0"]
 tile_data = PackedInt32Array(0, 5, 0, 65536, 4, 0, 131072, 5, 0, 196608, 4, 0, 262144, 5, 0, 327680, 4, 0, 393216, 5, 0, 458752, 4, 0, 524288, 5, 0, 589824, 4, 0, 655360, 5, 0, 720896, 4, 0, 786432, 5, 0, 851968, 4, 0, 917504, 5, 0, 983040, 4, 0, 1048576, 5, 0, 1114112, 4, 0, 1179648, 5, 0, 1245184, 4, 0, 1310720, 5, 0, 1376256, 4, 0, 1441792, 5, 0, 1507328, 4, 0, 1572864, 5, 0, 1638400, 4, 0, 1703936, 5, 0, 1769472, 4, 0, 1835008, 5, 0, 1900544, 4, 0, 1966080, 5, 0, 2031616, 4, 0, 2097152, 5, 0, 2162688, 4, 0, 2228224, 5, 0, 2293760, 4, 0, 2359296, 5, 0, 2424832, 4, 0, 2490368, 5, 0, 2555904, 4, 0, 2621440, 5, 0, 2686976, 4, 0, 2752512, 5, 0, 1, 4, 0, 65537, 5, 0, 131073, 4, 0, 196609, 5, 0, 262145, 4, 0, 327681, 5, 0, 393217, 4, 0, 458753, 5, 0, 524289, 4, 0, 589825, 5, 0, 655361, 4, 0, 720897, 5, 0, 786433, 4, 0, 851969, 5, 0, 917505, 4, 0, 983041, 5, 0, 1048577, 4, 0, 1114113, 5, 0, 1179649, 4, 0, 1245185, 5, 0, 1310721, 4, 0, 1376257, 5, 0, 1441793, 4, 0, 1507329, 5, 0, 1572865, 4, 0, 1638401, 5, 0, 1703937, 4, 0, 1769473, 5, 0, 1835009, 4, 0, 1900545, 5, 0, 1966081, 4, 0, 2031617, 5, 0, 2097153, 4, 0, 2162689, 5, 0, 2228225, 4, 0, 2293761, 5, 0, 2359297, 4, 0, 2424833, 5, 0, 2490369, 4, 0, 2555905, 5, 0, 2621441, 4, 0, 2686977, 5, 0, 2752513, 4, 0)
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_86j8a"]
-texture = ExtResource("2_2onu1")
-texture_region_size = Vector2i(134, 103)
-0:0/0 = 0
-0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-0:0/0/physics_layer_0/angular_velocity = 0.0
-0:0/0/physics_layer_1/linear_velocity = Vector2(0, 0)
-0:0/0/physics_layer_1/angular_velocity = 0.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hxvtp"]
 texture = ExtResource("2_iql2q")
@@ -152,7 +141,6 @@ sources/2 = SubResource("TileSetAtlasSource_1ti75")
 sources/4 = SubResource("TileSetAtlasSource_48vip")
 sources/5 = SubResource("TileSetAtlasSource_8n5wb")
 sources/8 = SubResource("TileSetAtlasSource_bsdbn")
-sources/0 = SubResource("TileSetAtlasSource_86j8a")
 sources/6 = SubResource("TileSetAtlasSource_h1ijl")
 sources/11 = SubResource("TileSetAtlasSource_yarwc")
 sources/12 = SubResource("TileSetAtlasSource_heid3")
@@ -207,5 +195,3 @@ current_direction = "E"
 
 [node name="TouchIndicator" parent="." node_paths=PackedStringArray("tile_map") instance=ExtResource("9_jy2yl")]
 tile_map = NodePath("../TileMap")
-
-[node name="exit_popup" parent="." instance=ExtResource("16_ql5hj")]
