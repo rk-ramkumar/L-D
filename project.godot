@@ -21,6 +21,7 @@ config/icon="res://Assets/Textures/app_logo.png"
 
 Helpers="*res://Scripts/Helpers.gd"
 GameManager="*res://Scripts/GameManager.gd"
+NotificationManager="*res://Scripts/NotificationManager.gd"
 
 [display]
 
