@@ -1,0 +1,62 @@
+[gd_scene load_steps=6 format=3 uid="uid://cmrna0h0dmrhj"]
+
+[ext_resource type="Script" path="res://Components/custom_button.gd" id="1_btyht"]
+[ext_resource type="StyleBox" uid="uid://bde6xgl0mvhb8" path="res://Assets/Resources/custom_button_normal_style.tres" id="1_rj7px"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ebhha"]
+bg_color = Color(0.0941176, 0.0941176, 0.0941176, 0.858824)
+skew = Vector2(0.06, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+expand_margin_left = 20.0
+expand_margin_right = 20.0
+shadow_size = 14
+shadow_offset = Vector2(12, 12)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pbq53"]
+bg_color = Color(0.0941176, 0.0941176, 0.0941176, 0.858824)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+expand_margin_left = 10.0
+expand_margin_right = 10.0
+shadow_size = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_viw72"]
+bg_color = Color(0.235294, 0.235294, 0.235294, 0.74902)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.8, 0.8, 0.8, 0)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+expand_margin_left = 10.0
+expand_margin_right = 10.0
+shadow_offset = Vector2(6, 6)
+
+[node name="CustomButton" type="Button"]
+custom_minimum_size = Vector2(200, 100)
+offset_right = 200.0
+offset_bottom = 100.0
+focus_mode = 0
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 0.403922)
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = ExtResource("1_rj7px")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ebhha")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_pbq53")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_viw72")
+script = ExtResource("1_btyht")
