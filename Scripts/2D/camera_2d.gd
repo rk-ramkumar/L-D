@@ -10,12 +10,9 @@ var max_zoom = 1.5
 var pan_speed = 1.5
 var target_ratio = 16.0 / 9.0
 var start_zoom
-var drag_start = Vector2()
-var dragging = false
 var touch_indexes = {}
 var start_distance = 0
 var center_position
-var limit
 
 func _ready():
 	set_camera_limit()
@@ -64,11 +61,11 @@ func _handle_touch(event: InputEventScreenTouch):
 		start_distance = 0
 
 func _handle_drag(event: InputEventScreenDrag):
-	touch_indexes[event.index] = event.position 
+	touch_indexes[event.index] = event.position
 
 	if touch_indexes.size() == 1:
 		# Panning logic
-		position -= event.relative * pan_speed
+		position -= event.relative * pan_speed 
 
 	if touch_indexes.size() == 2:
 		# Zooming logic
