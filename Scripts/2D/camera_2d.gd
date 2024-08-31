@@ -8,6 +8,7 @@ extends Camera2D
 var min_zoom = 0.5
 var max_zoom = 1.5
 var pan_speed = 1.5
+var target_ratio = 16.0 / 9.0
 var start_zoom
 var drag_start = Vector2()
 var dragging = false
@@ -17,7 +18,20 @@ var center_position
 var limit
 
 func _ready():
-	limit = set_camera_limit()
+	set_camera_limit()
+	adjust_camera_to_fit_tilemap()
+	get_viewport().size_changed.connect(adjust_camera_to_fit_tilemap)
+
+func adjust_camera_to_fit_tilemap():
+	var viewport_rect = get_viewport_rect().size
+	var screen_ratio = viewport_rect.x / viewport_rect.y
+
+	if screen_ratio > target_ratio:
+		zoom.x = min_zoom * screen_ratio / target_ratio
+		zoom.y = min_zoom
+	else:
+		zoom.y = min_zoom * target_ratio / screen_ratio
+		zoom.x = min_zoom
 
 func _input(event):
 	if event is InputEventScreenTouch:
