@@ -26,11 +26,11 @@ func _ready():
 	multiplayer.connection_failed.connect(_on_connected_fail)
 	multiplayer.server_disconnected.connect(_on_server_disconnected)
 
-func onPeerConnected(id):
+func onPeerConnected(_id):
 	createUI.hide()
 	lobby.show()
 
-func onPeerDisconnected(id):
+func onPeerDisconnected(_id):
 	pass
 
 func onConnectedToServer():
@@ -113,7 +113,7 @@ func canPlay():
 # filterByTeam()[0] == "L" , filterByTeam()[1] == "D"
 func filterByTeam():
 	return teams.map(func(team):
-		return Helpers.objectFilter(GameManager.Players, func(key, value): return value.team == team))
+		return Helpers.objectFilter(GameManager.Players, func(_key, value): return value.team == team))
 
 func prepareGameConfig():
 	var filteredTeam = filterByTeam()
