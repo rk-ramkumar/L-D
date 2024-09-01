@@ -1,58 +1,60 @@
 extends Control
 
 var _progress = []
-var resource_paths = []
+var resource_names = []
 @onready var progress_bar = $ProgressBar
 
 func _ready():
-	if Time.get_ticks_msec() - GameManager.game_start_time < 5000:
-		resource_paths = ["ExitPopup", "MatchMaking"]
-	_load_resources(resource_paths)
+	if Time.get_ticks_msec() - GameManager.game_start_time < 1000:
+		resource_names = ["ExitPopup", "MatchMaking"]
+	_load_resources()
 
-func _load_resources(resource_paths):
-	var errors = resource_paths.map(func(resource_path):
-			if get_tree().root.has_node(resource_path) or !GameManager.scene_paths.has(resource_path):
+func _load_resources():
+	var errors = resource_names.map(func(resource_name):
+			if get_tree().root.has_node(resource_name) or !_is_path_exists(resource_name):
 				return
 			_progress.append(0.0)
-			return ResourceLoader.load_threaded_request(GameManager.scene_paths[resource_path])
+			return ResourceLoader.load_threaded_request(get_resource_path(resource_name))
 			)
 
 	if errors.any(func(error): return error == OK):
 		set_process(true)
 
 func _process(_delta):
-	if resource_paths.is_empty():
+	if resource_names.is_empty():
 		set_process(false)
 		queue_free()
 
-	for resource_path in resource_paths:
-		if !GameManager.scene_paths.has(resource_path):
+	for resource_name in resource_names:
+		if !_is_path_exists(resource_name):
 			return
 
-		var stage = ResourceLoader.load_threaded_get_status(GameManager.scene_paths[resource_path], _progress)
+		var stage = ResourceLoader.load_threaded_get_status(get_resource_path(resource_name), _progress)
 		_progress[0] *= 100
 
 		match stage:
 			ResourceLoader.THREAD_LOAD_IN_PROGRESS:
 				update_loading_screen(_progress[0])
 		
-		match GameManager.scene_paths[resource_path]:
+		match get_resource_path(resource_name):
 			GameManager.scene_paths.Playground:
 				if stage == ResourceLoader.THREAD_LOAD_LOADED:
-					_on_playground_loaded(resource_path)
+					_change_scene(resource_name)
 			GameManager.scene_paths.ExitPopup:
 				if stage == ResourceLoader.THREAD_LOAD_LOADED:
-					_on_exit_popup_loaded(resource_path)
+					_on_exit_popup_loaded(resource_name)
+			GameManager.scene_paths.MatchMaking:
+				if stage == ResourceLoader.THREAD_LOAD_LOADED:
+					_change_scene(resource_name)
 			_:
 				if stage == ResourceLoader.THREAD_LOAD_FAILED:
-					printerr("Loading" + resource_path + "resource failed!")
-
+					printerr("Loading" + resource_name + "resource failed!")
 
 func update_loading_screen(progress: float):
 	progress_bar.value = lerp(progress_bar.value, progress, 0.1)
 
-func _on_playground_loaded(resource_path):
-	var resource = _get_loaded_resource(resource_path)
+func _change_scene(resource_name):
+	var resource = _get_loaded_resource(resource_name)
 	var tween = get_tree().create_tween()
 	tween.tween_property(
 		progress_bar,
@@ -63,13 +65,22 @@ func _on_playground_loaded(resource_path):
 	tween.tween_callback(
 		get_tree().change_scene_to_packed.bind(resource)
 	)
-	tween.tween_callback(resource_paths.erase.bind(resource_path))
+	tween.tween_callback(func(): resource_names.erase(resource_name))
 
-func _on_exit_popup_loaded(resource_path):
-	var exit_popup = _get_loaded_resource(resource_path).instantiate()
+func _on_exit_popup_loaded(resource_name):
+	var exit_popup = _get_loaded_resource(resource_name).instantiate()
 	exit_popup.size = get_viewport_rect().size
 	get_tree().root.add_child(exit_popup)
-	resource_paths.erase(resource_path)
+	resource_names.erase(resource_name)
 
-func _get_loaded_resource(resource_path):
-	return ResourceLoader.load_threaded_get(GameManager.scene_paths[resource_path])
+func _get_loaded_resource(resource_name):
+	return ResourceLoader.load_threaded_get(get_resource_path(resource_name))
+
+func add_resource_name(resource_name):
+	resource_names.append(resource_name)
+
+func get_resource_path(resource_name):
+	return GameManager.scene_paths[resource_name]
+
+func _is_path_exists(resource_name):
+	return GameManager.scene_paths.has(resource_name)

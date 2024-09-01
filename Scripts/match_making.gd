@@ -3,7 +3,6 @@ extends CanvasLayer
 @onready var createUI = $"Create UI"
 @onready var lobby = $Lobby
 @onready var line_edit = $"Create UI/CenterContainer/Control/VBoxContainer/LineEdit"
-
 signal player_connected(peer_id, player_info)
 signal player_disconnected(peer_id)
 signal server_disconnected
@@ -12,6 +11,7 @@ const PORT = 7000
 const DEFAULT_SERVER_IP = "127.0.0.1"
 const MAX_CONNECTIONS = 4
 
+var main_scene = preload("res://Scenes/loading.tscn")
 var peer
 var port = 1313
 var Name
@@ -81,7 +81,8 @@ func updatePlayerInfo(id, data):
 @rpc("call_local", "reliable")
 func startGame():
 	prepareGameConfig()
-	var level = load("res://Scenes/Main.tscn").instantiate()
+	var level = main_scene.instantiate()
+	level.add_resource_name("Playground")
 	get_tree().root.add_child(level)
 	hide()
 
@@ -146,3 +147,6 @@ func _on_texture_button_pressed(data):
 
 func _on_start_pressed():
 	startGame.rpc()
+
+func _on_ai_play_button_clicked():
+	pass # Replace with function body.
