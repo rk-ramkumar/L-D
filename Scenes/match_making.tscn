@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cmrna0h0dmrhj" path="res://Components/custom_button.tscn" id="2_d1jds"]
 [ext_resource type="Texture2D" uid="uid://b8e8t4mlv4fvt" path="res://Assets/Textures/icons8-add-100.png" id="2_gmu5v"]
 
-[node name="CanvasLayer" type="CanvasLayer"]
+[node name="MatchMaking" type="CanvasLayer"]
 script = ExtResource("1_26lgm")
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -68,6 +68,10 @@ text = "host"
 [node name="JoinButton2" parent="Create UI/CenterContainer/Control/VBoxContainer" instance=ExtResource("2_d1jds")]
 layout_mode = 2
 text = "join"
+
+[node name="AIPlayButton" parent="Create UI/CenterContainer/Control/VBoxContainer" instance=ExtResource("2_d1jds")]
+layout_mode = 2
+text = "AI Arena"
 
 [node name="Lobby" type="Control" parent="."]
 visible = false
@@ -297,8 +301,9 @@ text = "Host will start the game"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="pressed" from="Create UI/CenterContainer/Control/VBoxContainer/HostButton" to="." method="_on_host_pressed"]
-[connection signal="pressed" from="Create UI/CenterContainer/Control/VBoxContainer/JoinButton2" to="." method="_on_join_pressed"]
+[connection signal="clicked" from="Create UI/CenterContainer/Control/VBoxContainer/HostButton" to="." method="_on_host_pressed"]
+[connection signal="clicked" from="Create UI/CenterContainer/Control/VBoxContainer/JoinButton2" to="." method="_on_join_pressed"]
+[connection signal="clicked" from="Create UI/CenterContainer/Control/VBoxContainer/AIPlayButton" to="." method="_on_ai_play_button_clicked"]
 [connection signal="pressed" from="Lobby/Team L/Player 1/TextureButton" to="." method="_on_texture_button_pressed" binds= [{
 "id": 1,
 "team": "L"
