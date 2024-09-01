@@ -2,7 +2,12 @@ extends Node
 
 signal switchTurn(id)
 
-
+@onready var game_start_time = Time.get_ticks_msec()
+var scene_paths = {
+	"Playground": "res://Scenes/2D/play_ground.tscn",
+	"ExitPopup": "res://Scenes/exit_popup.tscn",
+	"MatchMaking": "res://Scenes/match_making.tscn"
+}
 var Players = {}
 var playerLoaded: int = 0
 var availableId = [1,2, 3, 4]
