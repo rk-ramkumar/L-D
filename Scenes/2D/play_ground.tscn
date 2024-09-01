@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://b0ud7gjcvmw17"]
+[gd_scene load_steps=33 format=3 uid="uid://b0ud7gjcvmw17"]
 
 [ext_resource type="Texture2D" uid="uid://7b8r3ycl6y2t" path="res://Assets/Textures/soft_grass.png" id="2_fxc78"]
 [ext_resource type="Texture2D" uid="uid://dtispff05qa8e" path="res://Assets/Textures/grass.png" id="2_iql2q"]
@@ -14,6 +14,8 @@
 [ext_resource type="Texture2D" uid="uid://dx5qwt4t247q8" path="res://Assets/Textures/Tiles/safe_tile.png" id="7_4c4sa"]
 [ext_resource type="Texture2D" uid="uid://bm3n3alq17ygs" path="res://Assets/Textures/plant.png" id="7_5pcav"]
 [ext_resource type="PackedScene" uid="uid://bmjy16bpw5kux" path="res://Scenes/2D/touch_indicator.tscn" id="9_jy2yl"]
+[ext_resource type="PackedScene" uid="uid://cmrna0h0dmrhj" path="res://Components/custom_button.tscn" id="15_5ek04"]
+[ext_resource type="Texture2D" uid="uid://b55w1ppiuqcer" path="res://Assets/Icons/dice_3D_detailed.svg" id="16_qts8j"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_t6d53"]
 tile_data = PackedInt32Array(0, 2, 0, 65536, 4, 0)
@@ -151,7 +153,22 @@ pattern_1 = SubResource("TileMapPattern_ngnq5")
 pattern_2 = SubResource("TileMapPattern_53krn")
 pattern_3 = SubResource("TileMapPattern_0nxw0")
 
-[node name="Node2D" type="Node2D"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t57bw"]
+bg_color = Color(0.0941176, 0.0941176, 0.0941176, 0.858824)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+expand_margin_left = 20.0
+expand_margin_right = 20.0
+shadow_size = 14
+shadow_offset = Vector2(12, 12)
+
+[node name="PlayGround" type="Node2D"]
 y_sort_enabled = true
 texture_filter = 1
 
@@ -189,10 +206,38 @@ script = ExtResource("2_ka7o6")
 [node name="CharacterBody2D" parent="." node_paths=PackedStringArray("tilemap") instance=ExtResource("5_crbsa")]
 z_index = 1
 texture_filter = 1
-position = Vector2(927, -135)
+position = Vector2(86, 311)
 scale = Vector2(3, 3)
 tilemap = NodePath("../TileMap")
 current_direction = "E"
 
 [node name="TouchIndicator" parent="." node_paths=PackedStringArray("tile_map") instance=ExtResource("9_jy2yl")]
 tile_map = NodePath("../TileMap")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RollButton" parent="CanvasLayer/Control" instance=ExtResource("15_5ek04")]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -240.0
+offset_top = -150.0
+offset_right = -40.0
+offset_bottom = -50.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_default_cursor_shape = 2
+theme_override_styles/hover = SubResource("StyleBoxFlat_t57bw")
+text = "Roll"
+icon = ExtResource("16_qts8j")
