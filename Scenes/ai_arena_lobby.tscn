@@ -1,7 +1,65 @@
-[gd_scene load_steps=3 format=3 uid="uid://c13l6b2ivm8bg"]
+[gd_scene load_steps=14 format=3 uid="uid://c13l6b2ivm8bg"]
 
 [ext_resource type="Script" path="res://Scripts/ai_arena_lobby.gd" id="1_d7km0"]
 [ext_resource type="PackedScene" uid="uid://cmrna0h0dmrhj" path="res://Components/custom_button.tscn" id="2_3v5dp"]
+[ext_resource type="Texture2D" uid="uid://dhi5bfdmnv042" path="res://Assets/Icons/pawn.svg" id="3_mvgq0"]
+[ext_resource type="Texture2D" uid="uid://cglre03ekqj6g" path="res://Assets/Icons/pawns.svg" id="4_j0txx"]
+[ext_resource type="Texture2D" uid="uid://boe2k0o8yjumf" path="res://Assets/Icons/arrow_right.svg" id="5_68j85"]
+[ext_resource type="Texture2D" uid="uid://jbbs6xjcbfvs" path="res://Assets/kenney_particle/spark_05.png" id="6_hkotl"]
+[ext_resource type="Texture2D" uid="uid://eds5kafqbjmn" path="res://Assets/Icons/timer_0.svg" id="7_8nanx"]
+[ext_resource type="Texture2D" uid="uid://bequamwrwrfvk" path="res://icon.svg" id="8_qt2gg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hrdlb"]
+bg_color = Color(0.796078, 0.74902, 0.658824, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ke45r"]
+bg_color = Color(0.796078, 0.74902, 0.658824, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+expand_margin_left = 10.0
+expand_margin_right = 10.0
+shadow_color = Color(0.0941176, 0.0941176, 0.0941176, 0.858824)
+shadow_size = 14
+shadow_offset = Vector2(12, 12)
+
+[sub_resource type="LabelSettings" id="LabelSettings_pxfby"]
+font_size = 64
+outline_size = 16
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3xkhu"]
+bg_color = Color(0.796078, 0.74902, 0.658824, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0.305882, 0.305882, 0.305882, 0.6)
+shadow_size = 14
+
+[sub_resource type="LabelSettings" id="LabelSettings_mn0bc"]
+outline_size = 1
+outline_color = Color(0.796078, 0.74902, 0.658824, 1)
 
 [node name="AIArenaLobby" type="Control"]
 layout_mode = 3
@@ -23,25 +81,209 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.0941176, 0.0941176, 0.0941176, 0.858824)
 
-[node name="ModeSelectionContainer" type="VBoxContainer" parent="."]
+[node name="ModeSelectPopup" type="Popup" parent="."]
+transparent_bg = true
+size = Vector2i(1080, 720)
+transparent = true
+
+[node name="Control" type="Control" parent="ModeSelectPopup"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="ModeSelectPopup/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.109804, 0.109804, 0.109804, 0.329412)
+
+[node name="Control" type="Control" parent="ModeSelectPopup/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -200.0
+offset_right = 300.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BackgroundColorPanel" type="Panel" parent="ModeSelectPopup/Control/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -40.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hrdlb")
+
+[node name="ModeSelectionContainer" type="HBoxContainer" parent="ModeSelectPopup/Control/Control/BackgroundColorPanel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -240.0
+offset_top = -160.0
+offset_right = 240.0
+offset_bottom = -60.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 80
+
+[node name="SoloModeButton" parent="ModeSelectPopup/Control/Control/BackgroundColorPanel/ModeSelectionContainer" instance=ExtResource("2_3v5dp")]
+layout_mode = 2
+theme_override_styles/disabled = SubResource("StyleBoxFlat_ke45r")
+text = "1 vs 1"
+icon = ExtResource("3_mvgq0")
+
+[node name="DuoModeButton" parent="ModeSelectPopup/Control/Control/BackgroundColorPanel/ModeSelectionContainer" instance=ExtResource("2_3v5dp")]
+layout_mode = 2
+theme_override_styles/disabled = SubResource("StyleBoxFlat_ke45r")
+text = "2 vs 2"
+icon = ExtResource("4_j0txx")
+
+[node name="Label" type="Label" parent="ModeSelectPopup/Control/Control/BackgroundColorPanel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -199.0
+offset_top = 20.0
+offset_right = 199.0
+offset_bottom = 119.0
+grow_horizontal = 2
+text = "Select Mode"
+label_settings = SubResource("LabelSettings_pxfby")
+
+[node name="SparkDivider" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(592, 200)
+rotation = -0.174533
+scale = Vector2(1.5, 2.105)
+texture = ExtResource("6_hkotl")
+
+[node name="ModeSelectPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -125.0
+offset_top = -170.0
+offset_right = 125.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+tooltip_text = "Select mode"
+theme_override_styles/panel = SubResource("StyleBoxFlat_3xkhu")
+
+[node name="ModeSelectButton" parent="ModeSelectPanel" instance=ExtResource("2_3v5dp")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -50.0
+offset_right = 100.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+icon = ExtResource("5_68j85")
+
+[node name="LeftBoxContainer" type="BoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 50.0
-offset_top = -50.0
-offset_right = 250.0
-offset_bottom = 50.0
+offset_top = -359.0
+offset_right = 432.0
+offset_bottom = 359.0
 grow_vertical = 2
-theme_override_constants/separation = 50
+alignment = 1
 
-[node name="SoloModeButton" parent="ModeSelectionContainer" instance=ExtResource("2_3v5dp")]
+[node name="VBoxContainer" type="VBoxContainer" parent="LeftBoxContainer"]
+texture_filter = 1
 layout_mode = 2
-text = "1 Vs 1"
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 100
 
-[node name="DuoModeButton" parent="ModeSelectionContainer" instance=ExtResource("2_3v5dp")]
+[node name="BackgroundTexture" type="TextureRect" parent="LeftBoxContainer/VBoxContainer"]
+self_modulate = Color(1, 1, 1, 0.352941)
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-text = "2 vs 2"
+texture = ExtResource("7_8nanx")
+expand_mode = 5
 
-[connection signal="clicked" from="ModeSelectionContainer/SoloModeButton" to="." method="_on_solo_mode_button_clicked"]
-[connection signal="clicked" from="ModeSelectionContainer/DuoModeButton" to="." method="_on_duo_mode_button_clicked"]
+[node name="IconButton" type="TextureButton" parent="LeftBoxContainer/VBoxContainer/BackgroundTexture"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("8_qt2gg")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="Namelabel" type="Label" parent="LeftBoxContainer/VBoxContainer/BackgroundTexture"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -25.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+label_settings = SubResource("LabelSettings_mn0bc")
+
+[node name="RightBoxContainer" type="BoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -432.0
+offset_top = -359.0
+offset_bottom = 359.0
+grow_horizontal = 0
+grow_vertical = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="RightBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 100
+
+[connection signal="clicked" from="ModeSelectPopup/Control/Control/BackgroundColorPanel/ModeSelectionContainer/SoloModeButton" to="." method="_on_solo_mode_button_clicked"]
+[connection signal="clicked" from="ModeSelectPopup/Control/Control/BackgroundColorPanel/ModeSelectionContainer/DuoModeButton" to="." method="_on_duo_mode_button_clicked"]
+[connection signal="clicked" from="ModeSelectPanel/ModeSelectButton" to="." method="_on_mode_select_button_clicked"]
