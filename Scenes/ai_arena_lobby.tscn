@@ -1,0 +1,47 @@
+[gd_scene load_steps=3 format=3 uid="uid://c13l6b2ivm8bg"]
+
+[ext_resource type="Script" path="res://Scripts/ai_arena_lobby.gd" id="1_d7km0"]
+[ext_resource type="PackedScene" uid="uid://cmrna0h0dmrhj" path="res://Components/custom_button.tscn" id="2_3v5dp"]
+
+[node name="AIArenaLobby" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_d7km0")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0941176, 0.0941176, 0.0941176, 0.858824)
+
+[node name="ModeSelectionContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 50.0
+offset_top = -50.0
+offset_right = 250.0
+offset_bottom = 50.0
+grow_vertical = 2
+theme_override_constants/separation = 50
+
+[node name="SoloModeButton" parent="ModeSelectionContainer" instance=ExtResource("2_3v5dp")]
+layout_mode = 2
+text = "1 Vs 1"
+
+[node name="DuoModeButton" parent="ModeSelectionContainer" instance=ExtResource("2_3v5dp")]
+layout_mode = 2
+text = "2 vs 2"
+
+[connection signal="clicked" from="ModeSelectionContainer/SoloModeButton" to="." method="_on_solo_mode_button_clicked"]
+[connection signal="clicked" from="ModeSelectionContainer/DuoModeButton" to="." method="_on_duo_mode_button_clicked"]
