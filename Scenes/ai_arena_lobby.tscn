@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://dhi5bfdmnv042" path="res://Assets/Icons/pawn.svg" id="3_mvgq0"]
 [ext_resource type="Texture2D" uid="uid://cglre03ekqj6g" path="res://Assets/Icons/pawns.svg" id="4_j0txx"]
 [ext_resource type="Texture2D" uid="uid://boe2k0o8yjumf" path="res://Assets/Icons/arrow_right.svg" id="5_68j85"]
-[ext_resource type="Texture2D" uid="uid://jbbs6xjcbfvs" path="res://Assets/kenney_particle/spark_05.png" id="6_hkotl"]
+[ext_resource type="Texture2D" uid="uid://bhwaft25buxl4" path="res://Assets/kenney_particle/spark_07.png" id="5_ngssf"]
 [ext_resource type="Texture2D" uid="uid://eds5kafqbjmn" path="res://Assets/Icons/timer_0.svg" id="7_8nanx"]
 [ext_resource type="Texture2D" uid="uid://bequamwrwrfvk" path="res://icon.svg" id="8_qt2gg"]
 
@@ -58,8 +58,9 @@ shadow_color = Color(0.305882, 0.305882, 0.305882, 0.6)
 shadow_size = 14
 
 [sub_resource type="LabelSettings" id="LabelSettings_mn0bc"]
-outline_size = 1
-outline_color = Color(0.796078, 0.74902, 0.658824, 1)
+font_size = 24
+outline_size = 6
+outline_color = Color(0.945098, 0.0980392, 0.25098, 1)
 
 [node name="AIArenaLobby" type="Control"]
 layout_mode = 3
@@ -169,11 +170,12 @@ text = "Select Mode"
 label_settings = SubResource("LabelSettings_pxfby")
 
 [node name="SparkDivider" type="Sprite2D" parent="."]
+self_modulate = Color(0.945098, 0.0980392, 0.25098, 1)
 texture_filter = 1
-position = Vector2(592, 200)
-rotation = -0.174533
-scale = Vector2(1.5, 2.105)
-texture = ExtResource("6_hkotl")
+position = Vector2(640, 340)
+rotation = 1.39626
+scale = Vector2(2, 2)
+texture = ExtResource("5_ngssf")
 
 [node name="ModeSelectPanel" type="Panel" parent="."]
 layout_mode = 1
@@ -225,7 +227,7 @@ size_flags_vertical = 4
 theme_override_constants/separation = 100
 
 [node name="BackgroundTexture" type="TextureRect" parent="LeftBoxContainer/VBoxContainer"]
-self_modulate = Color(1, 1, 1, 0.352941)
+self_modulate = Color(0.796078, 0.74902, 0.658824, 1)
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 texture = ExtResource("7_8nanx")
@@ -251,17 +253,17 @@ stretch_mode = 4
 
 [node name="Namelabel" type="Label" parent="LeftBoxContainer/VBoxContainer/BackgroundTexture"]
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
+anchors_preset = 12
 anchor_top = 1.0
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -20.0
-offset_top = -25.0
-offset_right = 20.0
+offset_top = -15.0
+offset_bottom = 22.0
 grow_horizontal = 2
 grow_vertical = 0
 label_settings = SubResource("LabelSettings_mn0bc")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="RightBoxContainer" type="BoxContainer" parent="."]
 layout_mode = 1
