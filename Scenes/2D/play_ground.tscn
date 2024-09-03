@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://b0ud7gjcvmw17"]
+[gd_scene load_steps=37 format=3 uid="uid://b0ud7gjcvmw17"]
 
 [ext_resource type="Script" path="res://Scripts/2D/playground.gd" id="1_5tede"]
 [ext_resource type="Texture2D" uid="uid://7b8r3ycl6y2t" path="res://Assets/Textures/soft_grass.png" id="2_fxc78"]
@@ -18,6 +18,7 @@
 [ext_resource type="Script" path="res://Scripts/2D/playground_control.gd" id="15_w1ek2"]
 [ext_resource type="Texture2D" uid="uid://b55w1ppiuqcer" path="res://Assets/Icons/dice_3D_detailed.svg" id="16_qts8j"]
 [ext_resource type="Script" path="res://Scripts/TurnTimer.gd" id="19_15107"]
+[ext_resource type="PackedScene" uid="uid://cesnpvcf7asln" path="res://Scenes/2D/dice.tscn" id="19_kovbs"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_t6d53"]
 tile_data = PackedInt32Array(0, 2, 0, 65536, 4, 0)
@@ -208,7 +209,7 @@ layer_1/y_sort_origin = 0
 layer_1/z_index = 1
 layer_1/tile_data = PackedInt32Array(-720916, 14, 0, -589844, 11, 0, -458772, 11, 0, -327700, 11, 0, -196628, 11, 0, -65556, 11, 0, 65516, 14, 0, 196588, 11, 0, 327660, 11, 0, 458732, 11, 0, 589804, 11, 0, 720876, 11, 0, 851948, 14, 0, -720914, 11, 0, 851950, 11, 0, -720912, 11, 0, 851952, 11, 0, 65521, 12, 0, -720910, 11, 0, -327694, 11, 0, 458738, 11, 0, 851954, 11, 0, -720908, 11, 0, -327692, 11, 0, 458740, 11, 0, 851956, 11, 0, -720906, 11, 0, -327690, 11, 0, 458742, 11, 0, 851958, 11, 0, -720904, 14, 0, -327688, 14, 0, -196616, 11, 0, -65544, 11, 0, 65528, 14, 0, 196600, 11, 0, 327672, 11, 0, 458744, 14, 0, 851960, 14, 0, -720902, 11, 0, 65530, 11, 0, 851962, 11, 0, -720900, 11, 0, 65532, 11, 0, 851964, 11, 0, -720898, 11, 0, 65534, 11, 0, 851966, 11, 0, -786432, 11, 0, 0, 11, 0, 786432, 11, 0, -786430, 11, 0, -131070, 14, 0, 2, 11, 0, 131074, 14, 0, 786434, 11, 0, -786428, 14, 0, -655356, 11, 0, -524284, 11, 0, -393212, 11, 0, -262140, 11, 0, -131068, 11, 0, 4, 14, 0, 131076, 11, 0, 262148, 11, 0, 393220, 11, 0, 524292, 11, 0, 655364, 11, 0, 786436, 14, 0, 6, 11, 0, 8, 11, 0, 10, 11, 0, 12, 11, 0, 14, 11, 0, -786416, 14, 0, -655344, 11, 0, -524272, 11, 0, -393200, 11, 0, -262128, 11, 0, -131056, 11, 0, 16, 14, 0, 131088, 11, 0, 262160, 11, 0, 393232, 11, 0, 524304, 11, 0, 655376, 11, 0, 786448, 14, 0)
 layer_2/name = "plant"
-layer_2/enabled = true
+layer_2/enabled = false
 layer_2/modulate = Color(1, 1, 1, 1)
 layer_2/y_sort_enabled = true
 layer_2/y_sort_origin = 1
@@ -222,6 +223,14 @@ tile_map = NodePath("../TileMap")
 [node name="TurnTimer" type="Timer" parent="."]
 unique_name_in_owner = true
 script = ExtResource("19_15107")
+
+[node name="Die1" parent="." instance=ExtResource("19_kovbs")]
+position = Vector2(-70, -300)
+frame_progress = 0.740922
+
+[node name="Die2" parent="." instance=ExtResource("19_kovbs")]
+position = Vector2(-190, -420)
+frame_progress = 0.740922
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 2

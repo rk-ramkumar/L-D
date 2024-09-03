@@ -1,15 +1,30 @@
 extends AnimatedSprite2D
 
 signal roll_finished(number: int)
-@export var roll_area_size = Vector2(200, 200)  # Adjust the area size as needed
+@export var roll_area_size = Vector2(100, 100)  # Adjust the area size as needed
+@export var disappear_time: int = 2
+var origin: Vector2
 var number
-var faces_frame = [6, 30, 22, 14]
+var faces_frame = [38, 30, 22, 14]
+var fall_speed = 400
 
 func _ready():
-	number = randi() % 3
-	# Start the random frame change function
-	randomize_rotation()
-	randomize_position()
+	origin = position
+	set_seed()
+
+func set_seed():
+	randomize()
+	number = randi() % 4
+	set_process(true)
+
+func _process(delta):
+	if position.y < 0:
+		position.y += fall_speed * delta
+	else:
+		set_process(false)
+		# Start the random frame change function
+		randomize_rotation()
+		randomize_position()
 
 func randomize_position():
 	# Randomly change position within the defined roll area
@@ -29,18 +44,29 @@ func randomize_position():
 func _animate():
 	var tween = get_tree().create_tween()
 	tween.tween_property(self, "frame", faces_frame[number], 0.5)
-	tween.tween_callback(pause)
+	tween.tween_callback(clean_up)
+	tween.tween_callback(tween.kill)
+
+func clean_up():
+	await get_tree().create_timer(disappear_time).timeout
+	pause()
+	position = origin
+	hide()
 
 func randomize_rotation():
 	# Generate a random rotation angle
 	var random_angle = randf_range(-45, 45)
-
 	# Apply the rotation to the sprite
 	rotation_degrees = random_angle
-
 	# Optionally, scale the sprite slightly to enhance the 3D effect
 	var random_scale = Vector2(randf_range(0.9, 1.1), randf_range(0.9, 1.1))
 	scale = random_scale
 
 func _on_timer_timeout():
 	roll_finished.emit(number)
+
+func _on_visibility_changed():
+	if visible and origin:
+		position = origin
+		set_seed()
+		
