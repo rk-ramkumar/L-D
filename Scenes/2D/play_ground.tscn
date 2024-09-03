@@ -8,7 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://c4klg7bfbywko" path="res://Assets/Textures/dark_grass.png" id="3_svap7"]
 [ext_resource type="Texture2D" uid="uid://dfisiaek8a647" path="res://Assets/Textures/light_grass.png" id="4_588lp"]
 [ext_resource type="Texture2D" uid="uid://ct31cgg06so3e" path="res://Assets/Textures/Tiles/white_tile.png" id="4_jprkd"]
-[ext_resource type="PackedScene" uid="uid://h5dg4fhfj136" path="res://Scenes/2D/blackNoir.tscn" id="5_crbsa"]
 [ext_resource type="Texture2D" uid="uid://bxrf6doonnltk" path="res://Assets/Textures/Tiles/sword in a rock.png" id="5_dw6v6"]
 [ext_resource type="Texture2D" uid="uid://f17gojvncsk4" path="res://Assets/Textures/cube_light_grass.png" id="5_pnpur"]
 [ext_resource type="Texture2D" uid="uid://bm8ihhw4gwjkc" path="res://Assets/Textures/Tiles/black_tile.png" id="6_ywmg0"]
@@ -18,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://cmrna0h0dmrhj" path="res://Components/custom_button.tscn" id="15_5ek04"]
 [ext_resource type="Script" path="res://Scripts/2D/playground_control.gd" id="15_w1ek2"]
 [ext_resource type="Texture2D" uid="uid://b55w1ppiuqcer" path="res://Assets/Icons/dice_3D_detailed.svg" id="16_qts8j"]
+[ext_resource type="Script" path="res://Scripts/TurnTimer.gd" id="19_15107"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_t6d53"]
 tile_data = PackedInt32Array(0, 2, 0, 65536, 4, 0)
@@ -51,6 +51,7 @@ texture_region_size = Vector2i(128, 128)
 0:0/0/physics_layer_0/angular_velocity = 0.0
 0:0/0/physics_layer_1/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_1/angular_velocity = 0.0
+0:0/0/custom_data_0 = true
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_heid3"]
 texture = ExtResource("5_dw6v6")
@@ -70,6 +71,7 @@ texture_region_size = Vector2i(128, 128)
 0:0/0/physics_layer_0/angular_velocity = 0.0
 0:0/0/physics_layer_1/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_1/angular_velocity = 0.0
+0:0/0/custom_data_0 = true
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8cose"]
 texture = ExtResource("7_4c4sa")
@@ -80,6 +82,7 @@ texture_region_size = Vector2i(128, 128)
 0:0/0/physics_layer_0/angular_velocity = 0.0
 0:0/0/physics_layer_1/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_1/angular_velocity = 0.0
+0:0/0/custom_data_0 = true
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1ti75"]
 texture = ExtResource("2_fxc78")
@@ -140,6 +143,8 @@ physics_layer_0/collision_layer = 1
 physics_layer_0/collision_mask = 5
 physics_layer_1/collision_layer = 2
 physics_layer_1/collision_mask = 4
+custom_data_layer_0/name = "can_walk"
+custom_data_layer_0/type = 1
 sources/1 = SubResource("TileSetAtlasSource_hxvtp")
 sources/2 = SubResource("TileSetAtlasSource_1ti75")
 sources/4 = SubResource("TileSetAtlasSource_48vip")
@@ -211,21 +216,18 @@ layer_2/z_index = 0
 layer_2/tile_data = PackedInt32Array(-1179670, 6, 0, -655382, 6, 0, -589846, 6, 0, -131094, 6, 0, -65558, 6, 0, 1245162, 6, 0, 1441770, 6, 0, 131051, 6, 0, 589803, 6, 0, 786411, 6, 0, 1114091, 6, 0, 1179627, 6, 0, -983060, 6, 0, -917524, 6, 0, -196628, 6, 0, -20, 6, 0, 589804, 6, 0, -1376275, 6, 0, 327661, 6, 0, 1179629, 6, 0, -786450, 6, 0, -458770, 6, 0, 327662, 6, 0, -1179665, 6, 0, -1048593, 6, 0, 131056, 6, 0, 1376240, 6, 0, -1441807, 6, 0, -1376271, 6, 0, -786447, 6, 0, -524303, 6, 0, -262159, 6, 0, 1114097, 6, 0, -851982, 6, 0, -262158, 6, 0, 1310706, 6, 0, -1376269, 6, 0, -720909, 6, 0, -524301, 6, 0, 131059, 6, 0, 458739, 6, 0, 851955, 6, 0, 1310707, 6, 0, -1441804, 6, 0, -1114124, 6, 0, -983052, 6, 0, -131084, 6, 0, 589812, 6, 0, 1441780, 6, 0, -720907, 6, 0, -655371, 6, 0, 983029, 6, 0, -524298, 6, 0, -262154, 6, 0, 1048566, 6, 0, 1048567, 6, 0, 1179639, 6, 0, 458744, 6, 0, 1048568, 6, 0, -851975, 6, 0, -196615, 6, 0, 1441785, 6, 0, -1376262, 6, 0, -786438, 6, 0, 589818, 6, 0, 1441786, 6, 0, -1310725, 6, 0, -786437, 6, 0, 1114107, 6, 0, -1441796, 6, 0, -983044, 6, 0, 65532, 6, 0, 1114108, 6, 0, -917507, 6, 0, 917502, 6, 0, -1310721, 6, 0, -983041, 6, 0, -393217, 6, 0, -262145, 6, 0, -1, 6, 0, -720896, 6, 0, -655360, 6, 0, -589824, 6, 0, -196608, 6, 0, -65536, 6, 0, 65536, 6, 0, 589824, 6, 0, -262143, 6, 0, -196607, 6, 0, -65535, 6, 0, 917505, 6, 0, 1179649, 6, 0, 65538, 6, 0, 327682, 6, 0, 786434, 6, 0, 983042, 6, 0, 1245186, 6, 0, 131075, 6, 0, 655363, 6, 0, -786428, 6, 0, -589819, 6, 0, -524283, 6, 0, 65541, 6, 0, -983034, 6, 0, -786426, 6, 0, -655354, 6, 0, 65542, 6, 0, 524294, 6, 0, 1179654, 6, 0, -1507321, 6, 0, -851961, 6, 0, 327687, 6, 0, -1179640, 6, 0, -983032, 6, 0, 851976, 6, 0, 917512, 6, 0, 1179656, 6, 0, 1310728, 6, 0, -917495, 6, 0, 327689, 6, 0, 917513, 6, 0, 1310729, 6, 0, -1441782, 6, 0, -1376246, 6, 0, -131062, 6, 0, 917514, 6, 0, 1048586, 6, 0, 1376266, 6, 0, 720907, 6, 0, 851979, 6, 0, 917515, 6, 0, -1376244, 6, 0, -720884, 6, 0, -196596, 6, 0, 917516, 6, 0, -1048563, 6, 0, -1245170, 6, 0, -1048562, 6, 0, -720882, 6, 0, 1179662, 6, 0, -1179633, 6, 0, -131057, 6, 0, -65521, 6, 0, 655375, 6, 0, 917519, 6, 0, 1114127, 6, 0, 1245199, 6, 0, -720880, 6, 0, -131056, 6, 0, -1114095, 6, 0, -458734, 6, 0, 917522, 6, 0, 1114130, 6, 0, -1179629, 6, 0, -196589, 6, 0, 196627, 6, 0, -589804, 6, 0, 917524, 6, 0, 983060, 6, 0, -917483, 6, 0)
 script = ExtResource("2_ka7o6")
 
-[node name="CharacterBody2D" parent="." node_paths=PackedStringArray("tilemap") instance=ExtResource("5_crbsa")]
-z_index = 1
-texture_filter = 1
-position = Vector2(31, -30)
-scale = Vector2(3, 3)
-tilemap = NodePath("../TileMap")
-current_direction = "E"
-
 [node name="TouchIndicator" parent="." node_paths=PackedStringArray("tile_map") instance=ExtResource("9_jy2yl")]
 tile_map = NodePath("../TileMap")
+
+[node name="TurnTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+script = ExtResource("19_15107")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 2
 
-[node name="Control" type="Control" parent="CanvasLayer"]
+[node name="UI" type="Control" parent="CanvasLayer"]
+unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -234,7 +236,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("15_w1ek2")
 
-[node name="RollButton" parent="CanvasLayer/Control" instance=ExtResource("15_5ek04")]
+[node name="RollButton" parent="CanvasLayer/UI" instance=ExtResource("15_5ek04")]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -247,12 +249,11 @@ offset_right = -40.0
 offset_bottom = -50.0
 grow_horizontal = 0
 grow_vertical = 0
-mouse_default_cursor_shape = 2
 theme_override_styles/hover = SubResource("StyleBoxFlat_t57bw")
 text = "Roll"
 icon = ExtResource("16_qts8j")
 
-[node name="TimerLabel" type="Label" parent="CanvasLayer/Control"]
+[node name="TimerLabel" type="Label" parent="CanvasLayer/UI"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -261,5 +262,7 @@ offset_left = -20.0
 offset_right = 20.0
 offset_bottom = 25.0
 grow_horizontal = 2
-text = "60"
+text = "6"
 label_settings = SubResource("LabelSettings_w5gwk")
+
+[connection signal="clicked" from="CanvasLayer/UI/RollButton" to="CanvasLayer/UI" method="_on_roll_button_clicked"]

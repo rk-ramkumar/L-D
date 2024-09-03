@@ -4,7 +4,7 @@ const SPEED = 200.0
 const JUMP_VELOCITY = -400.0
 
 @onready var animated_sprite_2d = $AnimatedSprite2D
-@export var tilemap: TileMap
+@export var tile_map: TileMap
 @export var current_direction: String
 
 var directions = ["E", "SE", "S", "SW", "W", "NW", "N", "NE"]
@@ -25,8 +25,6 @@ func _input(event):
 		_update_animation("_walk")
 		var pos = get_global_mouse_position()
 		_lerp_to_pos(pos)
-		pos = tilemap.local_to_map(pos)
-		tilemap.set_cell(0, pos, 2, Vector2i.ZERO)
 
 func _physics_process(_delta):
 	if Input.is_action_just_pressed("ui_up"):
