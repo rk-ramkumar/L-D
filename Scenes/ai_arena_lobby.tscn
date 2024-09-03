@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c13l6b2ivm8bg"]
+[gd_scene load_steps=13 format=3 uid="uid://c13l6b2ivm8bg"]
 
 [ext_resource type="Script" path="res://Scripts/ai_arena_lobby.gd" id="1_d7km0"]
 [ext_resource type="PackedScene" uid="uid://cmrna0h0dmrhj" path="res://Components/custom_button.tscn" id="2_3v5dp"]
@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://cglre03ekqj6g" path="res://Assets/Icons/pawns.svg" id="4_j0txx"]
 [ext_resource type="Texture2D" uid="uid://boe2k0o8yjumf" path="res://Assets/Icons/arrow_right.svg" id="5_68j85"]
 [ext_resource type="Texture2D" uid="uid://bhwaft25buxl4" path="res://Assets/kenney_particle/spark_07.png" id="5_ngssf"]
-[ext_resource type="Texture2D" uid="uid://eds5kafqbjmn" path="res://Assets/Icons/timer_0.svg" id="7_8nanx"]
 [ext_resource type="Texture2D" uid="uid://bequamwrwrfvk" path="res://icon.svg" id="8_qt2gg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hrdlb"]
@@ -44,7 +43,7 @@ outline_size = 16
 outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3xkhu"]
-bg_color = Color(0.796078, 0.74902, 0.658824, 1)
+bg_color = Color(0.796078, 0.74902, 0.658824, 0)
 border_width_left = 5
 border_width_top = 5
 border_width_right = 5
@@ -226,14 +225,13 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 100
 
-[node name="BackgroundTexture" type="TextureRect" parent="LeftBoxContainer/VBoxContainer"]
-self_modulate = Color(0.796078, 0.74902, 0.658824, 1)
-custom_minimum_size = Vector2(100, 0)
+[node name="ProfilePanel" type="Panel" parent="LeftBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
-texture = ExtResource("7_8nanx")
-expand_mode = 5
+tooltip_text = "Select mode"
+theme_override_styles/panel = SubResource("StyleBoxFlat_3xkhu")
 
-[node name="IconButton" type="TextureButton" parent="LeftBoxContainer/VBoxContainer/BackgroundTexture"]
+[node name="IconButton" type="TextureButton" parent="LeftBoxContainer/VBoxContainer/ProfilePanel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -251,14 +249,14 @@ texture_normal = ExtResource("8_qt2gg")
 ignore_texture_size = true
 stretch_mode = 4
 
-[node name="Namelabel" type="Label" parent="LeftBoxContainer/VBoxContainer/BackgroundTexture"]
+[node name="Namelabel" type="Label" parent="LeftBoxContainer/VBoxContainer/ProfilePanel"]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -15.0
-offset_bottom = 22.0
+offset_top = -10.0
+offset_bottom = 27.0
 grow_horizontal = 2
 grow_vertical = 0
 label_settings = SubResource("LabelSettings_mn0bc")
