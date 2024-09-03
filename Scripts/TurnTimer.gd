@@ -4,6 +4,10 @@ extends Timer
 
 func _ready():
 	%UI.move_made.connect(_onMoveMade)
+	GameManager.switchTurn.connect(_on_switch_turn)
+
+func _on_switch_turn(id):
+	startTimer()
 
 # Online Multiplayer
 func startTimer():
@@ -17,7 +21,7 @@ func stopTimer():
 
 func _onMoveMade():
 	stop()
-	GameManager.currentPlayerTurn = getNextId()
+
 # Online multiplayer
 #	if !multiplayer.is_server():
 #		return

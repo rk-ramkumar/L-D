@@ -10,6 +10,7 @@ var scene_paths = {
 	"AIArenaLobby": "res://Scenes/ai_arena_lobby.tscn"
 }
 var Players = {}
+var player = {}
 var playerLoaded: int = 0
 var availableId = [1,2, 3, 4]
 var teamList = { "L": {"actors": []}, "D": {"actors": []} }

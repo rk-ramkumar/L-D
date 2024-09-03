@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://b0ud7gjcvmw17"]
+[gd_scene load_steps=38 format=3 uid="uid://b0ud7gjcvmw17"]
 
 [ext_resource type="Script" path="res://Scripts/2D/playground.gd" id="1_5tede"]
 [ext_resource type="Texture2D" uid="uid://7b8r3ycl6y2t" path="res://Assets/Textures/soft_grass.png" id="2_fxc78"]
@@ -181,6 +181,13 @@ font_size = 64
 outline_size = 10
 outline_color = Color(0, 0, 0, 1)
 
+[sub_resource type="LabelSettings" id="LabelSettings_jh3ew"]
+font_size = 32
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 3
+shadow_color = Color(0, 0, 0, 0.752941)
+
 [node name="Playground" type="Node2D"]
 y_sort_enabled = true
 texture_filter = 1
@@ -224,11 +231,18 @@ tile_map = NodePath("../TileMap")
 unique_name_in_owner = true
 script = ExtResource("19_15107")
 
-[node name="Die1" parent="." instance=ExtResource("19_kovbs")]
+[node name="TopLevelProps" type="Node2D" parent="."]
+z_index = 3
+y_sort_enabled = true
+texture_filter = 1
+
+[node name="Die1" parent="TopLevelProps" instance=ExtResource("19_kovbs")]
+visible = false
 position = Vector2(-70, -300)
 frame_progress = 0.740922
 
-[node name="Die2" parent="." instance=ExtResource("19_kovbs")]
+[node name="Die2" parent="TopLevelProps" instance=ExtResource("19_kovbs")]
+visible = false
 position = Vector2(-190, -420)
 frame_progress = 0.740922
 
@@ -271,7 +285,36 @@ offset_left = -20.0
 offset_right = 20.0
 offset_bottom = 25.0
 grow_horizontal = 2
-text = "6"
 label_settings = SubResource("LabelSettings_w5gwk")
 
-[connection signal="clicked" from="CanvasLayer/UI/RollButton" to="CanvasLayer/UI" method="_on_roll_button_clicked"]
+[node name="StepLabel" type="Label" parent="CanvasLayer/UI"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 50.0
+offset_top = -60.0
+offset_right = 148.0
+offset_bottom = -8.0
+grow_vertical = 2
+text = "STEPS:"
+label_settings = SubResource("LabelSettings_jh3ew")
+horizontal_alignment = 1
+
+[node name="Steps" type="Label" parent="CanvasLayer/UI/StepLabel"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -2.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 0
+label_settings = SubResource("LabelSettings_jh3ew")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="roll_finished" from="TopLevelProps/Die1" to="." method="_on_die_rolled"]
+[connection signal="roll_finished" from="TopLevelProps/Die2" to="." method="_on_die_rolled"]
+[connection signal="clicked" from="CanvasLayer/UI/RollButton" to="." method="_on_roll_button_clicked"]
