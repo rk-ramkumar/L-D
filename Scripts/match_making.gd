@@ -149,4 +149,7 @@ func _on_start_pressed():
 	startGame.rpc()
 
 func _on_ai_play_button_clicked():
-	pass # Replace with function body.
+	var level = main_scene.instantiate()
+	level.add_resource_name("AIArenaLobby")
+	get_tree().root.add_child(level)
+	hide()

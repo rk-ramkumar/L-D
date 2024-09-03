@@ -3,6 +3,7 @@ extends Control
 var _progress = []
 var resource_names = []
 @onready var progress_bar = $ProgressBar
+@onready var fade_color_rect = $FadeColorRect
 
 func _ready():
 	if Time.get_ticks_msec() - GameManager.game_start_time < 1000:
@@ -46,6 +47,9 @@ func _process(_delta):
 			GameManager.scene_paths.MatchMaking:
 				if stage == ResourceLoader.THREAD_LOAD_LOADED:
 					_change_scene(resource_name)
+			GameManager.scene_paths.AIArenaLobby:
+				if stage == ResourceLoader.THREAD_LOAD_LOADED:
+					_change_scene(resource_name)
 			_:
 				if stage == ResourceLoader.THREAD_LOAD_FAILED:
 					printerr("Loading" + resource_name + "resource failed!")
@@ -62,6 +66,7 @@ func _change_scene(resource_name):
 		_progress[0],
 		0.5
 	)
+	tween.tween_property(fade_color_rect, "color:a", 1.0, 0.5)
 	tween.tween_callback(
 		get_tree().change_scene_to_packed.bind(resource)
 	)
