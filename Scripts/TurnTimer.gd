@@ -3,8 +3,9 @@ extends Timer
 @export var waitTime: float
 
 func _ready():
-	get_parent().moveMade.connect(_onMoveMade)
+	%UI.move_made.connect(_onMoveMade)
 
+# Online Multiplayer
 func startTimer():
 	if !multiplayer.is_server():
 		return
@@ -15,11 +16,14 @@ func stopTimer():
 	stop()
 
 func _onMoveMade():
-	if !multiplayer.is_server():
-		return
 	stop()
-	updatePlayerTurn.rpc(getNextId())
-	startTimer()
+	GameManager.currentPlayerTurn = getNextId()
+# Online multiplayer
+#	if !multiplayer.is_server():
+#		return
+#	stop()
+#	updatePlayerTurn.rpc(getNextId())
+#	startTimer()
 
 func getNextId():
 	var nextId = ((GameManager.currentPlayerTurn) % GameManager.playerLoaded) + 1
@@ -28,6 +32,3 @@ func getNextId():
 @rpc("authority", "call_local")
 func updatePlayerTurn(id):
 	GameManager.currentPlayerTurn = id
-	
-func _on_timeout():
-	_onMoveMade()
