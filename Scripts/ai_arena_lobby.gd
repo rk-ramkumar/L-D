@@ -6,7 +6,9 @@ extends Control
 @onready var containers = [$RightBoxContainer/VBoxContainer, $LeftBoxContainer/VBoxContainer]
 @onready var spark_divider = $SparkDivider
 
+var main_scene = preload("res://Scenes/loading.tscn")
 var default_player_detail = {
+	"id": 1,
 	"name": "rk",
 	"type": "player",
 	"team": "L",
@@ -21,6 +23,7 @@ var current_mode: String:
 		_update_container()
 
 func _ready():
+	v_box_container.set_meta("profile", default_player_detail)
 	current_mode = "Solo"
 	_on_viewport_changed()
 	get_viewport().size_changed.connect(_on_viewport_changed)
@@ -70,21 +73,35 @@ func _update_container():
 			player_loaded = 4
 
 func _get_player_details():
-	return _create_details() if current_mode == "Solo" else _create_details(2, ["L", "D"])
+	return _create_details() if current_mode == "Solo" else _create_details(2, 4, ["L", "D"])
 
-func _create_details(count = 1, team = ["D"]):
-	return range(0, count).map(func(i):
+func _create_details(start = 1, end = 2, team = ["D"]):
+	return range(start, end).map(func(i):
 		return {
+		"id": i+1,
 		"name": "Bot_" + str(randi()),
 		"type": "bot",
-		"team": team[i]
+		"team": team[i-start]
 		})
 
 func _add_bot_containers():
 	var player_details = _get_player_details()
 	for idx in player_details.size():
 		var box = v_box_container.duplicate(true)
+		box.set_meta("profile", player_details[idx])
 		box.get_node("IconButton").texture_normal = character_icon
 		box.get_node("Namelabel").text = player_details[idx].name
 		containers[idx%2].add_child(box)
 
+func _on_start_button_clicked():
+	GameManager.playerLoaded = player_loaded
+	containers.reverse()
+	containers.map(func(container): 
+		container.get_children().map(func(child):
+			var profile = child.get_meta("profile")
+			GameManager.Players[profile.id] = profile
+		))
+	var level = main_scene.instantiate()
+	level.add_resource_name("Playground")
+	get_tree().root.add_child(level)
+	hide()

@@ -93,6 +93,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 
 [node name="Background" type="ColorRect" parent="ModeSelectPopup/Control"]
 layout_mode = 1
@@ -176,37 +177,6 @@ rotation = 1.39626
 scale = Vector2(2, 2)
 texture = ExtResource("5_ngssf")
 
-[node name="ModeSelectPanel" type="Panel" parent="."]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -125.0
-offset_top = -170.0
-offset_right = 125.0
-offset_bottom = -20.0
-grow_horizontal = 2
-grow_vertical = 0
-tooltip_text = "Select mode"
-theme_override_styles/panel = SubResource("StyleBoxFlat_3xkhu")
-
-[node name="ModeSelectButton" parent="ModeSelectPanel" instance=ExtResource("2_3v5dp")]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -100.0
-offset_top = -50.0
-offset_right = 100.0
-offset_bottom = 50.0
-grow_horizontal = 2
-grow_vertical = 2
-icon = ExtResource("5_68j85")
-
 [node name="LeftBoxContainer" type="BoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 4
@@ -214,7 +184,7 @@ anchor_top = 0.5
 anchor_bottom = 0.5
 offset_top = -359.0
 offset_right = 432.0
-offset_bottom = 359.0
+offset_bottom = 191.0
 grow_vertical = 2
 alignment = 1
 
@@ -229,7 +199,9 @@ theme_override_constants/separation = 100
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 tooltip_text = "Select mode"
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_3xkhu")
+metadata/profile = {}
 
 [node name="IconButton" type="TextureButton" parent="LeftBoxContainer/VBoxContainer/ProfilePanel"]
 layout_mode = 1
@@ -272,7 +244,7 @@ anchor_right = 1.0
 anchor_bottom = 0.5
 offset_left = -432.0
 offset_top = -359.0
-offset_bottom = 359.0
+offset_bottom = 191.0
 grow_horizontal = 0
 grow_vertical = 2
 alignment = 1
@@ -284,6 +256,69 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 100
 
+[node name="ModeSelectPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 30.0
+offset_top = -170.0
+offset_right = 280.0
+offset_bottom = -20.0
+grow_vertical = 0
+tooltip_text = "Select mode"
+theme_override_styles/panel = SubResource("StyleBoxFlat_3xkhu")
+
+[node name="ModeSelectButton" parent="ModeSelectPanel" instance=ExtResource("2_3v5dp")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -50.0
+offset_right = 100.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+icon = ExtResource("5_68j85")
+
+[node name="StartPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -280.0
+offset_top = -170.0
+offset_right = -30.0
+offset_bottom = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+tooltip_text = "Select mode"
+theme_override_styles/panel = SubResource("StyleBoxFlat_3xkhu")
+
+[node name="StartButton" parent="StartPanel" instance=ExtResource("2_3v5dp")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -50.0
+offset_right = 100.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_hover_color = Color(0.85098, 0.835294, 0.952941, 1)
+text = "Start"
+font_color = Color(0.85098, 0.835294, 0.952941, 1)
+font_size = 64
+
 [connection signal="clicked" from="ModeSelectPopup/Control/Control/BackgroundColorPanel/ModeSelectionContainer/SoloModeButton" to="." method="_on_solo_mode_button_clicked"]
 [connection signal="clicked" from="ModeSelectPopup/Control/Control/BackgroundColorPanel/ModeSelectionContainer/DuoModeButton" to="." method="_on_duo_mode_button_clicked"]
 [connection signal="clicked" from="ModeSelectPanel/ModeSelectButton" to="." method="_on_mode_select_button_clicked"]
+[connection signal="clicked" from="StartPanel/StartButton" to="." method="_on_start_button_clicked"]
