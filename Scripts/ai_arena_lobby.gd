@@ -1,7 +1,7 @@
 extends Control
 
 @onready var popup = $ModeSelectPopup
-@onready var mode_select_button = $ModeSelectPanel/ModeSelectButton
+@onready var mode_select_button = $ModeSelectButton
 @onready var v_box_container = $LeftBoxContainer/VBoxContainer/ProfilePanel
 @onready var containers = [$RightBoxContainer/VBoxContainer, $LeftBoxContainer/VBoxContainer]
 @onready var spark_divider = $SparkDivider
