@@ -11,6 +11,7 @@ var scene_paths = {
 }
 var Players = {}
 var player = {}
+var actors_count = 6
 var playerLoaded: int = 0
 var availableId = [1,2, 3, 4]
 var teamList = { "L": {"actors": []}, "D": {"actors": []} }

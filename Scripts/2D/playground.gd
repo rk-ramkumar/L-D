@@ -6,7 +6,6 @@ signal moveMade
 @onready var tile_map = $TileMap
 @onready var dice = [$TopLevelProps/Die1, $TopLevelProps/Die2]
 @onready var steps_label = $CanvasLayer/UI/StepLabel/Steps
-
 enum tile_layer{
 	FLOOR,
 	BLOCKS,
@@ -15,11 +14,42 @@ enum tile_layer{
 var turnTime = 60
 var dice_numbers = []
 var is_rolling = false
+var actor_scene = preload("res://Scenes/2D/blackNoir.tscn")
 
 func _ready():
 	GameManager.player = GameManager.Players[1]
 	turn_timer.start()
+	# Current player actors
+	var player_positions = _get_spawn_position()
+	range(GameManager.actors_count).map(func(_no):_create_actors(player_positions))
+	#Opponent actors
+	var opponent_positions = _get_spawn_position(6, true)
+	range(GameManager.actors_count).map(func(_no):_create_actors(opponent_positions, Color.CRIMSON))
+
 	GameManager.switchTurn.connect(_handle_player_turn)
+
+func _create_actors(positions, color = Color.WHITE):
+	var actor = actor_scene.instantiate()
+	actor.home_positions = positions
+	actor.modulate = color
+	$TopLevelProps/Actors.add_child(actor)
+
+func _get_spawn_position(count = 6, opposite = false):
+	var top_left = Vector2(4, 4) # Start safe tile local position
+	var bottom_right = Vector2(16, 14) # Center tile local position
+	if opposite:
+		top_left.y = -bottom_right.y
+		bottom_right.y = -4
+	# Add offset
+	top_left.x += 4
+	bottom_right.x -= 4
+	var positions = []
+
+	for x in range(top_left.x, bottom_right.x + 1):
+		for y in range(top_left.y, bottom_right.y + 1):
+			positions.append(tile_map.map_to_local(Vector2(x, y)))
+
+	return positions
 
 func _handle_player_turn(id):
 	pass
