@@ -23,8 +23,8 @@ func _ready():
 	var player_positions = _get_spawn_position()
 	range(GameManager.actors_count).map(func(_no):_create_actors(player_positions))
 	#Opponent actors
-	var opponent_positions = _get_spawn_position(6, true)
-	range(GameManager.actors_count).map(func(_no):_create_actors(opponent_positions, Color.CRIMSON))
+	var opponent_positions = _get_spawn_position(true)
+	range(GameManager.actors_count).map(func(_no):_create_actors(opponent_positions, Color.RED))
 
 	GameManager.switchTurn.connect(_handle_player_turn)
 
@@ -34,7 +34,7 @@ func _create_actors(positions, color = Color.WHITE):
 	actor.modulate = color
 	$TopLevelProps/Actors.add_child(actor)
 
-func _get_spawn_position(count = 6, opposite = false):
+func _get_spawn_position(opposite = false):
 	var top_left = Vector2(4, 4) # Start safe tile local position
 	var bottom_right = Vector2(16, 14) # Center tile local position
 	if opposite:

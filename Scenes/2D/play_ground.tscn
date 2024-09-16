@@ -245,7 +245,6 @@ visible = false
 position = Vector2(-230, 390)
 
 [node name="Actors" type="Node2D" parent="TopLevelProps"]
-visible = false
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 2
