@@ -312,9 +312,6 @@ texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_13vkp")
 animation = &"roll"
 
-[node name="Timer" type="Timer" parent="AnimatedSprite"]
-one_shot = true
-
 [node name="Label" type="Label" parent="AnimatedSprite"]
 y_sort_enabled = true
 texture_filter = 1
@@ -337,4 +334,3 @@ position = Vector2(-2, 0)
 shape = SubResource("RectangleShape2D_pd26a")
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
-[connection signal="timeout" from="AnimatedSprite/Timer" to="AnimatedSprite" method="_on_timer_timeout"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://b0ud7gjcvmw17"]
+[gd_scene load_steps=39 format=3 uid="uid://b0ud7gjcvmw17"]
 
 [ext_resource type="Script" path="res://Scripts/2D/playground.gd" id="1_5tede"]
 [ext_resource type="Texture2D" uid="uid://7b8r3ycl6y2t" path="res://Assets/Textures/soft_grass.png" id="2_fxc78"]
@@ -184,8 +184,21 @@ shadow_offset = Vector2(2, 2)
 
 [sub_resource type="LabelSettings" id="LabelSettings_jh3ew"]
 font_size = 32
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
 shadow_size = 8
 shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hqah4"]
+bg_color = Color(0.796078, 0.74902, 0.658824, 1)
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_color = Color(0, 0, 0, 0.905882)
+shadow_size = 8
 shadow_offset = Vector2(2, 2)
 
 [node name="Playground" type="Node2D"]
@@ -311,6 +324,8 @@ offset_top = -2.0
 offset_bottom = 50.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_hqah4")
+text = "0"
 label_settings = SubResource("LabelSettings_jh3ew")
 horizontal_alignment = 1
 vertical_alignment = 1

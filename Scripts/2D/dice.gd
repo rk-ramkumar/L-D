@@ -8,7 +8,7 @@ signal roll_finished(number: int)
 
 var origin
 var number
-var faces_frame = [8, 30, 22, 16]
+var faces_frame = [16, 8, 30, 22]
 var roll_force = 900  # Adjust the force magnitude to control speed
 var is_rolling = false
 
@@ -40,10 +40,10 @@ func _on_position_anim_finished():
 	tween.tween_callback(tween.kill)
 
 func _animate_label():
-	if number == 3:
+	if number == 0:
 		return
 	var random_pos = Vector2(randf_range(-20, -10),  randf_range(-400, -300))
-	label.text = str(number+1)
+	label.text = str(number)
 	var tween = get_tree().create_tween()
 	tween.parallel().tween_property(label, "position", random_pos, 1).set_ease(Tween.EASE_IN_OUT)
 	tween.parallel().tween_property(label, "modulate:a", 0, 1).set_ease(Tween.EASE_IN_OUT)
@@ -58,11 +58,9 @@ func _reset():
 	_animate_label()
 	await get_tree().create_timer(disappear_time).timeout
 	animated_sprite.pause()
+	roll_finished.emit(number)
 	position = origin
 	hide()
-
-func _on_timer_timeout():
-	roll_finished.emit(number)
 
 func _on_visibility_changed():
 	if visible:
