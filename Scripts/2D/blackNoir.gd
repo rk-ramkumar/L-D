@@ -4,37 +4,41 @@ const SPEED = 200.0
 const JUMP_VELOCITY = -400.0
 
 @onready var animated_sprite_2d = $AnimatedSprite2D
+@onready var home_state_timer = $HomeStateTimer
+
 @export var tile_map: TileMap
 @export var current_direction: String
+@export var home_positions: Array = []
 
+enum state {
+	HOME,
+	FIELD
+}
 var directions = ["E", "SE", "S", "SW", "W", "NW", "N", "NE"]
 var tween
-
-# Get the gravity from the project settings to be synced with RigidBody nodes.
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+var current_state = state.HOME
 
 func _ready():
+	position = home_positions.pick_random()
+	_set_direction(get_angle_to(position))
 	_update_animation("_idle")
+	if current_state == state.HOME:
+		home_state_timer.start(5)
 
-func _input(event):
-	if event is InputEventScreenTouch:
-		var mouse_pos = get_local_mouse_position()
-		var angle = snappedf(mouse_pos.angle(), (PI/4)) / (PI/4)
-		angle = wrapi(int(angle), 0, 8)
-		current_direction = str(directions[angle])
-		_update_animation("_walk")
-		var pos = get_global_mouse_position()
-		_lerp_to_pos(pos)
+func _set_direction(position_angle = get_local_mouse_position().angle()):
+	var angle = snappedf(position_angle, (PI/4)) / (PI/4)
+	angle = wrapi(int(angle), 0, 8)
+	current_direction = str(directions[angle])
 
 func _physics_process(_delta):
 	if Input.is_action_just_pressed("ui_up"):
 		_update_animation("_jump")
 
-func _lerp_to_pos(pos):
+func _lerp_to_pos(pos, speed = SPEED):
 	if tween:
 		tween.kill()
 	tween = create_tween()
-	var time_delay = global_position.distance_to(pos) / SPEED
+	var time_delay = global_position.distance_to(pos) / speed
 	tween.tween_property(self, "position", pos, time_delay)
 	tween.tween_callback(_on_tween_position_finished)
 
@@ -65,3 +69,12 @@ func _on_tween_position_finished():
 		animated_sprite_2d.animation,
 		StringName(current_direction + "_idle"),
 		0.2)
+
+func _on_home_state_timer_timeout():
+	home_state_timer.stop()
+	var pos = home_positions.pick_random()
+	_set_direction(get_angle_to(pos))
+	_update_animation("_walk")
+	_lerp_to_pos(pos, 100)
+	await tween.finished
+	home_state_timer.start(10)

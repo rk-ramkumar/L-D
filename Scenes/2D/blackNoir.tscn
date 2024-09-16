@@ -5593,10 +5593,14 @@ script = ExtResource("1_7q140")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 y_sort_enabled = true
 texture_filter = 1
-scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_w1wst")
-animation = &"NE_jump"
+animation = &"E_idle"
 offset = Vector2(0, -35)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_maou1")
+
+[node name="HomeStateTimer" type="Timer" parent="."]
+wait_time = 2.0
+
+[connection signal="timeout" from="HomeStateTimer" to="." method="_on_home_state_timer_timeout"]
