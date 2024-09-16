@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://cesnpvcf7asln"]
+[gd_scene load_steps=46 format=3 uid="uid://cesnpvcf7asln"]
 
 [ext_resource type="Texture2D" uid="uid://bpr84q5quvw5f" path="res://Assets/Spritesheets/dice_spritesheet.png" id="1_tq040"]
 [ext_resource type="Script" path="res://Scripts/2D/dice.gd" id="2_kctup"]
@@ -298,18 +298,24 @@ outline_color = Color(1, 0, 0, 0.92549)
 shadow_size = 10
 shadow_color = Color(0, 0, 0, 0.376471)
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pd26a"]
+size = Vector2(74, 20)
+
+[node name="Dice" type="RigidBody2D"]
+rotation = 0.453786
+script = ExtResource("2_kctup")
+
+[node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
 z_index = -1
 y_sort_enabled = true
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_13vkp")
 animation = &"roll"
-script = ExtResource("2_kctup")
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Timer" type="Timer" parent="AnimatedSprite"]
 one_shot = true
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="AnimatedSprite"]
 y_sort_enabled = true
 texture_filter = 1
 anchors_preset = 8
@@ -323,7 +329,12 @@ offset_right = -38.5
 offset_bottom = -38.0
 grow_horizontal = 2
 grow_vertical = 2
+rotation = -0.453786
 label_settings = SubResource("LabelSettings_wwx2p")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2, 0)
+shape = SubResource("RectangleShape2D_pd26a")
+
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="AnimatedSprite/Timer" to="AnimatedSprite" method="_on_timer_timeout"]

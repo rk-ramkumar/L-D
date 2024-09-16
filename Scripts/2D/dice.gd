@@ -1,53 +1,41 @@
-extends AnimatedSprite2D
+extends RigidBody2D
 
 signal roll_finished(number: int)
 
-@export var roll_area_size = Vector2(100, 100)  # Adjust the area size as needed
 @export var disappear_time: int = 2
-@onready var label = $Label
+@onready var label = $AnimatedSprite/Label
+@onready var animated_sprite = $AnimatedSprite
 
-var origin: Vector2
+var origin
 var number
-var faces_frame = [38, 30, 22, 14]
-var fall_speed = 400
+var faces_frame = [8, 30, 22, 16]
+var roll_force = 900  # Adjust the force magnitude to control speed
+var is_rolling = false
 
 func _ready():
 	origin = position
-	set_seed()
-	set_process(false)
 
 func set_seed():
 	randomize()
 	number = randi() % 4
-	set_process(true)
+	roll_dice()
 
-func _process(delta):
-	if position.y < 0:
-		position.y += fall_speed * delta
-	else:
-		set_process(false)
-		# Start the random frame change function
-		randomize_rotation()
-		randomize_position()
+func roll_dice():
+	animated_sprite.play_backwards("roll")
+	var random_direction = Vector2(randf_range(0, 0), randf_range(-1, -0.5)).normalized()
+	linear_velocity = random_direction * roll_force
+	is_rolling = true
 
-func randomize_position():
-	# Randomly change position within the defined roll area
-	var random_x = randf_range(-roll_area_size.x / 2, roll_area_size.x / 2)
-	var random_y = randf_range(-roll_area_size.y / 2, roll_area_size.y / 2)
-	# Set up the AnimatedSprite to play
-	if [random_x, random_y].any(func(axis): return sign(axis) == -1):
-		play("roll", 1.0, true)
-	else:
-		play("roll")
-
-	var tween = get_tree().create_tween()
-	tween.tween_property(self, "position", Vector2(random_x, random_y) + position, 0.5)
-	tween.tween_callback(_on_position_anim_finished)
-	tween.tween_callback(tween.kill)
+func _integrate_forces(state):
+	if linear_velocity.length() < 1 and is_rolling:
+		# Stop the dice and choose a random frame for the final dice face
+		linear_velocity = Vector2.ZERO
+		_on_position_anim_finished()
+		is_rolling = false
 
 func _on_position_anim_finished():
 	var tween = get_tree().create_tween()
-	tween.tween_property(self, "frame", faces_frame[number], 0.5)
+	tween.tween_property(animated_sprite, "frame", faces_frame[number], 0.2)
 	tween.tween_callback(_reset)
 	tween.tween_callback(tween.kill)
 
@@ -69,23 +57,13 @@ func _on_label_anim_finished():
 func _reset():
 	_animate_label()
 	await get_tree().create_timer(disappear_time).timeout
-	pause()
+	animated_sprite.pause()
 	position = origin
 	hide()
-
-func randomize_rotation():
-	# Generate a random rotation angle
-	var random_angle = randf_range(-45, 45)
-	# Apply the rotation to the sprite
-	rotation_degrees = random_angle
-	# Optionally, scale the sprite slightly to enhance the 3D effect
-	var random_scale = Vector2(randf_range(0.9, 1.1), randf_range(0.9, 1.1))
-	scale = random_scale
 
 func _on_timer_timeout():
 	roll_finished.emit(number)
 
 func _on_visibility_changed():
-	if visible and origin:
-		position = origin
+	if visible:
 		set_seed()

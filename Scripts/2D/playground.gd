@@ -71,7 +71,7 @@ func _on_roll_button_clicked():
 	if is_rolling:
 		return
 
-	ui.get_node("RollButton").disabled = true
+#	ui.get_node("RollButton").disabled = true
 	is_rolling = true
 	turn_timer.stop()
 	dice.map(func(die): die.visible = true)

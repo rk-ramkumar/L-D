@@ -238,15 +238,14 @@ texture_filter = 1
 
 [node name="Die1" parent="TopLevelProps" instance=ExtResource("19_kovbs")]
 visible = false
-position = Vector2(-70, -300)
-frame_progress = 0.740922
+position = Vector2(-400, 490)
 
 [node name="Die2" parent="TopLevelProps" instance=ExtResource("19_kovbs")]
 visible = false
-position = Vector2(-190, -420)
-frame_progress = 0.740922
+position = Vector2(-230, 390)
 
 [node name="Actors" type="Node2D" parent="TopLevelProps"]
+visible = false
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 2
