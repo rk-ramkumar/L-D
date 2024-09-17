@@ -1,6 +1,7 @@
 extends Node
 
 signal roll_completed
+signal roll_started
 signal roll_failed
 signal move_completed
 signal move_failed
