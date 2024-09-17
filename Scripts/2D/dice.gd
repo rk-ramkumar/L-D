@@ -26,7 +26,7 @@ func roll_dice():
 	linear_velocity = random_direction * roll_force
 	is_rolling = true
 
-func _integrate_forces(state):
+func _integrate_forces(_state):
 	if linear_velocity.length() < 1 and is_rolling:
 		# Stop the dice and choose a random frame for the final dice face
 		linear_velocity = Vector2.ZERO
