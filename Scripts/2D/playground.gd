@@ -16,17 +16,21 @@ var is_rolling = false
 var actor_scene = preload("res://Scenes/2D/blackNoir.tscn")
 
 func _ready():
+	connect_signals()
 	GameManager.player = GameManager.Players[1]
-	turn_timer.start()
 	# Current player actors
 	var player_positions = _get_spawn_position()
 	range(GameManager.actors_count).map(func(_no):_create_actors(player_positions))
 	#Opponent actors
 	var opponent_positions = _get_spawn_position(true)
 	range(GameManager.actors_count).map(func(_no):_create_actors(opponent_positions, Color.RED))
+	
+	Observer.turn_started.emit()
 
-	GameManager.switchTurn.connect(_handle_player_turn)
-
+func connect_signals():
+	Observer.roll_started.connect(_handle_roll_started)
+	Observer.roll_completed.connect(_handle_roll_completed)
+	
 func _create_actors(positions, color = Color.WHITE):
 	var actor = actor_scene.instantiate()
 	actor.home_positions = positions
@@ -53,6 +57,18 @@ func _get_spawn_position(opposite = false):
 func _handle_player_turn(id):
 	pass
 
+func _handle_roll_started():
+	is_rolling = true
+	turn_timer.stop()
+	dice.map(func(die): die.visible = true)
+
+func _handle_roll_completed():
+	is_rolling = false
+	GameManager.currentDieNumber = dice_numbers.reduce(func(acc, cur): return acc+cur, 0)
+	dice_numbers = []
+	steps_label.text = str(GameManager.currentDieNumber)
+#	GameManager.currentPlayerTurn = turn_timer.getNextId()
+
 func get_clicked_tile_data(layer_name, layer_id = tile_layer.FLOOR):
 	var clicked_cell = tile_map.local_to_map(tile_map.get_local_mouse_position())
 	var surrounding_cells = tile_map.get_surrounding_cells(clicked_cell)
@@ -69,16 +85,9 @@ func _input(event):
 func _on_roll_button_clicked():
 	if is_rolling:
 		return
-
-#	ui.get_node("RollButton").disabled = true
-	is_rolling = true
-	turn_timer.stop()
-	dice.map(func(die): die.visible = true)
+	Observer.roll_started.emit()
 
 func _on_die_rolled(number):
 	dice_numbers.append(number)
 	if dice_numbers.size() == 2:
-		is_rolling = false
-		GameManager.currentDieNumber = dice_numbers.reduce(func(acc, cur): return acc+cur, 0)
-		steps_label.text = str(GameManager.currentDieNumber)
-		GameManager.currentPlayerTurn = turn_timer.getNextId()
+		Observer.roll_completed.emit()

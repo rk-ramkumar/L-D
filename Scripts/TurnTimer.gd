@@ -3,7 +3,7 @@ extends Timer
 @export var waitTime: float
 
 func _ready():
-	pass
+	Observer.turn_started.connect(startTimer)
 
 func _on_switch_turn(id):
 	startTimer()
