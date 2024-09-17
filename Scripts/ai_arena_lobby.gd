@@ -10,7 +10,7 @@ var main_scene = preload("res://Scenes/loading.tscn")
 var default_player_detail = {
 	"id": 1,
 	"name": "rk",
-	"type": "player",
+	"type": "pc",
 	"team": "L",
 	"icon": "res://icon.svg"
 }
@@ -80,7 +80,7 @@ func _create_details(start = 1, end = 2, team = ["D"]):
 		return {
 		"id": i+1,
 		"name": "Bot_" + str(randi()),
-		"type": "bot",
+		"type": "npc",
 		"team": team[i-start]
 		})
 
