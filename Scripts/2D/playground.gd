@@ -1,6 +1,5 @@
 extends Node2D
 
-signal moveMade
 @onready var turn_timer = %TurnTimer
 @onready var ui = $CanvasLayer/UI
 @onready var tile_map = $TileMap

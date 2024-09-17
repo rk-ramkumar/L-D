@@ -1,7 +1,5 @@
 extends Node
 
-signal switchTurn(id)
-
 @onready var game_start_time = Time.get_ticks_msec()
 var scene_paths = {
 	"Playground": "res://Scenes/2D/play_ground.tscn",
@@ -21,7 +19,6 @@ var currentPlayerTurn: int = 1:
 		return currentPlayerTurn
 	set(id):
 		currentPlayerTurn = id
-		switchTurn.emit(id)
 var currentDieNumber: int :
 	get:
 		return currentDieNumber
