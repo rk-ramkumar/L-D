@@ -4,7 +4,6 @@ extends Node2D
 @onready var ui = $CanvasLayer/UI
 @onready var tile_map = $TileMap
 @onready var dice = [$TopLevelProps/Die1, $TopLevelProps/Die2]
-@onready var steps_label = $CanvasLayer/UI/StepLabel/Steps
 enum tile_layer{
 	FLOOR,
 	BLOCKS,
@@ -64,9 +63,7 @@ func _handle_roll_started():
 
 func _handle_roll_completed():
 	is_rolling = false
-	GameManager.currentDieNumber = dice_numbers.reduce(func(acc, cur): return acc+cur, 0)
 	dice_numbers = []
-	steps_label.text = str(GameManager.currentDieNumber)
 #	GameManager.currentPlayerTurn = turn_timer.getNextId()
 
 func get_clicked_tile_data(layer_name, layer_id = tile_layer.FLOOR):
@@ -90,4 +87,5 @@ func _on_roll_button_clicked():
 func _on_die_rolled(number):
 	dice_numbers.append(number)
 	if dice_numbers.size() == 2:
+		GameManager.currentDieNumber = dice_numbers.reduce(func(acc, cur): return acc+cur, 0)
 		Observer.roll_completed.emit()

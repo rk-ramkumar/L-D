@@ -4,6 +4,8 @@ extends Timer
 
 func _ready():
 	Observer.turn_started.connect(startTimer)
+	Observer.roll_started.connect(stopTimer)
+	Observer.roll_completed.connect(startTimer)
 
 func _on_switch_turn(id):
 	startTimer()
