@@ -293,10 +293,9 @@ animations = [{
 
 [sub_resource type="LabelSettings" id="LabelSettings_wwx2p"]
 font_size = 48
-outline_size = 5
-outline_color = Color(1, 0, 0, 0.92549)
-shadow_size = 10
-shadow_color = Color(0, 0, 0, 0.376471)
+shadow_size = 12
+shadow_color = Color(1, 0, 0, 0.92549)
+shadow_offset = Vector2(2, 2)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pd26a"]
 size = Vector2(74, 20)

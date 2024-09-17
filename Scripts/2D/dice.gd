@@ -42,7 +42,7 @@ func _on_position_anim_finished():
 func _animate_label():
 	if number == 0:
 		return
-	var random_pos = Vector2(randf_range(-20, -10),  randf_range(-400, -300))
+	var random_pos = Vector2(randf_range(-100, -150),  randf_range(-200, -250))
 	label.text = str(number)
 	var tween = get_tree().create_tween()
 	tween.parallel().tween_property(label, "position", random_pos, 1).set_ease(Tween.EASE_IN_OUT)
