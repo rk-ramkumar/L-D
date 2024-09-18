@@ -34,10 +34,11 @@ func _add_actors():
 		team = "D" if GameManager.player.team == "L" else "L"
 	}
 	for args in [player_args, opponent_args]:
-		range(GameManager.actors_count).map(func(_no):_create_actors(args))
+		range(GameManager.actors_count).map(func(id):_create_actors(args, id+1))
 
-func _create_actors(args):
+func _create_actors(args, id):
 	var actor = actor_scene.instantiate()
+	actor.name = "Actor_{team}_{id}".format({team = args.team, id = id})
 	actor.data = args
 	actor.modulate = args.get("color", Color.WHITE)
 	GameManager.teamList[args.team].actors.append(actor)
