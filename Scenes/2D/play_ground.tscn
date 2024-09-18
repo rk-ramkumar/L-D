@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://b0ud7gjcvmw17"]
+[gd_scene load_steps=39 format=3 uid="uid://b0ud7gjcvmw17"]
 
 [ext_resource type="Script" path="res://Scripts/2D/playground.gd" id="1_5tede"]
 [ext_resource type="Texture2D" uid="uid://7b8r3ycl6y2t" path="res://Assets/Textures/soft_grass.png" id="2_fxc78"]
@@ -20,7 +20,6 @@
 [ext_resource type="Script" path="res://Scripts/TurnTimer.gd" id="19_15107"]
 [ext_resource type="PackedScene" uid="uid://cesnpvcf7asln" path="res://Scenes/2D/dice.tscn" id="19_kovbs"]
 [ext_resource type="LabelSettings" uid="uid://df6737in4bsjs" path="res://Assets/Resources/medium_label.tres" id="20_gba6p"]
-[ext_resource type="PackedScene" uid="uid://b12w16mhadndh" path="res://Scenes/players_card_carousel.tscn" id="21_iss00"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_t6d53"]
 tile_data = PackedInt32Array(0, 2, 0, 65536, 4, 0)
@@ -178,15 +177,6 @@ expand_margin_right = 20.0
 shadow_size = 14
 shadow_offset = Vector2(12, 12)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1rxat"]
-bg_color = Color(1, 1, 1, 0.247059)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-shadow_color = Color(0, 0, 0, 0.443137)
-shadow_size = 10
-
 [sub_resource type="LabelSettings" id="LabelSettings_w5gwk"]
 font_size = 64
 shadow_size = 16
@@ -292,40 +282,6 @@ grow_vertical = 0
 theme_override_styles/hover = SubResource("StyleBoxFlat_t57bw")
 text = "Roll"
 icon = ExtResource("16_qts8j")
-
-[node name="Background" type="Panel" parent="CanvasLayer/UI"]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 100.0
-grow_horizontal = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_1rxat")
-
-[node name="LeftCardsContainer" parent="CanvasLayer/UI/Background" instance=ExtResource("21_iss00")]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_right = 0.0
-anchor_bottom = 0.5
-offset_top = -37.5
-offset_right = 1280.0
-offset_bottom = 112.5
-grow_horizontal = 1
-grow_vertical = 2
-
-[node name="RightCardsContainer" parent="CanvasLayer/UI/Background" instance=ExtResource("21_iss00")]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = -640.0
-offset_top = -37.5
-offset_right = 640.0
-offset_bottom = 112.5
-grow_horizontal = 0
-grow_vertical = 2
-team = "D"
 
 [node name="TimerLabel" type="Label" parent="CanvasLayer/UI"]
 layout_mode = 1
