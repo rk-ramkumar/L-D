@@ -4,6 +4,7 @@ signal roll_completed
 signal roll_started
 signal roll_failed
 signal move_completed
+signal move_started
 signal move_failed
 signal next_turn
 signal piece_selected

@@ -8,26 +8,23 @@ const JUMP_VELOCITY = -400.0
 
 @export var tile_map: TileMap
 @export var current_direction: String
-@export var home_positions: Array = []
-
-enum state {
-	HOME,
-	FIELD
-}
+@export var data: Dictionary = {}
 var directions = ["E", "SE", "S", "SW", "W", "NW", "N", "NE"]
 var tween
-var current_state = state.HOME:
+var position_id = 0
+var movable: bool = true
+var current_state = GameManager.player_state.HOME:
 	set(new_state):
 		current_state = new_state
 		_set_current_state()
 
 func _ready():
-	position = home_positions.pick_random()
+	position = data.positions.pick_random()
 	_set_direction(get_angle_to(position))
 	_update_animation("_idle")
 
 func _set_current_state():
-	if current_state == state.HOME:
+	if current_state == GameManager.player_state.HOME:
 		home_state_timer.start(5)
 	else:
 		home_state_timer.stop()
@@ -75,7 +72,7 @@ func _on_tween_position_finished():
 
 func _on_home_state_timer_timeout():
 	home_state_timer.stop()
-	var pos = home_positions.pick_random()
+	var pos = data.positions.pick_random()
 	_set_direction(get_angle_to(pos))
 	_update_animation("_walk")
 	_lerp_to_pos(pos, 100)

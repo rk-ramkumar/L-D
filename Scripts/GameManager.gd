@@ -14,6 +14,8 @@ var playerLoaded: int = 0
 var availableId = [1,2, 3, 4]
 var teamList = { "L": {"actors": []}, "D": {"actors": []} }
 var gameOver: bool = false
+var one_more: bool = false
+var max_tile_id = 80
 var currentPlayerTurn: int = 1:
 	get:
 		return currentPlayerTurn
@@ -27,4 +29,7 @@ var currentDieNumber: int :
 			currentDieNumber = 12
 		else:
 			currentDieNumber = newNumber
-
+enum player_state {
+	HOME,
+	FIELD
+}

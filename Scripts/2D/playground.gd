@@ -17,23 +17,30 @@ var actor_scene = preload("res://Scenes/2D/blackNoir.tscn")
 func _ready():
 	connect_signals()
 	GameManager.player = GameManager.Players[1]
-	# Current player actors
-	var player_positions = _get_spawn_position()
-	range(GameManager.actors_count).map(func(_no):_create_actors(player_positions))
-	#Opponent actors
-	var opponent_positions = _get_spawn_position(true)
-	range(GameManager.actors_count).map(func(_no):_create_actors(opponent_positions, Color.RED))
-	
+	_add_actors()
 	Observer.turn_started.emit()
 
 func connect_signals():
 	Observer.roll_started.connect(_handle_roll_started)
 	Observer.roll_completed.connect(_handle_roll_completed)
-	
-func _create_actors(positions, color = Color.WHITE):
+
+func _add_actors():
+	var player_args ={
+		positions = _get_spawn_position(),
+		team = GameManager.player.team
+	}
+	var opponent_args ={
+		positions = _get_spawn_position(true),
+		team = "D" if GameManager.player.team == "L" else "L"
+	}
+	for args in [player_args, opponent_args]:
+		range(GameManager.actors_count).map(func(_no):_create_actors(args))
+
+func _create_actors(args):
 	var actor = actor_scene.instantiate()
-	actor.home_positions = positions
-	actor.modulate = color
+	actor.data = args
+	actor.modulate = args.get("color", Color.WHITE)
+	GameManager.teamList[args.team].actors.append(actor)
 	$TopLevelProps/Actors.add_child(actor)
 
 func _get_spawn_position(opposite = false):
@@ -64,7 +71,34 @@ func _handle_roll_started():
 func _handle_roll_completed():
 	is_rolling = false
 	dice_numbers = []
-#	GameManager.currentPlayerTurn = turn_timer.getNextId()
+	var actors = GameManager.teamList[
+		GameManager.Players[GameManager.currentPlayerTurn].team
+	].actors
+	var is_all_home = actors.all(func(actor):
+		return actor.current_state == GameManager.player_state.HOME)
+
+	if is_all_home and GameManager.currentDieNumber != 1:
+		GameManager.currentPlayerTurn = _get_next_id()
+		Observer.next_turn.emit()
+		return
+
+	_set_movable(actors)
+	if actors.any(func(actor): return actor.movable):
+		Observer.move_started.emit()
+	else:
+		GameManager.currentPlayerTurn = _get_next_id()
+		Observer.next_turn.emit()
+
+func _set_movable(actors):
+	## Check for powers that stop movable
+	for actor in actors:
+		if actor.position_id + GameManager.currentDieNumber > GameManager.max_tile_id:
+			actor.movable = false
+		else:
+			actor.movable = true
+
+func _get_next_id():
+	return (GameManager.currentPlayerTurn % GameManager.playerLoaded) + 1
 
 func get_clicked_tile_data(layer_name, layer_id = tile_layer.FLOOR):
 	var clicked_cell = tile_map.local_to_map(tile_map.get_local_mouse_position())
