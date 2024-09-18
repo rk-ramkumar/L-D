@@ -17,6 +17,7 @@ var actor_scene = preload("res://Scenes/2D/blackNoir.tscn")
 func _ready():
 	connect_signals()
 	GameManager.player = GameManager.Players[1]
+	_add_npc_players()
 	_add_actors()
 	Observer.next_turn.emit()
 
@@ -24,6 +25,14 @@ func connect_signals():
 	Observer.roll_started.connect(_handle_roll_started)
 	Observer.roll_completed.connect(_handle_roll_completed)
 	Observer.next_turn.connect(_handle_next_turn)
+
+func _add_npc_players():
+	for player in GameManager.Players.values():
+		if player.type != "npc":
+			continue
+		var npcPlayer = NPCPlayer.new()
+		npcPlayer.player = player
+		add_child(npcPlayer)
 
 func _add_actors():
 	var player_args ={
