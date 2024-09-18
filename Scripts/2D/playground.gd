@@ -18,11 +18,12 @@ func _ready():
 	connect_signals()
 	GameManager.player = GameManager.Players[1]
 	_add_actors()
-	Observer.turn_started.emit()
+	Observer.next_turn.emit()
 
 func connect_signals():
 	Observer.roll_started.connect(_handle_roll_started)
 	Observer.roll_completed.connect(_handle_roll_completed)
+	Observer.next_turn.connect(_handle_next_turn)
 
 func _add_actors():
 	var player_args ={
@@ -79,7 +80,6 @@ func _handle_roll_completed():
 		return actor.current_state == GameManager.player_state.HOME)
 
 	if is_all_home and GameManager.currentDieNumber != 1:
-		GameManager.currentPlayerTurn = _get_next_id()
 		Observer.next_turn.emit()
 		return
 
@@ -87,8 +87,11 @@ func _handle_roll_completed():
 	if actors.any(func(actor): return actor.movable):
 		Observer.move_started.emit()
 	else:
-		GameManager.currentPlayerTurn = _get_next_id()
 		Observer.next_turn.emit()
+
+func _handle_next_turn():
+	GameManager.currentPlayerTurn = _get_next_id()
+	Observer.turn_started.emit()
 
 func _set_movable(actors):
 	## Check for powers that stop movable

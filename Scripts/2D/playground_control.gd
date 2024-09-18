@@ -15,6 +15,7 @@ func _ready():
 
 func _on_turn_started():
 	timer_label.text = str(turn_time)
+	roll_button.disabled = GameManager.currentPlayerTurn != GameManager.player.id
 	state = "roll"
 
 func _on_move_started():
