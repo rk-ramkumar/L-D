@@ -16,11 +16,7 @@ var teamList = { "L": {"actors": []}, "D": {"actors": []} }
 var gameOver: bool = false
 var one_more: bool = false
 var max_tile_id = 80
-var currentPlayerTurn: int = 1:
-	get:
-		return currentPlayerTurn
-	set(id):
-		currentPlayerTurn = id
+var currentPlayerTurn: int = 1
 var currentDieNumber: int :
 	get:
 		return currentDieNumber
