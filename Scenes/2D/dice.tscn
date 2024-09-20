@@ -229,7 +229,7 @@ shadow_color = Color(1, 0, 0, 0.92549)
 shadow_offset = Vector2(2, 2)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pd26a"]
-size = Vector2(74, 20)
+size = Vector2(85, 35)
 
 [sub_resource type="Gradient" id="Gradient_afxwv"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
@@ -252,7 +252,7 @@ scale_max = 2.0
 color_ramp = SubResource("GradientTexture1D_lbq1h")
 
 [node name="Dice" type="RigidBody2D"]
-rotation = 0.453786
+collision_layer = 8
 script = ExtResource("2_kctup")
 
 [node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
@@ -280,8 +280,8 @@ rotation = -0.453786
 label_settings = SubResource("LabelSettings_wwx2p")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(-2, 0)
+rotation = -0.453786
+skew = -0.785398
 shape = SubResource("RectangleShape2D_pd26a")
 
 [node name="DustParticles" type="GPUParticles2D" parent="."]
