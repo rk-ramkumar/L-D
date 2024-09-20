@@ -252,6 +252,7 @@ scale_max = 2.0
 color_ramp = SubResource("GradientTexture1D_lbq1h")
 
 [node name="Dice" type="RigidBody2D"]
+rotation = 0.453786
 script = ExtResource("2_kctup")
 
 [node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
@@ -260,7 +261,6 @@ y_sort_enabled = true
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_13vkp")
 animation = &"roll"
-frame_progress = 0.200572
 
 [node name="Label" type="Label" parent="AnimatedSprite"]
 y_sort_enabled = true
@@ -280,14 +280,15 @@ rotation = -0.453786
 label_settings = SubResource("LabelSettings_wwx2p")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(-2, 0)
 shape = SubResource("RectangleShape2D_pd26a")
 
 [node name="DustParticles" type="GPUParticles2D" parent="."]
 position = Vector2(10, 20)
-amount = 4
+emitting = false
 process_material = SubResource("ParticleProcessMaterial_uqi1j")
 texture = ExtResource("3_275wt")
-preprocess = 2.0
+one_shot = true
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
