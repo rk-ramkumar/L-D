@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://cesnpvcf7asln"]
+[gd_scene load_steps=40 format=3 uid="uid://cesnpvcf7asln"]
 
 [ext_resource type="Texture2D" uid="uid://bpr84q5quvw5f" path="res://Assets/Spritesheets/dice_spritesheet.png" id="1_tq040"]
 [ext_resource type="Script" path="res://Scripts/2D/dice.gd" id="2_kctup"]
@@ -8,25 +8,9 @@
 atlas = ExtResource("1_tq040")
 region = Rect2(0, 0, 128, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_6m8l1"]
-atlas = ExtResource("1_tq040")
-region = Rect2(128, 0, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qse3f"]
-atlas = ExtResource("1_tq040")
-region = Rect2(256, 0, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_otds7"]
-atlas = ExtResource("1_tq040")
-region = Rect2(384, 0, 128, 128)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_uyefd"]
 atlas = ExtResource("1_tq040")
 region = Rect2(512, 0, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_peet0"]
-atlas = ExtResource("1_tq040")
-region = Rect2(640, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7lc34"]
 atlas = ExtResource("1_tq040")
@@ -39,10 +23,6 @@ region = Rect2(896, 0, 128, 128)
 [sub_resource type="AtlasTexture" id="AtlasTexture_dh2gr"]
 atlas = ExtResource("1_tq040")
 region = Rect2(0, 128, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7m8v6"]
-atlas = ExtResource("1_tq040")
-region = Rect2(128, 128, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8x15i"]
 atlas = ExtResource("1_tq040")
@@ -151,19 +131,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_fsjsy")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_6m8l1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qse3f")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_otds7")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_uyefd")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_peet0")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_7lc34")
@@ -173,9 +141,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_dh2gr")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7m8v6")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_8x15i")
@@ -295,7 +260,7 @@ y_sort_enabled = true
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_13vkp")
 animation = &"roll"
-frame_progress = 0.981017
+frame_progress = 0.200572
 
 [node name="Label" type="Label" parent="AnimatedSprite"]
 y_sort_enabled = true
