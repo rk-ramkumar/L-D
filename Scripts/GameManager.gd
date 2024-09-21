@@ -29,7 +29,4 @@ enum player_state {
 	HOME,
 	FIELD
 }
-var selected_actor:
-	set(new_actor):
-		selected_actor = new_actor
-		Observer.actor_selected.emit(selected_actor)
+var selected_actor

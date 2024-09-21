@@ -14,12 +14,20 @@ func _ready():
 
 func _on_gui_input(event):
 	if event is InputEventScreenTouch:
-		if event.is_pressed() and !selected:
-			animation_player.play("select")
-			GameManager.selected_actor = data.actor
-			selected = true
-			data.parent.card_selected(self)
+		if event.is_pressed():
+			if selected:
+				GameManager.selected_actor = null
+				deselect()
+			else:
+				select()
 
+func select():
+	selected = true
+	animation_player.play("select")
+	GameManager.selected_actor = data.actor
+	data.parent.card_selected(self)
+	Observer.actor_selected.emit(data.actor)
+	
 func deselect():
 	selected = false
 	animation_player.play_backwards("select")
