@@ -1,11 +1,16 @@
-extends HBoxContainer
+extends Panel
 
 var card_scene = preload("res://Scenes/players_card.tscn")
-@export var team = "L"
+@onready var cards_container = $ScrollContainer/MarginContainer/CardsContainer
+
+@export var actors = []
+@export var playground: Node
 
 func _ready():
-	for player in GameManager.Players.values():
-		if player.team == team:
-			var player_card = card_scene.instantiate()
-			player_card.player = player
-			add_child(player_card)
+	await playground.ready
+	for actor in actors:
+		var player_card = card_scene.instantiate()
+		player_card.actor_data = {
+			"name": actor.name
+		}
+		cards_container.add_child(player_card)

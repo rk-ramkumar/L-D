@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://b0ud7gjcvmw17"]
+[gd_scene load_steps=40 format=3 uid="uid://b0ud7gjcvmw17"]
 
 [ext_resource type="Script" path="res://Scripts/2D/playground.gd" id="1_5tede"]
 [ext_resource type="Texture2D" uid="uid://7b8r3ycl6y2t" path="res://Assets/Textures/soft_grass.png" id="2_fxc78"]
@@ -20,6 +20,7 @@
 [ext_resource type="Script" path="res://Scripts/TurnTimer.gd" id="19_15107"]
 [ext_resource type="PackedScene" uid="uid://cesnpvcf7asln" path="res://Scenes/2D/dice.tscn" id="19_kovbs"]
 [ext_resource type="LabelSettings" uid="uid://df6737in4bsjs" path="res://Assets/Resources/medium_label.tres" id="20_gba6p"]
+[ext_resource type="PackedScene" uid="uid://b12w16mhadndh" path="res://Scenes/players_card_carousel.tscn" id="21_pdwa2"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_t6d53"]
 tile_data = PackedInt32Array(0, 2, 0, 65536, 4, 0)
@@ -207,6 +208,7 @@ position_smoothing_enabled = true
 script = ExtResource("2_qie20")
 
 [node name="TileMap" type="TileMap" parent="."]
+visible = false
 y_sort_enabled = true
 texture_filter = 1
 tile_set = SubResource("TileSet_iymmt")
@@ -274,9 +276,9 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -240.0
-offset_top = -150.0
+offset_top = -240.0
 offset_right = -40.0
-offset_bottom = -50.0
+offset_bottom = -140.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_styles/hover = SubResource("StyleBoxFlat_t57bw")
@@ -323,6 +325,10 @@ text = "0"
 label_settings = ExtResource("20_gba6p")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="PlayersCardCarousel" parent="CanvasLayer/UI" node_paths=PackedStringArray("playground") instance=ExtResource("21_pdwa2")]
+layout_mode = 1
+playground = NodePath("../../..")
 
 [connection signal="roll_finished" from="TopLevelProps/Die1" to="." method="_on_die_rolled"]
 [connection signal="roll_finished" from="TopLevelProps/Die2" to="." method="_on_die_rolled"]

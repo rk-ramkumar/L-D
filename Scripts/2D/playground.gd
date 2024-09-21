@@ -4,6 +4,9 @@ extends Node2D
 @onready var ui = $CanvasLayer/UI
 @onready var tile_map = $TileMap
 @onready var dice = [$TopLevelProps/Die1, $TopLevelProps/Die2]
+@onready var actors_parent = $TopLevelProps/Actors
+@onready var players_card_carousel = $CanvasLayer/UI/PlayersCardCarousel
+
 enum tile_layer{
 	FLOOR,
 	BLOCKS,
@@ -44,7 +47,9 @@ func _add_actors():
 		team = "D" if GameManager.player.team == "L" else "L"
 	}
 	for args in [player_args, opponent_args]:
-		range(GameManager.actors_count).map(func(id):_create_actors(args, id+1))
+		var actors = range(GameManager.actors_count).map(func(id): return _create_actors(args, id+1))
+		if args == player_args:
+			players_card_carousel.actors = actors
 
 func _create_actors(args, id):
 	var actor = actor_scene.instantiate()
@@ -52,7 +57,8 @@ func _create_actors(args, id):
 	actor.data = args
 	actor.modulate = args.get("color", Color.WHITE)
 	GameManager.teamList[args.team].actors.append(actor)
-	$TopLevelProps/Actors.add_child(actor)
+	actors_parent.add_child(actor)
+	return actor
 
 func _get_spawn_position(opposite = false):
 	var top_left = Vector2(4, 4) # Start safe tile local position
@@ -124,7 +130,10 @@ func get_clicked_tile_data(layer_name, layer_id = tile_layer.FLOOR):
 
 func _input(event):
 	if event is InputEventScreenTouch:
-		prints(get_clicked_tile_data("can_walk", tile_layer.BLOCKS))
+#		prints(get_clicked_tile_data("can_walk", tile_layer.BLOCKS))
+		var actor = $TopLevelProps/Actors.get_child(0)
+		if actor.movable:
+			actor.move(get_global_mouse_position())
 
 func _on_roll_button_clicked():
 	if is_rolling:

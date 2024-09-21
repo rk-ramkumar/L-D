@@ -1,15 +1,49 @@
-[gd_scene load_steps=2 format=3 uid="uid://b12w16mhadndh"]
+[gd_scene load_steps=3 format=3 uid="uid://b12w16mhadndh"]
 
 [ext_resource type="Script" path="res://Scripts/players_card_carousel.gd" id="1_qch1c"]
 
-[node name="CardsContainer" type="HBoxContainer"]
-anchors_preset = 10
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ny6hd"]
+bg_color = Color(0.12549, 0.12549, 0.12549, 0.592157)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="PlayersCardCarousel" type="Panel"]
+custom_minimum_size = Vector2(100, 120)
+anchors_preset = 12
+anchor_top = 1.0
 anchor_right = 1.0
-offset_right = -1280.0
+anchor_bottom = 1.0
 grow_horizontal = 2
-scale = Vector2(0.5, 0.5)
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ny6hd")
+script = ExtResource("1_qch1c")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.9, 0.9)
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="ScrollContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+
+[node name="CardsContainer" type="HBoxContainer" parent="ScrollContainer/MarginContainer"]
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 theme_override_constants/separation = 30
 alignment = 1
-script = ExtResource("1_qch1c")
