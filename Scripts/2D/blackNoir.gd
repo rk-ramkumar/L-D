@@ -35,6 +35,7 @@ func _set_direction(position_angle = get_local_mouse_position().angle()):
 	current_direction = str(directions[angle])
 
 func move(target_position):
+	position_id = GameManager.selected_actor.position_id + GameManager.currentDieNumber
 	_lerp_to_pos(target_position)
 
 func _lerp_to_pos(pos, speed = SPEED):

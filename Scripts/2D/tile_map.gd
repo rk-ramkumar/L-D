@@ -36,7 +36,7 @@ func _is_valid_position():
 	var target_id = (GameManager.selected_actor.position_id + GameManager.currentDieNumber) - 1
 	var target_cel = Vector2(blocks[target_id])
 	
-	if target_cel.distance_squared_to(clicked_cell) > 1:
+	if target_cel.distance_squared_to(clicked_cell) > 1 or !GameManager.selected_actor.movable:
 		print("Invalid position")
 		return false
 
@@ -47,7 +47,7 @@ func _unhandled_input(event):
 		if !GameManager.selected_actor:
 			print("Actor not select.")
 		else:
-			if _is_valid_position() and GameManager.selected_actor.movable:
+			if _is_valid_position():
 				GameManager.selected_actor.move(get_global_mouse_position())
 
 func _on_move_started():
