@@ -7,9 +7,12 @@ enum layer{
 }
 var blocks
 var total_safe_point = 13 # Without opposite side 3 point
+var can_move = false
 
 func _ready():
 	blocks = get_used_cells(layer.BLOCKS).slice(0, total_safe_point * 6 + 1)
+	Observer.move_started.connect(_on_move_started)
+	Observer.move_completed.connect(_on_move_completed)
 
 func get_spawn_position(opposite = false):
 	var top_left = Vector2(4, 4) # Start safe tile local position
@@ -28,18 +31,27 @@ func get_spawn_position(opposite = false):
 
 	return positions
 
-func get_clicked_tile_data(layer_name, layer_id = layer.FLOOR):
+func _is_valid_position():
 	var clicked_cell = local_to_map(get_local_mouse_position())
-	var surrounding_cells = get_surrounding_cells(clicked_cell)
-	for coords in surrounding_cells:
-		var data = get_cell_tile_data(layer_id, coords)
-		if data != null:
-			return data.get_custom_data(layer_name)
-	return null
+	var target_id = (GameManager.selected_actor.position_id + GameManager.currentDieNumber) - 1
+	var target_cel = Vector2(blocks[target_id])
+	
+	if target_cel.distance_squared_to(clicked_cell) > 1:
+		print("Invalid position")
+		return false
 
-func _input(event):
-	if event is InputEventScreenTouch:
-		prints(get_clicked_tile_data("can_walk", layer.BLOCKS))
-#		var actor = $TopLevelProps/Actors.get_child(0)
-#		if actor.movable:
-#			actor.move(get_global_mouse_position())
+	return true
+
+func _unhandled_input(event):
+	if event is InputEventScreenTouch and can_move:
+		if !GameManager.selected_actor:
+			print("Actor not select.")
+		else:
+			if _is_valid_position() and GameManager.selected_actor.movable:
+				GameManager.selected_actor.move(get_global_mouse_position())
+
+func _on_move_started():
+	can_move = true
+
+func _on_move_completed():
+	can_move = false
