@@ -34,6 +34,9 @@ func _set_direction(position_angle = get_local_mouse_position().angle()):
 	angle = wrapi(int(angle), 0, 8)
 	current_direction = str(directions[angle])
 
+func move(target_position):
+	pass
+
 func _lerp_to_pos(pos, speed = SPEED):
 	if tween:
 		tween.kill()
