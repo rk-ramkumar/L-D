@@ -5,6 +5,7 @@ extends Panel
 @onready var animation_player = $AnimationPlayer
 
 var data = {}
+var selected = false
 
 func _ready():
 	label.text = data.get("actor_name", "")
@@ -13,10 +14,12 @@ func _ready():
 
 func _on_gui_input(event):
 	if event is InputEventScreenTouch:
-		if event.is_pressed():
+		if event.is_pressed() and !selected:
 			animation_player.play("select")
+			GameManager.selected_actor = data.actor
+			selected = true
 			data.parent.card_selected(self)
-			Observer.actor_selected.emit(data.actor)
 
-func reset_animation():
-	animation_player.play("RESET")
+func deselect():
+	selected = false
+	animation_player.play_backwards("select")

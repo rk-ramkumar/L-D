@@ -24,5 +24,5 @@ func card_selected(selected_card):
 	for card in cards:
 		if card == selected_card:
 			continue
-		
-		card.reset_animation()
+		if card.selected:
+			card.deselect()
