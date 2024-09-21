@@ -7,11 +7,7 @@ extends Node2D
 @onready var actors_parent = $TopLevelProps/Actors
 @onready var players_card_carousel = $CanvasLayer/UI/PlayersCardCarousel
 
-enum tile_layer{
-	FLOOR,
-	BLOCKS,
-	PLANT
-}
+
 var turnTime = 60
 var dice_numbers = []
 var is_rolling = false
@@ -39,11 +35,11 @@ func _add_npc_players():
 
 func _add_actors():
 	var player_args ={
-		positions = _get_spawn_position(),
+		positions = tile_map.get_spawn_position(),
 		team = GameManager.player.team
 	}
 	var opponent_args ={
-		positions = _get_spawn_position(true),
+		positions = tile_map.get_spawn_position(true),
 		team = "D" if GameManager.player.team == "L" else "L"
 	}
 	for args in [player_args, opponent_args]:
@@ -60,22 +56,7 @@ func _create_actors(args, id):
 	actors_parent.add_child(actor)
 	return actor
 
-func _get_spawn_position(opposite = false):
-	var top_left = Vector2(4, 4) # Start safe tile local position
-	var bottom_right = Vector2(16, 14) # Center tile local position
-	if opposite:
-		top_left.y = -bottom_right.y
-		bottom_right.y = -4
-	# Add offset
-	top_left.x += 4
-	bottom_right.x -= 4
-	var positions = []
 
-	for x in range(top_left.x, bottom_right.x + 1):
-		for y in range(top_left.y, bottom_right.y + 1):
-			positions.append(tile_map.map_to_local(Vector2(x, y)))
-
-	return positions
 
 func _handle_player_turn(id):
 	pass
@@ -118,22 +99,6 @@ func _set_movable(actors):
 
 func _get_next_id():
 	return (GameManager.currentPlayerTurn % GameManager.playerLoaded) + 1
-
-func get_clicked_tile_data(layer_name, layer_id = tile_layer.FLOOR):
-	var clicked_cell = tile_map.local_to_map(tile_map.get_local_mouse_position())
-	var surrounding_cells = tile_map.get_surrounding_cells(clicked_cell)
-	for coords in surrounding_cells:
-		var data = tile_map.get_cell_tile_data(layer_id, coords)
-		if data != null:
-			return data.get_custom_data(layer_name)
-	return null
-
-func _input(event):
-	if event is InputEventScreenTouch:
-#		prints(get_clicked_tile_data("can_walk", tile_layer.BLOCKS))
-		var actor = $TopLevelProps/Actors.get_child(0)
-		if actor.movable:
-			actor.move(get_global_mouse_position())
 
 func _on_roll_button_clicked():
 	if is_rolling:
