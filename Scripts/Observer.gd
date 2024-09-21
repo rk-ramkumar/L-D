@@ -7,7 +7,7 @@ signal move_completed
 signal move_started
 signal move_failed
 signal next_turn
-signal piece_selected
+signal actor_selected
 signal turn_started
 signal game_won
 signal game_over
