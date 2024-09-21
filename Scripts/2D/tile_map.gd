@@ -5,11 +5,11 @@ enum layer{
 	BLOCKS,
 	PLANT
 }
-
+var blocks
+var total_safe_point = 13 # Without opposite side 3 point
 
 func _ready():
-	print(get_used_cells(layer.BLOCKS))
-
+	blocks = get_used_cells(layer.BLOCKS).slice(0, total_safe_point * 6 + 1)
 
 func get_spawn_position(opposite = false):
 	var top_left = Vector2(4, 4) # Start safe tile local position

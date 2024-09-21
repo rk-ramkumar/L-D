@@ -56,8 +56,6 @@ func _create_actors(args, id):
 	actors_parent.add_child(actor)
 	return actor
 
-
-
 func _handle_player_turn(id):
 	pass
 
