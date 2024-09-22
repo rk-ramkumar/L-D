@@ -50,19 +50,25 @@ func _unhandled_input(event):
 	if event is InputEventScreenTouch and can_move:
 		if !GameManager.selected_actor:
 			print("Actor not select.")
-		else:
-			if _is_valid_position():
-				GameManager.selected_actor.start_moving(
-					blocks.slice(GameManager.selected_actor.position_id)
-				)
-				GameManager.one_more = _has_one_more()
+			return
+
+		if GameManager.Players[GameManager.currentPlayerTurn].type == "npc":
+			return
+
+		if _is_valid_position():
+			GameManager.selected_actor.start_moving(
+				blocks.slice(GameManager.selected_actor.position_id)
+			)
+			GameManager.one_more = _has_one_more()
 
 func _has_one_more():
 	if GameManager.currentDieNumber == 1:
 		return true
-	var opponent_team ="D" if GameManager.selected_actor.data.team == "L" else "L"
 	var position_id = GameManager.selected_actor.position_id
-	var opponent_actors = is_actor_present(position_id, opponent_team)
+	var opponent_actors = is_actor_present(
+		position_id,
+		GameManager.get_opponent_team(GameManager.selected_actor.data.team)
+	)
 
 	if opponent_actors:
 		opponent_actors.front().start_moving_home()

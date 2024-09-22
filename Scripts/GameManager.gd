@@ -30,3 +30,6 @@ enum player_state {
 	FIELD
 }
 var selected_actor
+
+func get_opponent_team(team):
+	return "L" if team == "D" else "D"

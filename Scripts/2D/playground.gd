@@ -32,6 +32,7 @@ func _add_npc_players():
 			continue
 		var npcPlayer = NPCPlayer.new()
 		npcPlayer.player = player
+		npcPlayer.tile_map = tile_map
 		add_child(npcPlayer)
 
 func _add_actors():
@@ -41,8 +42,9 @@ func _add_actors():
 	}
 	var opponent_args ={
 		positions = tile_map.get_spawn_position(true),
-		team = "D" if GameManager.player.team == "L" else "L"
+		team = GameManager.get_opponent_team(GameManager.player.team)
 	}
+
 	for args in [player_args, opponent_args]:
 		var actors = range(GameManager.actors_count).map(func(id): return _create_actors(args, id+1))
 		if args == player_args:
