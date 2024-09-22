@@ -51,6 +51,7 @@ func _create_actors(args, id):
 	var actor = actor_scene.instantiate()
 	actor.name = "Actor_{team}_{id}".format({team = args.team, id = id})
 	actor.data = args
+	actor.tile_map = tile_map
 	actor.modulate = args.get("color", Color.WHITE)
 	GameManager.teamList[args.team].actors.append(actor)
 	actors_parent.add_child(actor)

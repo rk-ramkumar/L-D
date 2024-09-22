@@ -13,6 +13,7 @@ var directions = ["E", "SE", "S", "SW", "W", "NW", "N", "NE"]
 var tween
 var position_id = 0
 var movable: bool = true
+var is_moving: bool = false
 var current_state = GameManager.player_state.HOME:
 	set(new_state):
 		current_state = new_state
@@ -34,9 +35,19 @@ func _set_direction(position_angle = get_local_mouse_position().angle()):
 	angle = wrapi(int(angle), 0, 8)
 	current_direction = str(directions[angle])
 
-func move(target_position):
-	position_id = GameManager.selected_actor.position_id + GameManager.currentDieNumber
-	_lerp_to_pos(target_position)
+func start_moving(blocks):
+	if !is_moving:
+		is_moving = true
+		position_id = GameManager.selected_actor.position_id + GameManager.currentDieNumber
+		for target_position in blocks.slice(0, position_id):
+			target_position = tile_map.map_to_local(target_position)
+			_set_direction(get_angle_to(target_position))
+			_update_animation("_walk")
+			if !tween:
+				_lerp_to_pos(target_position)
+			else:
+				await tween.finished
+				_lerp_to_pos(target_position)
 
 func _lerp_to_pos(pos, speed = SPEED):
 	if tween:
@@ -73,6 +84,7 @@ func _on_tween_position_finished():
 		animated_sprite_2d.animation,
 		StringName(current_direction + "_idle"),
 		0.2)
+	is_moving = false
 
 func _on_home_state_timer_timeout():
 	home_state_timer.stop()
