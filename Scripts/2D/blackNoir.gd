@@ -49,6 +49,13 @@ func start_moving(blocks):
 				await tween.finished
 				_lerp_to_pos(target_position)
 
+func start_moving_home():
+	current_state = GameManager.player_state.HOME
+	var pos = data.positions.pick_random()
+	_set_direction(get_angle_to(pos))
+	_update_animation("_walk")
+	_lerp_to_pos(pos)
+
 func _lerp_to_pos(pos, speed = SPEED):
 	if tween:
 		tween.kill()
@@ -88,6 +95,7 @@ func _on_tween_position_finished():
 		is_moving = false
 		tween.kill()
 		tween = null
+		Observer.move_completed.emit()
 	)
 
 func _on_home_state_timer_timeout():

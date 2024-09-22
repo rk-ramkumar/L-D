@@ -39,6 +39,10 @@ func _is_valid_position():
 	if target_cel.distance_squared_to(clicked_cell) > 1 or !GameManager.selected_actor.movable:
 		print("Invalid position")
 		return false
+	#Check for any actor already present in the tile
+	if is_actor_present(target_id+1, GameManager.selected_actor.data.team):
+		print("Actor already in position")
+		return false
 
 	return true
 
@@ -51,10 +55,33 @@ func _unhandled_input(event):
 				GameManager.selected_actor.start_moving(
 					blocks.slice(GameManager.selected_actor.position_id)
 				)
-				Observer.move_completed.emit()
+				GameManager.one_more = _has_one_more()
+
+func _has_one_more():
+	if GameManager.currentDieNumber == 1:
+		return true
+	var opponent_team ="D" if GameManager.selected_actor.data.team == "L" else "L"
+	var position_id = GameManager.selected_actor.position_id
+	var opponent_actors = is_actor_present(position_id, opponent_team)
+
+	if opponent_actors:
+		opponent_actors.front().start_moving_home()
+		return true
+
+	return false
 
 func _on_move_started():
 	can_move = true
 
 func _on_move_completed():
 	can_move = false
+
+func is_actor_present(position_id, team):
+	if (position_id - 1) % 6 == 0: # Safe tile
+		return false 
+
+	var actors = GameManager.teamList[team].actors.filter(func(actor):
+		return actor.position_id == position_id)
+	
+	if actors.size() > 0:
+		return actors

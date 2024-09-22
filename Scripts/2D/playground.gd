@@ -24,6 +24,7 @@ func connect_signals():
 	Observer.roll_started.connect(_handle_roll_started)
 	Observer.roll_completed.connect(_handle_roll_completed)
 	Observer.next_turn.connect(_handle_next_turn)
+	Observer.move_completed.connect(_handle_move_completed)
 
 func _add_npc_players():
 	for player in GameManager.Players.values():
@@ -83,6 +84,13 @@ func _handle_roll_completed():
 		Observer.move_started.emit()
 	else:
 		Observer.next_turn.emit()
+
+func _handle_move_completed():
+	if GameManager.one_more:
+		GameManager.one_more = false
+		Observer.turn_started.emit()
+	else:
+		_handle_next_turn()
 
 func _handle_next_turn():
 	GameManager.currentPlayerTurn = _get_next_id()
