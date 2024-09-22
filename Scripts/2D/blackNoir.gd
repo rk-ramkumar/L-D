@@ -39,7 +39,7 @@ func start_moving(blocks):
 	if !is_moving:
 		is_moving = true
 		position_id = GameManager.selected_actor.position_id + GameManager.currentDieNumber
-		for target_position in blocks.slice(0, position_id):
+		for target_position in blocks.slice(0, GameManager.currentDieNumber):
 			target_position = tile_map.map_to_local(target_position)
 			_set_direction(get_angle_to(target_position))
 			_update_animation("_walk")
@@ -84,7 +84,11 @@ func _on_tween_position_finished():
 		animated_sprite_2d.animation,
 		StringName(current_direction + "_idle"),
 		0.2)
-	is_moving = false
+	tween.tween_callback(func(): 
+		is_moving = false
+		tween.kill()
+		tween = null
+	)
 
 func _on_home_state_timer_timeout():
 	home_state_timer.stop()

@@ -48,7 +48,9 @@ func _unhandled_input(event):
 			print("Actor not select.")
 		else:
 			if _is_valid_position():
-				GameManager.selected_actor.start_moving(blocks.slice(GameManager.selected_actor.position_id))
+				GameManager.selected_actor.start_moving(
+					blocks.slice(GameManager.selected_actor.position_id)
+				)
 				Observer.move_completed.emit()
 
 func _on_move_started():
