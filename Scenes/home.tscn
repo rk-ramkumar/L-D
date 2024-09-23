@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://13kx8nxkpowt"]
+[gd_scene load_steps=5 format=3 uid="uid://13kx8nxkpowt"]
 
 [ext_resource type="Texture2D" uid="uid://bwueh10llag5h" path="res://Assets/Icons/title.png" id="1_roqkd"]
-[ext_resource type="FontFile" uid="uid://8op8y07tf704" path="res://Assets/font/SHARKBOY & lavagirl.ttf" id="2_bq157"]
+[ext_resource type="Script" path="res://Scripts/home.gd" id="1_sdkj4"]
+[ext_resource type="PackedScene" uid="uid://cmrna0h0dmrhj" path="res://Components/custom_button.tscn" id="3_xpbkw"]
+[ext_resource type="FontFile" uid="uid://dhnxuxk0xio8j" path="res://Assets/font/Ghost Stories Deluxe.ttf" id="5_2yo6i"]
 
 [node name="Home" type="Control"]
 texture_filter = 1
@@ -11,6 +13,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_sdkj4")
 
 [node name="Background" type="ColorRect" parent="."]
 layout_mode = 1
@@ -22,6 +25,7 @@ grow_vertical = 2
 color = Color(1, 0.313726, 0.333333, 1)
 
 [node name="Title" type="TextureRect" parent="."]
+visible = false
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 10
@@ -30,43 +34,62 @@ offset_top = -100.0
 offset_bottom = 400.0
 grow_horizontal = 2
 texture = ExtResource("1_roqkd")
-expand_mode = 3
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
+anchors_preset = 9
 anchor_bottom = 1.0
-offset_top = -452.0
-offset_right = 595.0
-grow_vertical = 0
+offset_left = 100.0
+offset_top = 100.0
+offset_right = 300.0
+offset_bottom = 100.0
+grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer"]
 layout_mode = 2
+theme_override_constants/separation = 50
 
-[node name="Button" type="Button" parent="CenterContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/HBoxContainer"]
 layout_mode = 2
-focus_mode = 0
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_bq157")
-theme_override_font_sizes/font_size = 64
-text = "START"
-flat = true
+theme_override_constants/separation = 20
 
-[node name="Button2" type="Button" parent="CenterContainer/VBoxContainer"]
+[node name="StartButton" parent="CenterContainer/HBoxContainer/VBoxContainer" instance=ExtResource("3_xpbkw")]
 layout_mode = 2
-focus_mode = 0
-theme_override_fonts/font = ExtResource("2_bq157")
-theme_override_font_sizes/font_size = 64
-disabled = true
-text = "ONLINE"
-flat = true
+theme_override_colors/font_hover_color = Color(1, 0.313726, 0.333333, 1)
+theme_override_fonts/font = ExtResource("5_2yo6i")
+text = "start"
+font_size = 64
 
-[node name="Button3" type="Button" parent="CenterContainer/VBoxContainer"]
+[node name="ProfileButton" parent="CenterContainer/HBoxContainer/VBoxContainer" instance=ExtResource("3_xpbkw")]
 layout_mode = 2
-focus_mode = 0
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_bq157")
-theme_override_font_sizes/font_size = 64
-text = "EXIT"
-flat = true
+theme_override_colors/font_hover_color = Color(1, 0.313726, 0.333333, 1)
+theme_override_fonts/font = ExtResource("5_2yo6i")
+text = "profile"
+font_size = 64
+
+[node name="ExitButton" parent="CenterContainer/HBoxContainer/VBoxContainer" instance=ExtResource("3_xpbkw")]
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(1, 0.313726, 0.333333, 1)
+theme_override_fonts/font = ExtResource("5_2yo6i")
+text = "exit"
+font_size = 64
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 247.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 5
+theme_override_constants/shadow_outline_size = 10
+theme_override_constants/outline_size = 10
+theme_override_fonts/normal_font = ExtResource("5_2yo6i")
+theme_override_font_sizes/normal_font_size = 128
+bbcode_enabled = true
+text = "[center]LIGHT [wave amp=50.0 freq=5.0 connected=0][color=9958ff]VS[/color][/wave][color=black][outline_color=white] DARK[/outline_color][/color][/center]"
+
+[connection signal="clicked" from="CenterContainer/HBoxContainer/VBoxContainer/StartButton" to="." method="_on_start_button_clicked"]
