@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://13kx8nxkpowt"]
+[gd_scene load_steps=6 format=3 uid="uid://13kx8nxkpowt"]
 
-[ext_resource type="Texture2D" uid="uid://bwueh10llag5h" path="res://Assets/Icons/title.png" id="1_roqkd"]
 [ext_resource type="Script" path="res://Scripts/home.gd" id="1_sdkj4"]
 [ext_resource type="PackedScene" uid="uid://cmrna0h0dmrhj" path="res://Components/custom_button.tscn" id="3_xpbkw"]
 [ext_resource type="FontFile" uid="uid://dhnxuxk0xio8j" path="res://Assets/font/Ghost Stories Deluxe.ttf" id="5_2yo6i"]
+[ext_resource type="Texture2D" uid="uid://1dmne5d2u88r" path="res://Assets/Icons/whiteNoir.png" id="6_dm5hj"]
+[ext_resource type="Texture2D" uid="uid://dvtvcij7aspuv" path="res://Assets/Icons/blackNoir.png" id="7_yp7dl"]
 
 [node name="Home" type="Control"]
 texture_filter = 1
@@ -24,30 +25,50 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 0.313726, 0.333333, 1)
 
-[node name="Title" type="TextureRect" parent="."]
-visible = false
+[node name="Title" type="RichTextLabel" parent="."]
 texture_filter = 1
 layout_mode = 1
-anchors_preset = 10
+anchors_preset = 15
 anchor_right = 1.0
-offset_top = -100.0
-offset_bottom = 400.0
+anchor_bottom = 1.0
 grow_horizontal = 2
-texture = ExtResource("1_roqkd")
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 5
+theme_override_constants/shadow_outline_size = 10
+theme_override_constants/outline_size = 10
+theme_override_fonts/normal_font = ExtResource("5_2yo6i")
+theme_override_font_sizes/normal_font_size = 128
+bbcode_enabled = true
+text = "[center]LIGHT [wave amp=50.0 freq=5.0 connected=0][color=9958ff]VS[/color][/wave][color=black][outline_color=white] DARK[/outline_color][/color][/center]"
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1
-anchors_preset = 9
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = 100.0
-offset_top = 100.0
+offset_left = -300.0
+offset_top = -440.0
 offset_right = 300.0
-offset_bottom = 100.0
-grow_vertical = 2
+offset_bottom = -100.0
+grow_horizontal = 2
+grow_vertical = 0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer"]
 layout_mode = 2
-theme_override_constants/separation = 50
+theme_override_constants/separation = 200
+
+[node name="Control" type="Control" parent="CenterContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="WhiteNoir" type="Sprite2D" parent="CenterContainer/HBoxContainer/Control"]
+texture = ExtResource("6_dm5hj")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/HBoxContainer"]
 layout_mode = 2
@@ -74,22 +95,12 @@ theme_override_fonts/font = ExtResource("5_2yo6i")
 text = "exit"
 font_size = 64
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
-texture_filter = 1
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 247.0
-grow_horizontal = 2
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 5
-theme_override_constants/shadow_offset_y = 5
-theme_override_constants/shadow_outline_size = 10
-theme_override_constants/outline_size = 10
-theme_override_fonts/normal_font = ExtResource("5_2yo6i")
-theme_override_font_sizes/normal_font_size = 128
-bbcode_enabled = true
-text = "[center]LIGHT [wave amp=50.0 freq=5.0 connected=0][color=9958ff]VS[/color][/wave][color=black][outline_color=white] DARK[/outline_color][/color][/center]"
+[node name="Control2" type="Control" parent="CenterContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="BlackNoir" type="Sprite2D" parent="CenterContainer/HBoxContainer/Control2"]
+texture = ExtResource("7_yp7dl")
 
 [connection signal="clicked" from="CenterContainer/HBoxContainer/VBoxContainer/StartButton" to="." method="_on_start_button_clicked"]
