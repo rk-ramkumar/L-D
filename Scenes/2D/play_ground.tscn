@@ -338,14 +338,15 @@ playground = NodePath("../../..")
 
 [node name="Notifier" parent="CanvasLayer/UI" instance=ExtResource("23_j0rin")]
 layout_mode = 1
-offset_left = 0.0
-offset_top = -25.0
-offset_right = 0.0
-offset_bottom = 25.0
 
 [node name="MessageBox" parent="CanvasLayer/UI" instance=ExtResource("24_r8hfl")]
 layout_mode = 0
 anchors_preset = 0
+anchor_top = 0.0
+anchor_bottom = 0.0
+offset_top = 110.0
+offset_bottom = 610.0
+grow_vertical = 1
 
 [connection signal="roll_finished" from="TopLevelProps/Die1" to="." method="_on_die_rolled"]
 [connection signal="roll_finished" from="TopLevelProps/Die2" to="." method="_on_die_rolled"]
