@@ -7,7 +7,7 @@ var resource_names = []
 
 func _ready():
 	if Time.get_ticks_msec() - GameManager.game_start_time < 1000:
-		resource_names = ["ExitPopup", "MatchMaking"]
+		resource_names = ["ExitPopup", "Home"]
 	_load_resources()
 
 func _load_resources():
@@ -38,19 +38,13 @@ func _process(_delta):
 				update_loading_screen(_progress[0])
 		
 		match get_resource_path(resource_name):
-			GameManager.scene_paths.Playground:
-				if stage == ResourceLoader.THREAD_LOAD_LOADED:
-					_change_scene(resource_name)
+
 			GameManager.scene_paths.ExitPopup:
 				if stage == ResourceLoader.THREAD_LOAD_LOADED:
 					_on_exit_popup_loaded(resource_name)
-			GameManager.scene_paths.MatchMaking:
-				if stage == ResourceLoader.THREAD_LOAD_LOADED:
-					_change_scene(resource_name)
-			GameManager.scene_paths.AIArenaLobby:
-				if stage == ResourceLoader.THREAD_LOAD_LOADED:
-					_change_scene(resource_name)
 			_:
+				if stage == ResourceLoader.THREAD_LOAD_LOADED:
+					_change_scene(resource_name)
 				if stage == ResourceLoader.THREAD_LOAD_FAILED:
 					printerr("Loading" + resource_name + "resource failed!")
 

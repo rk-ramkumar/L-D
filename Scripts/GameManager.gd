@@ -5,7 +5,8 @@ var scene_paths = {
 	"Playground": "res://Scenes/2D/play_ground.tscn",
 	"ExitPopup": "res://Scenes/exit_popup.tscn",
 	"MatchMaking": "res://Scenes/match_making.tscn",
-	"AIArenaLobby": "res://Scenes/ai_arena_lobby.tscn"
+	"AIArenaLobby": "res://Scenes/ai_arena_lobby.tscn",
+	"Home": "res://Scenes/home.tscn"
 }
 var Players = {}
 var player = {}

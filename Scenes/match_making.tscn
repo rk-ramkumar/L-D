@@ -13,7 +13,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.945098, 0.0980392, 0.25098, 1)
+color = Color(1, 0.313726, 0.333333, 1)
 metadata/_edit_use_anchors_ = true
 
 [node name="Create UI" type="Control" parent="."]
