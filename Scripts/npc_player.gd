@@ -19,28 +19,25 @@ func _handle_turn_started():
 
 func _handle_move_started():
 	if player.id != GameManager.currentPlayerTurn:
-		print(player.id)
 		return
 
 	var selected_actor = pick_actor()
-	await get_tree().create_timer(randf_range(1, 5)).timeout
-	selected_actor.start_moving(tile_map.blocks.slice(selected_actor.position_id))
-	GameManager.one_more = _has_one_more()
+	if !selected_actor:
+		Observer.move_completed.emit()
+		return
 
-func _has_one_more():
-	if GameManager.currentDieNumber == 1:
-		return true
-	var position_id = GameManager.selected_actor.position_id
-	var opponent_actors = tile_map.is_actor_present(
-		position_id,
-		GameManager.get_opponent_team(GameManager.selected_actor.data.team)
+	await get_tree().create_timer(1).timeout
+	var blocks = tile_map.blocks.slice(selected_actor.position_id).map(func(pos): 
+		pos.y = -pos.y
+		return pos
 	)
-
-	if opponent_actors:
-		opponent_actors.front().start_moving_home()
-		return true
-
-	return false
+	selected_actor.start_moving(blocks)
+	var opponent_actor = tile_map.is_actor_present(
+		selected_actor.position_id,
+		GameManager.get_opponent_team(selected_actor.data.team)
+	)
+	if opponent_actor:
+		GameManager.killed_actor = opponent_actor
 
 func pick_actor():
 	var actors = GameManager.teamList[player.team].actors.filter(func(actor): return actor.movable)
@@ -56,31 +53,32 @@ func pick_actor():
 			break
 
 		# Priority to home lane actors
-		if target_id <= 7 and !tile_map.is_actor_present(target_id, player.team):
+		if GameManager.currentDieNumber == 1 and target_id <= 7 and !tile_map.is_actor_present(target_id, player.team):
 			selected_actor = actor
 			break
 
-		# Kill check
-		if opponent_actors.any(func(opponent_actor): 
-			return opponent_actor.position_id == target_id
-		):
-			# No nearyby actor check
-			current_weightage += get_no_nearby_weightage(opponent_actors, target_id)
+		if actor.current_state == GameManager.player_state.FIELD:
+			# Kill check
+			if opponent_actors.any(func(opponent_actor): 
+				return opponent_actor.position_id == target_id
+			):
+				# No nearyby actor check
+				current_weightage += get_no_nearby_weightage(opponent_actors, target_id)
 
-		# Safe tile check
-		if (target_id - 1) % 6 == 0:
-			current_weightage += 1
-		
-		current_weightage += get_no_nearby_weightage(opponent_actors, target_id)
+			# Safe tile check
+			if (target_id - 1) % 6 == 0:
+				current_weightage += 1
+			
+			current_weightage += get_no_nearby_weightage(opponent_actors, target_id)
 		
 		if max_weightage < current_weightage:
 			max_weightage = current_weightage
 			selected_actor = actor
 	
-	return actors.pick_random() if !selected_actor else selected_actor
+	return selected_actor
 
 func get_no_nearby_weightage(opponent_actors, target_id):
-	var opponent_positions = opponent_actors.map(func(opponent_actor): return target_id - opponent_actor)
+	var opponent_positions = opponent_actors.map(func(opponent_actor): return target_id - opponent_actor.position_id)
 	var weightage = 0
 	if opponent_positions.all(func(id): return id <= 0):
 		weightage += 3

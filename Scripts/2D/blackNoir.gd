@@ -39,6 +39,7 @@ func start_moving(blocks):
 	if !is_moving:
 		is_moving = true
 		position_id = GameManager.selected_actor.position_id + GameManager.currentDieNumber
+		current_state = GameManager.player_state.FIELD
 		for target_position in blocks.slice(0, GameManager.currentDieNumber):
 			target_position = tile_map.map_to_local(target_position)
 			_set_direction(get_angle_to(target_position))

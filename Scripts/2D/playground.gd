@@ -88,8 +88,11 @@ func _handle_roll_completed():
 		Observer.next_turn.emit()
 
 func _handle_move_completed():
-	if GameManager.one_more:
-		GameManager.one_more = false
+	#Give extra chance when put 1 or kill happend
+	if GameManager.currentDieNumber == 1 or GameManager.killed_actor:
+		if GameManager.killed_actor:
+			GameManager.killed_actor.start_moving_home()
+			GameManager.killed_actor = null
 		Observer.turn_started.emit()
 	else:
 		_handle_next_turn()

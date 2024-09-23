@@ -59,22 +59,12 @@ func _unhandled_input(event):
 			GameManager.selected_actor.start_moving(
 				blocks.slice(GameManager.selected_actor.position_id)
 			)
-			GameManager.one_more = _has_one_more()
-
-func _has_one_more():
-	if GameManager.currentDieNumber == 1:
-		return true
-	var position_id = GameManager.selected_actor.position_id
-	var opponent_actors = is_actor_present(
-		position_id,
-		GameManager.get_opponent_team(GameManager.selected_actor.data.team)
-	)
-
-	if opponent_actors:
-		opponent_actors.front().start_moving_home()
-		return true
-
-	return false
+			var killed_actor = is_actor_present(
+				GameManager.selected_actor.position_id,
+				GameManager.get_opponent_team(GameManager.selected_actor.data.team)
+			)
+			if killed_actor:
+				GameManager.killed_actor = killed_actor
 
 func _on_move_started():
 	can_move = true
@@ -83,11 +73,14 @@ func _on_move_completed():
 	can_move = false
 
 func is_actor_present(position_id, team):
+	if position_id <= 7: # Home lane
+		return false
 	if (position_id - 1) % 6 == 0: # Safe tile
 		return false 
 
 	var actors = GameManager.teamList[team].actors.filter(func(actor):
 		return actor.position_id == position_id)
-	
+
+	print(actors)
 	if actors.size() > 0:
-		return actors
+		return actors.front()

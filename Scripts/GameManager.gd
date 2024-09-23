@@ -14,7 +14,7 @@ var playerLoaded: int = 0
 var availableId = [1,2, 3, 4]
 var teamList = { "L": {"actors": []}, "D": {"actors": []} }
 var gameOver: bool = false
-var one_more: bool = false
+var killed_actor
 var max_tile_id = 80
 var currentPlayerTurn: int = 0
 var currentDieNumber: int :
