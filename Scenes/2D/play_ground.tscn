@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://b0ud7gjcvmw17"]
+[gd_scene load_steps=42 format=3 uid="uid://b0ud7gjcvmw17"]
 
 [ext_resource type="Script" path="res://Scripts/2D/playground.gd" id="1_5tede"]
 [ext_resource type="Texture2D" uid="uid://7b8r3ycl6y2t" path="res://Assets/Textures/soft_grass.png" id="2_fxc78"]
@@ -22,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://cesnpvcf7asln" path="res://Scenes/2D/dice.tscn" id="19_kovbs"]
 [ext_resource type="LabelSettings" uid="uid://df6737in4bsjs" path="res://Assets/Resources/medium_label.tres" id="20_gba6p"]
 [ext_resource type="PackedScene" uid="uid://b12w16mhadndh" path="res://Scenes/players_card_carousel.tscn" id="21_pdwa2"]
+[ext_resource type="PackedScene" uid="uid://ri8jm7u32c1p" path="res://Scenes/notifier.tscn" id="23_j0rin"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_t6d53"]
 tile_data = PackedInt32Array(0, 2, 0, 65536, 4, 0)
@@ -333,6 +334,13 @@ vertical_alignment = 1
 [node name="PlayersCardCarousel" parent="CanvasLayer/UI" node_paths=PackedStringArray("playground") instance=ExtResource("21_pdwa2")]
 layout_mode = 1
 playground = NodePath("../../..")
+
+[node name="Notifier" parent="CanvasLayer/UI" instance=ExtResource("23_j0rin")]
+layout_mode = 1
+offset_left = 640.0
+offset_top = 335.0
+offset_right = 640.0
+offset_bottom = 385.0
 
 [connection signal="roll_finished" from="TopLevelProps/Die1" to="." method="_on_die_rolled"]
 [connection signal="roll_finished" from="TopLevelProps/Die2" to="." method="_on_die_rolled"]
