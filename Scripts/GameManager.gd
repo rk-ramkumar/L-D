@@ -31,12 +31,25 @@ enum player_state {
 	KILLED
 }
 var selected_actor
+var tile_map
+var playground
+var extra_chance_dice = [1, 5, 6, 12]
 
 func get_opponent_team(team):
 	return "L" if team == "D" else "D"
 
 func _ready():
+	connect_signals()
+
+func connect_signals():
 	Observer.roll_completed.connect(_on_roll_completed)
+	Observer.next_turn.connect(_handle_next_turn)
+	Observer.extra_turn.connect(_handle_extra_turn)
+	Observer.actor_move_completed.connect(_handle_actor_move_completed)
+
+func register_resource(dict):
+	tile_map = dict.tile_map
+	playground = dict.playground
 
 func _on_roll_completed(die_value):
 	var actors = teamList[Players[currentPlayerTurn].team].actors
@@ -60,3 +73,40 @@ func _set_movable(actors):
 			or (actor.current_state == player_state.HOME and currentDieNumber != 1)
 		):
 			actor.movable = false
+
+func _handle_actor_move_completed(actor):
+	Observer.move_completed.emit()
+
+	var captured_actor = tile_map.is_actor_present(
+		actor.position_id,
+		get_opponent_team(actor.team)
+	)
+	#Check for kill happen
+	if captured_actor:
+		Observer.actor_captured.emit(captured_actor, actor)
+		captured_actor.start_moving_home()
+		Observer.extra_turn.emit()
+		return
+
+	#Give extra chance when put 1
+	if has_extra_turn():
+		Observer.extra_turn.emit()
+	else:
+		Observer.next_turn.emit()
+
+func _handle_next_turn():
+	currentPlayerTurn = _get_next_id()
+	Observer.turn_started.emit()
+
+func has_extra_turn():
+	var actors = teamList[Players[currentPlayerTurn].team].actors
+	if actors.any(func(actor): return actor.current_state != player_state.HOME):
+		return currentDieNumber in extra_chance_dice
+	
+	return currentDieNumber == 1
+
+func _handle_extra_turn():
+	Observer.turn_started.emit()
+
+func _get_next_id():
+	return (currentPlayerTurn % playerLoaded) + 1

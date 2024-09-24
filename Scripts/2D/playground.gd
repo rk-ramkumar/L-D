@@ -16,6 +16,8 @@ var actor_scene = preload("res://Scenes/2D/blackNoir.tscn")
 func _ready():
 	connect_signals()
 	GameManager.player = GameManager.Players[1]
+	GameManager.register_resource({tile_map = tile_map, playground = self})
+	AudioController.secondary_background.play()
 	_add_npc_players()
 	_add_actors()
 	Observer.next_turn.emit()
@@ -23,9 +25,6 @@ func _ready():
 func connect_signals():
 	Observer.roll_started.connect(_handle_roll_started)
 	Observer.roll_completed.connect(_handle_roll_completed)
-	Observer.next_turn.connect(_handle_next_turn)
-	Observer.extra_turn.connect(_handle_extra_turn)
-	Observer.actor_move_completed.connect(_handle_actor_move_completed)
 
 func _add_npc_players():
 	for player in GameManager.Players.values():
@@ -72,36 +71,6 @@ func _handle_roll_started():
 func _handle_roll_completed(_dice_value):
 	is_rolling = false
 	dice_numbers = []
-
-func _handle_actor_move_completed(actor):
-	Observer.move_completed.emit()
-
-	var captured_actor = tile_map.is_actor_present(
-		actor.position_id,
-		GameManager.get_opponent_team(actor.team)
-	)
-	#Check for kill happen
-	if captured_actor:
-		Observer.actor_captured.emit(captured_actor, actor)
-
-	#Give extra chance when put 1
-	if GameManager.currentDieNumber == 1 or captured_actor:
-		if captured_actor:
-			captured_actor.start_moving_home()
-		Observer.extra_turn.emit()
-	else:
-		Observer.next_turn.emit()
-
-func _handle_next_turn():
-	GameManager.currentPlayerTurn = _get_next_id()
-	Observer.turn_started.emit()
-
-func _handle_extra_turn():
-	Observer.turn_started.emit()
-
-
-func _get_next_id():
-	return (GameManager.currentPlayerTurn % GameManager.playerLoaded) + 1
 
 func _on_roll_button_clicked():
 	if is_rolling:

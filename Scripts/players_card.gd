@@ -22,7 +22,10 @@ func _on_gui_input(event):
 				GameManager.selected_actor = null
 				deselect()
 			else:
-				select()
+				if data.actor.movable:
+					select()
+				else:
+					print("Need die value 1 to move actor.")
 
 func select():
 	selected = true
