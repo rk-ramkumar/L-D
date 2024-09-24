@@ -32,12 +32,7 @@ func _handle_move_started():
 		return pos
 	)
 	selected_actor.start_moving(blocks)
-	var opponent_actor = tile_map.is_actor_present(
-		selected_actor.position_id,
-		GameManager.get_opponent_team(selected_actor.team)
-	)
-	if opponent_actor:
-		GameManager.killed_actor = opponent_actor
+
 
 func pick_actor():
 	var actors = GameManager.teamList[player.team].actors.filter(func(actor): return actor.movable)
@@ -57,9 +52,9 @@ func pick_actor():
 			selected_actor = actor
 			break
 
-		if actor.current_state == GameManager.player_state.FIELD:
+		if actor.current_state == GameManager.player_state.FIELD and target_id > 7:
 			# Kill check
-			if opponent_actors.any(func(opponent_actor): 
+			if opponent_actors.any(func(opponent_actor):
 				return opponent_actor.position_id == target_id
 			):
 				# No nearyby actor check
