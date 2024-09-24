@@ -24,6 +24,7 @@ func connect_signals():
 	Observer.roll_started.connect(_handle_roll_started)
 	Observer.roll_completed.connect(_handle_roll_completed)
 	Observer.next_turn.connect(_handle_next_turn)
+	Observer.extra_turn.connect(_handle_extra_turn)
 	Observer.actor_move_completed.connect(_handle_actor_move_completed)
 
 func _add_npc_players():
@@ -92,22 +93,25 @@ func _handle_actor_move_completed(actor):
 
 	var captured_actor = tile_map.is_actor_present(
 		actor.position_id,
-		GameManager.get_opponent_team(actor.data.team)
+		GameManager.get_opponent_team(actor.team)
 	)
 	#Check for kill happen
 	if captured_actor:
-		Observer.actor_captured.emit(captured_actor)
+		Observer.actor_captured.emit(captured_actor, actor)
 
 	#Give extra chance when put 1
 	if GameManager.currentDieNumber == 1 or captured_actor:
 		if captured_actor:
 			captured_actor.start_moving_home()
-		Observer.turn_started.emit()
+		Observer.extra_turn.emit()
 	else:
 		Observer.next_turn.emit()
 
 func _handle_next_turn():
 	GameManager.currentPlayerTurn = _get_next_id()
+	Observer.turn_started.emit()
+
+func _handle_extra_turn():
 	Observer.turn_started.emit()
 
 func _set_movable(actors):

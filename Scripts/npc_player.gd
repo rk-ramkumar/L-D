@@ -34,7 +34,7 @@ func _handle_move_started():
 	selected_actor.start_moving(blocks)
 	var opponent_actor = tile_map.is_actor_present(
 		selected_actor.position_id,
-		GameManager.get_opponent_team(selected_actor.data.team)
+		GameManager.get_opponent_team(selected_actor.team)
 	)
 	if opponent_actor:
 		GameManager.killed_actor = opponent_actor

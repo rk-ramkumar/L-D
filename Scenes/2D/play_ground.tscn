@@ -344,7 +344,9 @@ layout_mode = 0
 anchors_preset = 0
 anchor_top = 0.0
 anchor_bottom = 0.0
+offset_left = -340.0
 offset_top = 110.0
+offset_right = 60.0
 offset_bottom = 610.0
 grow_vertical = 1
 

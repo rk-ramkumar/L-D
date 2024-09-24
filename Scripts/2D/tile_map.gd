@@ -40,7 +40,7 @@ func _is_valid_position():
 		print("Invalid position")
 		return false
 	#Check for any actor already present in the tile
-	if is_actor_present(target_id+1, GameManager.selected_actor.data.team):
+	if is_actor_present(target_id+1, GameManager.selected_actor.team):
 		print("Actor already in position")
 		return false
 

@@ -14,6 +14,7 @@ var tween
 var position_id = 0
 var movable: bool = true
 var is_moving: bool = false
+var team
 var current_state = GameManager.player_state.HOME:
 	set(new_state):
 		current_state = new_state
@@ -21,6 +22,7 @@ var current_state = GameManager.player_state.HOME:
 
 func _ready():
 	position = data.positions.pick_random()
+	team = data.team
 	_set_direction(get_angle_to(position))
 	_update_animation("_idle")
 
@@ -38,9 +40,9 @@ func _set_direction(position_angle = get_local_mouse_position().angle()):
 func start_moving(blocks):
 	if !is_moving:
 		is_moving = true
+		Observer.actor_move_started.emit(self)
 		position_id = GameManager.selected_actor.position_id + GameManager.currentDieNumber
 		current_state = GameManager.player_state.FIELD
-		Observer.actor_move_started.emit(self)
 		for target_position in blocks.slice(0, GameManager.currentDieNumber):
 			target_position = tile_map.map_to_local(target_position)
 			_set_direction(get_angle_to(target_position))

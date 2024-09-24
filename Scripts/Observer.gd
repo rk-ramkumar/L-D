@@ -7,6 +7,7 @@ signal move_completed
 signal move_started
 signal move_failed
 signal next_turn
+signal extra_turn
 signal turn_started
 signal game_won
 signal game_over
