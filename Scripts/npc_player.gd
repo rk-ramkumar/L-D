@@ -23,7 +23,7 @@ func _handle_move_started():
 
 	var selected_actor = pick_actor()
 	if !selected_actor:
-		Observer.move_completed.emit()
+		Observer.next_turn.emit()
 		return
 
 	await get_tree().create_timer(1).timeout

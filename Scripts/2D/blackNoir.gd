@@ -40,6 +40,7 @@ func start_moving(blocks):
 		is_moving = true
 		position_id = GameManager.selected_actor.position_id + GameManager.currentDieNumber
 		current_state = GameManager.player_state.FIELD
+		Observer.actor_move_started.emit(self)
 		for target_position in blocks.slice(0, GameManager.currentDieNumber):
 			target_position = tile_map.map_to_local(target_position)
 			_set_direction(get_angle_to(target_position))
@@ -96,7 +97,7 @@ func _on_tween_position_finished():
 		is_moving = false
 		tween.kill()
 		tween = null
-		Observer.move_completed.emit()
+		Observer.actor_move_completed.emit(self)
 	)
 
 func _on_home_state_timer_timeout():

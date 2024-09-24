@@ -59,12 +59,6 @@ func _unhandled_input(event):
 			GameManager.selected_actor.start_moving(
 				blocks.slice(GameManager.selected_actor.position_id)
 			)
-			var killed_actor = is_actor_present(
-				GameManager.selected_actor.position_id,
-				GameManager.get_opponent_team(GameManager.selected_actor.data.team)
-			)
-			if killed_actor:
-				GameManager.killed_actor = killed_actor
 
 func _on_move_started():
 	can_move = true
@@ -81,6 +75,5 @@ func is_actor_present(position_id, team):
 	var actors = GameManager.teamList[team].actors.filter(func(actor):
 		return actor.position_id == position_id)
 
-	print(actors)
 	if actors.size() > 0:
 		return actors.front()
