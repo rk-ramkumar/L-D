@@ -54,7 +54,7 @@ func start_moving(blocks):
 				_lerp_to_pos(target_position)
 
 func start_moving_home():
-	current_state = GameManager.player_state.HOME
+	current_state = GameManager.player_state.KILLED
 	var pos = data.positions.pick_random()
 	_set_direction(get_angle_to(pos))
 	_update_animation("_walk")

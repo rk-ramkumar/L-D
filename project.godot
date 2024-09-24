@@ -21,10 +21,11 @@ config/icon="res://Assets/Textures/app_logo.png"
 
 [autoload]
 
+AudioController="*res://Scenes/audio_controller.tscn"
 Helpers="*res://Scripts/Helpers.gd"
-GameManager="*res://Scripts/GameManager.gd"
-NotificationManager="*res://Scripts/NotificationManager.gd"
 Observer="*res://Scripts/Observer.gd"
+NotificationManager="*res://Scripts/NotificationManager.gd"
+GameManager="*res://Scripts/GameManager.gd"
 
 [display]
 

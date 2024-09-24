@@ -27,7 +27,8 @@ var currentDieNumber: int :
 			currentDieNumber = newNumber
 enum player_state {
 	HOME,
-	FIELD
+	FIELD,
+	KILLED
 }
 var selected_actor
 
@@ -54,7 +55,8 @@ func _on_roll_completed(die_value):
 func _set_movable(actors):
 	## Check for powers that stop movable
 	for actor in actors:
-		if actor.position_id + currentDieNumber > max_tile_id:
+		actor.movable = true
+		if (actor.position_id + currentDieNumber > max_tile_id
+			or (actor.current_state == player_state.HOME and currentDieNumber != 1)
+		):
 			actor.movable = false
-		else:
-			actor.movable = true

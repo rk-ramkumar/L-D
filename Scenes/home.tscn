@@ -1,10 +1,22 @@
-[gd_scene load_steps=6 format=3 uid="uid://13kx8nxkpowt"]
+[gd_scene load_steps=9 format=3 uid="uid://13kx8nxkpowt"]
 
 [ext_resource type="Script" path="res://Scripts/home.gd" id="1_sdkj4"]
+[ext_resource type="Texture2D" uid="uid://cx5kb0elsotip" path="res://Assets/anime-night.png" id="2_jo11e"]
 [ext_resource type="PackedScene" uid="uid://cmrna0h0dmrhj" path="res://Components/custom_button.tscn" id="3_xpbkw"]
 [ext_resource type="FontFile" uid="uid://dhnxuxk0xio8j" path="res://Assets/font/Ghost Stories Deluxe.ttf" id="5_2yo6i"]
 [ext_resource type="Texture2D" uid="uid://1dmne5d2u88r" path="res://Assets/Icons/whiteNoir.png" id="6_dm5hj"]
 [ext_resource type="Texture2D" uid="uid://dvtvcij7aspuv" path="res://Assets/Icons/blackNoir.png" id="7_yp7dl"]
+
+[sub_resource type="Shader" id="Shader_bqrg4"]
+code = "shader_type canvas_item;
+
+void vertex() {
+	UV.x += TIME * .02;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k0nrc"]
+shader = SubResource("Shader_bqrg4")
 
 [node name="Home" type="Control"]
 texture_filter = 1
@@ -16,14 +28,17 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_sdkj4")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="TextureRect" parent="."]
+texture_repeat = 3
+material = SubResource("ShaderMaterial_k0nrc")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(1, 0.313726, 0.333333, 1)
+texture = ExtResource("2_jo11e")
+expand_mode = 3
 
 [node name="Title" type="RichTextLabel" parent="."]
 texture_filter = 1
