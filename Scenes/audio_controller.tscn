@@ -1,0 +1,42 @@
+[gd_scene load_steps=9 format=3 uid="uid://bygb1m6cqpx3g"]
+
+[ext_resource type="Script" path="res://Scenes/audio_controller.gd" id="1_bgus7"]
+[ext_resource type="AudioStream" uid="uid://dpwwydcwrs5d0" path="res://Assets/Audio/nature_birds.mp3" id="1_u3mdf"]
+[ext_resource type="AudioStream" uid="uid://chpjvfklcq26o" path="res://Assets/Audio/hot_loop.mp3" id="2_p7v1g"]
+[ext_resource type="AudioStream" uid="uid://guaya83uisnm" path="res://Assets/Audio/heartbeat_loop.mp3" id="4_7v5rd"]
+[ext_resource type="AudioStream" uid="uid://bhad2ubvs6k5c" path="res://Assets/Audio/game_bonus.mp3" id="5_qpsho"]
+[ext_resource type="AudioStream" uid="uid://bu25enk5ow8xl" path="res://Assets/Audio/item_pick_up.mp3" id="6_lv2ou"]
+[ext_resource type="AudioStream" uid="uid://bus5o048d2b3g" path="res://Assets/Audio/level_completion.wav" id="7_w2f2i"]
+[ext_resource type="AudioStream" uid="uid://bwjtx0hb5842h" path="res://Assets/Audio/pop_sound_effect.mp3" id="8_p661b"]
+
+[node name="AudioController" type="Node"]
+script = ExtResource("1_bgus7")
+
+[node name="MainBackground" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_p7v1g")
+autoplay = true
+bus = &"BGM"
+
+[node name="SecondaryBackground" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_u3mdf")
+mix_target = 1
+
+[node name="Heartbeat" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_7v5rd")
+bus = &"SFX"
+
+[node name="GameBonus" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_qpsho")
+bus = &"SFX"
+
+[node name="ItemPickUp" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_lv2ou")
+bus = &"SFX"
+
+[node name="LevelCompletion" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_w2f2i")
+bus = &"SFX"
+
+[node name="Popsound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_p661b")
+bus = &"SFX"
