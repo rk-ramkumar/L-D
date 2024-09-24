@@ -31,7 +31,7 @@ enum player_state {
 	KILLED
 }
 var selected_actor
-var tile_map
+var tile_map : TileMap
 var playground
 var extra_chance_dice = [1, 5, 6, 12]
 
@@ -43,6 +43,8 @@ func _ready():
 
 func connect_signals():
 	Observer.roll_completed.connect(_on_roll_completed)
+	Observer.roll_failed.connect(_on_roll_failed)
+	Observer.move_failed.connect(_on_move_failed)
 	Observer.next_turn.connect(_handle_next_turn)
 	Observer.extra_turn.connect(_handle_extra_turn)
 	Observer.actor_move_completed.connect(_handle_actor_move_completed)
@@ -64,6 +66,17 @@ func _on_roll_completed(die_value):
 		Observer.move_started.emit()
 	else:
 		Observer.next_turn.emit()
+
+func _on_roll_failed():
+	GameManager.currentDieNumber = randi() % 7 #Randomly set die value
+	Observer.roll_completed.emit(GameManager.currentDieNumber)
+
+func _on_move_failed():
+	var selected_actor = teamList[
+		Players[currentPlayerTurn].team
+	].actors.filter(func(actor): return actor.movable).pick_random()
+	var blocks = tile_map.blocks.slice(selected_actor.position_id)
+	selected_actor.start_moving(blocks)
 
 func _set_movable(actors):
 	## Check for powers that stop movable
@@ -88,7 +101,6 @@ func _handle_actor_move_completed(actor):
 		Observer.extra_turn.emit()
 		return
 
-	#Give extra chance when put 1
 	if has_extra_turn():
 		Observer.extra_turn.emit()
 	else:
@@ -102,7 +114,7 @@ func has_extra_turn():
 	var actors = teamList[Players[currentPlayerTurn].team].actors
 	if actors.any(func(actor): return actor.current_state != player_state.HOME):
 		return currentDieNumber in extra_chance_dice
-	
+	#Give extra chance when put 1
 	return currentDieNumber == 1
 
 func _handle_extra_turn():

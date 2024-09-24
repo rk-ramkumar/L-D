@@ -22,9 +22,6 @@ func _handle_move_started():
 		return
 
 	var selected_actor = pick_actor()
-	if !selected_actor:
-		Observer.next_turn.emit()
-		return
 
 	await get_tree().create_timer(1).timeout
 	var blocks = tile_map.blocks.slice(selected_actor.position_id).map(func(pos): 
@@ -70,7 +67,7 @@ func pick_actor():
 			max_weightage = current_weightage
 			selected_actor = actor
 	
-	return selected_actor
+	return selected_actor if selected_actor else actors.pick_random()
 
 func get_no_nearby_weightage(opponent_actors, target_id):
 	var opponent_positions = opponent_actors.map(func(opponent_actor): return target_id - opponent_actor.position_id)

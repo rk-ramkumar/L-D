@@ -16,7 +16,10 @@ var actor_scene = preload("res://Scenes/2D/blackNoir.tscn")
 func _ready():
 	connect_signals()
 	GameManager.player = GameManager.Players[1]
-	GameManager.register_resource({tile_map = tile_map, playground = self})
+	GameManager.register_resource({
+		tile_map = tile_map,
+		playground = self
+	})
 	AudioController.secondary_background.play()
 	_add_npc_players()
 	_add_actors()

@@ -1,4 +1,4 @@
-extends HBoxContainer
+class_name MessageBox extends HBoxContainer
 
 @onready var animation_player = $AnimationPlayer
 @onready var rich_text_label = $VBoxContainer/Panel/MarginContainer/RichTextLabel
@@ -12,6 +12,7 @@ func _ready():
 	Observer.actor_move_completed.connect(_on_actor_move_completed)
 	Observer.actor_captured.connect(_on_actor_captured)
 	Observer.extra_turn.connect(_on_extra_turn)
+	Observer.roll_failed.connect(_on_roll_failed)
 	Observer.game_won.connect(_on_game_won)
 
 func _on_button_toggled(button_pressed):
@@ -27,6 +28,9 @@ func _on_roll_completed(die_value):
 		die_value = die_value
 		}
 	)
+
+func _on_roll_failed():
+	log_game_event("roll_failed", {player_name = get_user_name()})
 
 func _on_turn_started():
 	log_game_event("turn_started", {
@@ -109,6 +113,8 @@ func log_game_event(event_type, extra_info = {}):
 			event_text = "{player_name} has earned an extra turn!"
 		"game_won":
 			event_text = "Team {team_name} has won the game!"
+		"roll_failed":
+			event_text = "Unfortunately, {player_name}'s roll attempt failed."
 
 	# Replace placeholders in the sentence with actual data
 	event_text = event_text.format(extra_info)
