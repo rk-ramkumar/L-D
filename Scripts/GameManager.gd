@@ -33,3 +33,28 @@ var selected_actor
 
 func get_opponent_team(team):
 	return "L" if team == "D" else "D"
+
+func _ready():
+	Observer.roll_completed.connect(_on_roll_completed)
+
+func _on_roll_completed(die_value):
+	var actors = teamList[Players[currentPlayerTurn].team].actors
+	var is_all_home = actors.all(func(actor): return actor.current_state == player_state.HOME)
+
+	if is_all_home and die_value != 1:
+		Observer.next_turn.emit()
+		return
+
+	_set_movable(actors)
+	if actors.any(func(actor): return actor.movable):
+		Observer.move_started.emit()
+	else:
+		Observer.next_turn.emit()
+
+func _set_movable(actors):
+	## Check for powers that stop movable
+	for actor in actors:
+		if actor.position_id + currentDieNumber > max_tile_id:
+			actor.movable = false
+		else:
+			actor.movable = true

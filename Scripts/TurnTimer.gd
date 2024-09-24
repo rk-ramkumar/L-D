@@ -5,9 +5,9 @@ extends Timer
 func _ready():
 	Observer.turn_started.connect(startTimer)
 	Observer.roll_started.connect(stopTimer)
-	Observer.roll_completed.connect(startTimer)
+	Observer.roll_completed.connect(_on_roll_completed)
 
-func _on_switch_turn(id):
+func _on_roll_completed(_die_value):
 	startTimer()
 
 # Online Multiplayer

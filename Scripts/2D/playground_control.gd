@@ -22,8 +22,8 @@ func _on_move_started():
 	timer_label.text = str(move_time)
 	state = "move"
 
-func _on_roll_completed():
-	steps_label.text = str(GameManager.currentDieNumber)
+func _on_roll_completed(dice_value):
+	steps_label.text = str(dice_value)
 
 func _handle_player_turn(id):
 	if id != GameManager.player.id:

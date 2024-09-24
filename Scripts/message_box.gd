@@ -21,10 +21,10 @@ func _on_button_toggled(button_pressed):
 		animation_player.play_backwards("open")
 
 
-func _on_roll_completed():
+func _on_roll_completed(die_value):
 	log_game_event("roll_completed", {
 		player_name = get_user_name(),
-		die_value = GameManager.currentDieNumber
+		die_value = die_value
 		}
 	)
 

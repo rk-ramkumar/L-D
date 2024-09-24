@@ -1,6 +1,6 @@
 extends Node
 
-signal roll_completed
+signal roll_completed(dice_value)
 signal roll_started
 signal roll_failed
 signal move_completed

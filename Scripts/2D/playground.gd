@@ -69,24 +69,9 @@ func _handle_roll_started():
 	turn_timer.stop()
 	dice.map(func(die): die.visible = true)
 
-func _handle_roll_completed():
+func _handle_roll_completed(_dice_value):
 	is_rolling = false
 	dice_numbers = []
-	var actors = GameManager.teamList[
-		GameManager.Players[GameManager.currentPlayerTurn].team
-	].actors
-	var is_all_home = actors.all(func(actor):
-		return actor.current_state == GameManager.player_state.HOME)
-
-	if is_all_home and GameManager.currentDieNumber != 1:
-		Observer.next_turn.emit()
-		return
-
-	_set_movable(actors)
-	if actors.any(func(actor): return actor.movable):
-		Observer.move_started.emit()
-	else:
-		Observer.next_turn.emit()
 
 func _handle_actor_move_completed(actor):
 	Observer.move_completed.emit()
@@ -114,13 +99,6 @@ func _handle_next_turn():
 func _handle_extra_turn():
 	Observer.turn_started.emit()
 
-func _set_movable(actors):
-	## Check for powers that stop movable
-	for actor in actors:
-		if actor.position_id + GameManager.currentDieNumber > GameManager.max_tile_id:
-			actor.movable = false
-		else:
-			actor.movable = true
 
 func _get_next_id():
 	return (GameManager.currentPlayerTurn % GameManager.playerLoaded) + 1
@@ -134,4 +112,4 @@ func _on_die_rolled(number):
 	dice_numbers.append(number)
 	if dice_numbers.size() == 2:
 		GameManager.currentDieNumber = dice_numbers.reduce(func(acc, cur): return acc+cur, 0)
-		Observer.roll_completed.emit()
+		Observer.roll_completed.emit(GameManager.currentDieNumber)
