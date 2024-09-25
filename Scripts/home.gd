@@ -28,8 +28,5 @@ func _on_enter_button_clicked():
 	if text.length() <= 0:
 		MessageManager.add_message("Please enter a vaild name.")
 		return
-	Profile.set_value("Player", "name", profile_label)
+	Profile.set_value("Player", "name", profile_label.text)
 	animation_player.play("enter_main")
-
-
-	

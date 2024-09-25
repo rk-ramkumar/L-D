@@ -15,11 +15,11 @@ func load_config(path):
 	# If the file didn't load, ignore it.
 	if err == OK:
 		return config
-	return null
+	return ConfigFile.new()
 
 func get_value(section, key):
-	if !_config:
-		return null
+	if !_config.has_section(section):
+		return
 	return _config.get_value(section, key)
 
 func set_value(section, key, value, path = _default_path):

@@ -65,7 +65,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [false, true]
+"values": [true, true]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -116,7 +116,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [true]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -128,7 +128,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 0)]
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xwmcr"]
@@ -179,8 +179,6 @@ bbcode_enabled = true
 text = "[center]LIGHT [wave amp=50.0 freq=5.0 connected=0][color=9958ff]VS[/color][/wave][color=black][outline_color=white] DARK[/outline_color][/color][/center]"
 
 [node name="MainContainer" type="CenterContainer" parent="."]
-visible = false
-modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5

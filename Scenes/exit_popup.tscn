@@ -15,33 +15,20 @@ font_size = 64
 outline_size = 16
 outline_color = Color(0, 0, 0, 1)
 
-[node name="ExitPopup" type="Popup"]
-transparent_bg = true
-size = Vector2i(1080, 720)
-visible = true
-transparent = true
+[node name="ExitPopup" type="CanvasLayer"]
 script = ExtResource("1_2snhu")
 
-[node name="Control" type="Control" parent="."]
-layout_mode = 3
+[node name="Background" type="ColorRect" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(0.0941176, 0.0941176, 0.0941176, 0.858824)
 
-[node name="Background" type="ColorRect" parent="Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.109804, 0.109804, 0.109804, 0.329412)
-
-[node name="Popup" type="Control" parent="Control"]
+[node name="Popup" type="Control" parent="."]
 self_modulate = Color(0.698039, 0.231373, 1, 1)
-layout_mode = 1
+layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -54,7 +41,7 @@ offset_bottom = 225.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="BackgroundColorPanel" type="Panel" parent="Control/Popup"]
+[node name="BackgroundColorPanel" type="Panel" parent="Popup"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -63,7 +50,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_1wttn")
 
-[node name="ConfirmLabel" type="Label" parent="Control/Popup"]
+[node name="ConfirmLabel" type="Label" parent="Popup"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -79,7 +66,7 @@ grow_vertical = 2
 text = "CONFIRM EXIT"
 label_settings = SubResource("LabelSettings_3p40w")
 
-[node name="QuitLabel" type="Label" parent="Control/Popup/ConfirmLabel"]
+[node name="QuitLabel" type="Label" parent="Popup/ConfirmLabel"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -94,7 +81,7 @@ grow_vertical = 0
 text = "DO YOU WANT TO QUIT THE GAME?
 "
 
-[node name="CancelButton" parent="Control/Popup" instance=ExtResource("2_h47s6")]
+[node name="CancelButton" parent="Popup" instance=ExtResource("2_h47s6")]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -106,7 +93,7 @@ offset_bottom = -44.0
 grow_vertical = 0
 text = "cancel"
 
-[node name="OkButton" parent="Control/Popup" instance=ExtResource("2_h47s6")]
+[node name="OkButton" parent="Popup" instance=ExtResource("2_h47s6")]
 custom_minimum_size = Vector2(100, 50)
 layout_mode = 1
 anchors_preset = 3
@@ -122,5 +109,6 @@ grow_horizontal = 0
 grow_vertical = 0
 text = "ok"
 
-[connection signal="clicked" from="Control/Popup/CancelButton" to="." method="_on_cancel_button_clicked" flags=18]
-[connection signal="clicked" from="Control/Popup/OkButton" to="." method="_on_ok_button_clicked" flags=18]
+[connection signal="gui_input" from="Background" to="." method="_on_background_gui_input"]
+[connection signal="clicked" from="Popup/CancelButton" to="." method="_on_cancel_button_clicked"]
+[connection signal="clicked" from="Popup/OkButton" to="." method="_on_ok_button_clicked"]

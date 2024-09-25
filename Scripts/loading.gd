@@ -7,7 +7,7 @@ var resource_names = []
 
 func _ready():
 	if Time.get_ticks_msec() - GameManager.game_start_time < 1000:
-		resource_names = ["Home", "ExitPopup" ]
+		resource_names = ["Home"]
 	_load_resources()
 
 func _load_resources():
