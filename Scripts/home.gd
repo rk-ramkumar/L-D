@@ -1,11 +1,11 @@
 extends Control
 
 @onready var animation_player = $AnimationPlayer
-@onready var main_container = $MainContainer
+@onready var main_container = $Container/MainContainer
 @onready var profile_container = $ProfileContainer
 @onready var profile_label = $ProfileContainer/CenterContainer/ProfileLabel
 @onready var enter_button = $ProfileContainer/CenterContainer/EnterButton
-@onready var button_container = $MainContainer/ButtonContainer
+@onready var button_container = $Container/MainContainer/ButtonContainer
 
 var match_making = preload("res://Scenes/ai_arena_lobby.tscn")
 
