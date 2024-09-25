@@ -72,11 +72,11 @@ func _on_roll_failed():
 	Observer.roll_completed.emit(GameManager.currentDieNumber)
 
 func _on_move_failed():
-	var selected_actor = teamList[
+	var actor = teamList[
 		Players[currentPlayerTurn].team
 	].actors.filter(func(actor): return actor.movable).pick_random()
-	var blocks = tile_map.blocks.slice(selected_actor.position_id)
-	selected_actor.start_moving(blocks)
+	var blocks = tile_map.blocks.slice(actor.position_id)
+	actor.start_moving(blocks)
 
 func _set_movable(actors):
 	## Check for powers that stop movable
