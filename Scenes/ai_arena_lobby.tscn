@@ -1,11 +1,26 @@
-[gd_scene load_steps=12 format=3 uid="uid://c13l6b2ivm8bg"]
+[gd_scene load_steps=18 format=3 uid="uid://c13l6b2ivm8bg"]
 
 [ext_resource type="Script" path="res://Scripts/ai_arena_lobby.gd" id="1_d7km0"]
 [ext_resource type="PackedScene" uid="uid://cmrna0h0dmrhj" path="res://Components/custom_button.tscn" id="2_3v5dp"]
+[ext_resource type="Texture2D" uid="uid://cx5kb0elsotip" path="res://Assets/anime-night.png" id="2_8bvfg"]
+[ext_resource type="FontFile" uid="uid://dhnxuxk0xio8j" path="res://Assets/font/Ghost Stories Deluxe.ttf" id="3_en0xe"]
 [ext_resource type="Texture2D" uid="uid://dhi5bfdmnv042" path="res://Assets/Icons/pawn.svg" id="3_mvgq0"]
 [ext_resource type="Texture2D" uid="uid://cglre03ekqj6g" path="res://Assets/Icons/pawns.svg" id="4_j0txx"]
+[ext_resource type="Texture2D" uid="uid://1dmne5d2u88r" path="res://Assets/Icons/whiteNoir.png" id="4_v7fnx"]
 [ext_resource type="Texture2D" uid="uid://boe2k0o8yjumf" path="res://Assets/Icons/arrow_right.svg" id="5_68j85"]
+[ext_resource type="Texture2D" uid="uid://dvtvcij7aspuv" path="res://Assets/Icons/blackNoir.png" id="6_s4uo4"]
 [ext_resource type="Texture2D" uid="uid://bequamwrwrfvk" path="res://icon.svg" id="8_qt2gg"]
+
+[sub_resource type="Shader" id="Shader_wv6lc"]
+code = "shader_type canvas_item;
+
+void vertex() {
+	UV.x += TIME * .02;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wyy4b"]
+shader = SubResource("Shader_wv6lc")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hrdlb"]
 bg_color = Color(0.796078, 0.74902, 0.658824, 1)
@@ -68,6 +83,63 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_d7km0")
+
+[node name="Background" type="TextureRect" parent="."]
+texture_repeat = 3
+material = SubResource("ShaderMaterial_wyy4b")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_8bvfg")
+expand_mode = 3
+
+[node name="Title" type="RichTextLabel" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 5
+theme_override_constants/shadow_outline_size = 10
+theme_override_constants/outline_size = 10
+theme_override_fonts/normal_font = ExtResource("3_en0xe")
+theme_override_font_sizes/normal_font_size = 128
+bbcode_enabled = true
+text = "[center]LIGHT [wave amp=50.0 freq=5.0 connected=0][color=9958ff]VS[/color][/wave][color=black][outline_color=white] DARK[/outline_color][/color][/center]"
+
+[node name="MainContainer" type="HBoxContainer" parent="."]
+modulate = Color(1, 1, 1, 0.8)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 200
+
+[node name="Control" type="Control" parent="MainContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+
+[node name="WhiteNoir" type="Sprite2D" parent="MainContainer/Control"]
+texture = ExtResource("4_v7fnx")
+
+[node name="Control2" type="Control" parent="MainContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 4
+
+[node name="BlackNoir" type="Sprite2D" parent="MainContainer/Control2"]
+texture = ExtResource("6_s4uo4")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1

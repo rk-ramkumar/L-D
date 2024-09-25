@@ -34,7 +34,7 @@ func generate_name(generated_names = {}) -> String:
 # Function to generate multiple unique names
 func generate_unique_names(count: int) -> Array:
 	var unique_names = []
-	var generated_names = {}
+	var _generated_names = {}
 	for i in range(count):
 		var new_name = generate_name()
 		unique_names.append(new_name)

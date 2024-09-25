@@ -55,11 +55,10 @@ func reset():
 	tile_map = null
 	playground = null
 
-func load_scene(resource, current_scene):
+func load_scene(resource, _current_scene):
 	var loading = GameManager.loading_scene.instantiate()
 	loading.add_resource_name(resource)
 	get_tree().root.add_child(loading)
-	current_scene.hide()
 
 func connect_signals():
 	Observer.roll_completed.connect(_on_roll_completed)
