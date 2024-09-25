@@ -266,6 +266,7 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxFlat_xt5ic")
 placeholder_text = "ENTER NAME"
+alignment = 1
 caret_blink = true
 
 [node name="RandomButton" type="TextureButton" parent="ProfileContainer/CenterContainer/ProfileLabel"]
@@ -286,7 +287,6 @@ texture_normal = ExtResource("7_hctlm")
 [node name="EnterButton" parent="ProfileContainer/CenterContainer" instance=ExtResource("3_xpbkw")]
 layout_mode = 2
 size_flags_horizontal = 4
-disabled = true
 text = "enter"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -295,6 +295,5 @@ libraries = {
 }
 
 [connection signal="clicked" from="MainContainer/HBoxContainer/VBoxContainer/StartButton" to="." method="_on_start_button_clicked"]
-[connection signal="text_changed" from="ProfileContainer/CenterContainer/ProfileLabel" to="." method="_on_profile_label_text_changed"]
 [connection signal="pressed" from="ProfileContainer/CenterContainer/ProfileLabel/RandomButton" to="." method="_on_random_button_pressed"]
 [connection signal="clicked" from="ProfileContainer/CenterContainer/EnterButton" to="." method="_on_enter_button_clicked"]

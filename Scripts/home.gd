@@ -22,18 +22,14 @@ func _on_start_button_clicked():
 
 func _on_random_button_pressed():
 	profile_label.text = RandomName.generate_name()
-	_set_enter_button_disabled(profile_label.text)
 
 func _on_enter_button_clicked():
 	var text = profile_label.text.dedent()
 	if text.length() <= 0:
+		MessageManager.add_message("Please enter a vaild name.")
 		return
 	Profile.set_value("Player", "name", profile_label)
 	animation_player.play("enter_main")
 
-func _on_profile_label_text_changed(new_text):
-	_set_enter_button_disabled(new_text)
 
-func _set_enter_button_disabled(text):
-	enter_button.disabled = text.dedent().length() <= 0
 	
