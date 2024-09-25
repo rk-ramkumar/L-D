@@ -23,8 +23,10 @@ config/icon="res://Assets/Textures/app_logo.png"
 
 AudioController="*res://Scenes/audio_controller.tscn"
 Helpers="*res://Scripts/Helpers.gd"
+RandomName="*res://Scripts/RandomNameGenerator.gd"
 Observer="*res://Scripts/Observer.gd"
 NotificationManager="*res://Scripts/NotificationManager.gd"
+Profile="*res://Scripts/Profile.gd"
 GameManager="*res://Scripts/GameManager.gd"
 
 [display]

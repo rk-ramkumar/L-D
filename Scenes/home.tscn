@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://13kx8nxkpowt"]
+[gd_scene load_steps=14 format=3 uid="uid://13kx8nxkpowt"]
 
 [ext_resource type="Script" path="res://Scripts/home.gd" id="1_sdkj4"]
 [ext_resource type="Texture2D" uid="uid://cx5kb0elsotip" path="res://Assets/anime-night.png" id="2_jo11e"]
 [ext_resource type="PackedScene" uid="uid://cmrna0h0dmrhj" path="res://Components/custom_button.tscn" id="3_xpbkw"]
 [ext_resource type="FontFile" uid="uid://dhnxuxk0xio8j" path="res://Assets/font/Ghost Stories Deluxe.ttf" id="5_2yo6i"]
 [ext_resource type="Texture2D" uid="uid://1dmne5d2u88r" path="res://Assets/Icons/whiteNoir.png" id="6_dm5hj"]
+[ext_resource type="Texture2D" uid="uid://b55w1ppiuqcer" path="res://Assets/Icons/dice_3D_detailed.svg" id="7_hctlm"]
 [ext_resource type="Texture2D" uid="uid://dvtvcij7aspuv" path="res://Assets/Icons/blackNoir.png" id="7_yp7dl"]
 
 [sub_resource type="Shader" id="Shader_bqrg4"]
@@ -17,6 +18,124 @@ void vertex() {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_k0nrc"]
 shader = SubResource("Shader_bqrg4")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xt5ic"]
+bg_color = Color(0.12549, 0.12549, 0.12549, 0.690196)
+border_width_left = 5
+border_width_right = 5
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 55.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="Animation" id="Animation_rdb7y"]
+resource_name = "enter_main"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ProfileContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ProfileContainer:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MainContainer:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MainContainer:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_o16bq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ProfileContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ProfileContainer:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MainContainer:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MainContainer:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xwmcr"]
+_data = {
+"RESET": SubResource("Animation_o16bq"),
+"enter_main": SubResource("Animation_rdb7y")
+}
 
 [node name="Home" type="Control"]
 texture_filter = 1
@@ -59,7 +178,9 @@ theme_override_font_sizes/normal_font_size = 128
 bbcode_enabled = true
 text = "[center]LIGHT [wave amp=50.0 freq=5.0 connected=0][color=9958ff]VS[/color][/wave][color=black][outline_color=white] DARK[/outline_color][/color][/center]"
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
+[node name="MainContainer" type="CenterContainer" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -73,49 +194,107 @@ offset_bottom = -100.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MainContainer"]
 layout_mode = 2
 theme_override_constants/separation = 200
 
-[node name="Control" type="Control" parent="CenterContainer/HBoxContainer"]
+[node name="Control" type="Control" parent="MainContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 
-[node name="WhiteNoir" type="Sprite2D" parent="CenterContainer/HBoxContainer/Control"]
+[node name="WhiteNoir" type="Sprite2D" parent="MainContainer/HBoxContainer/Control"]
 texture = ExtResource("6_dm5hj")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MainContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="StartButton" parent="CenterContainer/HBoxContainer/VBoxContainer" instance=ExtResource("3_xpbkw")]
+[node name="StartButton" parent="MainContainer/HBoxContainer/VBoxContainer" instance=ExtResource("3_xpbkw")]
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(1, 0.313726, 0.333333, 1)
 theme_override_fonts/font = ExtResource("5_2yo6i")
 text = "start"
 font_size = 64
 
-[node name="ProfileButton" parent="CenterContainer/HBoxContainer/VBoxContainer" instance=ExtResource("3_xpbkw")]
+[node name="ProfileButton" parent="MainContainer/HBoxContainer/VBoxContainer" instance=ExtResource("3_xpbkw")]
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(1, 0.313726, 0.333333, 1)
 theme_override_fonts/font = ExtResource("5_2yo6i")
 text = "profile"
 font_size = 64
 
-[node name="ExitButton" parent="CenterContainer/HBoxContainer/VBoxContainer" instance=ExtResource("3_xpbkw")]
+[node name="ExitButton" parent="MainContainer/HBoxContainer/VBoxContainer" instance=ExtResource("3_xpbkw")]
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(1, 0.313726, 0.333333, 1)
 theme_override_fonts/font = ExtResource("5_2yo6i")
 text = "exit"
 font_size = 64
 
-[node name="Control2" type="Control" parent="CenterContainer/HBoxContainer"]
+[node name="Control2" type="Control" parent="MainContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 
-[node name="BlackNoir" type="Sprite2D" parent="CenterContainer/HBoxContainer/Control2"]
+[node name="BlackNoir" type="Sprite2D" parent="MainContainer/HBoxContainer/Control2"]
 texture = ExtResource("7_yp7dl")
 
-[connection signal="clicked" from="CenterContainer/HBoxContainer/VBoxContainer/StartButton" to="." method="_on_start_button_clicked"]
+[node name="ProfileContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -104.5
+offset_right = 250.0
+offset_bottom = 104.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="CenterContainer" type="VBoxContainer" parent="ProfileContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="ProfileLabel" type="LineEdit" parent="ProfileContainer/CenterContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_xt5ic")
+placeholder_text = "ENTER NAME"
+caret_blink = true
+
+[node name="RandomButton" type="TextureButton" parent="ProfileContainer/CenterContainer/ProfileLabel"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -24.5
+offset_right = 64.0
+offset_bottom = 38.5
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(0.8, 0.8)
+texture_normal = ExtResource("7_hctlm")
+
+[node name="EnterButton" parent="ProfileContainer/CenterContainer" instance=ExtResource("3_xpbkw")]
+layout_mode = 2
+size_flags_horizontal = 4
+disabled = true
+text = "enter"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_xwmcr")
+}
+
+[connection signal="clicked" from="MainContainer/HBoxContainer/VBoxContainer/StartButton" to="." method="_on_start_button_clicked"]
+[connection signal="text_changed" from="ProfileContainer/CenterContainer/ProfileLabel" to="." method="_on_profile_label_text_changed"]
+[connection signal="pressed" from="ProfileContainer/CenterContainer/ProfileLabel/RandomButton" to="." method="_on_random_button_pressed"]
+[connection signal="clicked" from="ProfileContainer/CenterContainer/EnterButton" to="." method="_on_enter_button_clicked"]
