@@ -30,6 +30,7 @@ ExitPopup="*res://Scenes/exit_popup.tscn"
 Profile="*res://Scripts/Profile.gd"
 GameManager="*res://Scripts/GameManager.gd"
 MessageManager="*res://Scenes/message_manager.tscn"
+PowersManager="*res://Scripts/PowersManager.gd"
 
 [display]
 
