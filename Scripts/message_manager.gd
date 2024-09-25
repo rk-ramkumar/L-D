@@ -11,14 +11,16 @@ func add_message(msg):
 	var label = label_ref.duplicate(true)
 	label.visible = true
 	label.text = msg
-	start_timer(label)
 	container.add_child(label)
+	start_timer(label)
 
 func _remove_child():
 	container.get_child(0).queue_free()
 
 func start_timer(label):
 	await get_tree().create_timer(msg_duration).timeout
+	if !label:
+		return
 	var tween: Tween = label.create_tween()
 	tween.tween_property(label, "modulate:a", 0, 1)
 	tween.tween_callback(func():
