@@ -10,6 +10,7 @@ var match_making = preload("res://Scenes/match_making.tscn")
 @onready var ai_arena_lobby = $AIArenaLobby
 
 func _ready():
+	GameManager.reset()
 	var player_name = Profile.get_value("Player", "name")
 
 	if player_name:

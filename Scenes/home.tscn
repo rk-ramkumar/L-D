@@ -168,7 +168,7 @@ bbcode_enabled = true
 text = "[center]LIGHT [wave amp=50.0 freq=5.0 connected=0][color=9958ff]VS[/color][/wave][color=black][outline_color=white] DARK[/outline_color][/color][/center]"
 
 [node name="MainContainer" type="HBoxContainer" parent="."]
-modulate = Color(1, 1, 1, 0)
+modulate = Color(1, 1, 1, 0.8)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -179,7 +179,7 @@ theme_override_constants/separation = 200
 
 [node name="Control" type="Control" parent="MainContainer"]
 layout_mode = 2
-size_flags_horizontal = 6
+size_flags_horizontal = 10
 size_flags_vertical = 4
 
 [node name="WhiteNoir" type="Sprite2D" parent="MainContainer/Control"]
@@ -206,7 +206,7 @@ font_size = 64
 
 [node name="Control2" type="Control" parent="MainContainer"]
 layout_mode = 2
-size_flags_horizontal = 6
+size_flags_horizontal = 2
 size_flags_vertical = 4
 
 [node name="BlackNoir" type="Sprite2D" parent="MainContainer/Control2"]

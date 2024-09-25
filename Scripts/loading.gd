@@ -1,4 +1,4 @@
-extends Control
+extends CanvasLayer
 
 var _progress = []
 var resource_names = []
@@ -38,10 +38,6 @@ func _process(_delta):
 				update_loading_screen(_progress[0])
 		
 		match get_resource_path(resource_name):
-
-			GameManager.scene_paths.ExitPopup:
-				if stage == ResourceLoader.THREAD_LOAD_LOADED:
-					_on_exit_popup_loaded(resource_name)
 			_:
 				if stage == ResourceLoader.THREAD_LOAD_LOADED:
 					_change_scene(resource_name)
@@ -65,12 +61,6 @@ func _change_scene(resource_name):
 		get_tree().change_scene_to_packed.bind(resource)
 	)
 	tween.tween_callback(func(): resource_names.erase(resource_name))
-
-func _on_exit_popup_loaded(resource_name):
-	var exit_popup = _get_loaded_resource(resource_name).instantiate()
-	exit_popup.size = get_viewport_rect().size
-	get_tree().root.add_child(exit_popup)
-	resource_names.erase(resource_name)
 
 func _get_loaded_resource(resource_name):
 	return ResourceLoader.load_threaded_get(get_resource_path(resource_name))

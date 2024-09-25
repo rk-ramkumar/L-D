@@ -7,4 +7,4 @@ func _notification(what):
 			if !get_tree().root.has_node("ExitPopup"):
 				get_tree().quit()
 				return
-			get_tree().root.get_node("ExitPopup").visible = true
+			get_tree().root.get_node("ExitPopup").handle_back_request()

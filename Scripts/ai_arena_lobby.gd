@@ -5,7 +5,6 @@ extends Control
 @onready var v_box_container = $HBoxContainer/LeftBoxContainer/VBoxContainer/ProfilePanel
 @onready var containers = [$HBoxContainer/RightBoxContainer/VBoxContainer, $HBoxContainer/LeftBoxContainer/VBoxContainer]
 
-var main_scene = preload("res://Scenes/loading.tscn")
 
 var player_loaded = 0
 var character_icon = preload("res://Assets/Icons/character.svg")
@@ -93,7 +92,4 @@ func _on_start_button_clicked():
 			var profile = child.get_meta("profile")
 			GameManager.Players[profile.id] = profile
 		))
-	var level = main_scene.instantiate()
-	level.add_resource_name("Playground")
-	get_tree().root.add_child(level)
-	hide()
+	GameManager.load_scene("Playground", get_parent())
