@@ -1,11 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://c13l6b2ivm8bg"]
+[gd_scene load_steps=12 format=3 uid="uid://c13l6b2ivm8bg"]
 
 [ext_resource type="Script" path="res://Scripts/ai_arena_lobby.gd" id="1_d7km0"]
 [ext_resource type="PackedScene" uid="uid://cmrna0h0dmrhj" path="res://Components/custom_button.tscn" id="2_3v5dp"]
 [ext_resource type="Texture2D" uid="uid://dhi5bfdmnv042" path="res://Assets/Icons/pawn.svg" id="3_mvgq0"]
 [ext_resource type="Texture2D" uid="uid://cglre03ekqj6g" path="res://Assets/Icons/pawns.svg" id="4_j0txx"]
 [ext_resource type="Texture2D" uid="uid://boe2k0o8yjumf" path="res://Assets/Icons/arrow_right.svg" id="5_68j85"]
-[ext_resource type="Texture2D" uid="uid://bhwaft25buxl4" path="res://Assets/kenney_particle/spark_07.png" id="5_ngssf"]
 [ext_resource type="Texture2D" uid="uid://bequamwrwrfvk" path="res://icon.svg" id="8_qt2gg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hrdlb"]
@@ -169,33 +168,28 @@ grow_horizontal = 2
 text = "Select Mode"
 label_settings = SubResource("LabelSettings_pxfby")
 
-[node name="SparkDivider" type="Sprite2D" parent="."]
-self_modulate = Color(0.945098, 0.0980392, 0.25098, 1)
-texture_filter = 1
-position = Vector2(640, 340)
-rotation = 1.39626
-scale = Vector2(2, 2)
-texture = ExtResource("5_ngssf")
-
-[node name="LeftBoxContainer" type="BoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -359.0
-offset_right = 432.0
-offset_bottom = 191.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 100
+
+[node name="LeftBoxContainer" type="BoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="LeftBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/LeftBoxContainer"]
 texture_filter = 1
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 100
 
-[node name="ProfilePanel" type="Panel" parent="LeftBoxContainer/VBoxContainer"]
+[node name="ProfilePanel" type="Panel" parent="HBoxContainer/LeftBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 tooltip_text = "Select mode"
@@ -203,7 +197,7 @@ mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_3xkhu")
 metadata/profile = {}
 
-[node name="IconButton" type="TextureButton" parent="LeftBoxContainer/VBoxContainer/ProfilePanel"]
+[node name="IconButton" type="TextureButton" parent="HBoxContainer/LeftBoxContainer/VBoxContainer/ProfilePanel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -221,7 +215,7 @@ texture_normal = ExtResource("8_qt2gg")
 ignore_texture_size = true
 stretch_mode = 4
 
-[node name="Namelabel" type="Label" parent="LeftBoxContainer/VBoxContainer/ProfilePanel"]
+[node name="Namelabel" type="Label" parent="HBoxContainer/LeftBoxContainer/VBoxContainer/ProfilePanel"]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -235,58 +229,45 @@ label_settings = SubResource("LabelSettings_mn0bc")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="RightBoxContainer" type="BoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -432.0
-offset_top = -359.0
-offset_bottom = 191.0
-grow_horizontal = 0
-grow_vertical = 2
+[node name="RightBoxContainer" type="BoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="RightBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/RightBoxContainer"]
 texture_filter = 1
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 100
 
-[node name="ModeSelectButton" parent="." instance=ExtResource("2_3v5dp")]
+[node name="VBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 2
+anchors_preset = 7
+anchor_left = 0.5
 anchor_top = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = 50.0
-offset_top = -140.0
-offset_right = 250.0
-offset_bottom = -40.0
+offset_left = -240.0
+offset_top = -160.0
+offset_right = 260.0
+offset_bottom = -60.0
+grow_horizontal = 2
 grow_vertical = 0
+size_flags_vertical = 4
+theme_override_constants/separation = 100
+
+[node name="ModeSelectButton" parent="VBoxContainer" instance=ExtResource("2_3v5dp")]
+layout_mode = 2
 icon = ExtResource("5_68j85")
 
-[node name="StartButton" parent="." instance=ExtResource("2_3v5dp")]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -250.0
-offset_top = -140.0
-offset_right = -50.0
-offset_bottom = -40.0
-grow_horizontal = 0
-grow_vertical = 0
+[node name="StartButton" parent="VBoxContainer" instance=ExtResource("2_3v5dp")]
+layout_mode = 2
 theme_override_colors/font_hover_color = Color(0.85098, 0.835294, 0.952941, 1)
 text = "Start"
 font_color = Color(0.85098, 0.835294, 0.952941, 1)
-font_size = 64
 
 [connection signal="clicked" from="ModeSelectPopup/Control/Control/BackgroundColorPanel/ModeSelectionContainer/SoloModeButton" to="." method="_on_solo_mode_button_clicked"]
 [connection signal="clicked" from="ModeSelectPopup/Control/Control/BackgroundColorPanel/ModeSelectionContainer/DuoModeButton" to="." method="_on_duo_mode_button_clicked"]
-[connection signal="clicked" from="ModeSelectButton" to="." method="_on_mode_select_button_clicked"]
-[connection signal="clicked" from="StartButton" to="." method="_on_start_button_clicked"]
+[connection signal="clicked" from="VBoxContainer/ModeSelectButton" to="." method="_on_mode_select_button_clicked"]
+[connection signal="clicked" from="VBoxContainer/StartButton" to="." method="_on_start_button_clicked"]

@@ -1,19 +1,12 @@
 extends Control
 
 @onready var popup = $ModeSelectPopup
-@onready var mode_select_button = $ModeSelectButton
-@onready var v_box_container = $LeftBoxContainer/VBoxContainer/ProfilePanel
-@onready var containers = [$RightBoxContainer/VBoxContainer, $LeftBoxContainer/VBoxContainer]
-@onready var spark_divider = $SparkDivider
+@onready var mode_select_button = $VBoxContainer/ModeSelectButton
+@onready var v_box_container = $HBoxContainer/LeftBoxContainer/VBoxContainer/ProfilePanel
+@onready var containers = [$HBoxContainer/RightBoxContainer/VBoxContainer, $HBoxContainer/LeftBoxContainer/VBoxContainer]
 
 var main_scene = preload("res://Scenes/loading.tscn")
-var default_player_detail = {
-	"id": 1,
-	"name": "rk",
-	"type": "pc",
-	"team": "L",
-	"icon": "res://icon.svg"
-}
+
 var player_loaded = 0
 var character_icon = preload("res://Assets/Icons/character.svg")
 var current_mode: String: 
@@ -23,7 +16,7 @@ var current_mode: String:
 		_update_container()
 
 func _ready():
-	v_box_container.set_meta("profile", default_player_detail)
+	v_box_container.set_meta("profile", Profile.player)
 	current_mode = "Solo"
 	_on_viewport_changed()
 	get_viewport().size_changed.connect(_on_viewport_changed)
@@ -41,14 +34,13 @@ func _on_mode_select_button_clicked():
 
 func _on_viewport_changed():
 	popup.size = get_viewport_rect().size
-	spark_divider.position = get_viewport_rect().size / 2
 
 func _update_container():
 
 	if player_loaded == 0:
 		#Update player container
-		v_box_container.get_node("IconButton").texture_normal = load(default_player_detail.icon)
-		v_box_container.get_node("Namelabel").text = default_player_detail.name
+		v_box_container.get_node("IconButton").texture_normal = load(Profile.player.icon)
+		v_box_container.get_node("Namelabel").text = Profile.player.name
 
 	match current_mode:
 		"Solo":
@@ -79,7 +71,7 @@ func _create_details(start = 1, end = 2, team = ["D"]):
 	return range(start, end).map(func(i):
 		return {
 		"id": i+1,
-		"name": "Bot_" + str(randi()),
+		"name": RandomName.generate_name(),
 		"type": "npc",
 		"team": team[i-start]
 		})

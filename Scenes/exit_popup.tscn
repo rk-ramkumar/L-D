@@ -16,6 +16,7 @@ outline_size = 16
 outline_color = Color(0, 0, 0, 1)
 
 [node name="ExitPopup" type="CanvasLayer"]
+layer = 10
 script = ExtResource("1_2snhu")
 
 [node name="Background" type="ColorRect" parent="."]

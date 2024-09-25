@@ -4,9 +4,19 @@ var _default_path = "user://profile.cfg"
 
 # Create new ConfigFile object.
 var _config
+var player = {
+	"id": 1,
+	"name": "",
+	"type": "pc",
+	"team": "L",
+	"icon": "res://icon.svg"
+}
 
 func _ready():
 	_config = load_config(_default_path)
+	var player_name = get_value("Player", "name")
+	if player_name:
+		player.name = player_name
 
 func load_config(path):
 	var config = ConfigFile.new()
