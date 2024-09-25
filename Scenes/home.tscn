@@ -77,7 +77,7 @@ tracks/0/path = NodePath("ProfileContainer:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
+"times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
@@ -89,7 +89,7 @@ tracks/1/path = NodePath("ProfileContainer:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
+"times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -172,7 +172,6 @@ bbcode_enabled = true
 text = "[center]LIGHT [wave amp=50.0 freq=5.0 connected=0][color=9958ff]VS[/color][/wave][color=black][outline_color=white] DARK[/outline_color][/color][/center]"
 
 [node name="MainContainer" type="HBoxContainer" parent="Container"]
-modulate = Color(1, 1, 1, 0.8)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 200
