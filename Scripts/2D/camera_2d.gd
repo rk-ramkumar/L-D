@@ -25,7 +25,7 @@ func adjust_camera_to_fit_tilemap():
 		zoom.y = 1 * target_ratio / screen_ratio
 		zoom.x = 1
 
-func _input(event):
+func _unhandled_input(event):
 	if event is InputEventScreenTouch:
 		_handle_touch(event)
 	elif event is InputEventScreenDrag:
