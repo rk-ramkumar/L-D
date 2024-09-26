@@ -84,4 +84,5 @@ func _on_die_rolled(number):
 	dice_numbers.append(number)
 	if dice_numbers.size() == 2:
 		GameManager.currentDieNumber = dice_numbers.reduce(func(acc, cur): return acc+cur, 0)
+		ui.on_roll_completed(dice_numbers)
 		Observer.roll_completed.emit(GameManager.currentDieNumber)
