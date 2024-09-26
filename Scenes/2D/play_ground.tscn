@@ -564,7 +564,6 @@ script = ExtResource("1_5tede")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 y_sort_enabled = true
-zoom = Vector2(0.5, 0.5)
 limit_smoothed = true
 position_smoothing_enabled = true
 script = ExtResource("2_qie20")
@@ -703,11 +702,6 @@ layout_mode = 1
 playground = NodePath("../../..")
 
 [node name="Notifier" parent="CanvasLayer/UI" instance=ExtResource("23_j0rin")]
-layout_mode = 1
-offset_left = 0.0
-offset_top = -25.0
-offset_right = 0.0
-offset_bottom = 25.0
 
 [node name="MessageBox" parent="CanvasLayer/UI" instance=ExtResource("24_r8hfl")]
 layout_mode = 0
