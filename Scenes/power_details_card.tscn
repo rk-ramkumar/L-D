@@ -1,0 +1,152 @@
+[gd_scene load_steps=6 format=3 uid="uid://dlc4hhi1pj1r7"]
+
+[ext_resource type="FontFile" uid="uid://dhnxuxk0xio8j" path="res://Assets/font/Ghost Stories Deluxe.ttf" id="1_rcq8l"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lsnia"]
+bg_color = Color(1, 1, 1, 0.427451)
+draw_center = false
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0, 0, 0, 0.772549)
+shadow_size = 20
+
+[sub_resource type="GDScript" id="GDScript_fb5so"]
+script/source = "extends Panel
+
+@onready var texture_rect = $CardContainer/PowerDetailsCard/PowerCard/HBoxContainer/Panel/TextureRect
+@onready var label = $CardContainer/PowerDetailsCard/PowerCard/HBoxContainer/Label
+@onready var rich_text_label = $CardContainer/PowerDetailsCard/VBoxContainer/RichTextLabel
+
+var data
+
+func _ready():
+	texture_rect.texture = load(data.image)
+	label.text = data.name
+	rich_text_label.text = rich_text_label.text.format(data)
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mwmjk"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 40
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_size = 10
+shadow_offset = Vector2(5, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pyqoa"]
+draw_center = false
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 10
+shadow_offset = Vector2(2, 2)
+
+[node name="PowerDetailsCard" type="Panel"]
+custom_minimum_size = Vector2(0, 400)
+offset_left = 291.0
+offset_right = 291.0
+offset_bottom = 400.0
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_lsnia")
+script = SubResource("GDScript_fb5so")
+
+[node name="CardContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="PowerDetailsCard" type="HBoxContainer" parent="CardContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="PowerCard" type="Panel" parent="CardContainer/PowerDetailsCard"]
+custom_minimum_size = Vector2(300, 250)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_mwmjk")
+
+[node name="HBoxContainer" type="VBoxContainer" parent="CardContainer/PowerDetailsCard/PowerCard"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Panel" type="Panel" parent="CardContainer/PowerDetailsCard/PowerCard/HBoxContainer"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_pyqoa")
+
+[node name="TextureRect" type="TextureRect" parent="CardContainer/PowerDetailsCard/PowerCard/HBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+expand_mode = 1
+
+[node name="Label" type="Label" parent="CardContainer/PowerDetailsCard/PowerCard/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_rcq8l")
+theme_override_font_sizes/font_size = 18
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CardContainer/PowerDetailsCard"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CardContainer/PowerDetailsCard/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+theme_override_colors/font_shadow_color = Color(0.6, 0.345098, 1, 1)
+theme_override_fonts/normal_font = ExtResource("1_rcq8l")
+theme_override_fonts/bold_font = ExtResource("1_rcq8l")
+theme_override_font_sizes/normal_font_size = 18
+theme_override_font_sizes/bold_font_size = 32
+bbcode_enabled = true
+text = "[center][b][color=Ffd700][outline_color=white]{name}[/outline_color][/color][/b][/center]
+
+[color=black][b]EFFECT :[/b][/color][center] {effect}[/center]
+
+[color=black][b]details :[/b][/color][center] {details}[/center]
+
+[b][color=black]base price :[/color] [color=Ffd700] {base_price} [/color][/b]"
+scroll_active = false

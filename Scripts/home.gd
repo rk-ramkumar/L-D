@@ -8,6 +8,7 @@ extends Control
 @onready var button_container = $Container/MainContainer/ButtonContainer
 
 var match_making = preload("res://Scenes/ai_arena_lobby.tscn")
+var powers_detail_scene = preload("res://Scenes/powers_details.tscn")
 
 func _ready():
 	GameManager.reset()
@@ -34,3 +35,6 @@ func _on_enter_button_clicked():
 		return
 	Profile.set_value("Player", "name", profile_label.text)
 	animation_player.play("enter_main")
+
+func _on_powers_button_clicked():
+	get_tree().change_scene_to_packed(powers_detail_scene)

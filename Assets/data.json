@@ -4,43 +4,57 @@
 	  "name": "Fortuna's Shield",
 	  "effect": "Reverse an opponent's capture attempt and capture their piece instead.",
 	  "details": "Channel the divine protection of Fortuna, turning your opponent’s strength into their downfall. When activated, this power reverses an opponent's attempt to capture your piece, allowing you to capture theirs instead.",
-	  "base_price": 20
+	  "base_price": 20,
+	  "used_on": "actor",
+	  "image": "res://Assets/PowersImages/FortunaShield.png"
 	},
 	{
 	  "name": "Sanctuary Seal",
 	  "effect": "Block opponents from landing on the safe spot for the next turn.",
 	  "details": "Invoke divine protection to seal off a safe tile, restricting other players from accessing it for one round. This power allows your team to claim the safe spot temporarily without fear of intrusion.",
-	  "base_price": 30
+	  "base_price": 30,
+	  "used_on": "tile",
+	  "image": "res://Assets/PowersImages/SanctuarySeal.png"
 	},
 	{
 	  "name": "Relentless March",
 	  "effect": "Nullify the stun effect of being captured and move immediately.",
 	  "details": "The relentless spirit of a true warrior prevents delays. When your piece is captured, you can immediately move it without losing a turn.",
-	  "base_price": 25
+	  "base_price": 25,
+	  "used_on": "actor",
+	  "image": "res://Assets/PowersImages/RelentlessMarch.png"
 	},
 	{
 	  "name": "Fate's Trickery",
 	  "effect": "Prevent an opponent from taking an extra roll after rolling 1, 5, 6, or 12.",
 	  "details": "Manipulate fate and deny your opponent the advantage of extra rolls when they land on specific numbers. Fate's Trickery blocks the bonus roll for one turn.",
-	  "base_price": 15
+	  "base_price": 15,
+	  "used_on": "player",
+	  "image": "res://Assets/PowersImages/FateTrickery.png"
 	},
 	{
 	  "name": "Hermes' Dash",
 	  "effect": "Move an extra few spaces or jump to the nearest safe tile.",
 	  "details": "Call upon the speed of Hermes to quickly advance. This power allows your piece to either move forward extra spaces or leap directly to the nearest safe tile.",
-	  "base_price": 20
+	  "base_price": 20,
+	  "used_on": "actor",
+	  "image": "res://Assets/PowersImages/HermesDash.png"
 	},
 	{
 	  "name": "Ra's Vision",
 	  "effect": "Reroll the dice once to try for a better number.",
 	  "details": "Ra, the god of foresight, grants you a second chance at fortune. Use this power to reroll the dice and improve your roll.",
-	  "base_price": 15
+	  "base_price": 15,
+	  "used_on": "board",
+	  "image": "res://Assets/PowersImages/RaVision.png"
 	},
 	{
 	  "name": "Zeus's Favor",
 	  "effect": "Guarantee an extra turn on any roll for one round.",
 	  "details": "With Zeus's divine intervention, any roll guarantees you an extra turn for that round. A powerful boost to shift the tides in your favor.",
-	  "base_price": 35
+	  "base_price": 35,
+	  "used_on": "board",
+	  "image": "res://Assets/PowersImages/ZeusFavor.png"
 	}
   ]
 }

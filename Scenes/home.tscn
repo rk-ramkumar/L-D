@@ -203,6 +203,13 @@ theme_override_fonts/font = ExtResource("5_2yo6i")
 text = "profile"
 font_size = 64
 
+[node name="PowersButton" parent="Container/MainContainer/ButtonContainer" instance=ExtResource("3_xpbkw")]
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(1, 0.313726, 0.333333, 1)
+theme_override_fonts/font = ExtResource("5_2yo6i")
+text = "powers"
+font_size = 64
+
 [node name="Control2" type="Control" parent="Container/MainContainer"]
 layout_mode = 2
 size_flags_horizontal = 2
@@ -267,5 +274,6 @@ libraries = {
 }
 
 [connection signal="clicked" from="Container/MainContainer/ButtonContainer/PlayButton" to="." method="_on_play_button_clicked"]
+[connection signal="clicked" from="Container/MainContainer/ButtonContainer/PowersButton" to="." method="_on_powers_button_clicked"]
 [connection signal="pressed" from="ProfileContainer/CenterContainer/ProfileLabel/RandomButton" to="." method="_on_random_button_pressed"]
 [connection signal="clicked" from="ProfileContainer/CenterContainer/EnterButton" to="." method="_on_enter_button_clicked"]
