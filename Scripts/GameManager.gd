@@ -87,7 +87,10 @@ func _on_roll_completed(die_value):
 	if actors.any(func(actor): return actor.movable):
 		Observer.move_started.emit()
 	else:
-		Observer.next_turn.emit()
+		if has_extra_turn():
+			Observer.extra_turn.emit()
+		else:
+			Observer.next_turn.emit()
 
 func _on_roll_failed():
 	GameManager.currentDieNumber = randi() % 7 #Randomly set die value
