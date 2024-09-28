@@ -15,7 +15,7 @@ var position_id = 0
 var movable: bool = true
 var is_moving: bool = false
 var team
-var current_state = GameManager.player_state.HOME:
+var current_state = GameManager.player_state.AT_HOME:
 	set(new_state):
 		current_state = new_state
 		_set_current_state()
@@ -27,7 +27,7 @@ func _ready():
 	_update_animation("_idle")
 
 func _set_current_state():
-	if current_state == GameManager.player_state.HOME:
+	if current_state == GameManager.player_state.AT_HOME:
 		home_state_timer.start(5)
 	else:
 		home_state_timer.stop()
@@ -42,7 +42,7 @@ func start_moving(blocks):
 		is_moving = true
 		Observer.actor_move_started.emit(self)
 		position_id = position_id + GameManager.currentDieNumber
-		current_state = GameManager.player_state.FIELD
+		current_state = GameManager.player_state.ON_FIELD
 		for target_position in blocks.slice(0, GameManager.currentDieNumber):
 			target_position = tile_map.map_to_local(target_position)
 			_set_direction(get_angle_to(target_position))
@@ -53,8 +53,12 @@ func start_moving(blocks):
 				await tween.finished
 				_lerp_to_pos(target_position)
 
+func finished(pos):
+	position_id = position_id + GameManager.currentDieNumber
+	current_state = GameManager.player_state.ON_FIELD
+
 func start_moving_home():
-	current_state = GameManager.player_state.KILLED
+	current_state = GameManager.player_state.CAPTURED
 	var pos = data.positions.pick_random()
 	_set_direction(get_angle_to(pos))
 	_update_animation("_walk")
@@ -99,7 +103,7 @@ func _on_tween_position_finished():
 		is_moving = false
 		tween.kill()
 		tween = null
-		if current_state == GameManager.player_state.FIELD:
+		if current_state == GameManager.player_state.ON_FIELD:
 			Observer.actor_move_completed.emit(self)
 	)
 

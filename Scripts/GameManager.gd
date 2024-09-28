@@ -25,9 +25,10 @@ var currentDieNumber: int :
 		else:
 			currentDieNumber = newNumber
 enum player_state {
-	HOME,
-	FIELD,
-	KILLED
+	AT_HOME,
+	ON_FIELD,
+	CAPTURED,
+	COMPLETED
 }
 var selected_actor
 var tile_map : TileMap
@@ -77,7 +78,7 @@ func _on_roll_completed(die_value):
 		Players[currentPlayerTurn].can_play = true
 
 	var actors = teamList[Players[currentPlayerTurn].team].actors
-#	var is_all_home = actors.all(func(actor): return actor.current_state == player_state.HOME)
+#	var is_all_home = actors.all(func(actor): return actor.current_state == player_state.AT_HOME)
 
 	if !Players[currentPlayerTurn].can_play:
 		Observer.next_turn.emit()
@@ -108,7 +109,7 @@ func _set_movable(actors):
 	for actor in actors:
 		actor.movable = true
 		if (actor.position_id + currentDieNumber > max_tile_id
-			or (actor.current_state == player_state.HOME and currentDieNumber != 1)
+			or (actor.current_state == player_state.AT_HOME and currentDieNumber != 1)
 		):
 			actor.movable = false
 
@@ -137,7 +138,7 @@ func _handle_next_turn():
 
 func has_extra_turn():
 	var actors = teamList[Players[currentPlayerTurn].team].actors
-	if actors.any(func(actor): return actor.current_state != player_state.HOME):
+	if actors.any(func(actor): return actor.current_state != player_state.AT_HOME):
 		return currentDieNumber in extra_chance_dice
 	#Give extra chance when put 1
 	return currentDieNumber == 1

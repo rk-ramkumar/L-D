@@ -48,7 +48,7 @@ func pick_actor():
 			selected_actor = actor
 			break
 
-		if actor.current_state == GameManager.player_state.FIELD and target_id > 7:
+		if actor.current_state == GameManager.player_state.ON_FIELD and target_id > 7:
 			# Kill check
 			if opponent_actors.any(func(opponent_actor):
 				return opponent_actor.position_id == target_id
