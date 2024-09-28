@@ -6,6 +6,7 @@ func _ready():
 	Observer.turn_started.connect(startTimer)
 	Observer.roll_started.connect(stopTimer)
 	Observer.roll_completed.connect(_on_roll_completed)
+	Observer.actor_move_started.connect(stopTimer)
 
 func _on_roll_completed(_die_value):
 	startTimer()
