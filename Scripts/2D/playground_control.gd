@@ -2,8 +2,8 @@ extends Control
 
 @onready var timer_label = $TimerLabel
 @onready var roll_button = $RollButton
-@onready var die_2 = $StepLabel/Steps/DiceImageContainer/Die2
-@onready var die_1 = $StepLabel/Steps/DiceImageContainer/Die1
+@onready var die_2 = $Steps/DiceImageContainer/Die1
+@onready var die_1 = $Steps/DiceImageContainer/Die2
 
 @export var turn_time: int = 25
 @export var move_time: int = 15

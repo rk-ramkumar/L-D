@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://b0ud7gjcvmw17"]
+[gd_scene load_steps=48 format=3 uid="uid://b0ud7gjcvmw17"]
 
 [ext_resource type="Script" path="res://Scripts/2D/playground.gd" id="1_5tede"]
 [ext_resource type="Texture2D" uid="uid://7b8r3ycl6y2t" path="res://Assets/Textures/soft_grass.png" id="2_fxc78"]
@@ -21,11 +21,12 @@
 [ext_resource type="PackedScene" uid="uid://b5s14d1gldj0w" path="res://Scenes/target_position_indicator.tscn" id="16_s6xk2"]
 [ext_resource type="Script" path="res://Scripts/TurnTimer.gd" id="19_15107"]
 [ext_resource type="PackedScene" uid="uid://cesnpvcf7asln" path="res://Scenes/2D/dice.tscn" id="19_kovbs"]
-[ext_resource type="LabelSettings" uid="uid://df6737in4bsjs" path="res://Assets/Resources/medium_label.tres" id="20_gba6p"]
+[ext_resource type="Texture2D" uid="uid://jq3n1t0qpoxf" path="res://Assets/vending_machine.png" id="19_to60y"]
 [ext_resource type="PackedScene" uid="uid://b12w16mhadndh" path="res://Scenes/players_card_carousel.tscn" id="21_pdwa2"]
 [ext_resource type="Texture2D" uid="uid://3l6yklc558kr" path="res://Assets/Icons/dice_empty.svg" id="23_hb2f2"]
 [ext_resource type="PackedScene" uid="uid://ri8jm7u32c1p" path="res://Scenes/notifier.tscn" id="23_j0rin"]
 [ext_resource type="PackedScene" uid="uid://bucipt88nxrb" path="res://Scenes/message_box.tscn" id="24_r8hfl"]
+[ext_resource type="FontFile" uid="uid://dhnxuxk0xio8j" path="res://Assets/font/Ghost Stories Deluxe.ttf" id="27_i3ike"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_t6d53"]
 tile_data = PackedInt32Array(0, 2, 0, 65536, 4, 0)
@@ -548,15 +549,28 @@ shadow_color = Color(0, 0, 0, 1)
 shadow_offset = Vector2(2, 2)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hqah4"]
-bg_color = Color(0.796078, 0.74902, 0.658824, 1)
+bg_color = Color(0.0941176, 0.0941176, 0.0941176, 0.858824)
+border_width_right = 2
+border_width_bottom = 2
 border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-shadow_color = Color(0, 0, 0, 0.905882)
-shadow_size = 8
-shadow_offset = Vector2(2, 2)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_size = 5
+shadow_offset = Vector2(4, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_62teq"]
+bg_color = Color(0.0941176, 0.0941176, 0.0941176, 0.858824)
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_size = 5
+shadow_offset = Vector2(4, 4)
 
 [node name="Playground" type="Node2D"]
 y_sort_enabled = true
@@ -626,6 +640,12 @@ tile_map = NodePath("../../TileMap")
 [node name="TouchIndicator" parent="TopLevelProps" node_paths=PackedStringArray("tile_map") instance=ExtResource("9_jy2yl")]
 tile_map = NodePath("../../TileMap")
 
+[node name="VendingMachine" type="Sprite2D" parent="TopLevelProps"]
+position = Vector2(64, 383)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("19_to60y")
+flip_h = true
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 2
 
@@ -668,34 +688,20 @@ offset_bottom = 25.0
 grow_horizontal = 2
 label_settings = SubResource("LabelSettings_w5gwk")
 
-[node name="StepLabel" type="Label" parent="CanvasLayer/UI"]
+[node name="Steps" type="Panel" parent="CanvasLayer/UI"]
+custom_minimum_size = Vector2(180, 80)
 layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 50.0
-offset_top = -60.0
-offset_right = 148.0
-offset_bottom = -8.0
-grow_vertical = 2
-text = "STEPS :"
-label_settings = ExtResource("20_gba6p")
-horizontal_alignment = 1
-
-[node name="Steps" type="Panel" parent="CanvasLayer/UI/StepLabel"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
+anchors_preset = 1
+anchor_left = 1.0
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -2.0
-offset_right = 64.0
-offset_bottom = 75.0
-grow_horizontal = 2
-grow_vertical = 0
+offset_left = -210.0
+offset_top = 20.0
+offset_right = -30.0
+offset_bottom = 100.0
+grow_horizontal = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_hqah4")
 
-[node name="DiceImageContainer" type="HBoxContainer" parent="CanvasLayer/UI/StepLabel/Steps"]
+[node name="DiceImageContainer" type="HBoxContainer" parent="CanvasLayer/UI/Steps"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -705,17 +711,25 @@ anchor_bottom = 0.5
 offset_left = -70.0
 offset_top = -34.0
 offset_right = 70.0
-offset_bottom = 34.0
+offset_bottom = 30.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 10
+alignment = 1
 
-[node name="Die1" type="TextureRect" parent="CanvasLayer/UI/StepLabel/Steps/DiceImageContainer"]
+[node name="Die1" type="TextureRect" parent="CanvasLayer/UI/Steps/DiceImageContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 texture = ExtResource("23_hb2f2")
+expand_mode = 1
+stretch_mode = 5
 
-[node name="Die2" type="TextureRect" parent="CanvasLayer/UI/StepLabel/Steps/DiceImageContainer"]
+[node name="Die2" type="TextureRect" parent="CanvasLayer/UI/Steps/DiceImageContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 texture = ExtResource("23_hb2f2")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="PlayersCardCarousel" parent="CanvasLayer/UI" node_paths=PackedStringArray("playground") instance=ExtResource("21_pdwa2")]
 layout_mode = 1
@@ -733,6 +747,27 @@ offset_top = 110.0
 offset_right = 60.0
 offset_bottom = 610.0
 grow_vertical = 1
+
+[node name="Panel" type="Panel" parent="CanvasLayer/UI"]
+custom_minimum_size = Vector2(210, 70)
+layout_mode = 1
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 230.0
+offset_bottom = 90.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_62teq")
+
+[node name="UserCoinLabel" type="RichTextLabel" parent="CanvasLayer/UI/Panel"]
+layout_mode = 1
+offset_right = 204.0
+offset_bottom = 50.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/normal_font = ExtResource("27_i3ike")
+theme_override_font_sizes/normal_font_size = 18
+bbcode_enabled = true
+text = "[img=64]res://Assets/PowersImages/Coin.png[/img][color=Ffd700]{coin}[/color]"
+scroll_active = false
 
 [connection signal="roll_finished" from="TopLevelProps/Die1" to="." method="_on_die_rolled"]
 [connection signal="roll_finished" from="TopLevelProps/Die2" to="." method="_on_die_rolled"]
