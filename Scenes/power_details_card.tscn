@@ -1,20 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://dlc4hhi1pj1r7"]
+[gd_scene load_steps=7 format=3 uid="uid://dlc4hhi1pj1r7"]
 
 [ext_resource type="FontFile" uid="uid://dhnxuxk0xio8j" path="res://Assets/font/Ghost Stories Deluxe.ttf" id="1_rcq8l"]
+[ext_resource type="FontFile" uid="uid://y665v7c8c3qh" path="res://Assets/font/Azonix.otf" id="1_ys4bs"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lsnia"]
-bg_color = Color(1, 1, 1, 0.427451)
 draw_center = false
-border_width_left = 10
-border_width_top = 10
-border_width_right = 10
-border_width_bottom = 10
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 shadow_color = Color(0, 0, 0, 0.772549)
 shadow_size = 20
+shadow_offset = Vector2(5, 5)
 
 [sub_resource type="GDScript" id="GDScript_fb5so"]
 script/source = "extends Panel
@@ -123,7 +120,7 @@ expand_mode = 1
 [node name="Label" type="Label" parent="CardContainer/PowerDetailsCard/PowerCard/HBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("1_rcq8l")
+theme_override_fonts/font = ExtResource("1_ys4bs")
 theme_override_font_sizes/font_size = 18
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -137,9 +134,10 @@ layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 1
 theme_override_colors/font_shadow_color = Color(0.6, 0.345098, 1, 1)
+theme_override_constants/shadow_outline_size = 2
 theme_override_fonts/normal_font = ExtResource("1_rcq8l")
-theme_override_fonts/bold_font = ExtResource("1_rcq8l")
-theme_override_font_sizes/normal_font_size = 18
+theme_override_fonts/bold_font = ExtResource("1_ys4bs")
+theme_override_font_sizes/normal_font_size = 16
 theme_override_font_sizes/bold_font_size = 32
 bbcode_enabled = true
 text = "[center][b][color=Ffd700][outline_color=white]{name}[/outline_color][/color][/b][/center]

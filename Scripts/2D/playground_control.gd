@@ -5,8 +5,8 @@ extends Control
 @onready var die_2 = $StepLabel/Steps/DiceImageContainer/Die2
 @onready var die_1 = $StepLabel/Steps/DiceImageContainer/Die1
 
-@export var turn_time: int = 60
-@export var move_time: int = 30
+@export var turn_time: int = 25
+@export var move_time: int = 15
 
 var state: String
 var die_textures = [
