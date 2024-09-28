@@ -73,10 +73,13 @@ func register_resource(dict):
 	playground = dict.playground
 
 func _on_roll_completed(die_value):
-	var actors = teamList[Players[currentPlayerTurn].team].actors
-	var is_all_home = actors.all(func(actor): return actor.current_state == player_state.HOME)
+	if !Players[currentPlayerTurn].can_play and die_value == 1:
+		Players[currentPlayerTurn].can_play = true
 
-	if is_all_home and die_value != 1:
+	var actors = teamList[Players[currentPlayerTurn].team].actors
+#	var is_all_home = actors.all(func(actor): return actor.current_state == player_state.HOME)
+
+	if !Players[currentPlayerTurn].can_play:
 		Observer.next_turn.emit()
 		return
 

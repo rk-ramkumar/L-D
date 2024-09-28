@@ -5,6 +5,7 @@ extends Control
 @onready var die_2 = $Steps/DiceImageContainer/Die1
 @onready var die_1 = $Steps/DiceImageContainer/Die2
 @onready var store = $Store
+@onready var user_coin_label = $Panel/UserCoinLabel
 
 @export var turn_time: int = 25
 @export var move_time: int = 15
@@ -20,6 +21,7 @@ var die_textures = [
 
 func _ready():
 	%TurnTimer.timeout.connect(_on_timeout)
+	user_coin_label.text = user_coin_label.text.format( GameManager.Players[1])
 	Observer.turn_started.connect(_on_turn_started)
 	Observer.move_started.connect(_on_move_started)
 
