@@ -4,6 +4,7 @@ extends Control
 @onready var roll_button = $RollButton
 @onready var die_2 = $Steps/DiceImageContainer/Die1
 @onready var die_1 = $Steps/DiceImageContainer/Die2
+@onready var store = $Store
 
 @export var turn_time: int = 25
 @export var move_time: int = 15
@@ -48,3 +49,11 @@ func _on_timeout():
 	timer_label.text = str(int(timer_label.text) - 1)
 	if int(timer_label.text) == 0:
 		Observer.emit_signal(state+"_failed")
+
+func _on_gui_input(event):
+	if event is InputEventScreenTouch:
+		if event.is_pressed() and store.visible:
+			store.hide()
+
+func _on_vending_machine_button_pressed():
+	store.show()

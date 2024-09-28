@@ -57,7 +57,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Container/MainContainer:visible")
+tracks/2/path = NodePath("Container/MarginContainer/MainContainer:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -97,7 +97,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Container/MainContainer:visible")
+tracks/2/path = NodePath("Container/MarginContainer/MainContainer:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -109,7 +109,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Container/MainContainer:modulate")
+tracks/3/path = NodePath("Container/MarginContainer/MainContainer:modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -171,51 +171,56 @@ theme_override_font_sizes/normal_font_size = 128
 bbcode_enabled = true
 text = "[center]LIGHT [wave amp=50.0 freq=5.0 connected=0][color=9958ff]VS[/color][/wave][color=black][outline_color=white] DARK[/outline_color][/color][/center]"
 
-[node name="MainContainer" type="HBoxContainer" parent="Container"]
+[node name="MarginContainer" type="MarginContainer" parent="Container"]
+layout_mode = 2
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="MainContainer" type="HBoxContainer" parent="Container/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 200
 
-[node name="Control" type="Control" parent="Container/MainContainer"]
+[node name="Control" type="Control" parent="Container/MarginContainer/MainContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 4
 
-[node name="WhiteNoir" type="Sprite2D" parent="Container/MainContainer/Control"]
+[node name="WhiteNoir" type="Sprite2D" parent="Container/MarginContainer/MainContainer/Control"]
 texture = ExtResource("6_dm5hj")
 
-[node name="ButtonContainer" type="VBoxContainer" parent="Container/MainContainer"]
+[node name="ButtonContainer" type="VBoxContainer" parent="Container/MarginContainer/MainContainer"]
 layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="PlayButton" parent="Container/MainContainer/ButtonContainer" instance=ExtResource("3_xpbkw")]
+[node name="PlayButton" parent="Container/MarginContainer/MainContainer/ButtonContainer" instance=ExtResource("3_xpbkw")]
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(1, 0.313726, 0.333333, 1)
 theme_override_fonts/font = ExtResource("5_2yo6i")
 text = "Play"
 font_size = 64
 
-[node name="ProfileButton" parent="Container/MainContainer/ButtonContainer" instance=ExtResource("3_xpbkw")]
+[node name="ProfileButton" parent="Container/MarginContainer/MainContainer/ButtonContainer" instance=ExtResource("3_xpbkw")]
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(1, 0.313726, 0.333333, 1)
 theme_override_fonts/font = ExtResource("5_2yo6i")
 text = "profile"
 font_size = 64
 
-[node name="PowersButton" parent="Container/MainContainer/ButtonContainer" instance=ExtResource("3_xpbkw")]
+[node name="PowersButton" parent="Container/MarginContainer/MainContainer/ButtonContainer" instance=ExtResource("3_xpbkw")]
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(1, 0.313726, 0.333333, 1)
 theme_override_fonts/font = ExtResource("5_2yo6i")
 text = "powers"
 font_size = 64
 
-[node name="Control2" type="Control" parent="Container/MainContainer"]
+[node name="Control2" type="Control" parent="Container/MarginContainer/MainContainer"]
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 4
 
-[node name="BlackNoir" type="Sprite2D" parent="Container/MainContainer/Control2"]
+[node name="BlackNoir" type="Sprite2D" parent="Container/MarginContainer/MainContainer/Control2"]
 texture = ExtResource("7_yp7dl")
 
 [node name="ProfileContainer" type="MarginContainer" parent="."]
@@ -273,7 +278,7 @@ libraries = {
 "": SubResource("AnimationLibrary_xwmcr")
 }
 
-[connection signal="clicked" from="Container/MainContainer/ButtonContainer/PlayButton" to="." method="_on_play_button_clicked"]
-[connection signal="clicked" from="Container/MainContainer/ButtonContainer/PowersButton" to="." method="_on_powers_button_clicked"]
+[connection signal="clicked" from="Container/MarginContainer/MainContainer/ButtonContainer/PlayButton" to="." method="_on_play_button_clicked"]
+[connection signal="clicked" from="Container/MarginContainer/MainContainer/ButtonContainer/PowersButton" to="." method="_on_powers_button_clicked"]
 [connection signal="pressed" from="ProfileContainer/CenterContainer/ProfileLabel/RandomButton" to="." method="_on_random_button_pressed"]
 [connection signal="clicked" from="ProfileContainer/CenterContainer/EnterButton" to="." method="_on_enter_button_clicked"]

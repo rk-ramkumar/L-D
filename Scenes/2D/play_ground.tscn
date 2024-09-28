@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://b0ud7gjcvmw17"]
+[gd_scene load_steps=49 format=3 uid="uid://b0ud7gjcvmw17"]
 
 [ext_resource type="Script" path="res://Scripts/2D/playground.gd" id="1_5tede"]
 [ext_resource type="Texture2D" uid="uid://7b8r3ycl6y2t" path="res://Assets/Textures/soft_grass.png" id="2_fxc78"]
@@ -27,6 +27,7 @@
 [ext_resource type="PackedScene" uid="uid://ri8jm7u32c1p" path="res://Scenes/notifier.tscn" id="23_j0rin"]
 [ext_resource type="PackedScene" uid="uid://bucipt88nxrb" path="res://Scenes/message_box.tscn" id="24_r8hfl"]
 [ext_resource type="FontFile" uid="uid://dhnxuxk0xio8j" path="res://Assets/font/Ghost Stories Deluxe.ttf" id="27_i3ike"]
+[ext_resource type="PackedScene" uid="uid://d4ldby2yfrycw" path="res://Scenes/store.tscn" id="28_vl6wd"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_t6d53"]
 tile_data = PackedInt32Array(0, 2, 0, 65536, 4, 0)
@@ -640,11 +641,10 @@ tile_map = NodePath("../../TileMap")
 [node name="TouchIndicator" parent="TopLevelProps" node_paths=PackedStringArray("tile_map") instance=ExtResource("9_jy2yl")]
 tile_map = NodePath("../../TileMap")
 
-[node name="VendingMachine" type="Sprite2D" parent="TopLevelProps"]
-position = Vector2(64, 383)
+[node name="VendingMachineButton" type="TouchScreenButton" parent="TopLevelProps"]
+position = Vector2(9.00001, 328)
 scale = Vector2(0.1, 0.1)
-texture = ExtResource("19_to60y")
-flip_h = true
+texture_normal = ExtResource("19_to60y")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 2
@@ -769,6 +769,11 @@ bbcode_enabled = true
 text = "[img=64]res://Assets/PowersImages/Coin.png[/img][color=Ffd700]{coin}[/color]"
 scroll_active = false
 
+[node name="Store" parent="CanvasLayer/UI" instance=ExtResource("28_vl6wd")]
+layer = 2
+
 [connection signal="roll_finished" from="TopLevelProps/Die1" to="." method="_on_die_rolled"]
 [connection signal="roll_finished" from="TopLevelProps/Die2" to="." method="_on_die_rolled"]
+[connection signal="released" from="TopLevelProps/VendingMachineButton" to="CanvasLayer/UI" method="_on_vending_machine_button_pressed"]
+[connection signal="gui_input" from="CanvasLayer/UI" to="CanvasLayer/UI" method="_on_gui_input"]
 [connection signal="clicked" from="CanvasLayer/UI/RollButton" to="." method="_on_roll_button_clicked"]

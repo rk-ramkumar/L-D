@@ -1,7 +1,7 @@
 extends Control
 
 @onready var animation_player = $AnimationPlayer
-@onready var main_container = $Container/MainContainer
+@onready var main_container = $Container/MarginContainer
 @onready var profile_container = $ProfileContainer
 @onready var profile_label = $ProfileContainer/CenterContainer/ProfileLabel
 @onready var enter_button = $ProfileContainer/CenterContainer/EnterButton

@@ -1,7 +1,7 @@
 extends CanvasLayer
 
 var power_card = preload("res://Scenes/store_power_card.tscn")
-@onready var grid_container = $Control/CenterContainer/MarginContainer/GridContainer
+@onready var grid_container = $HBoxContainer/CenterContainer/MarginContainer/GridContainer
 var selected_card = null
 
 func _ready():

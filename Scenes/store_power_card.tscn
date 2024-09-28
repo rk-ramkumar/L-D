@@ -88,21 +88,27 @@ _data = {
 }
 
 [node name="StorePowerCard" type="Panel"]
-custom_minimum_size = Vector2(256, 256)
-offset_left = -128.0
-offset_top = -128.0
-offset_right = 128.0
-offset_bottom = 128.0
+custom_minimum_size = Vector2(196, 196)
+offset_left = -98.0
+offset_top = -98.0
+offset_right = 98.0
+offset_bottom = 98.0
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_45k1p")
 script = ExtResource("1_8wkr4")
 
 [node name="Panel" type="Panel" parent="."]
-custom_minimum_size = Vector2(256, 256)
+custom_minimum_size = Vector2(196, 196)
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -98.0
+offset_top = -98.0
+offset_right = 98.0
+offset_bottom = 98.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
@@ -150,7 +156,7 @@ grow_vertical = 0
 size_flags_horizontal = 3
 mouse_filter = 1
 theme_override_fonts/normal_font = ExtResource("5_nlkk8")
-theme_override_font_sizes/normal_font_size = 28
+theme_override_font_sizes/normal_font_size = 24
 bbcode_enabled = true
 text = "[center][img=64]res://Assets/PowersImages/Coin.png[/img]{base_price}[/center]"
 scroll_active = false
