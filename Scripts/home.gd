@@ -5,7 +5,7 @@ extends Control
 @onready var profile_container = $ProfileContainer
 @onready var profile_label = $ProfileContainer/CenterContainer/ProfileLabel
 @onready var enter_button = $ProfileContainer/CenterContainer/EnterButton
-@onready var button_container = $Container/MainContainer/ButtonContainer
+@onready var button_container = $Container/MarginContainer/MainContainer/ButtonContainer
 
 var match_making = preload("res://Scenes/ai_arena_lobby.tscn")
 var powers_detail_scene = preload("res://Scenes/powers_details.tscn")

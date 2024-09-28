@@ -1,20 +1,15 @@
-[gd_scene load_steps=7 format=3 uid="uid://d4ldby2yfrycw"]
+[gd_scene load_steps=5 format=3 uid="uid://d4ldby2yfrycw"]
 
 [ext_resource type="Script" path="res://Scripts/store.gd" id="1_yweg1"]
 [ext_resource type="FontFile" uid="uid://y665v7c8c3qh" path="res://Assets/font/Azonix.otf" id="2_kb64m"]
 [ext_resource type="PackedScene" uid="uid://cmrna0h0dmrhj" path="res://Components/custom_button.tscn" id="5_lxcsb"]
 
-[sub_resource type="Gradient" id="Gradient_0efk4"]
-colors = PackedColorArray(0.847059, 0.74902, 0.847059, 1, 0.529412, 0.807843, 0.921569, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_sxix7"]
-gradient = SubResource("Gradient_0efk4")
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0, 1)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fy3dy"]
-texture = SubResource("GradientTexture2D_sxix7")
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i5cto"]
+bg_color = Color(0.0941176, 0.0941176, 0.0941176, 0.858824)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [node name="Store" type="CanvasLayer"]
 script = ExtResource("1_yweg1")
@@ -25,40 +20,40 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -540.0
-offset_top = -260.0
-offset_right = 530.0
-offset_bottom = 240.0
+offset_left = -290.0
+offset_top = -225.0
+offset_right = 290.0
+offset_bottom = 225.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = -170
+theme_override_constants/separation = -110
 alignment = 1
 
 [node name="CenterContainer" type="ScrollContainer" parent="HBoxContainer"]
-custom_minimum_size = Vector2(900, 300)
+custom_minimum_size = Vector2(600, 400)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_fy3dy")
+theme_override_styles/panel = SubResource("StyleBoxFlat_i5cto")
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 3
 
 [node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/CenterContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/margin_left = 200
+theme_override_constants/margin_left = 70
 theme_override_constants/margin_top = 30
-theme_override_constants/margin_right = 200
 theme_override_constants/margin_bottom = 30
 
 [node name="GridContainer" type="GridContainer" parent="HBoxContainer/CenterContainer/MarginContainer"]
 layout_mode = 2
 theme_override_constants/h_separation = 50
 theme_override_constants/v_separation = 50
-columns = 3
+columns = 2
 
 [node name="BuyButton" parent="HBoxContainer" instance=ExtResource("5_lxcsb")]
-custom_minimum_size = Vector2(150, 80)
+custom_minimum_size = Vector2(100, 70)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 theme_override_fonts/font = ExtResource("2_kb64m")
 text = "Buy"
+font_size = 28

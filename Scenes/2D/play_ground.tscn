@@ -771,6 +771,7 @@ scroll_active = false
 
 [node name="Store" parent="CanvasLayer/UI" instance=ExtResource("28_vl6wd")]
 layer = 2
+visible = false
 
 [connection signal="roll_finished" from="TopLevelProps/Die1" to="." method="_on_die_rolled"]
 [connection signal="roll_finished" from="TopLevelProps/Die2" to="." method="_on_die_rolled"]
