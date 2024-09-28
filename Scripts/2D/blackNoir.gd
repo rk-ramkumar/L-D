@@ -42,6 +42,9 @@ func start_moving(blocks):
 		is_moving = true
 		Observer.actor_move_started.emit(self)
 		position_id = position_id + GameManager.currentDieNumber
+		if position_id == GameManager.max_tile_id:
+			finished(blocks.back())
+			return
 		current_state = GameManager.player_state.ON_FIELD
 		for target_position in blocks.slice(0, GameManager.currentDieNumber):
 			target_position = tile_map.map_to_local(target_position)
@@ -55,7 +58,12 @@ func start_moving(blocks):
 
 func finished(pos):
 	position_id = position_id + GameManager.currentDieNumber
-	current_state = GameManager.player_state.ON_FIELD
+	current_state = GameManager.player_state.COMPLETED
+	Observer.actor_completed.emit(self)
+	pos = tile_map.map_to_local(pos)
+	_set_direction(get_angle_to(pos))
+	_update_animation("_walk")
+	_lerp_to_finish(pos)
 
 func start_moving_home():
 	current_state = GameManager.player_state.CAPTURED
@@ -63,6 +71,20 @@ func start_moving_home():
 	_set_direction(get_angle_to(pos))
 	_update_animation("_walk")
 	_lerp_to_pos(pos)
+
+func _lerp_to_finish(pos, speed = SPEED):
+	if tween:
+		tween.kill()
+	tween = create_tween()
+	var time_delay = global_position.distance_to(pos) / speed
+	tween.parallel().tween_property(self, "position", pos, time_delay)
+	tween.parallel().tween_property(self, "scale", Vector2.ZERO, time_delay)
+	tween.tween_callback(_on_finish)
+
+func _on_finish():
+	tween.kill()
+	visible = false
+	Observer.actor_move_completed.emit(self)
 
 func _lerp_to_pos(pos, speed = SPEED):
 	if tween:

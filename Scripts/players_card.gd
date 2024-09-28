@@ -13,7 +13,7 @@ func _ready():
 	var new_stylebox_panel = get_theme_stylebox("panel").duplicate()
 	add_theme_stylebox_override("panel", new_stylebox_panel)
 	Observer.move_started.connect(_on_move_started)
-	Observer.move_completed.connect(_on_move_completed)
+	Observer.actor_completed.connect(_on_actor_completed)
 
 func _on_gui_input(event):
 	if event is InputEventScreenTouch:
@@ -42,5 +42,7 @@ func _on_move_started():
 	if GameManager.selected_actor:
 		Observer.actor_selected.emit(data.actor)
 
-func _on_move_completed():
-	pass
+func _on_actor_completed(actor):
+	if data.actor == actor:
+		animation_player.play("completed")
+		gui_input.disconnect(_on_gui_input)

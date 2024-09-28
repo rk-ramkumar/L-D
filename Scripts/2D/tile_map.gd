@@ -9,11 +9,10 @@ enum layer{
 var blocks
 var total_safe_point = 13 # Without opposite side 3 point
 var can_move = false
-var final_pos
 
 func _ready():
 	blocks = get_used_cells(layer.BLOCKS).slice(0, total_safe_point * 6 + 1)
-	final_pos = get_used_cells(layer.PLANT)[0]
+	blocks.append(get_used_cells(layer.PLANT)[0])
 	Observer.move_started.connect(_on_move_started)
 	Observer.move_completed.connect(_on_move_completed)
 
@@ -59,6 +58,7 @@ func _unhandled_input(event):
 			return
 
 		if event.is_released() and _is_valid_position():
+			can_move = false
 			GameManager.selected_actor.start_moving(
 				blocks.slice(GameManager.selected_actor.position_id)
 			)
