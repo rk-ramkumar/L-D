@@ -24,9 +24,8 @@ func _handle_move_started():
 	var selected_actor = pick_actor()
 
 	await get_tree().create_timer(1).timeout
-	var blocks = tile_map.blocks.slice(selected_actor.position_id).map(func(pos): 
-		pos.y = -pos.y
-		return pos
+	var blocks = tile_map.blocks.slice(selected_actor.position_id).map(func(pos):
+		return Vector2(pos.x, -pos.y)
 	)
 	selected_actor.start_moving(blocks)
 

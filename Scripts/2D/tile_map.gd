@@ -3,14 +3,17 @@ extends TileMap
 enum layer{
 	FLOOR,
 	BLOCKS,
-	PLANT
+	PLANT,
+	FOREST
 }
 var blocks
 var total_safe_point = 13 # Without opposite side 3 point
 var can_move = false
+var final_pos
 
 func _ready():
 	blocks = get_used_cells(layer.BLOCKS).slice(0, total_safe_point * 6 + 1)
+	final_pos = get_used_cells(layer.PLANT)[0]
 	Observer.move_started.connect(_on_move_started)
 	Observer.move_completed.connect(_on_move_completed)
 
@@ -33,14 +36,14 @@ func get_spawn_position(opposite = false):
 
 func _is_valid_position():
 	var clicked_cell = local_to_map(get_local_mouse_position())
-	var target_id = (GameManager.selected_actor.position_id + GameManager.currentDieNumber) - 1
-	var target_cel = Vector2(blocks[target_id])
+	var target_id = (GameManager.selected_actor.position_id + GameManager.currentDieNumber)
+	var target_cel = Vector2(blocks[target_id - 1])
 	
 	if target_cel.distance_squared_to(clicked_cell) > 1 or !GameManager.selected_actor.movable:
 		print("Invalid position")
 		return false
 	#Check for any actor already present in the tile
-	if is_actor_present(target_id+1, GameManager.selected_actor.team):
+	if is_actor_present(target_id, GameManager.selected_actor.team):
 		print("Actor already in position")
 		return false
 
@@ -55,7 +58,7 @@ func _unhandled_input(event):
 		if GameManager.Players[GameManager.currentPlayerTurn].type == "npc":
 			return
 
-		if _is_valid_position():
+		if event.is_released() and _is_valid_position():
 			GameManager.selected_actor.start_moving(
 				blocks.slice(GameManager.selected_actor.position_id)
 			)
