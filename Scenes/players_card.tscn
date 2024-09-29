@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/players_card.gd" id="1_tqs1l"]
 [ext_resource type="Texture2D" uid="uid://di05yutlsk84e" path="res://Assets/Icons/iconsDefault.png" id="2_ro3r7"]
-[ext_resource type="Texture2D" uid="uid://bd2tamcirxeeu" path="res://Assets/Icons/black_noir_icon.png" id="2_tvcb7"]
+[ext_resource type="Texture2D" uid="uid://1dmne5d2u88r" path="res://Assets/Icons/whiteNoir.png" id="2_w6fyg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ecagm"]
 bg_color = Color(0.6, 0.345098, 1, 1)
@@ -60,50 +60,50 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("MarginContainer/VBoxContainer/TextureRect:self_modulate")
+tracks/2/path = NodePath(".:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(0.0941176, 0.0941176, 0.0941176, 0.858824)]
+"values": [Color(1, 1, 1, 1)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath(".:modulate")
+tracks/3/path = NodePath(".:theme_override_styles/panel:shadow_size")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
+"update": 1,
+"values": [5]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath(".:theme_override_styles/panel:shadow_size")
+tracks/4/path = NodePath(".:theme_override_styles/panel:shadow_offset")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [5]
+"update": 0,
+"values": [Vector2(2, 2)]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath(".:theme_override_styles/panel:shadow_offset")
+tracks/5/path = NodePath("TextureRect:self_modulate")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(2, 2)]
+"values": [Color(0.0941176, 0.0941176, 0.0941176, 0.858824)]
 }
 
 [sub_resource type="Animation" id="Animation_rmm7m"]
@@ -119,7 +119,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 1), Color(0.231373, 0.231373, 0.231373, 1)]
+"values": [Color(1, 1, 1, 1), Color(0.231373, 0.537255, 0.231373, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -176,14 +176,14 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("MarginContainer/VBoxContainer/TextureRect:self_modulate")
+tracks/2/path = NodePath("TextureRect:self_modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(0.0941176, 0.0941176, 0.0941176, 0.858824), Color(1, 1, 1, 0.988235)]
+"values": [Color(0.0941176, 0.0941176, 0.0941176, 0.858824), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_023vo"]
@@ -226,17 +226,16 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -40.0
-offset_top = -50.0
-offset_right = 1880.0
-offset_bottom = 1030.0
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.1, 0.1)
-pivot_offset = Vector2(-70, -5)
 mouse_filter = 2
-texture = ExtResource("2_tvcb7")
-stretch_mode = 3
+texture = ExtResource("2_w6fyg")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="PositionCard" type="Sprite2D" parent="."]
 texture_filter = 1
