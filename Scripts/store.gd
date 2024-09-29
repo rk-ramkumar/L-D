@@ -27,4 +27,5 @@ func _on_buy_button_clicked():
 		print("Not have enough coin")
 		return
 	GameManager.decrease_coin(selected_card.data.base_price)
+	AudioController.game_bonus.play()
 	Observer.power_purchased.emit(selected_card.data)

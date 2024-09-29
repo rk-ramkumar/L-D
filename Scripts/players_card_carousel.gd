@@ -10,6 +10,7 @@ var card_scene = preload("res://Scenes/players_card.tscn")
 var empty_card_texture = preload("res://Assets/empty_card.png")
 
 func _ready():
+	Observer.power_purchased.connect(_on_power_purchased)
 	await playground.ready
 	for actor in actors:
 		var player_card = card_scene.instantiate()
@@ -41,3 +42,6 @@ func create_empty_card():
 	texture_rect.custom_minimum_size = Vector2(100, 100)
 	
 	return texture_rect
+
+func _on_power_purchased(power):
+	pass
