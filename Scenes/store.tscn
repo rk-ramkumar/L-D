@@ -26,7 +26,6 @@ offset_right = 290.0
 offset_bottom = 225.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = -110
 alignment = 1
 
 [node name="CenterContainer" type="ScrollContainer" parent="HBoxContainer"]
@@ -53,7 +52,6 @@ columns = 2
 custom_minimum_size = Vector2(100, 70)
 layout_mode = 2
 size_flags_horizontal = 8
-size_flags_vertical = 8
 theme_override_fonts/font = ExtResource("2_kb64m")
 text = "Buy"
 font_size = 28
