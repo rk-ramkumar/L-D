@@ -2,6 +2,8 @@ extends Panel
 
 @onready var power_texture = $MarginContainer/VBoxContainer/PowerTexture
 @onready var card_count = $MarginContainer/VBoxContainer/Panel/CardCount
+@onready var animation_player = $AnimationPlayer
+
 var count = 0
 var data = {}
 
@@ -13,3 +15,11 @@ func update_count(amount):
 	count += amount
 	if count > 1:
 		card_count.text = "X"+str(count)
+
+func _on_gui_input(event):
+	if event is InputEventScreenTouch:
+		if event.is_pressed():
+			select()
+
+func select():
+	animation_player.play("select")

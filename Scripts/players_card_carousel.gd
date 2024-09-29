@@ -1,6 +1,6 @@
-extends Panel
+extends ScrollContainer
 
-@onready var cards_container = $ScrollContainer/MarginContainer/CardsContainer
+@onready var cards_container = $MarginContainer/CardsContainer
 
 @export var actors = []
 @export var playground: Node
