@@ -91,7 +91,7 @@ func _on_start_button_clicked():
 		container.get_children().map(func(child):
 			var profile = child.get_meta("profile")
 			profile.can_play = false
-			profile.coin = 0
+			profile.coin = 100
 			GameManager.Players[profile.id] = profile
 		))
 	GameManager.load_scene("Playground", get_parent())

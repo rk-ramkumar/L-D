@@ -18,3 +18,13 @@ func card_selected(card):
 				continue
 		if child.selected:
 			child.deselect()
+
+func _on_buy_button_clicked():
+	if selected_card == null:
+		print("Select a card to purchase.")
+		return
+	if GameManager.player.coin < selected_card.data.base_price:
+		print("Not have enough coin")
+		return
+	GameManager.decrease_coin(selected_card.data.base_price)
+	Observer.power_purchased.emit(selected_card.data)

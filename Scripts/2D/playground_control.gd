@@ -18,12 +18,15 @@ var die_textures = [
 	preload("res://Assets/Icons/dieWhite_border3.png"),
 	preload("res://Assets/Icons/dieWhite_border6.png")
 	]
+var user_coin_text = ""
 
 func _ready():
 	%TurnTimer.timeout.connect(_on_timeout)
-	user_coin_label.text = user_coin_label.text.format( GameManager.Players[1])
+	user_coin_text = user_coin_label.text
+	user_coin_label.text = user_coin_label.text.format(GameManager.Players[1])
 	Observer.turn_started.connect(_on_turn_started)
 	Observer.move_started.connect(_on_move_started)
+	Observer.coin_changed.connect(_on_coin_changed)
 
 func _on_turn_started():
 	timer_label.text = str(turn_time)
@@ -59,3 +62,12 @@ func _on_gui_input(event):
 
 func _on_vending_machine_button_pressed():
 	store.show()
+
+func _on_coin_changed(prev_amount, amount):
+#	user_coin_label.text = user_coin_label.text.format(GameManager.Players[1])
+	var tween = create_tween()
+	tween.tween_method(_lerp_coin, prev_amount, amount, 0.5)
+	tween.tween_callback(func(): tween.kill())
+
+func _lerp_coin(amount):
+	user_coin_label.text = user_coin_text.format({coin=int(amount)})

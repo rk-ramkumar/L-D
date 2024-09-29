@@ -20,8 +20,9 @@ shadow_size = 5
 shadow_offset = Vector2(2, 2)
 
 [sub_resource type="LabelSettings" id="LabelSettings_2mpn7"]
+font_size = 10
 outline_size = 8
-outline_color = Color(0, 0, 0, 1)
+outline_color = Color(0, 0, 0, 0.858824)
 
 [sub_resource type="LabelSettings" id="LabelSettings_bct2x"]
 font_size = 30
@@ -59,7 +60,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("TextureRect:self_modulate")
+tracks/2/path = NodePath("MarginContainer/VBoxContainer/TextureRect:self_modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -175,7 +176,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("TextureRect:self_modulate")
+tracks/2/path = NodePath("MarginContainer/VBoxContainer/TextureRect:self_modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {

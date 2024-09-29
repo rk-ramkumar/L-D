@@ -148,3 +148,15 @@ func _handle_extra_turn():
 
 func _get_next_id():
 	return (currentPlayerTurn % playerLoaded) + 1
+
+func increase_coin(amount):
+	var final_amount = player.coin + amount
+	Observer.coin_changed.emit(player.coin, final_amount)
+	player.coin = final_amount
+
+func decrease_coin(amount):
+	var final_amount = player.coin - amount
+	Observer.coin_changed.emit(player.coin, final_amount)
+	player.coin = final_amount
+ 
+
