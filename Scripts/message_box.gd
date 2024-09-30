@@ -37,6 +37,7 @@ func _on_turn_started():
 		player_name = get_user_name(),
 		}
 	)
+	MessageManager.add_message(get_user_name() + "'s turn to play.")
 
 func _on_actor_move_started(actor):
 	log_game_event("actor_move_started", {
