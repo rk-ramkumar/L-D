@@ -4,6 +4,7 @@ extends Panel
 @onready var rich_text_label = $Panel/VBoxContainer/RichTextLabel
 @onready var label = $Panel/VBoxContainer/Panel/Label
 @onready var animation_player = $AnimationPlayer
+@onready var price_panel = $Panel/VBoxContainer/Panel
 
 var data
 var extra_cost = 0
@@ -13,6 +14,7 @@ var selected = false
 func _ready():
 	var new_stylebox_panel = get_theme_stylebox("panel").duplicate()
 	add_theme_stylebox_override("panel", new_stylebox_panel)
+	price_panel.add_theme_stylebox_override("panel", price_panel.get_theme_stylebox("panel").duplicate())
 	texture_rect.texture = load(data.image)
 	rich_text_label.text = rich_text_label.text.format(data)
 	label.text = label.text.format(data)

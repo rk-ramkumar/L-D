@@ -33,10 +33,12 @@ func select():
 	GameManager.selected_actor = data.actor
 	data.parent.card_selected(self)
 	Observer.actor_selected.emit(data.actor)
+	data.actor.select(true)
 	
 func deselect():
 	selected = false
 	animation_player.play_backwards("select")
+	data.actor.select(false)
 
 func _on_move_started():
 	if GameManager.selected_actor:

@@ -90,7 +90,7 @@ _data = {
 
 [node name="TargetPositionIndicator" type="Sprite2D"]
 visible = false
-modulate = Color(0.541176, 0.168627, 0.886275, 1)
+modulate = Color(0, 0.74902, 1, 1)
 y_sort_enabled = true
 rotation = 0.453786
 scale = Vector2(0.1, 0.1)

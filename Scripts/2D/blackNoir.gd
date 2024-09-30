@@ -5,6 +5,8 @@ const JUMP_VELOCITY = -400.0
 
 @onready var animated_sprite_2d = $AnimatedSprite2D
 @onready var home_state_timer = $HomeStateTimer
+@onready var pivot = $Pivot
+@onready var gpu_particles_2d = $Pivot/Magic01/GPUParticles2D
 
 @export var tile_map: TileMap
 @export var current_direction: String
@@ -137,3 +139,7 @@ func _on_home_state_timer_timeout():
 	_lerp_to_pos(pos, 100)
 	await tween.finished
 	home_state_timer.start(10)
+
+func select(value):
+	pivot.visible = value
+	gpu_particles_2d.emitting = value
