@@ -34,12 +34,12 @@ func animate_move():
 	visible = true
 
 func  _on_move_started():
-	if GameManager.player.id != GameManager.currentPlayerTurn:
+	if GameManager.player.id != 1:
 		return
 	is_move_started = true
 
 func _on_move_completed():
-	if GameManager.player.id != GameManager.currentPlayerTurn:
+	if GameManager.player.id != 1:
 		return
 	is_move_started = false
 	visible = false

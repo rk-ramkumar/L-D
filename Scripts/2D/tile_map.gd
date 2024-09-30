@@ -39,11 +39,11 @@ func _is_valid_position():
 	var target_cel = Vector2(blocks[target_id - 1])
 	
 	if target_cel.distance_squared_to(clicked_cell) > 1 or !GameManager.selected_actor.movable:
-		MessageManager.add_message("Invalid position")
+		MessageManager.add_message("Invalid position.")
 		return false
 	#Check for any actor already present in the tile
 	if is_actor_present(target_id, GameManager.selected_actor.team):
-		MessageManager.add_message("Actor already in position")
+		MessageManager.add_message("Actor already in position.")
 		return false
 
 	return true
