@@ -32,6 +32,7 @@ func _on_gui_input(event):
 				_lerp_to_start()
 
 	if event is InputEventScreenDrag:
+		Observer.power_card_move.emit(data)
 		_handle_drag(event)
 
 func select():
@@ -66,13 +67,11 @@ func _apply_shake_effect(card):
 		return
 
 	var original_position = card.position
-	var original_rotation = card.rotation_degrees
 
 	# Shake the position and rotation back and forth
 	for i in range(6):  # Shake back and forth a few times
-		var offset = Vector2(randi() % shake_strength - shake_strength / 2, 0)  # Random x offset
+		var offset = Vector2(randi() % shake_strength - shake_strength * 0.5, 0)  # Random x offset
 		var shake_time = shake_duration / 6  # Short time for each shake
-		# Tween the card position and rotation back and forth
 		tween.tween_property(card, "position", original_position + offset, shake_time).set_ease(Tween.EASE_IN_OUT)
 
 

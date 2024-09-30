@@ -13,6 +13,7 @@ var center_position
 
 func _ready():
 	set_camera_limit()
+	Observer.power_card_move.connect(_on_power_card_move)
 
 func adjust_camera_to_fit_tilemap():
 	var viewport_rect = get_viewport_rect().size
@@ -79,3 +80,11 @@ func _handle_drag(event: InputEventScreenDrag):
 #			var camera_offset = center_position - position
 #			position += camera_offset * (zoom_delta - Vector2.ONE)
 			zoom = new_zoom
+
+func _on_power_card_move(_power):
+	var zoom_value = Vector2(min_zoom, min_zoom)
+	if zoom == zoom_value:
+		return
+	var tween = create_tween()
+	tween.tween_property(self, "zoom", zoom_value, 0.5)
+	tween.tween_callback(func(): tween.kill())
