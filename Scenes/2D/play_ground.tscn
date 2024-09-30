@@ -730,9 +730,10 @@ texture = ExtResource("23_hb2f2")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="PlayersCardCarousel" parent="CanvasLayer/UI" node_paths=PackedStringArray("playground") instance=ExtResource("21_pdwa2")]
+[node name="PlayersCardCarousel" parent="CanvasLayer/UI" node_paths=PackedStringArray("playground", "top_level_props") instance=ExtResource("21_pdwa2")]
 layout_mode = 1
 playground = NodePath("../../..")
+top_level_props = NodePath("../../../TopLevelProps")
 
 [node name="Notifier" parent="CanvasLayer/UI" instance=ExtResource("23_j0rin")]
 
