@@ -11,14 +11,14 @@ func connect_signals():
 	Observer.move_started.connect(_handle_move_started)
 
 func _handle_turn_started():
-	if player.id != GameManager.currentPlayerTurn:
+	if player != GameManager.player:
 		return
 
 	await get_tree().create_timer(randf_range(1, 5)).timeout
 	Observer.roll_started.emit()
 
 func _handle_move_started():
-	if player.id != GameManager.currentPlayerTurn:
+	if player != GameManager.player:
 		return
 
 	var selected_actor = pick_actor()

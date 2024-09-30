@@ -74,13 +74,14 @@ func register_resource(dict):
 	playground = dict.playground
 
 func _on_roll_completed(die_value):
+	await get_tree().create_timer(0.1).timeout
 	if !Players[currentPlayerTurn].can_play and die_value == 1:
 		Players[currentPlayerTurn].can_play = true
 
-	var actors = teamList[Players[currentPlayerTurn].team].actors
+	var actors = teamList[player.team].actors
 #	var is_all_home = actors.all(func(actor): return actor.current_state == player_state.AT_HOME)
 
-	if !Players[currentPlayerTurn].can_play:
+	if !player.can_play:
 		Observer.next_turn.emit()
 		return
 
@@ -98,9 +99,7 @@ func _on_roll_failed():
 	Observer.roll_completed.emit(GameManager.currentDieNumber)
 
 func _on_move_failed():
-	var actor = teamList[
-		Players[currentPlayerTurn].team
-	].actors.filter(func(actor): return actor.movable).pick_random()
+	var actor = teamList[player.team].actors.filter(func(actor): return actor.movable).pick_random()
 	var blocks = tile_map.blocks.slice(actor.position_id)
 	actor.start_moving(blocks)
 
@@ -134,10 +133,11 @@ func _handle_actor_move_completed(actor):
 
 func _handle_next_turn():
 	currentPlayerTurn = _get_next_id()
+	player = Players[currentPlayerTurn]
 	Observer.turn_started.emit()
 
 func has_extra_turn():
-	var actors = teamList[Players[currentPlayerTurn].team].actors
+	var actors = teamList[player.team].actors
 	if actors.any(func(actor): return actor.current_state != player_state.AT_HOME):
 		return currentDieNumber in extra_chance_dice
 	#Give extra chance when put 1

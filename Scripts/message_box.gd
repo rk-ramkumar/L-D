@@ -73,9 +73,7 @@ func _on_game_won(team):
 	)
 
 func get_user_name():
-	var user_name = GameManager.Players[GameManager.currentPlayerTurn].name
-
-	return user_name
+	return GameManager.player.name
 
 # Appends the user's message with escaping.
 # Remember to escape both the player name and message contents.
