@@ -1,12 +1,15 @@
-[gd_scene load_steps=9 format=3 uid="uid://h5dg4fhfj136"]
+[gd_scene load_steps=11 format=3 uid="uid://h5dg4fhfj136"]
 
 [ext_resource type="Script" path="res://Scripts/2D/blackNoir.gd" id="1_7q140"]
 [ext_resource type="SpriteFrames" uid="uid://c71kyer80t0g6" path="res://Assets/Resources/blackNoir.tres" id="2_yl3nw"]
 [ext_resource type="Texture2D" uid="uid://bmt4c47t2do44" path="res://Assets/kenney_particle/magic_03.png" id="3_bef1n"]
 [ext_resource type="Texture2D" uid="uid://c6oliodki5br0" path="res://Assets/kenney_particle/circle_05.png" id="4_xo5y7"]
+[ext_resource type="Texture2D" uid="uid://boe2k0o8yjumf" path="res://Assets/Icons/arrow_right.svg" id="5_h3k5b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_maou1"]
 size = Vector2(30, 11)
+
+[sub_resource type="CurveTexture" id="CurveTexture_mmklr"]
 
 [sub_resource type="Curve" id="Curve_buhd2"]
 _data = [Vector2(0.011583, 0.0210526), 0.0, 0.0, 0, 0, Vector2(0.494208, 0.505263), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -20,13 +23,13 @@ lifetime_randomness = 0.3
 emission_shape = 1
 emission_sphere_radius = 128.0
 particle_flag_disable_z = true
-direction = Vector3(0, -1, 0)
 spread = 180.0
-gravity = Vector3(0, -50, 0)
-initial_velocity_min = 200.0
-initial_velocity_max = 210.0
+gravity = Vector3(0, -20, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 130.0
 orbit_velocity_min = 0.0
 orbit_velocity_max = 0.0
+orbit_velocity_curve = SubResource("CurveTexture_mmklr")
 scale_min = 0.09
 scale_max = 0.1
 scale_curve = SubResource("CurveTexture_5gbbb")
@@ -65,9 +68,17 @@ skew = 0.698132
 texture = ExtResource("3_bef1n")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="Pivot/Magic01"]
+amount = 12
 process_material = SubResource("ParticleProcessMaterial_jftnw")
 texture = ExtResource("4_xo5y7")
 lifetime = 2.0
 randomness = 1.0
+
+[node name="ArrowDown" type="Sprite2D" parent="Pivot"]
+modulate = Color(0.796078, 0.74902, 0.658824, 1)
+position = Vector2(0, -100)
+rotation = 1.5708
+scale = Vector2(0.6, 0.716)
+texture = ExtResource("5_h3k5b")
 
 [connection signal="timeout" from="HomeStateTimer" to="." method="_on_home_state_timer_timeout"]

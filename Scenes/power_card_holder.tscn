@@ -18,7 +18,6 @@ texture = ExtResource("1_j8nng")
 offset = Vector2(-220, -215)
 
 [node name="PowerSprite" type="Sprite2D" parent="Circle01"]
-self_modulate = Color(1, 1, 1, 0.635294)
 offset = Vector2(-220, -215)
 
 [node name="Shadow" type="Sprite2D" parent="."]
