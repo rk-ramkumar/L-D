@@ -109,6 +109,7 @@ func _set_movable(actors):
 		actor.movable = true
 		if (actor.position_id + currentDieNumber > max_tile_id
 			or (actor.current_state == player_state.AT_HOME and currentDieNumber != 1)
+			or actor.has_recent_capture
 		):
 			actor.movable = false
 
@@ -122,8 +123,6 @@ func _handle_actor_move_completed(actor):
 	#Check for kill happen
 	if captured_actor:
 		Observer.actor_captured.emit(captured_actor, actor)
-		captured_actor.start_moving_home()
-		Observer.extra_turn.emit()
 		return
 
 	if has_extra_turn():

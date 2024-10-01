@@ -15,6 +15,7 @@ var directions = ["E", "SE", "S", "SW", "W", "NW", "N", "NE"]
 var tween
 var position_id = 0
 var movable: bool = true
+var has_recent_capture: bool = false
 var is_moving: bool = false
 var team
 var current_state = GameManager.player_state.AT_HOME:
@@ -27,6 +28,7 @@ func _ready():
 	team = data.team
 	_set_direction(get_angle_to(position))
 	_update_animation("_idle")
+	Observer.actor_captured.connect(_on_capture)
 
 func _set_current_state():
 	if current_state == GameManager.player_state.AT_HOME:
@@ -143,3 +145,14 @@ func _on_home_state_timer_timeout():
 func select(value):
 	pivot.visible = value
 	gpu_particles_2d.emitting = value
+
+func _on_capture(captured_actor, actor):
+	if captured_actor == self:
+		start_moving_home()
+		Observer.extra_turn.emit()
+		return
+	
+	if actor == self:
+		has_recent_capture = true
+		await Observer.next_turn
+		has_recent_capture = false
