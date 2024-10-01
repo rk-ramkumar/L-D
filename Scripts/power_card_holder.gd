@@ -13,3 +13,9 @@ func move_end():
 
 func update_position():
 	global_position = get_global_mouse_position() + offset
+
+func _on_body_entered(body):
+	body.select(true)
+
+func _on_body_exited(body):
+	body.select(false)
