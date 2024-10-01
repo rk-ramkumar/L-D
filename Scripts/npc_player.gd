@@ -48,6 +48,10 @@ func pick_best_actor():
 	# Evaluate each actor's move based on heuristic scoring
 	for actor in actors:
 		var target_id = actor.position_id + GameManager.currentDieNumber
+		# Check for same team actor already exists
+		if tile_map.is_actor_present(target_id, player.team):
+			actors.erase(actor)
+			continue
 		var score = calculate_actor_score(actor, target_id, opponent_actors)
 
 		# Select the actor with the highest score
@@ -73,11 +77,11 @@ func calculate_actor_score(actor, target_id, opponent_actors):
 		return WEIGHT_LAST_TILE
 
 	# High priority: Moving out from home (die roll 1)
-	if GameManager.currentDieNumber == 1 and target_id <= 7 and !tile_map.is_actor_present(target_id, player.team):
+	if GameManager.currentDieNumber == 1 and target_id <= 7:
 		return WEIGHT_MOVE_FROM_HOME
 
 	# General move: On-field actors, checking safety and threats
-	if actor.current_state == GameManager.player_state.ON_FIELD and target_id > 7:
+	if actor.current_state == GameManager.player_state.ON_FIELD:
 		# Kill check (opponent on target tile)
 		if opponent_actors.any(func(opponent_actor):
 			return opponent_actor.position_id == target_id
