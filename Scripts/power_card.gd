@@ -1,7 +1,7 @@
 extends Panel
 
-@onready var power_texture = $MarginContainer/VBoxContainer/PowerTexture
-@onready var card_count = $MarginContainer/VBoxContainer/Panel/CardCount
+@onready var power_texture = $MarginContainer/Panel/VBoxContainer/PowerTexture
+@onready var card_count = $MarginContainer/Panel/VBoxContainer/Panel/CardCount
 @onready var animation_player = $AnimationPlayer
 
 var count = 0
