@@ -1,8 +1,8 @@
 extends Panel
 
-@onready var texture_rect = $TextureRect
 @onready var label = $Label
 @onready var animation_player = $AnimationPlayer
+@onready var power_texture = $BackgroundPanel/Panel/PowerTexture
 
 var data = {}
 var selected = false

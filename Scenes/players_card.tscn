@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://beosxjtp28aju"]
+[gd_scene load_steps=12 format=3 uid="uid://beosxjtp28aju"]
 
 [ext_resource type="Script" path="res://Scripts/players_card.gd" id="1_tqs1l"]
 [ext_resource type="Texture2D" uid="uid://di05yutlsk84e" path="res://Assets/Icons/iconsDefault.png" id="2_ro3r7"]
 [ext_resource type="Texture2D" uid="uid://1dmne5d2u88r" path="res://Assets/Icons/whiteNoir.png" id="2_w6fyg"]
+[ext_resource type="StyleBox" uid="uid://gjqo5ihuob83" path="res://Assets/Resources/store_card_background.tres" id="4_bdnqj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ecagm"]
 bg_color = Color(0.6, 0.345098, 1, 1)
@@ -24,12 +25,23 @@ font_size = 14
 outline_size = 8
 outline_color = Color(0, 0, 0, 0.858824)
 
-[sub_resource type="LabelSettings" id="LabelSettings_bct2x"]
-font_size = 30
-outline_size = 8
-outline_color = Color(0, 0, 0, 1)
-shadow_size = 12
-shadow_color = Color(0.6, 0.345098, 1, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sb68n"]
+bg_color = Color(0.6, 0.345098, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 20
+border_blend = true
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+shadow_size = 1
+shadow_offset = Vector2(1, 1)
 
 [sub_resource type="Animation" id="Animation_obaek"]
 length = 0.001
@@ -237,7 +249,36 @@ texture = ExtResource("2_w6fyg")
 expand_mode = 1
 stretch_mode = 5
 
+[node name="BackgroundPanel" type="Panel" parent="."]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 1
+offset_left = 3.0
+offset_top = 2.0
+offset_right = 35.0
+offset_bottom = 34.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_sb68n")
+
+[node name="Panel" type="Panel" parent="BackgroundPanel"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("4_bdnqj")
+
+[node name="PowerTexture" type="TextureRect" parent="BackgroundPanel/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 3
+
 [node name="PositionCard" type="Sprite2D" parent="."]
+visible = false
 texture_filter = 1
 position = Vector2(0, -1)
 scale = Vector2(0.5, 0.5)
@@ -245,22 +286,6 @@ texture = ExtResource("2_ro3r7")
 offset = Vector2(30, 30)
 region_enabled = true
 region_rect = Rect2(199, 199, 50, 50)
-
-[node name="Label" type="Label" parent="PositionCard"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -15.0
-offset_top = -7.5
-offset_right = 25.0
-offset_bottom = 17.5
-grow_horizontal = 2
-grow_vertical = 2
-label_settings = SubResource("LabelSettings_bct2x")
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

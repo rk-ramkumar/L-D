@@ -18,6 +18,7 @@ var movable: bool = true
 var has_recent_capture: bool = false
 var is_moving: bool = false
 var team
+var power: Dictionary = {} 
 var current_state = GameManager.player_state.AT_HOME:
 	set(new_state):
 		current_state = new_state
@@ -147,12 +148,27 @@ func select(value):
 	gpu_particles_2d.emitting = value
 
 func _on_capture(captured_actor, actor):
-	if captured_actor == self:
-		start_moving_home()
-		Observer.extra_turn.emit()
-		return
-	
 	if actor == self:
 		has_recent_capture = true
 		await Observer.next_turn
 		has_recent_capture = false
+	
+	if captured_actor == self:
+		if !power.is_empty():
+#			"FortunaSheild: Reverse an opponent's capture attempt and capture their piece instead."
+			if power.id == "FortunaShield" and power.id != "FortunaShield": # Check whether captured_actor have FortunaSheild power
+				Observer.power_used.emit(power, captured_actor)
+				Observer.actor_captured.emit(actor, captured_actor)
+				captured_actor.power = {}
+				return
+			elif power.id == "FortunaShield" and power.id == "FortunaShield": # Check whether both actor have FortunaSheild power
+				Observer.power_used.emit(power, actor)
+				Observer.actor_captured.emit(captured_actor, actor)
+				captured_actor.power = {}
+				actor.power = {}
+				return
+
+		start_moving_home()
+		Observer.extra_turn.emit()
+		return
+	
