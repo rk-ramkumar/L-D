@@ -4,7 +4,7 @@ extends ScrollContainer
 
 @export var actors = []
 @export var playground: Node
-@export var top_level_props: Node2D
+@export var PowerCardHolder: Node2D
 
 var cards = []
 var card_scene = preload("res://Scenes/players_card.tscn")

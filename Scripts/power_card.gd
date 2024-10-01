@@ -7,11 +7,7 @@ extends Panel
 var count = 0
 var data = {}
 var picked
-var tween
-var disable_color = "181818db"
 var parent
-var shake_duration = 0.3  # Total duration of the shake
-var shake_strength = 100   # How far the card moves in pixels during shake
 
 func _ready():
 	parent = get_parent().get_owner()
@@ -29,7 +25,8 @@ func _on_gui_input(event):
 			select()
 		if event.is_released():
 			if picked:
-				_lerp_to_start()
+				picked = false
+				parent.PowerCardHolder.move_end()
 
 	if event is InputEventScreenDrag:
 		Observer.power_card_move.emit(data)
@@ -40,38 +37,8 @@ func select():
 
 func _handle_drag(event):
 	if !picked:
-		picked = duplicate(true)
-		picked.scale = Vector2(2, 2)
-		parent.top_level_props.add_child(picked)
-	modulate = Color(disable_color)
-	picked.position = event.position
-
-func _lerp_to_start():
-	if tween:
-		tween.kill()
-	
-	tween = create_tween()
-
-	# Apply the shake effect first before transitioning
-	_apply_shake_effect(picked)
-	tween.tween_callback(func():
-		picked.queue_free()
-		modulate = Color.WHITE
-		picked = null
-		tween.kill()
-	)
-
-# Function to apply a shake effect to the card
-func _apply_shake_effect(card):
-	if not card:
-		return
-
-	var original_position = card.position
-
-	# Shake the position and rotation back and forth
-	for i in range(6):  # Shake back and forth a few times
-		var offset = Vector2(randi() % shake_strength - shake_strength * 0.5, 0)  # Random x offset
-		var shake_time = shake_duration / 6  # Short time for each shake
-		tween.tween_property(card, "position", original_position + offset, shake_time).set_ease(Tween.EASE_IN_OUT)
-
-
+		picked = true
+		parent.PowerCardHolder.move_start(data)
+		print(count)
+		update_count(-1)
+	parent.PowerCardHolder.update_position()

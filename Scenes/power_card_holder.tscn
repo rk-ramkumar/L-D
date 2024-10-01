@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://c13pu8o68h1bb"]
+
+[ext_resource type="Script" path="res://Scripts/power_card_holder.gd" id="1_e06wo"]
+[ext_resource type="Texture2D" uid="uid://dp61q13rt57u2" path="res://Assets/kenney_particle/circle_01.png" id="1_j8nng"]
+[ext_resource type="Texture2D" uid="uid://c6oliodki5br0" path="res://Assets/kenney_particle/circle_05.png" id="3_5jw0m"]
+
+[node name="PowerCardHolder" type="Node2D"]
+visible = false
+y_sort_enabled = true
+texture_filter = 1
+rotation = 0.464258
+scale = Vector2(0.5, 0.5)
+skew = 0.698132
+script = ExtResource("1_e06wo")
+
+[node name="Circle01" type="Sprite2D" parent="."]
+texture = ExtResource("1_j8nng")
+offset = Vector2(-220, -215)
+
+[node name="PowerSprite" type="Sprite2D" parent="Circle01"]
+self_modulate = Color(1, 1, 1, 0.635294)
+offset = Vector2(-220, -215)
+
+[node name="Shadow" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 1)
+y_sort_enabled = true
+texture = ExtResource("3_5jw0m")

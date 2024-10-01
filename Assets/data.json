@@ -13,7 +13,7 @@
 	  "effect": "Block opponents from landing on the safe spot for the next turn.",
 	  "details": "Invoke divine protection to seal off a safe tile, restricting other players from accessing it for one round. This power allows your team to claim the safe spot temporarily without fear of intrusion.",
 	  "base_price": 30,
-	  "used_on": "tile",
+	  "used_on": "actor",
 	  "image": "res://Assets/PowersImages/SanctuarySeal.png"
 	},
 	{
@@ -45,7 +45,7 @@
 	  "effect": "Reroll the dice once to try for a better number.",
 	  "details": "Ra, the god of foresight, grants you a second chance at fortune. Use this power to reroll the dice and improve your roll.",
 	  "base_price": 15,
-	  "used_on": "board",
+	  "used_on": "player",
 	  "image": "res://Assets/PowersImages/RaVision.png"
 	},
 	{
@@ -53,7 +53,7 @@
 	  "effect": "Guarantee an extra turn on any roll for one round.",
 	  "details": "With Zeus's divine intervention, any roll guarantees you an extra turn for that round. A powerful boost to shift the tides in your favor.",
 	  "base_price": 35,
-	  "used_on": "board",
+	  "used_on": "player",
 	  "image": "res://Assets/PowersImages/ZeusFavor.png"
 	}
   ]
