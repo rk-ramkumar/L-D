@@ -14,6 +14,7 @@ func _ready():
 	add_theme_stylebox_override("panel", new_stylebox_panel)
 	Observer.move_started.connect(_on_move_started)
 	Observer.actor_completed.connect(_on_actor_completed)
+	Observer.power_used.connect(_on_power_used)
 
 func _on_gui_input(event):
 	if event is InputEventScreenTouch:
@@ -48,3 +49,7 @@ func _on_actor_completed(actor):
 	if data.actor == actor:
 		animation_player.play("completed")
 		gui_input.disconnect(_on_gui_input)
+
+func _on_power_used(power, actor):
+	if actor == data.actor:
+		power_texture.texture = load(power.image)

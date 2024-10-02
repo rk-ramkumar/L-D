@@ -28,6 +28,16 @@ func _hide():
 func update_position():
 	global_position = get_global_mouse_position() + offset
 
+func is_accept(power):
+	if actor == null:
+		return false
+	if actor.power.is_empty():
+		actor.power = power
+		Observer.power_used.emit(power, actor)
+		return true
+	else:
+		return false
+
 func _on_body_entered(body):
 	if (
 		!(body is Actor)

@@ -64,11 +64,9 @@ func _handle_drag_end(event):
 	if picked:
 		picked = false
 		# Check for any actor selected.
-		if parent.PowerCardHolder.actor:
-			parent.PowerCardHolder.actor.power = data
-		else:
+		if !parent.PowerCardHolder.is_accept(data):
 			update_count(1)
-		# Remove card 
+		# Remove card
 		if count == 0:
 			parent.add_empty_card(1)
 			remove_card()
