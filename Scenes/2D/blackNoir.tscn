@@ -57,7 +57,7 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g8nk4"]
 shader = SubResource("Shader_voncr")
-shader_parameter/new_color = Color(0.901961, 0, 0, 1)
+shader_parameter/new_color = Color(0.6, 0.345098, 1, 1)
 shader_parameter/origin_color = null
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
@@ -94,6 +94,7 @@ skew = 0.698132
 texture = ExtResource("3_bef1n")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="Pivot/Magic01"]
+emitting = false
 amount = 12
 process_material = SubResource("ParticleProcessMaterial_jftnw")
 texture = ExtResource("4_xo5y7")
@@ -101,6 +102,10 @@ lifetime = 2.0
 randomness = 1.0
 
 [node name="ArrowDown" type="Sprite2D" parent="Pivot"]
+modulate = Color(0.00392157, 0.00392157, 0.00392157, 1)
+z_index = 1
+y_sort_enabled = true
+texture_filter = 1
 material = SubResource("ShaderMaterial_g8nk4")
 position = Vector2(0, -100)
 rotation = 1.5708

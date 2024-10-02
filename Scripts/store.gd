@@ -21,11 +21,11 @@ func card_selected(card):
 
 func _on_buy_button_clicked():
 	if selected_card == null:
-		print("Select a card to purchase.")
+		MessageManager.add_message("Select a card to purchase.")
 		return
 	if GameManager.player.coin < selected_card.data.base_price:
-		print("Not have enough coin")
+		MessageManager.add_message("Not have enough coin")
 		return
+	AudioController.item_pick_up.play()
 	GameManager.decrease_coin(selected_card.data.base_price)
-	AudioController.game_bonus.play()
 	Observer.power_purchased.emit(selected_card.data)

@@ -30,6 +30,7 @@ func _on_panel_gui_input(event):
 		if event.is_released():
 			if selected:
 				deselect()
+				parent.selected_card = null
 			else:
 				select()
 				parent.card_selected(self)
