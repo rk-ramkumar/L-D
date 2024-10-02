@@ -1,10 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://h5dg4fhfj136"]
+[gd_scene load_steps=14 format=3 uid="uid://h5dg4fhfj136"]
 
 [ext_resource type="Script" path="res://Scripts/2D/blackNoir.gd" id="1_7q140"]
 [ext_resource type="SpriteFrames" uid="uid://c71kyer80t0g6" path="res://Assets/Resources/blackNoir.tres" id="2_yl3nw"]
 [ext_resource type="Texture2D" uid="uid://bmt4c47t2do44" path="res://Assets/kenney_particle/magic_03.png" id="3_bef1n"]
 [ext_resource type="Texture2D" uid="uid://c6oliodki5br0" path="res://Assets/kenney_particle/circle_05.png" id="4_xo5y7"]
-[ext_resource type="Texture2D" uid="uid://boe2k0o8yjumf" path="res://Assets/Icons/arrow_right.svg" id="5_h3k5b"]
+[ext_resource type="Texture2D" uid="uid://c34xjaklbis05" path="res://Assets/Icons/play.png" id="5_cin0o"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_maou1"]
 size = Vector2(30, 11)
@@ -40,6 +40,25 @@ orbit_velocity_curve = SubResource("CurveTexture_mmklr")
 scale_min = 0.09
 scale_max = 0.1
 scale_curve = SubResource("CurveTexture_5gbbb")
+
+[sub_resource type="Shader" id="Shader_voncr"]
+code = "shader_type canvas_item;
+uniform vec4 new_color: source_color;
+uniform vec4 origin_color: source_color;
+
+void fragment() {
+	vec4 current_pixel = texture(TEXTURE, UV);
+	if (current_pixel == origin_color)
+	 COLOR = new_color;
+	else
+	 COLOR = current_pixel;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g8nk4"]
+shader = SubResource("Shader_voncr")
+shader_parameter/new_color = Color(0.901961, 0, 0, 1)
+shader_parameter/origin_color = null
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 y_sort_enabled = true
@@ -82,10 +101,10 @@ lifetime = 2.0
 randomness = 1.0
 
 [node name="ArrowDown" type="Sprite2D" parent="Pivot"]
-modulate = Color(0.796078, 0.74902, 0.658824, 1)
+material = SubResource("ShaderMaterial_g8nk4")
 position = Vector2(0, -100)
 rotation = 1.5708
-scale = Vector2(0.6, 0.716)
-texture = ExtResource("5_h3k5b")
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_cin0o")
 
 [connection signal="timeout" from="HomeStateTimer" to="." method="_on_home_state_timer_timeout"]
