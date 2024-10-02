@@ -29,6 +29,8 @@ func update_position():
 	global_position = get_global_mouse_position() + offset
 
 func _on_body_entered(body):
+	if GameManager.playground.player.team != body.team:
+		return
 	if actor:
 		return
 	actor = body
@@ -36,6 +38,8 @@ func _on_body_entered(body):
 	body.select(true)
 
 func _on_body_exited(body):
+	if GameManager.playground.player.team != body.team:
+		return
 	if actor:
 		actor.scale = Vector2(1, 1)
 	actor = null
