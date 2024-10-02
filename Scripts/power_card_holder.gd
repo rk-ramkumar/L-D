@@ -33,7 +33,7 @@ func is_accept(power):
 		return false
 	if actor.power.is_empty():
 		actor.power = power
-		Observer.power_used.emit(power, actor)
+		Observer.power_added.emit(power, actor)
 		return true
 	else:
 		return false

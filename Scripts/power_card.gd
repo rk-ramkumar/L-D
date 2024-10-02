@@ -53,14 +53,14 @@ func deselectOtherCard():
 		if card.card != self and card.card.selected:
 			card.card.deselect()
 
-func _handle_drag(event):
+func _handle_drag(_event):
 	if !picked:
 		picked = true
 		parent.PowerCardHolder.move_start(data)
 		update_count(-1)
 	parent.PowerCardHolder.update_position()
 
-func _handle_drag_end(event):
+func _handle_drag_end(_event):
 	if picked:
 		picked = false
 		# Check for any actor selected.

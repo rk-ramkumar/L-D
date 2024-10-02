@@ -31,11 +31,11 @@ func connect_signals():
 	Observer.roll_completed.connect(_handle_roll_completed)
 
 func _add_npc_players():
-	for player in GameManager.Players.values():
-		if player.type != "npc":
+	for Player in GameManager.Players.values():
+		if Player.type != "npc":
 			continue
 		var npcPlayer = NPCPlayer.new()
-		npcPlayer.player = player
+		npcPlayer.player = Player
 		npcPlayer.tile_map = tile_map
 		add_child(npcPlayer)
 

@@ -15,6 +15,7 @@ func _ready():
 	Observer.move_started.connect(_on_move_started)
 	Observer.actor_completed.connect(_on_actor_completed)
 	Observer.power_used.connect(_on_power_used)
+	Observer.power_added.connect(_on_power_added)
 
 func _on_gui_input(event):
 	if event is InputEventScreenTouch:
@@ -50,6 +51,11 @@ func _on_actor_completed(actor):
 		animation_player.play("completed")
 		gui_input.disconnect(_on_gui_input)
 
-func _on_power_used(power, actor):
+func _on_power_used(_power, actor):
+	if actor == data.actor:
+		power_texture.texture = null
+
+func _on_power_added(power, actor):
 	if actor == data.actor:
 		power_texture.texture = load(power.image)
+	
