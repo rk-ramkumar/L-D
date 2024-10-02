@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cnpi1yql2jh0e"]
 
 [ext_resource type="Script" path="res://Scripts/loading.gd" id="1_iadq8"]
-[ext_resource type="Texture2D" uid="uid://bp1lduijpqemv" path="res://Assets/Textures/loading.webp" id="2_tv8s6"]
+[ext_resource type="Texture2D" uid="uid://84buxbyw5ofh" path="res://Assets/Textures/loading_background.png" id="2_xaxw1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jbo47"]
 bg_color = Color(1, 1, 1, 0.521569)
@@ -16,12 +16,13 @@ layer = 9
 script = ExtResource("1_iadq8")
 
 [node name="Background" type="TextureRect" parent="."]
+texture_filter = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_tv8s6")
+texture = ExtResource("2_xaxw1")
 expand_mode = 3
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
