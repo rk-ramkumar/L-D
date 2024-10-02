@@ -1,4 +1,4 @@
-extends CharacterBody2D
+class_name Actor extends CharacterBody2D
 
 const SPEED = 200.0
 const JUMP_VELOCITY = -400.0

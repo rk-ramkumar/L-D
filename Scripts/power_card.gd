@@ -19,7 +19,9 @@ func _ready():
 func update_count(amount):
 	count += amount
 	if count > 1:
-		card_count.text = "X"+str(count) 
+		card_count.text = "X"+str(count)
+	elif count == 1:
+		card_count.text = ""
 
 func _on_gui_input(event):
 	if event is InputEventScreenTouch:
@@ -29,9 +31,7 @@ func _on_gui_input(event):
 			else:
 				select()
 		if event.is_released():
-			if picked:
-				picked = false
-				parent.PowerCardHolder.move_end()
+			_handle_drag_end(event)
 
 	if event is InputEventScreenDrag:
 		Observer.power_card_move.emit(data)
@@ -57,3 +57,17 @@ func _handle_drag(event):
 		parent.PowerCardHolder.move_start(data)
 		update_count(-1)
 	parent.PowerCardHolder.update_position()
+
+func _handle_drag_end(event):
+	if picked:
+		picked = false
+		# Check for any actor selected.
+		if parent.PowerCardHolder.actor:
+			parent.PowerCardHolder.actor.power = data
+		else:
+			update_count(1)
+		# Remove card 
+		if count == 0:
+			parent.add_empty_card(2)
+			queue_free()
+		parent.PowerCardHolder.move_end()
