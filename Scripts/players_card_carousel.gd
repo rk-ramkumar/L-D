@@ -51,7 +51,7 @@ func _on_power_purchased(power):
 	if power_cards.has(power.name):
 		power_cards[power.name].card.update_count(1)
 		return
-	power_cards[power.name] = power
+	power_cards[power.name] = power.duplicate(true)
 	power_cards[power.name].merge(_add_power_card(power))
 
 func _add_power_card(power):

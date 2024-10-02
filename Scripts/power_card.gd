@@ -1,7 +1,7 @@
 extends Panel
 
 @onready var power_texture = $MarginContainer/Panel/VBoxContainer/PowerTexture
-@onready var card_count = $MarginContainer/Panel/VBoxContainer/Panel/CardCount
+@onready var card_count = $MarginContainer/Panel/VBoxContainer/BackgroundPanel/CardCount
 @onready var animation_player = $AnimationPlayer
 @onready var panel = $MarginContainer/Panel
 
@@ -76,15 +76,11 @@ func _handle_drag_end(event):
 
 func remove_card():
 	var tween = create_tween()
-	tween.tween_method(dissolve_card, 0.0, 1.0, 2)
-	for i in parent.power_cards.values():
-			print(i.card)
+	tween.tween_method(dissolve_card, 0.0, 1.0, 1)
 	tween.tween_callback(func():
 		parent.remove_power_card(data)
 		tween.kill()
 		queue_free()
-		for i in parent.power_cards.values():
-			print(i.card)
 	)
 
 func dissolve_card(value):

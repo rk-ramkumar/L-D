@@ -22,15 +22,15 @@ shadow_offset = Vector2(2, 2)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pr0fo"]
 bg_color = Color(0.6, 0.345098, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
 border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-expand_margin_left = 1.0
-expand_margin_top = 1.0
-expand_margin_right = 1.0
-expand_margin_bottom = 1.0
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+shadow_size = 2
+shadow_offset = Vector2(0, 2)
 
 [sub_resource type="LabelSettings" id="LabelSettings_2mpn7"]
 font_size = 14
@@ -179,36 +179,28 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 10
 
-[node name="Panel" type="Panel" parent="MarginContainer/Panel/VBoxContainer"]
+[node name="BackgroundPanel" type="Panel" parent="MarginContainer/Panel/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
-theme_override_styles/panel = ExtResource("2_g0j5m")
+theme_override_styles/panel = SubResource("StyleBoxFlat_pr0fo")
 
-[node name="BgPanel" type="Panel" parent="MarginContainer/Panel/VBoxContainer/Panel"]
-custom_minimum_size = Vector2(14, 14)
+[node name="CardCount" type="Label" parent="MarginContainer/Panel/VBoxContainer/BackgroundPanel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_pr0fo")
-
-[node name="CardCount" type="Label" parent="MarginContainer/Panel/VBoxContainer/Panel"]
-layout_mode = 1
-anchors_preset = 14
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_top = -9.0
-offset_right = -1.0
-offset_bottom = 9.0
+offset_left = 2.0
+offset_top = -2.0
+offset_right = -3.0
+offset_bottom = 3.0
 grow_horizontal = 2
 grow_vertical = 2
 label_settings = SubResource("LabelSettings_2mpn7")
 horizontal_alignment = 2
 vertical_alignment = 1
 autowrap_mode = 3
+clip_text = true
+uppercase = true
 
 [node name="PowerTexture" type="TextureRect" parent="MarginContainer/Panel/VBoxContainer"]
 texture_filter = 1
