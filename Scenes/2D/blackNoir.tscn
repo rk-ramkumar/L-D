@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://h5dg4fhfj136"]
+[gd_scene load_steps=12 format=3 uid="uid://h5dg4fhfj136"]
 
 [ext_resource type="Script" path="res://Scripts/2D/blackNoir.gd" id="1_7q140"]
 [ext_resource type="SpriteFrames" uid="uid://c71kyer80t0g6" path="res://Assets/Resources/blackNoir.tres" id="2_yl3nw"]
@@ -9,7 +9,14 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_maou1"]
 size = Vector2(30, 11)
 
+[sub_resource type="Curve" id="Curve_8ogth"]
+min_value = -500.0
+max_value = 500.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
 [sub_resource type="CurveTexture" id="CurveTexture_mmklr"]
+curve = SubResource("Curve_8ogth")
 
 [sub_resource type="Curve" id="Curve_buhd2"]
 _data = [Vector2(0.011583, 0.0210526), 0.0, 0.0, 0, 0, Vector2(0.494208, 0.505263), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]

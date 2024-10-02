@@ -651,7 +651,7 @@ texture_normal = ExtResource("19_to60y")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 2
 
-[node name="UI" type="Control" parent="CanvasLayer"]
+[node name="UI" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("playground")]
 unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 15
@@ -661,6 +661,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("15_w1ek2")
+playground = NodePath("../..")
 
 [node name="RollButton" parent="CanvasLayer/UI" instance=ExtResource("15_5ek04")]
 layout_mode = 1

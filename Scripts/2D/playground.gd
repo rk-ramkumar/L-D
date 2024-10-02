@@ -12,10 +12,11 @@ var turnTime = 60
 var dice_numbers = []
 var is_rolling = false
 var actor_scene = preload("res://Scenes/2D/blackNoir.tscn")
+var player = {}
 
 func _ready():
 	connect_signals()
-	GameManager.player = GameManager.Players[1]
+	player = GameManager.Players[1]
 	GameManager.register_resource({
 		tile_map = tile_map,
 		playground = self
@@ -41,11 +42,11 @@ func _add_npc_players():
 func _add_actors():
 	var player_args ={
 		positions = tile_map.get_spawn_position(),
-		team = GameManager.player.team
+		team = player.team
 	}
 	var opponent_args ={
 		positions = tile_map.get_spawn_position(true),
-		team = GameManager.get_opponent_team(GameManager.player.team)
+		team = GameManager.get_opponent_team(player.team)
 	}
 
 	for args in [player_args, opponent_args]:

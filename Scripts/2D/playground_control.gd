@@ -9,6 +9,7 @@ extends Control
 
 @export var turn_time: int = 25
 @export var move_time: int = 15
+@export var playground: Node2D
 
 var state: String
 var die_textures = [
@@ -22,15 +23,17 @@ var user_coin_text = ""
 
 func _ready():
 	%TurnTimer.timeout.connect(_on_timeout)
-	user_coin_text = user_coin_label.text
-	user_coin_label.text = user_coin_label.text.format(GameManager.Players[1])
 	Observer.turn_started.connect(_on_turn_started)
 	Observer.move_started.connect(_on_move_started)
 	Observer.coin_changed.connect(_on_coin_changed)
+	# Wait for playground ready finish for updated player values
+	await playground.ready
+	user_coin_text = user_coin_label.text
+	user_coin_label.text = user_coin_text.format(playground.player)
 
 func _on_turn_started():
 	timer_label.text = str(turn_time)
-	roll_button.disabled = GameManager.player.id != 1
+	roll_button.disabled = GameManager.player.id != playground.player.id
 	state = "roll"
 
 func _on_move_started():
@@ -45,11 +48,6 @@ func on_roll_completed(dice_values):
 	else:
 		die_1.texture = die_textures[dice_values[0]]
 		die_2.texture = die_textures[dice_values[1]]
-
-func _handle_player_turn(id):
-	if id != GameManager.player.id:
-		roll_button.disabled = true
-		timer_label.text = str(turn_time)
 
 func _on_timeout():
 	timer_label.text = str(int(timer_label.text) - 1)
