@@ -3,6 +3,7 @@ extends Panel
 @onready var power_texture = $MarginContainer/Panel/VBoxContainer/PowerTexture
 @onready var card_count = $MarginContainer/Panel/VBoxContainer/Panel/CardCount
 @onready var animation_player = $AnimationPlayer
+@onready var panel = $MarginContainer/Panel
 
 var count = 0
 var data = {}
@@ -14,6 +15,7 @@ func _ready():
 	parent = get_parent().get_owner()
 	add_theme_stylebox_override("panel", get_theme_stylebox("panel").duplicate())
 	power_texture.texture = load(data.image)
+	power_texture.material = power_texture.material.duplicate()
 	update_count(1)
 
 func update_count(amount):
@@ -68,6 +70,22 @@ func _handle_drag_end(event):
 			update_count(1)
 		# Remove card 
 		if count == 0:
-			parent.add_empty_card(2)
-			queue_free()
+			parent.add_empty_card(1)
+			remove_card()
 		parent.PowerCardHolder.move_end()
+
+func remove_card():
+	var tween = create_tween()
+	tween.tween_method(dissolve_card, 0.0, 1.0, 2)
+	for i in parent.power_cards.values():
+			print(i.card)
+	tween.tween_callback(func():
+		parent.remove_power_card(data)
+		tween.kill()
+		queue_free()
+		for i in parent.power_cards.values():
+			print(i.card)
+	)
+
+func dissolve_card(value):
+	power_texture.material.set_shader_parameter("dissolve_amount", value)

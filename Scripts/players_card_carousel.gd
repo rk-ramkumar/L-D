@@ -64,3 +64,6 @@ func _add_power_card(power):
 	cards_container.move_child(power_card, card_index)
 	
 	return {index = card_index, card = power_card}
+
+func remove_power_card(card):
+	power_cards.erase(card.name)

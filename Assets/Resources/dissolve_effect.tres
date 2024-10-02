@@ -1,0 +1,15 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://cqh85lvdvc51u"]
+
+[ext_resource type="Shader" path="res://Assets/Resources/dissolve_effect.gdshader" id="1_gcn3w"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_fivaa"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_c1mim"]
+seamless = true
+noise = SubResource("FastNoiseLite_fivaa")
+
+[resource]
+shader = ExtResource("1_gcn3w")
+shader_parameter/dissolve_amount = 0.0
+shader_parameter/dissolve_color = Color(0.945098, 0.0980392, 0.25098, 1)
+shader_parameter/dissolve_texture = SubResource("NoiseTexture2D_c1mim")

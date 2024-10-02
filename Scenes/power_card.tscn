@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://dl6hm0pqbpnhn"]
+[gd_scene load_steps=10 format=3 uid="uid://dl6hm0pqbpnhn"]
 
 [ext_resource type="Script" path="res://Scripts/power_card.gd" id="1_4pbeq"]
 [ext_resource type="StyleBox" uid="uid://gjqo5ihuob83" path="res://Assets/Resources/store_card_background.tres" id="2_g0j5m"]
+[ext_resource type="Material" uid="uid://cqh85lvdvc51u" path="res://Assets/Resources/dissolve_effect.tres" id="3_aounl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p0ta3"]
 bg_color = Color(0.6, 0.345098, 1, 1)
@@ -211,6 +212,7 @@ autowrap_mode = 3
 
 [node name="PowerTexture" type="TextureRect" parent="MarginContainer/Panel/VBoxContainer"]
 texture_filter = 1
+material = ExtResource("3_aounl")
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_vertical = 3
