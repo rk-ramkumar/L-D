@@ -290,5 +290,3 @@ emitting = false
 process_material = SubResource("ParticleProcessMaterial_uqi1j")
 texture = ExtResource("3_275wt")
 one_shot = true
-
-[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]

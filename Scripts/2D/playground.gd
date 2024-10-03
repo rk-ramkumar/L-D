@@ -7,9 +7,7 @@ extends Node2D
 @onready var actors_parent = $TopLevelProps/Actors
 @onready var players_card_carousel = $CanvasLayer/UI/HBoxContainer/PlayersCardCarousel
 
-var turnTime = 60
 var dice_numbers = []
-var is_rolling = false
 var actor_scene = preload("res://Scenes/2D/blackNoir.tscn")
 var player = {}
 

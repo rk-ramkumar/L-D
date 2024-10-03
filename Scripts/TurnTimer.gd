@@ -4,10 +4,8 @@ extends Timer
 
 func _ready():
 	Observer.move_started.connect(startTimer)
+	Observer.turn_started.connect(stopTimer)
 	Observer.actor_move_started.connect(_on_move_started)
-
-func _on_roll_completed(_die_value):
-	startTimer()
 
 func _on_move_started(_actor):
 	stopTimer()

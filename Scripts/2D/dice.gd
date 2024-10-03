@@ -2,7 +2,7 @@ extends RigidBody2D
 
 signal roll_finished(number: int)
 
-@export var disappear_time: int = 2
+@export var disappear_time: float = 1
 @onready var label = $AnimatedSprite/Label
 @onready var animated_sprite = $AnimatedSprite
 @onready var dust_particles = $DustParticles
@@ -12,16 +12,16 @@ var number
 var faces_frame = [10, 4, 25, 16]
 var roll_force = 1000  # Adjust the force magnitude to control speed
 var is_rolling = false
+var tween
 
 func _ready():
 	origin = position
-
-func set_seed():
-	randomize()
-	number = randi() % 4
-	roll_dice()
+	Observer.roll_started.connect(roll_dice)
 
 func roll_dice():
+	if visible:
+		_reset()
+	show()
 	animated_sprite.play_backwards("roll")
 	dust_particles.emitting = true
 	var random_direction = Vector2(randf_range(-0.2, 0.2), randf_range(-1, -0.5)).normalized()
@@ -37,35 +37,32 @@ func _integrate_forces(_state):
 		is_rolling = false
 
 func _on_position_anim_finished():
-	var tween = get_tree().create_tween()
+	tween = create_tween()
 	tween.tween_property(animated_sprite, "frame", faces_frame[number], 0.2)
-	tween.tween_callback(_reset)
-	tween.tween_callback(tween.kill)
+	tween.tween_callback(_on_roll_finish)
 
 func _animate_label():
+	if tween:
+		tween.kill()
 	if number == 0:
 		return
 	var random_pos = Vector2(randf_range(-100, -150),  randf_range(-200, -250))
 	label.text = str(number)
-	var tween = get_tree().create_tween()
-	tween.parallel().tween_property(label, "position", random_pos, 1).set_ease(Tween.EASE_IN_OUT)
-	tween.parallel().tween_property(label, "modulate:a", 0, 1).set_ease(Tween.EASE_IN_OUT)
-	tween.tween_callback(_on_label_anim_finished)
-	tween.tween_callback(tween.kill)
+	tween = create_tween()
+	tween.parallel().tween_property(label, "position", random_pos, disappear_time).set_trans(Tween.TRANS_SINE)
+	tween.parallel().tween_property(label, "modulate:a", 0, disappear_time).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_callback(_reset)
 
-func _on_label_anim_finished():
+func _on_roll_finish():
+	_animate_label()
+	roll_finished.emit(number)
+
+func _reset():
+	if tween:
+		tween.kill()
+	animated_sprite.pause()
+	position = origin
 	label.text = ""
 	label.position = Vector2(-20, -20)
 	label.modulate = Color.WHITE
-
-func _reset():
-	_animate_label()
-	roll_finished.emit(number)
-	await get_tree().create_timer(disappear_time).timeout
-	animated_sprite.pause()
-	position = origin
 	hide()
-
-func _on_visibility_changed():
-	if visible:
-		set_seed()

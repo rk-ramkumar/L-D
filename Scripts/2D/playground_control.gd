@@ -22,6 +22,7 @@ var replace_coin_text = "[b][img=64]res://Assets/PowersImages/Coin.png[/img][col
 func _ready():
 	%TurnTimer.timeout.connect(_on_timeout)
 	Observer.move_started.connect(_on_move_started)
+	Observer.turn_started.connect(_on_turn_started)
 	Observer.coin_changed.connect(_on_coin_changed)
 	# Wait for playground ready finish for updated player values
 	await playground.ready
@@ -30,6 +31,9 @@ func _ready():
 
 func set_turn_over_btn_disable(value):
 	turn_over_button.disabled = value
+
+func _on_turn_started():
+	timer_label.text = ""
 
 func _on_move_started():
 	timer_label.text = str(move_time)

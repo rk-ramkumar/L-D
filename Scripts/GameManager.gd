@@ -122,7 +122,6 @@ func _handle_turn_started():
 	Observer.roll_started.emit()
 
 func _handle_roll_started():
-	playground.dice.map(func(die): die.visible = true)
 	var numbers = generate_ld(player)
 	for idx in playground.dice.size():
 		playground.dice[idx].number = numbers[idx]
