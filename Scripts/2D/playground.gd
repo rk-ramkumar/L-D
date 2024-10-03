@@ -22,8 +22,17 @@ func _ready():
 	AudioController.secondary_background.play()
 	_add_npc_players()
 	_add_actors()
+	_connect_signals()
 	await get_tree().create_timer(2).timeout
 	Observer.next_turn.emit()
+
+func _connect_signals():
+	Observer.move_started.connect(_on_move_started)
+
+func _on_move_started():
+	if GameManager.player.id == player.id:
+		tile_map.can_move = true
+		ui.set_turn_over_btn_disable(false)
 
 func _add_npc_players():
 	for Player in GameManager.Players.values():
@@ -68,3 +77,5 @@ func _on_die_rolled(number):
 
 func _on_turn_over_button_clicked():
 	Observer.next_turn.emit()
+	ui.set_turn_over_btn_disable(true)
+	tile_map.can_move = false

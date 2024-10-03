@@ -13,8 +13,6 @@ var can_move = false
 func _ready():
 	blocks = get_used_cells(layer.BLOCKS).slice(0, total_safe_point * 6 + 1)
 	blocks.append(get_used_cells(layer.PLANT)[0])
-	Observer.move_started.connect(_on_move_started)
-	Observer.move_completed.connect(_on_move_completed)
 
 func get_spawn_position(opposite = false):
 	var top_left = Vector2(4, 4) # Start safe tile local position
@@ -62,12 +60,6 @@ func _unhandled_input(event):
 			GameManager.selected_actor.start_moving(
 				blocks.slice(GameManager.selected_actor.position_id)
 			)
-
-func _on_move_started():
-	can_move = true
-
-func _on_move_completed():
-	can_move = false
 
 func is_actor_present(position_id, team):
 	if position_id <= 7: # Home lane
