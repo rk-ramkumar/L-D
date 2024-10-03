@@ -14,7 +14,6 @@ var actor_scene = preload("res://Scenes/2D/blackNoir.tscn")
 var player = {}
 
 func _ready():
-	connect_signals()
 	player = GameManager.Players[1]
 	GameManager.register_resource({
 		tile_map = tile_map,
@@ -23,11 +22,8 @@ func _ready():
 	AudioController.secondary_background.play()
 	_add_npc_players()
 	_add_actors()
+	await get_tree().create_timer(2).timeout
 	Observer.next_turn.emit()
-
-func connect_signals():
-	Observer.roll_started.connect(_handle_roll_started)
-	Observer.roll_completed.connect(_handle_roll_completed)
 
 func _add_npc_players():
 	for Player in GameManager.Players.values():
@@ -63,25 +59,9 @@ func _create_actors(args, id):
 	actors_parent.add_child(actor)
 	return actor
 
-func _handle_player_turn(_id):
-	pass
-
-func _handle_roll_started():
-	is_rolling = true
-	turn_timer.stop()
-	dice.map(func(die): die.visible = true)
-
-func _handle_roll_completed(_dice_value):
-	is_rolling = false
-	dice_numbers = []
-
-func _on_roll_button_clicked():
-	if is_rolling:
-		return
-	Observer.roll_started.emit()
-
 func _on_die_rolled(number):
 	dice_numbers.append(number)
 	if dice_numbers.size() == 2:
 		GameManager.currentDieNumber = dice_numbers.reduce(func(acc, cur): return acc+cur, 0)
 		Observer.roll_completed.emit(GameManager.currentDieNumber)
+		dice_numbers = []

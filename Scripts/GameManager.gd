@@ -64,10 +64,11 @@ func load_scene(resource, _current_scene):
 
 func connect_signals():
 	Observer.roll_completed.connect(_on_roll_completed)
-	Observer.roll_failed.connect(_on_roll_failed)
 	Observer.move_failed.connect(_on_move_failed)
 	Observer.next_turn.connect(_handle_next_turn)
 	Observer.extra_turn.connect(_handle_extra_turn)
+	Observer.turn_started.connect(_handle_turn_started)
+	Observer.roll_started.connect(_handle_roll_started)
 	Observer.actor_move_completed.connect(_handle_actor_move_completed)
 
 func register_resource(dict):
@@ -75,6 +76,7 @@ func register_resource(dict):
 	playground = dict.playground
 
 func _on_roll_completed(die_value):
+	Observer.coin_changed.emit(player)
 	await get_tree().create_timer(0.1).timeout
 	if !Players[currentPlayerTurn].can_play and die_value == 1:
 		Players[currentPlayerTurn].can_play = true
@@ -94,10 +96,6 @@ func _on_roll_completed(die_value):
 			Observer.extra_turn.emit()
 		else:
 			Observer.next_turn.emit()
-
-func _on_roll_failed():
-	GameManager.currentDieNumber = randi() % 7 #Randomly set die value
-	Observer.roll_completed.emit(GameManager.currentDieNumber)
 
 func _on_move_failed():
 	var actor = teamList[player.team].actors.filter(func(actor): return actor.movable).pick_random()
@@ -134,8 +132,16 @@ func _handle_actor_move_completed(actor):
 func _handle_next_turn():
 	currentPlayerTurn = _get_next_id()
 	player = Players[currentPlayerTurn]
-	generate_ld(player)
 	Observer.turn_started.emit()
+
+func _handle_turn_started():
+	Observer.roll_started.emit()
+
+func _handle_roll_started():
+	playground.dice.map(func(die): die.visible = true)
+	var numbers = generate_ld(player)
+	for idx in playground.dice.size():
+		playground.dice[idx].number = numbers[idx]
 
 func has_extra_turn():
 	var actors = teamList[player.team].actors
@@ -151,15 +157,16 @@ func _get_next_id():
 	return (currentPlayerTurn % playerLoaded) + 1
 
 func increase_coin(amount):
-	var final_amount = player.coin + amount
-	Observer.coin_changed.emit(player.coin, final_amount)
-	player.coin = final_amount
+	player.coin = player.coin + amount
+	Observer.coin_changed.emit(player)
 
 func decrease_coin(amount):
-	var final_amount = player.coin - amount
-	Observer.coin_changed.emit(player.coin, final_amount)
-	player.coin = final_amount
+	player.coin = player.coin - amount
+	Observer.coin_changed.emit(player)
  
 func generate_ld(player):
-	var coin_gained = randi_range(3, 6)
+	var coin_gained = randi_range(3, 6) 
 	player.coin = min(player.coin + coin_gained, super_number)
+	var half_coin = coin_gained / 2
+
+	return [half_coin, coin_gained - half_coin]

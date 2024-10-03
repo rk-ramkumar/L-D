@@ -2,7 +2,6 @@ extends Node
 
 signal roll_completed(dice_value)
 signal roll_started
-signal roll_failed
 signal move_completed
 signal move_started
 signal move_failed
@@ -18,7 +17,7 @@ signal actor_move_completed(actor)
 signal actor_captured(captured_actor, actor)
 signal actor_completed(actor)
 signal power_purchased(power)
-signal coin_changed(amount)
+signal coin_changed(player)
 signal power_card_move(power)
 signal power_used(power, actor)
 signal power_added(power, actor)

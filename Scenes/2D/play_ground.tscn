@@ -615,10 +615,12 @@ texture_filter = 1
 [node name="Die1" parent="TopLevelProps" instance=ExtResource("19_kovbs")]
 visible = false
 position = Vector2(-400, 490)
+disappear_time = 1
 
 [node name="Die2" parent="TopLevelProps" instance=ExtResource("19_kovbs")]
 visible = false
 position = Vector2(-230, 390)
+disappear_time = 1
 
 [node name="Actors" type="Node2D" parent="TopLevelProps"]
 
@@ -670,7 +672,7 @@ size_flags_horizontal = 3
 playground = NodePath("../../../..")
 PowerCardHolder = NodePath("../../../../TopLevelProps/PowerCardHolder")
 
-[node name="RollButton" parent="CanvasLayer/UI/HBoxContainer" instance=ExtResource("15_5ek04")]
+[node name="TurnOverButton" parent="CanvasLayer/UI/HBoxContainer" instance=ExtResource("15_5ek04")]
 layout_mode = 2
 theme_override_styles/hover = SubResource("StyleBoxFlat_t57bw")
 text = "Turn Over"
@@ -726,7 +728,7 @@ theme_override_fonts/bold_font = ExtResource("26_srsld")
 theme_override_font_sizes/normal_font_size = 32
 theme_override_font_sizes/bold_font_size = 24
 bbcode_enabled = true
-text = "[b][img=64]res://Assets/PowersImages/Coin.png[/img][color=Ffd700]133{coin}[/color][/b]"
+text = "[b][img=64]res://Assets/PowersImages/Coin.png[/img][color=Ffd700]{coin}[/color][/b]"
 scroll_active = false
 
 [node name="Store" parent="CanvasLayer/UI" instance=ExtResource("28_vl6wd")]
@@ -737,4 +739,3 @@ visible = false
 [connection signal="roll_finished" from="TopLevelProps/Die2" to="." method="_on_die_rolled"]
 [connection signal="released" from="TopLevelProps/VendingMachineButton" to="CanvasLayer/UI" method="_on_vending_machine_button_pressed"]
 [connection signal="gui_input" from="CanvasLayer/UI" to="CanvasLayer/UI" method="_on_gui_input"]
-[connection signal="clicked" from="CanvasLayer/UI/HBoxContainer/RollButton" to="." method="_on_roll_button_clicked"]

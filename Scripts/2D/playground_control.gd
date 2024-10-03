@@ -1,12 +1,11 @@
 extends Control
 
 @onready var timer_label = $TimerLabel
-@onready var roll_button = $HBoxContainer/RollButton
+@onready var roll_button = $HBoxContainer/TurnOverButton
 @onready var store = $Store
 @onready var user_coin_label = $Panel/UserCoinLabel
 
-@export var turn_time: int = 25
-@export var move_time: int = 15
+@export var move_time: int = 20
 @export var playground: Node2D
 
 var state: String
@@ -18,21 +17,16 @@ var die_textures = [
 	preload("res://Assets/Icons/dieWhite_border6.png")
 	]
 var user_coin_text = ""
+var replace_coin_text = "[b][img=64]res://Assets/PowersImages/Coin.png[/img][color=Ffd700]"
 
 func _ready():
 	%TurnTimer.timeout.connect(_on_timeout)
-	Observer.turn_started.connect(_on_turn_started)
 	Observer.move_started.connect(_on_move_started)
 	Observer.coin_changed.connect(_on_coin_changed)
 	# Wait for playground ready finish for updated player values
 	await playground.ready
 	user_coin_text = user_coin_label.text
 	user_coin_label.text = user_coin_text.format(playground.player)
-
-func _on_turn_started():
-	timer_label.text = str(turn_time)
-	roll_button.disabled = GameManager.player.id != playground.player.id
-	state = "roll"
 
 func _on_move_started():
 	timer_label.text = str(move_time)
@@ -52,10 +46,12 @@ func _on_gui_input(event):
 func _on_vending_machine_button_pressed():
 	store.show()
 
-func _on_coin_changed(prev_amount, amount):
-#	user_coin_label.text = user_coin_label.text.format(GameManager.Players[1])
+func _on_coin_changed(player):
+	if player.id != playground.player.id:
+		return
+	var prev_amount = user_coin_label.text.replace(replace_coin_text, "").to_int()
 	var tween = create_tween()
-	tween.tween_method(_lerp_coin, prev_amount, amount, 0.5)
+	tween.tween_method(_lerp_coin, prev_amount, player.coin, 0.5)
 	tween.tween_callback(func(): tween.kill())
 
 func _lerp_coin(amount):
