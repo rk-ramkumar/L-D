@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://b0ud7gjcvmw17"]
+[gd_scene load_steps=47 format=3 uid="uid://b0ud7gjcvmw17"]
 
 [ext_resource type="Script" path="res://Scripts/2D/playground.gd" id="1_5tede"]
 [ext_resource type="Texture2D" uid="uid://7b8r3ycl6y2t" path="res://Assets/Textures/soft_grass.png" id="2_fxc78"]
@@ -17,16 +17,15 @@
 [ext_resource type="PackedScene" uid="uid://bmjy16bpw5kux" path="res://Scenes/2D/touch_indicator.tscn" id="9_jy2yl"]
 [ext_resource type="PackedScene" uid="uid://cmrna0h0dmrhj" path="res://Components/custom_button.tscn" id="15_5ek04"]
 [ext_resource type="Script" path="res://Scripts/2D/playground_control.gd" id="15_w1ek2"]
-[ext_resource type="Texture2D" uid="uid://b55w1ppiuqcer" path="res://Assets/Icons/dice_3D_detailed.svg" id="16_qts8j"]
 [ext_resource type="PackedScene" uid="uid://b5s14d1gldj0w" path="res://Scenes/target_position_indicator.tscn" id="16_s6xk2"]
 [ext_resource type="Script" path="res://Scripts/TurnTimer.gd" id="19_15107"]
 [ext_resource type="PackedScene" uid="uid://cesnpvcf7asln" path="res://Scenes/2D/dice.tscn" id="19_kovbs"]
 [ext_resource type="Texture2D" uid="uid://jq3n1t0qpoxf" path="res://Assets/vending_machine.png" id="19_to60y"]
 [ext_resource type="PackedScene" uid="uid://c13pu8o68h1bb" path="res://Scenes/power_card_holder.tscn" id="20_0pilr"]
 [ext_resource type="PackedScene" uid="uid://b12w16mhadndh" path="res://Scenes/players_card_carousel.tscn" id="21_pdwa2"]
-[ext_resource type="Texture2D" uid="uid://3l6yklc558kr" path="res://Assets/Icons/dice_empty.svg" id="23_hb2f2"]
 [ext_resource type="PackedScene" uid="uid://ri8jm7u32c1p" path="res://Scenes/notifier.tscn" id="23_j0rin"]
 [ext_resource type="PackedScene" uid="uid://bucipt88nxrb" path="res://Scenes/message_box.tscn" id="24_r8hfl"]
+[ext_resource type="FontFile" uid="uid://dhnxuxk0xio8j" path="res://Assets/font/Ghost Stories Deluxe.ttf" id="26_srsld"]
 [ext_resource type="PackedScene" uid="uid://d4ldby2yfrycw" path="res://Scenes/store.tscn" id="28_vl6wd"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_t6d53"]
@@ -549,18 +548,6 @@ shadow_size = 16
 shadow_color = Color(0, 0, 0, 1)
 shadow_offset = Vector2(2, 2)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hqah4"]
-bg_color = Color(0.0941176, 0.0941176, 0.0941176, 0.858824)
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-shadow_size = 5
-shadow_offset = Vector2(4, 4)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_62teq"]
 bg_color = Color(0.0941176, 0.0941176, 0.0941176, 0.858824)
 border_width_right = 3
@@ -663,22 +650,30 @@ mouse_filter = 1
 script = ExtResource("15_w1ek2")
 playground = NodePath("../..")
 
-[node name="RollButton" parent="CanvasLayer/UI" instance=ExtResource("15_5ek04")]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI"]
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
+anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -240.0
-offset_top = -270.0
-offset_right = -40.0
-offset_bottom = -170.0
-grow_horizontal = 0
+offset_left = 20.0
+offset_top = -160.0
+offset_right = -30.0
+offset_bottom = -15.0
+grow_horizontal = 2
 grow_vertical = 0
+theme_override_constants/separation = 30
+
+[node name="PlayersCardCarousel" parent="CanvasLayer/UI/HBoxContainer" node_paths=PackedStringArray("playground", "PowerCardHolder") instance=ExtResource("21_pdwa2")]
+layout_mode = 2
+size_flags_horizontal = 3
+playground = NodePath("../../../..")
+PowerCardHolder = NodePath("../../../../TopLevelProps/PowerCardHolder")
+
+[node name="RollButton" parent="CanvasLayer/UI/HBoxContainer" instance=ExtResource("15_5ek04")]
+layout_mode = 2
 theme_override_styles/hover = SubResource("StyleBoxFlat_t57bw")
-text = "Roll"
-icon = ExtResource("16_qts8j")
+text = "Turn Over"
 
 [node name="TimerLabel" type="Label" parent="CanvasLayer/UI"]
 layout_mode = 1
@@ -690,54 +685,6 @@ offset_right = 20.0
 offset_bottom = 25.0
 grow_horizontal = 2
 label_settings = SubResource("LabelSettings_w5gwk")
-
-[node name="Steps" type="Panel" parent="CanvasLayer/UI"]
-custom_minimum_size = Vector2(180, 80)
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -210.0
-offset_top = 20.0
-offset_right = -30.0
-offset_bottom = 100.0
-grow_horizontal = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_hqah4")
-
-[node name="DiceImageContainer" type="HBoxContainer" parent="CanvasLayer/UI/Steps"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -70.0
-offset_top = -34.0
-offset_right = 70.0
-offset_bottom = 30.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 10
-alignment = 1
-
-[node name="Die1" type="TextureRect" parent="CanvasLayer/UI/Steps/DiceImageContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-texture = ExtResource("23_hb2f2")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Die2" type="TextureRect" parent="CanvasLayer/UI/Steps/DiceImageContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-texture = ExtResource("23_hb2f2")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="PlayersCardCarousel" parent="CanvasLayer/UI" node_paths=PackedStringArray("playground", "PowerCardHolder") instance=ExtResource("21_pdwa2")]
-layout_mode = 1
-playground = NodePath("../../..")
-PowerCardHolder = NodePath("../../../TopLevelProps/PowerCardHolder")
 
 [node name="Notifier" parent="CanvasLayer/UI" instance=ExtResource("23_j0rin")]
 
@@ -753,23 +700,33 @@ offset_bottom = 610.0
 grow_vertical = 1
 
 [node name="Panel" type="Panel" parent="CanvasLayer/UI"]
-custom_minimum_size = Vector2(210, 70)
+custom_minimum_size = Vector2(120, 50)
 layout_mode = 1
 offset_left = 20.0
 offset_top = 20.0
-offset_right = 230.0
-offset_bottom = 90.0
+offset_right = 140.0
+offset_bottom = 70.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_62teq")
 
 [node name="UserCoinLabel" type="RichTextLabel" parent="CanvasLayer/UI/Panel"]
+custom_minimum_size = Vector2(120, 50)
 layout_mode = 1
-offset_right = 204.0
-offset_bottom = 50.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -6.0
+offset_top = -9.0
+offset_right = -6.0
+offset_bottom = -9.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
-theme_override_font_sizes/normal_font_size = 24
+theme_override_fonts/bold_font = ExtResource("26_srsld")
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 24
 bbcode_enabled = true
-text = "[img=64]res://Assets/PowersImages/Coin.png[/img][color=Ffd700]{coin}[/color]"
+text = "[b][img=64]res://Assets/PowersImages/Coin.png[/img][color=Ffd700]133{coin}[/color][/b]"
 scroll_active = false
 
 [node name="Store" parent="CanvasLayer/UI" instance=ExtResource("28_vl6wd")]
@@ -780,4 +737,4 @@ visible = false
 [connection signal="roll_finished" from="TopLevelProps/Die2" to="." method="_on_die_rolled"]
 [connection signal="released" from="TopLevelProps/VendingMachineButton" to="CanvasLayer/UI" method="_on_vending_machine_button_pressed"]
 [connection signal="gui_input" from="CanvasLayer/UI" to="CanvasLayer/UI" method="_on_gui_input"]
-[connection signal="clicked" from="CanvasLayer/UI/RollButton" to="." method="_on_roll_button_clicked"]
+[connection signal="clicked" from="CanvasLayer/UI/HBoxContainer/RollButton" to="." method="_on_roll_button_clicked"]

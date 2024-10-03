@@ -1,9 +1,7 @@
 extends Control
 
 @onready var timer_label = $TimerLabel
-@onready var roll_button = $RollButton
-@onready var die_2 = $Steps/DiceImageContainer/Die1
-@onready var die_1 = $Steps/DiceImageContainer/Die2
+@onready var roll_button = $HBoxContainer/RollButton
 @onready var store = $Store
 @onready var user_coin_label = $Panel/UserCoinLabel
 
@@ -40,14 +38,6 @@ func _on_move_started():
 	timer_label.text = str(move_time)
 	roll_button.disabled = true
 	state = "move"
-
-func on_roll_completed(dice_values):
-	if dice_values.all(func(die_value): return die_value == 0):
-		die_1.texture = die_textures.back()
-		die_2.texture = die_textures.back()
-	else:
-		die_1.texture = die_textures[dice_values[0]]
-		die_2.texture = die_textures[dice_values[1]]
 
 func _on_timeout():
 	timer_label.text = str(int(timer_label.text) - 1)

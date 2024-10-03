@@ -5,8 +5,7 @@ extends Node2D
 @onready var tile_map = $TileMap
 @onready var dice = [$TopLevelProps/Die1, $TopLevelProps/Die2]
 @onready var actors_parent = $TopLevelProps/Actors
-@onready var players_card_carousel = $CanvasLayer/UI/PlayersCardCarousel
-
+@onready var players_card_carousel = $CanvasLayer/UI/HBoxContainer/PlayersCardCarousel
 
 var turnTime = 60
 var dice_numbers = []
@@ -85,5 +84,4 @@ func _on_die_rolled(number):
 	dice_numbers.append(number)
 	if dice_numbers.size() == 2:
 		GameManager.currentDieNumber = dice_numbers.reduce(func(acc, cur): return acc+cur, 0)
-		ui.on_roll_completed(dice_numbers)
 		Observer.roll_completed.emit(GameManager.currentDieNumber)

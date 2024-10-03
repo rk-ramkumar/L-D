@@ -10,8 +10,9 @@ var scene_paths = {
 var Players = {}
 var player = {}
 var actors_count = 6
+var super_number = 13
 var playerLoaded: int = 0
-var availableId = [1,2, 3, 4]
+var availableId = [1, 2, 3, 4]
 var teamList = { "L": {"actors": []}, "D": {"actors": []} }
 var gameOver: bool = false
 var max_tile_id = 80
@@ -133,6 +134,7 @@ func _handle_actor_move_completed(actor):
 func _handle_next_turn():
 	currentPlayerTurn = _get_next_id()
 	player = Players[currentPlayerTurn]
+	generate_ld(player)
 	Observer.turn_started.emit()
 
 func has_extra_turn():
@@ -158,4 +160,6 @@ func decrease_coin(amount):
 	Observer.coin_changed.emit(player.coin, final_amount)
 	player.coin = final_amount
  
-
+func generate_ld(player):
+	var coin_gained = randi_range(3, 6)
+	player.coin = min(player.coin + coin_gained, super_number)
