@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://b0ud7gjcvmw17"]
+[gd_scene load_steps=48 format=3 uid="uid://b0ud7gjcvmw17"]
 
 [ext_resource type="Script" path="res://Scripts/2D/playground.gd" id="1_5tede"]
 [ext_resource type="Texture2D" uid="uid://7b8r3ycl6y2t" path="res://Assets/Textures/soft_grass.png" id="2_fxc78"]
@@ -24,6 +24,7 @@
 [ext_resource type="PackedScene" uid="uid://c13pu8o68h1bb" path="res://Scenes/power_card_holder.tscn" id="20_0pilr"]
 [ext_resource type="PackedScene" uid="uid://b12w16mhadndh" path="res://Scenes/players_card_carousel.tscn" id="21_pdwa2"]
 [ext_resource type="PackedScene" uid="uid://ri8jm7u32c1p" path="res://Scenes/notifier.tscn" id="23_j0rin"]
+[ext_resource type="Texture2D" uid="uid://d2qgkysnshdtp" path="res://Assets/Icons/hand_cube.svg" id="24_p1yah"]
 [ext_resource type="PackedScene" uid="uid://bucipt88nxrb" path="res://Scenes/message_box.tscn" id="24_r8hfl"]
 [ext_resource type="FontFile" uid="uid://dhnxuxk0xio8j" path="res://Assets/font/Ghost Stories Deluxe.ttf" id="26_srsld"]
 [ext_resource type="PackedScene" uid="uid://d4ldby2yfrycw" path="res://Scenes/store.tscn" id="28_vl6wd"]
@@ -674,7 +675,8 @@ PowerCardHolder = NodePath("../../../../TopLevelProps/PowerCardHolder")
 layout_mode = 2
 theme_override_styles/hover = SubResource("StyleBoxFlat_t57bw")
 disabled = true
-text = "Turn Over"
+text = " Turn Over"
+icon = ExtResource("24_p1yah")
 
 [node name="TimerLabel" type="Label" parent="CanvasLayer/UI"]
 layout_mode = 1

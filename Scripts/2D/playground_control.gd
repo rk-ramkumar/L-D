@@ -1,7 +1,7 @@
 extends Control
 
 @onready var timer_label = $TimerLabel
-@onready var roll_button = $HBoxContainer/TurnOverButton
+@onready var turn_over_button = $HBoxContainer/TurnOverButton
 @onready var store = $Store
 @onready var user_coin_label = $Panel/UserCoinLabel
 
@@ -21,6 +21,7 @@ var replace_coin_text = "[b][img=64]res://Assets/PowersImages/Coin.png[/img][col
 
 func _ready():
 	%TurnTimer.timeout.connect(_on_timeout)
+	Observer.turn_started.connect(_on_turn_started)
 	Observer.move_started.connect(_on_move_started)
 	Observer.coin_changed.connect(_on_coin_changed)
 	# Wait for playground ready finish for updated player values
@@ -28,9 +29,11 @@ func _ready():
 	user_coin_text = user_coin_label.text
 	user_coin_label.text = user_coin_text.format(playground.player)
 
+func _on_turn_started():
+	turn_over_button.disabled = GameManager.player.id != playground.player.id
+
 func _on_move_started():
 	timer_label.text = str(move_time)
-	roll_button.disabled = true
 	state = "move"
 
 func _on_timeout():

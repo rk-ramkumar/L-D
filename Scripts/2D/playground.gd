@@ -65,3 +65,6 @@ func _on_die_rolled(number):
 		GameManager.currentDieNumber = dice_numbers.reduce(func(acc, cur): return acc+cur, 0)
 		Observer.roll_completed.emit(GameManager.currentDieNumber)
 		dice_numbers = []
+
+func _on_turn_over_button_clicked():
+	Observer.next_turn.emit()
