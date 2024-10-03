@@ -75,7 +75,7 @@ func register_resource(dict):
 	tile_map = dict.tile_map
 	playground = dict.playground
 
-func _on_roll_completed(die_value):
+func _on_roll_completed(_die_value):
 	Observer.coin_changed.emit(player)
 	await get_tree().create_timer(0.1).timeout
 	var actors = teamList[player.team].actors
@@ -148,9 +148,9 @@ func decrease_coin(amount):
 	player.coin = player.coin - amount
 	Observer.coin_changed.emit(player)
  
-func generate_ld(player):
+func generate_ld(current_player):
 	var coin_gained = randi_range(3, 6) 
-	player.coin = min(player.coin + coin_gained, super_number)
+	current_player.coin = min(current_player.coin + coin_gained, super_number)
 	var half_coin = coin_gained / 2
 
 	return [half_coin, coin_gained - half_coin]
