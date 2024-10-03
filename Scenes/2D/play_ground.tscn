@@ -615,12 +615,10 @@ texture_filter = 1
 [node name="Die1" parent="TopLevelProps" instance=ExtResource("19_kovbs")]
 visible = false
 position = Vector2(-400, 490)
-disappear_time = 1
 
 [node name="Die2" parent="TopLevelProps" instance=ExtResource("19_kovbs")]
 visible = false
 position = Vector2(-230, 390)
-disappear_time = 1
 
 [node name="Actors" type="Node2D" parent="TopLevelProps"]
 
@@ -675,6 +673,7 @@ PowerCardHolder = NodePath("../../../../TopLevelProps/PowerCardHolder")
 [node name="TurnOverButton" parent="CanvasLayer/UI/HBoxContainer" instance=ExtResource("15_5ek04")]
 layout_mode = 2
 theme_override_styles/hover = SubResource("StyleBoxFlat_t57bw")
+disabled = true
 text = "Turn Over"
 
 [node name="TimerLabel" type="Label" parent="CanvasLayer/UI"]
@@ -739,3 +738,4 @@ visible = false
 [connection signal="roll_finished" from="TopLevelProps/Die2" to="." method="_on_die_rolled"]
 [connection signal="released" from="TopLevelProps/VendingMachineButton" to="CanvasLayer/UI" method="_on_vending_machine_button_pressed"]
 [connection signal="gui_input" from="CanvasLayer/UI" to="CanvasLayer/UI" method="_on_gui_input"]
+[connection signal="clicked" from="CanvasLayer/UI/HBoxContainer/TurnOverButton" to="." method="_on_turn_over_button_clicked"]

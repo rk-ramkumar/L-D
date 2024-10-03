@@ -78,24 +78,12 @@ func register_resource(dict):
 func _on_roll_completed(die_value):
 	Observer.coin_changed.emit(player)
 	await get_tree().create_timer(0.1).timeout
-	if !Players[currentPlayerTurn].can_play and die_value == 1:
-		Players[currentPlayerTurn].can_play = true
-
 	var actors = teamList[player.team].actors
-#	var is_all_home = actors.all(func(actor): return actor.current_state == player_state.AT_HOME)
-
-	if !player.can_play:
-		Observer.next_turn.emit()
-		return
-
 	_set_movable(actors)
 	if actors.any(func(actor): return actor.movable):
 		Observer.move_started.emit()
 	else:
-		if has_extra_turn():
-			Observer.extra_turn.emit()
-		else:
-			Observer.next_turn.emit()
+		Observer.next_turn.emit()
 
 func _on_move_failed():
 	var actor = teamList[player.team].actors.filter(func(actor): return actor.movable).pick_random()
@@ -107,7 +95,6 @@ func _set_movable(actors):
 	for actor in actors:
 		actor.movable = true
 		if (actor.position_id + currentDieNumber > max_tile_id
-			or (actor.current_state == player_state.AT_HOME and currentDieNumber != 1)
 			or actor.has_recent_capture
 		):
 			actor.movable = false
@@ -124,10 +111,7 @@ func _handle_actor_move_completed(actor):
 		Observer.actor_captured.emit(captured_actor, actor)
 		return
 
-	if has_extra_turn():
-		Observer.extra_turn.emit()
-	else:
-		Observer.next_turn.emit()
+	Observer.next_turn.emit()
 
 func _handle_next_turn():
 	currentPlayerTurn = _get_next_id()

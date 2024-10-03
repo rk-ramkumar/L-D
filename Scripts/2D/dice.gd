@@ -55,13 +55,14 @@ func _animate_label():
 
 func _on_label_anim_finished():
 	label.text = ""
-	label.position = position
+	label.position = Vector2(-20, -20)
+	label.modulate = Color.WHITE
 
 func _reset():
 	_animate_label()
+	roll_finished.emit(number)
 	await get_tree().create_timer(disappear_time).timeout
 	animated_sprite.pause()
-	roll_finished.emit(number)
 	position = origin
 	hide()
 
