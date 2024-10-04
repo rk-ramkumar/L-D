@@ -1,16 +1,21 @@
 [gd_scene load_steps=7 format=3 uid="uid://dlc4hhi1pj1r7"]
 
+[ext_resource type="StyleBox" uid="uid://gjqo5ihuob83" path="res://Assets/Resources/store_card_background.tres" id="1_kuo8b"]
 [ext_resource type="FontFile" uid="uid://dhnxuxk0xio8j" path="res://Assets/font/Ghost Stories Deluxe.ttf" id="1_rcq8l"]
 [ext_resource type="FontFile" uid="uid://y665v7c8c3qh" path="res://Assets/font/Azonix.otf" id="1_ys4bs"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lsnia"]
-draw_center = false
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
+bg_color = Color(1, 1, 1, 0.32549)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 shadow_color = Color(0, 0, 0, 0.772549)
-shadow_size = 20
 shadow_offset = Vector2(5, 5)
 
 [sub_resource type="GDScript" id="GDScript_fb5so"]
@@ -29,21 +34,7 @@ func _ready():
 "
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mwmjk"]
-bg_color = Color(1, 1, 1, 1)
-border_width_left = 10
-border_width_top = 10
-border_width_right = 10
-border_width_bottom = 40
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-shadow_size = 10
-shadow_offset = Vector2(5, 5)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pyqoa"]
-draw_center = false
+bg_color = Color(0, 0, 0, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -52,9 +43,8 @@ expand_margin_left = 5.0
 expand_margin_top = 5.0
 expand_margin_right = 5.0
 expand_margin_bottom = 5.0
-shadow_color = Color(0, 0, 0, 1)
+shadow_color = Color(1, 1, 1, 0.6)
 shadow_size = 10
-shadow_offset = Vector2(2, 2)
 
 [node name="PowerDetailsCard" type="Panel"]
 custom_minimum_size = Vector2(0, 400)
@@ -81,6 +71,7 @@ theme_override_constants/margin_bottom = 20
 [node name="PowerDetailsCard" type="HBoxContainer" parent="CardContainer"]
 layout_mode = 2
 theme_override_constants/separation = 20
+alignment = 1
 
 [node name="PowerCard" type="Panel" parent="CardContainer/PowerDetailsCard"]
 custom_minimum_size = Vector2(300, 250)
@@ -95,16 +86,16 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 20
+theme_override_constants/separation = 10
 alignment = 1
 
 [node name="Panel" type="Panel" parent="CardContainer/PowerDetailsCard/PowerCard/HBoxContainer"]
-custom_minimum_size = Vector2(200, 200)
+custom_minimum_size = Vector2(258, 258)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxFlat_pyqoa")
+theme_override_styles/panel = ExtResource("1_kuo8b")
 
 [node name="TextureRect" type="TextureRect" parent="CardContainer/PowerDetailsCard/PowerCard/HBoxContainer/Panel"]
 layout_mode = 1
@@ -119,7 +110,7 @@ expand_mode = 1
 
 [node name="Label" type="Label" parent="CardContainer/PowerDetailsCard/PowerCard/HBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("1_ys4bs")
 theme_override_font_sizes/font_size = 18
 horizontal_alignment = 1
@@ -138,7 +129,7 @@ theme_override_constants/shadow_outline_size = 2
 theme_override_fonts/normal_font = ExtResource("1_rcq8l")
 theme_override_fonts/bold_font = ExtResource("1_ys4bs")
 theme_override_font_sizes/normal_font_size = 16
-theme_override_font_sizes/bold_font_size = 32
+theme_override_font_sizes/bold_font_size = 24
 bbcode_enabled = true
 text = "[center][b][color=Ffd700][outline_color=white]{name}[/outline_color][/color][/b][/center]
 
@@ -146,5 +137,7 @@ text = "[center][b][color=Ffd700][outline_color=white]{name}[/outline_color][/co
 
 [color=black][b]details :[/b][/color][center] {details}[/center]
 
-[b][color=black]base price :[/color] [color=Ffd700] {base_price} [/color][/b]"
+[b][color=black]base price :[/color] [color=Ffd700] {base_price} [/color][/b]
+
+[b][color=black]Cooldown :[/color] [color=Ffd700] {cooldown} turn [/color][/b]"
 scroll_active = false
