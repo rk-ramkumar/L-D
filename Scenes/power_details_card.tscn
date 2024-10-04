@@ -1,22 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://dlc4hhi1pj1r7"]
 
+[ext_resource type="StyleBox" uid="uid://cbyjcuqonbl22" path="res://Assets/Resources/panel_background.tres" id="1_fy3mu"]
 [ext_resource type="StyleBox" uid="uid://gjqo5ihuob83" path="res://Assets/Resources/store_card_background.tres" id="1_kuo8b"]
 [ext_resource type="FontFile" uid="uid://dhnxuxk0xio8j" path="res://Assets/font/Ghost Stories Deluxe.ttf" id="1_rcq8l"]
 [ext_resource type="FontFile" uid="uid://y665v7c8c3qh" path="res://Assets/font/Azonix.otf" id="1_ys4bs"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lsnia"]
-bg_color = Color(1, 1, 1, 0.32549)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-shadow_color = Color(0, 0, 0, 0.772549)
-shadow_offset = Vector2(5, 5)
 
 [sub_resource type="GDScript" id="GDScript_fb5so"]
 script/source = "extends Panel
@@ -53,7 +40,7 @@ offset_right = 291.0
 offset_bottom = 400.0
 size_flags_horizontal = 3
 mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxFlat_lsnia")
+theme_override_styles/panel = ExtResource("1_fy3mu")
 script = SubResource("GDScript_fb5so")
 
 [node name="CardContainer" type="MarginContainer" parent="."]

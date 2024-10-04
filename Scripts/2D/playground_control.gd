@@ -44,10 +44,6 @@ func _on_timeout():
 	if int(timer_label.text) == 0:
 		Observer.emit_signal(state+"_failed")
 
-func _on_gui_input(event):
-	if event is InputEventScreenTouch:
-		if event.is_pressed() and store.visible:
-			store.hide()
 
 func _on_vending_machine_button_pressed():
 	store.show()

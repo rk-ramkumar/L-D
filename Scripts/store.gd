@@ -1,7 +1,7 @@
 extends CanvasLayer
 
 var power_card = preload("res://Scenes/store_power_card.tscn")
-@onready var grid_container = $HBoxContainer/CenterContainer/MarginContainer/GridContainer
+@onready var grid_container = $Control/Panel/CenterContainer/MarginContainer/GridContainer
 var selected_card = null
 
 func _ready():
@@ -29,3 +29,12 @@ func _on_buy_button_clicked():
 	AudioController.item_pick_up.play()
 	GameManager.decrease_coin(selected_card.data.base_price)
 	Observer.power_purchased.emit(selected_card.data)
+
+
+func _on_close_button_pressed():
+	hide()
+
+func _on_gui_input(event):
+	if event is InputEventScreenTouch:
+		if event.is_pressed() and visible:
+			hide()

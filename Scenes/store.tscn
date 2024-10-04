@@ -1,59 +1,115 @@
-[gd_scene load_steps=5 format=3 uid="uid://d4ldby2yfrycw"]
+[gd_scene load_steps=6 format=3 uid="uid://d4ldby2yfrycw"]
 
 [ext_resource type="Script" path="res://Scripts/store.gd" id="1_yweg1"]
 [ext_resource type="FontFile" uid="uid://y665v7c8c3qh" path="res://Assets/font/Azonix.otf" id="2_kb64m"]
+[ext_resource type="StyleBox" uid="uid://cbyjcuqonbl22" path="res://Assets/Resources/panel_background.tres" id="2_orbjd"]
 [ext_resource type="PackedScene" uid="uid://cmrna0h0dmrhj" path="res://Components/custom_button.tscn" id="5_lxcsb"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i5cto"]
-bg_color = Color(0.0941176, 0.0941176, 0.0941176, 0.858824)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
+[ext_resource type="Texture2D" uid="uid://bcgfli5yare56" path="res://Assets/Icons/close.png" id="5_op4rv"]
 
 [node name="Store" type="CanvasLayer"]
+layer = 4
 script = ExtResource("1_yweg1")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0941176, 0.0941176, 0.0941176, 0.858824)
+
+[node name="Panel" type="Panel" parent="Control"]
+custom_minimum_size = Vector2(1080, 480)
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -290.0
-offset_top = -225.0
-offset_right = 290.0
-offset_bottom = 225.0
+offset_left = -540.0
+offset_top = -240.0
+offset_right = 540.0
+offset_bottom = 240.0
 grow_horizontal = 2
 grow_vertical = 2
-alignment = 1
+theme_override_styles/panel = ExtResource("2_orbjd")
 
-[node name="CenterContainer" type="ScrollContainer" parent="HBoxContainer"]
-custom_minimum_size = Vector2(600, 400)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_i5cto")
+[node name="CenterContainer" type="ScrollContainer" parent="Control/Panel"]
+custom_minimum_size = Vector2(720, 400)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -360.0
+offset_top = -200.0
+offset_right = 360.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/CenterContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Control/Panel/CenterContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/margin_left = 70
+theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
 theme_override_constants/margin_bottom = 30
 
-[node name="GridContainer" type="GridContainer" parent="HBoxContainer/CenterContainer/MarginContainer"]
+[node name="GridContainer" type="GridContainer" parent="Control/Panel/CenterContainer/MarginContainer"]
 layout_mode = 2
 theme_override_constants/h_separation = 50
 theme_override_constants/v_separation = 50
-columns = 2
+columns = 3
 
-[node name="BuyButton" parent="HBoxContainer" instance=ExtResource("5_lxcsb")]
-custom_minimum_size = Vector2(100, 70)
-layout_mode = 2
-size_flags_horizontal = 8
+[node name="BuyButton" parent="Control/Panel" instance=ExtResource("5_lxcsb")]
+custom_minimum_size = Vector2(126, 100)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -165.0
+offset_top = -130.0
+offset_right = -37.0
+offset_bottom = -30.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 6
+size_flags_vertical = 8
 theme_override_fonts/font = ExtResource("2_kb64m")
 text = "Buy"
 font_size = 28
 
-[connection signal="clicked" from="HBoxContainer/BuyButton" to="." method="_on_buy_button_clicked"]
+[node name="CloseButton" type="TextureButton" parent="Control/Panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -80.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 80.0
+grow_horizontal = 0
+texture_normal = ExtResource("5_op4rv")
+ignore_texture_size = true
+stretch_mode = 5
+
+[connection signal="gui_input" from="Control/ColorRect" to="." method="_on_gui_input"]
+[connection signal="clicked" from="Control/Panel/BuyButton" to="." method="_on_buy_button_clicked"]
+[connection signal="pressed" from="Control/Panel/CloseButton" to="." method="_on_close_button_pressed"]
