@@ -8,14 +8,6 @@ extends Control
 @export var move_time: int = 20
 @export var playground: Node2D
 
-var state: String
-var die_textures = [
-	preload("res://Assets/Icons/dice_empty.svg"),
-	preload("res://Assets/Icons/dieWhite_border1.png"),
-	preload("res://Assets/Icons/dieWhite_border2.png"),
-	preload("res://Assets/Icons/dieWhite_border3.png"),
-	preload("res://Assets/Icons/dieWhite_border6.png")
-	]
 var user_coin_text = ""
 var replace_coin_text = "[b][img=64]res://Assets/PowersImages/Coin.png[/img][color=Ffd700]"
 
@@ -37,13 +29,11 @@ func _on_turn_started():
 
 func _on_move_started():
 	timer_label.text = str(move_time)
-	state = "move"
 
 func _on_timeout():
 	timer_label.text = str(int(timer_label.text) - 1)
 	if int(timer_label.text) == 0:
-		Observer.emit_signal(state+"_failed")
-
+		Observer.move_failed.emit()
 
 func _on_vending_machine_button_pressed():
 	store.show()

@@ -1,6 +1,5 @@
 extends Node2D
 
-@onready var turn_timer = %TurnTimer
 @onready var ui = $CanvasLayer/UI
 @onready var tile_map = $TileMap
 @onready var dice = [$TopLevelProps/Die1, $TopLevelProps/Die2]
