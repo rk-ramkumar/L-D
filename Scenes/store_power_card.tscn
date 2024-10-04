@@ -1,8 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://ysmprs0yggfh"]
+[gd_scene load_steps=10 format=3 uid="uid://ysmprs0yggfh"]
 
 [ext_resource type="Script" path="res://Scripts/store_power_card.gd" id="1_8wkr4"]
 [ext_resource type="StyleBox" uid="uid://gjqo5ihuob83" path="res://Assets/Resources/store_card_background.tres" id="1_nelh7"]
-[ext_resource type="Texture2D" uid="uid://cyx7e0fe1l6al" path="res://Assets/PowersImages/RaVision.png" id="2_r7qln"]
 [ext_resource type="FontFile" uid="uid://y665v7c8c3qh" path="res://Assets/font/Azonix.otf" id="3_706lv"]
 [ext_resource type="FontFile" uid="uid://dhnxuxk0xio8j" path="res://Assets/font/Ghost Stories Deluxe.ttf" id="5_nlkk8"]
 
@@ -124,15 +123,9 @@ script = ExtResource("1_8wkr4")
 [node name="Panel" type="Panel" parent="."]
 custom_minimum_size = Vector2(196, 196)
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -98.0
-offset_top = -98.0
-offset_right = 98.0
-offset_bottom = 98.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
@@ -149,7 +142,6 @@ grow_vertical = 2
 [node name="TextureRect" type="TextureRect" parent="Panel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-texture = ExtResource("2_r7qln")
 expand_mode = 1
 stretch_mode = 5
 
