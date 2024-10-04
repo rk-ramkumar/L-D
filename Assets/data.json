@@ -4,7 +4,8 @@
 	  "name": "Fortuna's Shield",
 	  "effect": "Reverse an opponent's capture attempt and capture their piece instead.",
 	  "details": "Channel the divine protection of Fortuna, turning your opponent’s strength into their downfall. When activated, this power reverses an opponent's attempt to capture your piece, allowing you to capture theirs instead.",
-	  "base_price": 20,
+	  "base_price": 4,
+	  "cooldown": 4,
 	  "used_on": "actor",
 	  "image": "res://Assets/PowersImages/FortunaShield.png",
 	  "id": "FortunaShield"
@@ -13,7 +14,8 @@
 	  "name": "Sanctuary Seal",
 	  "effect": "Block opponents from landing on the safe spot for the next turn.",
 	  "details": "Invoke divine protection to seal off a safe tile, restricting other players from accessing it for one round. This power allows your team to claim the safe spot temporarily without fear of intrusion.",
-	  "base_price": 30,
+	  "base_price": 5,
+	  "cooldown": 5,
 	  "used_on": "actor",
 	  "image": "res://Assets/PowersImages/SanctuarySeal.png",
 	  "id": "SanctuarySeal"
@@ -22,46 +24,51 @@
 	  "name": "Relentless March",
 	  "effect": "Nullify the stun effect of being captured and move immediately.",
 	  "details": "The relentless spirit of a true warrior prevents delays. When your piece is captured, you can immediately move it without losing a turn.",
-	  "base_price": 25,
+	  "base_price": 3,
+	  "cooldown": 3,
 	  "used_on": "actor",
 	  "image": "res://Assets/PowersImages/RelentlessMarch.png",
 	  "id": "RelentlessMarch"
 	},
 	{
-	  "name": "Fate's Trickery",
-	  "effect": "Prevent an opponent from taking an extra roll after rolling 1, 5, 6, or 12.",
-	  "details": "Manipulate fate and deny your opponent the advantage of extra rolls when they land on specific numbers. Fate's Trickery blocks the bonus roll for one turn.",
-	  "base_price": 15,
-	  "used_on": "player",
-	  "image": "res://Assets/PowersImages/FateTrickery.png",
-	  "id": "FateTrickery"
-	},
-	{
 	  "name": "Hermes' Dash",
 	  "effect": "Move an extra few spaces or jump to the nearest safe tile.",
 	  "details": "Call upon the speed of Hermes to quickly advance. This power allows your piece to either move forward extra spaces or leap directly to the nearest safe tile.",
-	  "base_price": 20,
+	  "base_price": 3,
+	  "cooldown": 3,
 	  "used_on": "actor",
 	  "image": "res://Assets/PowersImages/HermesDash.png",
 	  "id": "HermesDash"
 	},
 	{
-	  "name": "Ra's Vision",
-	  "effect": "Reroll the dice once to try for a better number.",
-	  "details": "Ra, the god of foresight, grants you a second chance at fortune. Use this power to reroll the dice and improve your roll.",
-	  "base_price": 15,
+	  "name": "Aether's Blessing",
+	  "effect": "Increase your maximum LD limit by 3 for 2 rounds.",
+	  "details": "Call upon the power of Aether to push your limits, allowing you to store up to 16 LD (instead of the usual 13) for the next two rounds, enabling more powerful plays.",
+	  "base_price": 4,
+	  "cooldown": 5,
 	  "used_on": "player",
-	  "image": "res://Assets/PowersImages/RaVision.png",
-	  "id": "RaVision"
+	  "image": "res://Assets/PowersImages/AetherBlessing.png",
+	  "id": "AetherBlessing"
 	},
 	{
 	  "name": "Zeus's Favor",
-	  "effect": "Guarantee an extra turn on any roll for one round.",
-	  "details": "With Zeus's divine intervention, any roll guarantees you an extra turn for that round. A powerful boost to shift the tides in your favor.",
-	  "base_price": 35,
+	  "effect": "Gain 4 extra LD in the next round.",
+	  "details": "Zeus’s divine favor grants you a powerful boost, giving you 4 extra LD to use in your next round, allowing for more aggressive moves.",
+	  "base_price": 5,
+	  "cooldown": 5,
 	  "used_on": "player",
 	  "image": "res://Assets/PowersImages/ZeusFavor.png",
 	  "id": "ZeusFavor"
+	},
+	{
+	  "name": "Time Warp",
+	  "effect": "Skip an opponent's turn entirely.",
+	  "details": "Bend the flow of time to your advantage, causing one opponent to lose their turn. This power is highly strategic and can change the momentum of the game by preventing an opponent from acting in a crucial moment.",
+	  "base_price": 6,
+	  "cooldown": 6,
+	  "used_on": "player",
+	  "image": "res://Assets/PowersImages/TimeWarp.png",
+	  "id": "TimeWarp"
 	}
   ]
 }
