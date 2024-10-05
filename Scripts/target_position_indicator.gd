@@ -1,7 +1,6 @@
 extends Node2D
 
 @onready var animation_player = $AnimationPlayer
-@onready var container = $Container
 @onready var path_follow_ref = $PathFollowRef
 
 @export var tile_map: TileMap

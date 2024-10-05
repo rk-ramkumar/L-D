@@ -46,12 +46,9 @@ func _ready():
 func reset():
 	Players = {}
 	player = {}
-	actors_count = 6
 	playerLoaded = 0
-	availableId = [1,2, 3, 4]
 	teamList = { "L": {"actors": []}, "D": {"actors": []} }
 	gameOver = false
-	max_tile_id = 80
 	currentPlayerTurn = 0
 	selected_actor = null
 	tile_map = null

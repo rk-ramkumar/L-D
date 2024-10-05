@@ -65,13 +65,6 @@ skew = 0.698132
 texture = ExtResource("2_onv6x")
 offset = Vector2(-64, -64)
 
-[node name="Container" type="Node2D" parent="."]
-y_sort_enabled = true
-texture_filter = 1
-rotation = 0.453786
-scale = Vector2(0.1, 0.1)
-skew = 0.698132
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../TargetPositionIndicator")
 libraries = {
