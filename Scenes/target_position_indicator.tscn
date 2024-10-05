@@ -1,54 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://b5s14d1gldj0w"]
+[gd_scene load_steps=7 format=3 uid="uid://b5s14d1gldj0w"]
 
 [ext_resource type="Texture2D" uid="uid://bmt4c47t2do44" path="res://Assets/kenney_particle/magic_03.png" id="1_02xak"]
-
-[sub_resource type="GDScript" id="GDScript_hs8aw"]
-script/source = "extends Sprite2D
-
-@onready var animation_player = $AnimationPlayer
-
-@export var tile_map: TileMap
-
-var is_move_started: bool = false
-
-func _ready():
-	Observer.move_started.connect(_on_move_started)
-	Observer.move_completed.connect(_on_move_completed)
-	Observer.actor_selected.connect(_on_actor_selected)
-
-func _process(_delta):
-	if !is_move_started:
-		return
-
-	if !GameManager.selected_actor or animation_player.is_playing():
-		return
-
-	animate_move()
-
-func animate_move():
-	var target_position = tile_map.blocks[
-		(GameManager.selected_actor.position_id + GameManager.currentDieNumber) - 1
-	]
-	position = tile_map.map_to_local(target_position)
-	animation_player.play(\"zoom\")
-	visible = true
-
-func  _on_move_started():
-	if GameManager.player.id != 1:
-		return
-	is_move_started = true
-
-func _on_move_completed():
-	if GameManager.player.id != 1:
-		return
-	is_move_started = false
-	visible = false
-
-func _on_actor_selected(_actor):
-	if !is_move_started:
-		return
-	animate_move()
-"
+[ext_resource type="Script" path="res://Scripts/target_position_indicator.gd" id="1_rfxpw"]
+[ext_resource type="Texture2D" uid="uid://c6oliodki5br0" path="res://Assets/kenney_particle/circle_05.png" id="2_onv6x"]
 
 [sub_resource type="Animation" id="Animation_fabg5"]
 length = 0.001
@@ -88,18 +42,38 @@ _data = {
 "zoom": SubResource("Animation_miflc")
 }
 
-[node name="TargetPositionIndicator" type="Sprite2D"]
+[node name="TargetPositionIndicator" type="Node2D"]
 visible = false
 modulate = Color(0, 0.74902, 1, 1)
+y_sort_enabled = true
+texture_filter = 1
+script = ExtResource("1_rfxpw")
+
+[node name="TargetPositionIndicator" type="Sprite2D" parent="."]
 y_sort_enabled = true
 rotation = 0.453786
 scale = Vector2(0.1, 0.1)
 skew = 0.698132
 texture = ExtResource("1_02xak")
 offset = Vector2(-64, -64)
-script = SubResource("GDScript_hs8aw")
+
+[node name="PathFollowRef" type="Sprite2D" parent="."]
+y_sort_enabled = true
+rotation = 0.453786
+scale = Vector2(0.1, 0.1)
+skew = 0.698132
+texture = ExtResource("2_onv6x")
+offset = Vector2(-64, -64)
+
+[node name="Container" type="Node2D" parent="."]
+y_sort_enabled = true
+texture_filter = 1
+rotation = 0.453786
+scale = Vector2(0.1, 0.1)
+skew = 0.698132
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../TargetPositionIndicator")
 libraries = {
 "": SubResource("AnimationLibrary_jgoaq")
 }
