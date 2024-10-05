@@ -60,11 +60,12 @@ func load_scene(resource, _current_scene):
 func connect_signals():
 	Observer.roll_completed.connect(_on_roll_completed)
 	Observer.move_failed.connect(_on_move_failed)
+	Observer.move_completed.connect(_on_move_completed)
 	Observer.next_turn.connect(_handle_next_turn)
 	Observer.extra_turn.connect(_handle_extra_turn)
 	Observer.turn_started.connect(_handle_turn_started)
 	Observer.roll_started.connect(_handle_roll_started)
-	Observer.actor_move_completed.connect(_handle_actor_move_completed)
+#	Observer.actor_move_completed.connect(_handle_actor_move_completed)
 
 func register_resource(dict):
 	tile_map = dict.tile_map
@@ -80,23 +81,23 @@ func _on_roll_completed(_die_value):
 	else:
 		Observer.next_turn.emit()
 
+func _on_move_completed():
+	Observer.next_turn.emit()
+
 func _on_move_failed():
 	var actor = teamList[player.team].actors.filter(func(actor): return actor.movable).pick_random()
 	var blocks = tile_map.blocks.slice(actor.position_id)
 	actor.start_moving(blocks)
+	Observer.move_completed.emit()
 
 func _set_movable(actors):
 	## Check for powers that stop movable
 	for actor in actors:
 		actor.movable = true
-		if (actor.position_id + currentDieNumber > max_tile_id
-			or actor.has_recent_capture
-		):
+		if (actor.has_recent_capture):
 			actor.movable = false
 
 func _handle_actor_move_completed(actor):
-	Observer.move_completed.emit()
-
 	var captured_actor = tile_map.is_actor_present(
 		actor.position_id,
 		get_opponent_team(actor.team)
@@ -105,8 +106,6 @@ func _handle_actor_move_completed(actor):
 	if captured_actor:
 		Observer.actor_captured.emit(captured_actor, actor)
 		return
-
-	Observer.next_turn.emit()
 
 func _handle_next_turn():
 	currentPlayerTurn = _get_next_id()

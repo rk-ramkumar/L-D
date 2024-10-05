@@ -42,16 +42,16 @@ func _set_direction(position_angle = get_local_mouse_position().angle()):
 	angle = wrapi(int(angle), 0, 8)
 	current_direction = str(directions[angle])
 
-func start_moving(blocks):
+func start_moving(data):
 	if !is_moving:
 		is_moving = true
 		Observer.actor_move_started.emit(self)
-		position_id = position_id + GameManager.currentDieNumber
+		position_id = position_id + data.step
 		if position_id == GameManager.max_tile_id:
-			finished(blocks.back())
+			finished(data.positions.back())
 			return
 		current_state = GameManager.player_state.ON_FIELD
-		for target_position in blocks.slice(0, GameManager.currentDieNumber):
+		for target_position in data.positions:
 			target_position = tile_map.map_to_local(target_position)
 			_set_direction(get_angle_to(target_position))
 			_update_animation("_walk")

@@ -24,8 +24,8 @@ func _ready():
 		}
 		cards_container.add_child(player_card)
 		cards.append(player_card)
-	if cards_container.get_child_count() < 13:
-		add_empty_card(13 - cards_container.get_child_count())
+	if cards_container.get_child_count() < GameManager.super_number:
+		add_empty_card(GameManager.super_number - cards_container.get_child_count())
 
 func card_selected(selected_card):
 	for card in cards:
