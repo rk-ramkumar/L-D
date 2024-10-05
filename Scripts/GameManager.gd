@@ -59,7 +59,6 @@ func load_scene(resource, _current_scene):
 
 func connect_signals():
 	Observer.roll_completed.connect(_on_roll_completed)
-	Observer.move_failed.connect(_on_move_failed)
 	Observer.move_completed.connect(_on_move_completed)
 	Observer.next_turn.connect(_handle_next_turn)
 	Observer.extra_turn.connect(_handle_extra_turn)
@@ -83,12 +82,6 @@ func _on_roll_completed(_die_value):
 
 func _on_move_completed():
 	Observer.next_turn.emit()
-
-func _on_move_failed():
-	var actor = teamList[player.team].actors.filter(func(actor): return actor.movable).pick_random()
-	var blocks = tile_map.blocks.slice(actor.position_id)
-	actor.start_moving(blocks)
-	Observer.move_completed.emit()
 
 func _set_movable(actors):
 	## Check for powers that stop movable

@@ -33,9 +33,9 @@ func _handle_move_started():
 	if player != GameManager.player:
 		return
 	await get_tree().create_timer(randf_range(1, 5)).timeout
-	move()
+	decide_and_move()
 
-func move():
+func decide_and_move():
 	# Decide on whether to move multiple actors or focus on one
 	var move_multiple = randf() > FOCUS_SINGLE_ACTOR
 
@@ -57,7 +57,7 @@ func move_multiple_pieces():
 		var chosen_move = evaluate_moves(possible_moves)
 		if chosen_move:
 			actor.start_moving({positions = chosen_move.blocks, step = chosen_move.steps})
-			player.coin -= chosen_move.steps
+			GameManager.decrease_coin(chosen_move.steps)
 
 # Moves a single piece with human-like randomness
 func move_single_piece():
@@ -67,7 +67,7 @@ func move_single_piece():
 		var chosen_move = evaluate_moves(possible_moves)
 		if chosen_move:
 			selected_actor.start_moving({positions = chosen_move.blocks, step = chosen_move.steps})
-			player.coin -= chosen_move.steps
+			GameManager.decrease_coin(chosen_move.steps)
 
 # Randomly picks actors for multiple moves
 func pick_random_actors():

@@ -11,6 +11,7 @@ var dice_numbers = []
 var actor_scene = preload("res://Scenes/2D/blackNoir.tscn")
 var player = {}
 var selected_actor
+var player_bot
 
 func _ready():
 	player = GameManager.Players[1]
@@ -19,6 +20,7 @@ func _ready():
 		playground = self
 	})
 	AudioController.secondary_background.play()
+	_add_player_bot()
 	_add_npc_players()
 	_add_actors()
 	_connect_signals()
@@ -28,6 +30,7 @@ func _ready():
 func _connect_signals():
 	Observer.move_started.connect(_on_move_started)
 	Observer.actor_selected.connect(_on_actor_selected)
+	Observer.move_failed.connect(_on_move_failed)
 
 func _on_move_started():
 	if GameManager.player.id == player.id:
@@ -38,6 +41,9 @@ func _on_actor_selected(actor):
 	selected_actor = actor
 	target_position_indicator.handle_actor_selected(selected_actor)
 
+func _on_move_failed():
+	player_bot.decide_and_move()
+
 func _add_npc_players():
 	for Player in GameManager.Players.values():
 		if Player.type != "npc":
@@ -46,6 +52,14 @@ func _add_npc_players():
 		npcPlayer.player = Player
 		npcPlayer.tile_map = tile_map
 		add_child(npcPlayer)
+
+func _add_player_bot():
+	var npcPlayer = NPCPlayer.new()
+	npcPlayer.player = player
+	npcPlayer.tile_map = tile_map
+	npcPlayer.can_connect = false
+	player_bot = npcPlayer
+	add_child(npcPlayer)
 
 func _add_actors():
 	var player_args ={
