@@ -31,7 +31,6 @@ enum player_state {
 	CAPTURED,
 	COMPLETED
 }
-var selected_actor
 var tile_map : TileMap
 var playground
 var extra_chance_dice = [1, 5, 6, 12]
@@ -50,7 +49,6 @@ func reset():
 	teamList = { "L": {"actors": []}, "D": {"actors": []} }
 	gameOver = false
 	currentPlayerTurn = 0
-	selected_actor = null
 	tile_map = null
 	playground = null
 

@@ -1,5 +1,7 @@
 extends TileMap
 
+@export var playground: Node2D
+
 enum layer{
 	FLOOR,
 	BLOCKS,
@@ -33,14 +35,14 @@ func get_spawn_position(opposite = false):
 
 func _is_valid_position():
 	var clicked_cell = local_to_map(get_local_mouse_position())
-	var target_id = (GameManager.selected_actor.position_id + GameManager.currentDieNumber)
+	var target_id = (playground.selected_actor.position_id + GameManager.currentDieNumber)
 	var target_cel = Vector2(blocks[target_id - 1])
 	
-	if target_cel.distance_squared_to(clicked_cell) > 1 or !GameManager.selected_actor.movable:
+	if target_cel.distance_squared_to(clicked_cell) > 1 or !playground.selected_actor.movable:
 		MessageManager.add_message("Invalid position.")
 		return false
 	#Check for any actor already present in the tile
-	if is_actor_present(target_id, GameManager.selected_actor.team):
+	if is_actor_present(target_id, playground.selected_actor.team):
 		MessageManager.add_message("Actor already in position.")
 		return false
 
@@ -48,17 +50,17 @@ func _is_valid_position():
 
 func _unhandled_input(event):
 	if event is InputEventScreenTouch and can_move:
-		if !GameManager.selected_actor:
+		if !playground.selected_actor:
 			MessageManager.add_message("Actor not select.")
 			return
 
-		if GameManager.Players[GameManager.currentPlayerTurn].type == "npc":
+		if GameManager.player.id != playground.player.id:
 			return
 
 		if event.is_released() and _is_valid_position():
 			can_move = false
-			GameManager.selected_actor.start_moving(
-				blocks.slice(GameManager.selected_actor.position_id)
+			playground.selected_actor.start_moving(
+				blocks.slice(playground.selected_actor.position_id)
 			)
 
 func is_actor_present(position_id, team):

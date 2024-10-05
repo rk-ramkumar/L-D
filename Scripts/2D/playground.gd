@@ -5,10 +5,12 @@ extends Node2D
 @onready var dice = [$TopLevelProps/Die1, $TopLevelProps/Die2]
 @onready var actors_parent = $TopLevelProps/Actors
 @onready var players_card_carousel = $CanvasLayer/UI/HBoxContainer/PlayersCardCarousel
+@onready var target_position_indicator = $TopLevelProps/TargetPositionIndicator
 
 var dice_numbers = []
 var actor_scene = preload("res://Scenes/2D/blackNoir.tscn")
 var player = {}
+var selected_actor
 
 func _ready():
 	player = GameManager.Players[1]
@@ -25,11 +27,16 @@ func _ready():
 
 func _connect_signals():
 	Observer.move_started.connect(_on_move_started)
+	Observer.actor_selected.connect(_on_actor_selected)
 
 func _on_move_started():
 	if GameManager.player.id == player.id:
 		tile_map.can_move = true
 		ui.set_turn_over_btn_disable(false)
+
+func _on_actor_selected(actor):
+	selected_actor = actor
+	target_position_indicator.handle_actor_selected(selected_actor)
 
 func _add_npc_players():
 	for Player in GameManager.Players.values():
