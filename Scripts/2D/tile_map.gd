@@ -35,7 +35,7 @@ func get_spawn_position(opposite = false):
 
 func _is_valid_position():
 	var clicked_cell = local_to_map(get_local_mouse_position())
-	var end = min(playground.selected_actor.position_id+playground.player.coin + 1, GameManager.max_tile_id)
+	var end = min(playground.selected_actor.position_id + playground.player.coin + 1, GameManager.max_tile_id)
 	var target_ids = range(playground.selected_actor.position_id, end)
 	var selected_id
 	var step
