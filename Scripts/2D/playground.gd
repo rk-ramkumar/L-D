@@ -50,7 +50,7 @@ func _on_move_failed():
 		_turn_over()
 		return
 
-	player_bot.decide_and_move()
+	player_bot.decide_and_move(1)
 	_turn_over()
 
 func _handle_actor_move_completed(_actor):

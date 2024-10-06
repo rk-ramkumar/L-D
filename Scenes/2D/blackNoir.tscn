@@ -78,6 +78,7 @@ shape = SubResource("RectangleShape2D_maou1")
 
 [node name="HomeStateTimer" type="Timer" parent="."]
 wait_time = 2.0
+autostart = true
 
 [node name="Pivot" type="Node2D" parent="."]
 visible = false

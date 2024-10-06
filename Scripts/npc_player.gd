@@ -35,7 +35,7 @@ func _handle_move_started():
 	await get_tree().create_timer(randf_range(1, 5)).timeout
 	decide_and_move()
 
-func decide_and_move():
+func decide_and_move(time_delay = 5):
 	# Decide on whether to move multiple actors or focus on one
 	var move_multiple = randf() > FOCUS_SINGLE_ACTOR
 
@@ -43,7 +43,7 @@ func decide_and_move():
 		move_multiple_pieces()
 	else:
 		move_single_piece()
-	await get_tree().create_timer(5).timeout
+	await get_tree().create_timer(time_delay).timeout
 	Observer.move_completed.emit(player)
 	
 # Moves multiple actors using available LD (coins)
