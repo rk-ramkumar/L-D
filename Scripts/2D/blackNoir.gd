@@ -46,7 +46,7 @@ func start_moving(data):
 	if !is_moving:
 		is_moving = true
 		Observer.actor_move_started.emit(self)
-		position_id = position_id + data.step
+		position_id = position_id + data.steps
 		if position_id == GameManager.max_tile_id:
 			finished(data.positions.back())
 			return

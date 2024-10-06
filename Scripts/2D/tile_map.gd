@@ -38,14 +38,14 @@ func _is_valid_position():
 	var end = min(playground.selected_actor.position_id + playground.player.coin + 1, GameManager.max_tile_id)
 	var target_ids = range(playground.selected_actor.position_id, end)
 	var selected_id
-	var step
+	var steps
 
 	for id in target_ids.size():
 		var target_cel = Vector2(blocks[target_ids[id]])
 		#Select the tile that is closets to the clicked cell
 		if target_cel.distance_squared_to(clicked_cell) < 1:
 			selected_id = target_ids[id]
-			step = id + 1
+			steps = id + 1
 			break
 
 	if selected_id == null:
@@ -59,7 +59,7 @@ func _is_valid_position():
 
 	return {
 		positions = blocks.slice(playground.selected_actor.position_id, selected_id+1),
-		step = step 
+		steps = steps 
 		}
 
 func _unhandled_input(event):
@@ -79,6 +79,7 @@ func _unhandled_input(event):
 			var data = _is_valid_position()
 			if data:
 				playground.selected_actor.start_moving(data)
+				GameManager.decrease_coin(data.steps)
 
 func is_actor_present(position_id, team):
 	if position_id <= 7: # Home lane
