@@ -12,12 +12,9 @@ func _on_ok_button_clicked():
 	match current_scene.name:
 		"Home":
 			get_tree().quit()
-		"Loading":
-			pass
-		"AIArenaLobby":
-			get_tree().change_scene_to_file(GameManager.scene_paths.Home)
-		_:
+		"Playground":
 			GameManager.load_scene("Home", current_scene)
+			
 
 func _on_background_gui_input(event):
 	if event is InputEventScreenTouch:
@@ -25,4 +22,14 @@ func _on_background_gui_input(event):
 			visible = false
 
 func handle_back_request():
-	visible = true
+	var current_scene = get_tree().root.get_child(-1)
+	visible = false
+	match current_scene.name:
+		"Home":
+			visible = true
+		"Loading":
+			pass
+		"Playground":
+			visible = true
+		_:
+			GameManager.load_scene("Home", current_scene)
