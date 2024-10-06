@@ -1,7 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://d4ldby2yfrycw"]
+[gd_scene load_steps=5 format=3 uid="uid://d4ldby2yfrycw"]
 
 [ext_resource type="Script" path="res://Scripts/store.gd" id="1_yweg1"]
-[ext_resource type="FontFile" uid="uid://y665v7c8c3qh" path="res://Assets/font/Azonix.otf" id="2_kb64m"]
 [ext_resource type="StyleBox" uid="uid://cbyjcuqonbl22" path="res://Assets/Resources/panel_background.tres" id="2_orbjd"]
 [ext_resource type="PackedScene" uid="uid://cmrna0h0dmrhj" path="res://Components/custom_button.tscn" id="5_lxcsb"]
 [ext_resource type="Texture2D" uid="uid://bcgfli5yare56" path="res://Assets/Icons/close.png" id="5_op4rv"]
@@ -92,7 +91,6 @@ grow_horizontal = 0
 grow_vertical = 0
 size_flags_horizontal = 6
 size_flags_vertical = 8
-theme_override_fonts/font = ExtResource("2_kb64m")
 text = "Buy"
 font_size = 28
 

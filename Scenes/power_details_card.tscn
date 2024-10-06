@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://dlc4hhi1pj1r7"]
+[gd_scene load_steps=6 format=3 uid="uid://dlc4hhi1pj1r7"]
 
 [ext_resource type="StyleBox" uid="uid://cbyjcuqonbl22" path="res://Assets/Resources/panel_background.tres" id="1_fy3mu"]
 [ext_resource type="StyleBox" uid="uid://gjqo5ihuob83" path="res://Assets/Resources/store_card_background.tres" id="1_kuo8b"]
-[ext_resource type="FontFile" uid="uid://dhnxuxk0xio8j" path="res://Assets/font/Ghost Stories Deluxe.ttf" id="1_rcq8l"]
 [ext_resource type="FontFile" uid="uid://y665v7c8c3qh" path="res://Assets/font/Azonix.otf" id="1_ys4bs"]
 
 [sub_resource type="GDScript" id="GDScript_fb5so"]
@@ -113,20 +112,21 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 1
-theme_override_colors/font_shadow_color = Color(0.6, 0.345098, 1, 1)
-theme_override_constants/shadow_outline_size = 2
-theme_override_fonts/normal_font = ExtResource("1_rcq8l")
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 2
 theme_override_fonts/bold_font = ExtResource("1_ys4bs")
-theme_override_font_sizes/normal_font_size = 16
-theme_override_font_sizes/bold_font_size = 24
+theme_override_font_sizes/normal_font_size = 18
+theme_override_font_sizes/bold_font_size = 22
 bbcode_enabled = true
-text = "[center][b][color=Ffd700][outline_color=white]{name}[/outline_color][/color][/b][/center]
+text = "[center][b][color=9958ff][outline_size=8][outline_color=black][font_size=26]{name}[/font_size][/outline_color][/outline_size][/color][/b][/center]
 
-[color=black][b]EFFECT :[/b][/color][center] {effect}[/center]
+[color=black][b]EFFECT :[/b][/color][center] [outline_size=3][outline_color=black]{effect}[/outline_color][/outline_size][/center]
 
-[color=black][b]details :[/b][/color][center] {details}[/center]
+[color=black][b]details :[/b][/color][center] [outline_size=3][outline_color=black]{details}[/outline_color][/outline_size][/center]
 
-[b][color=black]base price :[/color] [color=Ffd700] {base_price} [/color][/b]
+[b][color=black]base price :[/color][/b] [color=Ffd700] [outline_size=8][outline_color=black][font_size=24]{base_price} LD[/font_size][/outline_color][/outline_size][/color]
 
-[b][color=black]Cooldown :[/color] [color=Ffd700] {cooldown} turn [/color][/b]"
-scroll_active = false
+[b][color=black]Cooldown :[/color][/b] [color=Ffd700] [outline_size=8][outline_color=black][font_size=24]{cooldown} rounds[/font_size][/outline_color][/outline_size][/color]
+
+[b][color=black]Expiry :[/color][/b] [color=Ffd700] [outline_size=8][outline_color=black][font_size=24]{expiry} {expiry_type}[/font_size][/outline_color][/outline_size][/color]"
+scroll_following = true

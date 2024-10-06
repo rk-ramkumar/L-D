@@ -1,8 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://bucipt88nxrb"]
+[gd_scene load_steps=7 format=3 uid="uid://bucipt88nxrb"]
 
 [ext_resource type="Script" path="res://Scripts/message_box.gd" id="1_hty21"]
 [ext_resource type="Texture2D" uid="uid://c34xjaklbis05" path="res://Assets/Icons/play.png" id="1_jrwt0"]
-[ext_resource type="FontFile" uid="uid://dhnxuxk0xio8j" path="res://Assets/font/Ghost Stories Deluxe.ttf" id="2_6uxm6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0jmmh"]
 bg_color = Color(0.0941176, 0.0941176, 0.0941176, 0.858824)
@@ -58,10 +57,10 @@ _data = {
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = -350.0
-offset_top = -250.0
-offset_right = 50.0
-offset_bottom = 250.0
+offset_left = -340.0
+offset_top = 110.0
+offset_right = 60.0
+offset_bottom = 610.0
 grow_vertical = 2
 size_flags_horizontal = 0
 theme_override_constants/separation = -8
@@ -93,7 +92,6 @@ theme_override_constants/margin_bottom = 20
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/line_separation = 4
-theme_override_fonts/normal_font = ExtResource("2_6uxm6")
 bbcode_enabled = true
 scroll_following = true
 

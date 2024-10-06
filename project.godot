@@ -42,7 +42,7 @@ window/handheld/orientation=4
 
 [gui]
 
-theme/custom_font="res://Assets/font/Comic Story.ttf"
+theme/custom_font="res://Assets/font/Roboto-Black.ttf"
 
 [input_devices]
 

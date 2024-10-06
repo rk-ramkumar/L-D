@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://13kx8nxkpowt"]
+[gd_scene load_steps=15 format=3 uid="uid://13kx8nxkpowt"]
 
 [ext_resource type="Script" path="res://Scripts/home.gd" id="1_sdkj4"]
 [ext_resource type="Texture2D" uid="uid://cx5kb0elsotip" path="res://Assets/anime-night.png" id="2_jo11e"]
@@ -18,6 +18,9 @@ void vertex() {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_k0nrc"]
 shader = SubResource("Shader_hk51n")
+
+[sub_resource type="Theme" id="Theme_y7syf"]
+Button/fonts/font = ExtResource("5_2yo6i")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xt5ic"]
 bg_color = Color(0.12549, 0.12549, 0.12549, 0.690196)
@@ -57,7 +60,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Container/MarginContainer/MainContainer:visible")
+tracks/2/path = NodePath("Container/MarginContainer:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -65,6 +68,18 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Container/MarginContainer:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_rdb7y"]
@@ -97,7 +112,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Container/MarginContainer/MainContainer:visible")
+tracks/2/path = NodePath("Container/MarginContainer:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -109,7 +124,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Container/MarginContainer/MainContainer:modulate")
+tracks/3/path = NodePath("Container/MarginContainer:modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -172,7 +187,10 @@ bbcode_enabled = true
 text = "[center]LIGHT [wave amp=50.0 freq=5.0 connected=0][color=9958ff]VS[/color][/wave][color=black][outline_color=white] DARK[/outline_color][/color][/center]"
 
 [node name="MarginContainer" type="MarginContainer" parent="Container"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(0, 480)
 layout_mode = 2
+size_flags_vertical = 3
 theme_override_constants/margin_top = 50
 theme_override_constants/margin_bottom = 50
 
@@ -191,27 +209,26 @@ texture = ExtResource("6_dm5hj")
 
 [node name="ButtonContainer" type="VBoxContainer" parent="Container/MarginContainer/MainContainer"]
 layout_mode = 2
+theme = SubResource("Theme_y7syf")
 theme_override_constants/separation = 20
 alignment = 1
 
 [node name="PlayButton" parent="Container/MarginContainer/MainContainer/ButtonContainer" instance=ExtResource("3_xpbkw")]
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(1, 0.313726, 0.333333, 1)
-theme_override_fonts/font = ExtResource("5_2yo6i")
 text = "Play"
 font_size = 64
 
 [node name="ProfileButton" parent="Container/MarginContainer/MainContainer/ButtonContainer" instance=ExtResource("3_xpbkw")]
+visible = false
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(1, 0.313726, 0.333333, 1)
-theme_override_fonts/font = ExtResource("5_2yo6i")
 text = "profile"
 font_size = 64
 
 [node name="PowersButton" parent="Container/MarginContainer/MainContainer/ButtonContainer" instance=ExtResource("3_xpbkw")]
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(1, 0.313726, 0.333333, 1)
-theme_override_fonts/font = ExtResource("5_2yo6i")
 text = "powers"
 font_size = 64
 
