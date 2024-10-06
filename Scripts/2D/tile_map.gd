@@ -49,12 +49,12 @@ func _is_valid_position():
 			break
 
 	if selected_id == null:
-		MessageManager.add_message("Invalid position.")
+		MessageManager.add_info("Invalid position.")
 		return false
 
 	#Check for any actor already present in the tile
 	if is_actor_present(selected_id, playground.selected_actor.team):
-		MessageManager.add_message("Actor already in position.")
+		MessageManager.add_info("Actor already in position.")
 		return false
 
 	return {
@@ -65,14 +65,14 @@ func _is_valid_position():
 func _unhandled_input(event):
 	if event is InputEventScreenTouch and can_move:
 		if !playground.selected_actor:
-			MessageManager.add_message("Actor not select.")
+			MessageManager.add_info("Actor not select.")
 			return
 
 		if GameManager.player.id != playground.player.id:
 			return
 
 		if !playground.selected_actor.movable:
-			MessageManager.add_message("Selected actor can't move.")
+			MessageManager.add_info("Selected actor can't move.")
 			return
 
 		if event.is_released():
