@@ -14,7 +14,7 @@ func _ready():
 	add_theme_stylebox_override("panel", new_stylebox_panel)
 	Observer.actor_completed.connect(_on_actor_completed)
 	Observer.power_used.connect(_on_power_used)
-	Observer.power_added.connect(_on_power_added)
+	Observer.power_activated.connect(_on_power_activated)
 	Observer.power_expired.connect(_on_power_expired)
 
 func _on_gui_input(event):
@@ -48,9 +48,10 @@ func _on_power_used(_power, actor):
 	if actor == data.actor:
 		power_texture.texture = null
 
-func _on_power_added(power, actor):
-	if actor == data.actor:
+func _on_power_activated(power, _player, dict):
+	if dict.actor == data.actor:
 		power_texture.texture = load(power.image)
 	
-func _on_power_expired(power, player_id):
-	pass
+func _on_power_expired(power, _player_id):
+	if power.data.actor == data.actor:
+		power_texture.texture = null

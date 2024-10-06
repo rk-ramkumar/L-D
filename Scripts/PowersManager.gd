@@ -27,10 +27,12 @@ func _on_turn_started(player):
 func _on_move_completed(player):
 	_handle_end_power_cooldowns(player)
 
-func _on_power_activated(power, player):
+func _on_power_activated(power, player, dict):
 	if !active_player_powers.has(player.id):
 		active_player_powers[player.id] = []
-	active_player_powers[player.id].append(power.duplicate(true))
+	var new_power = power.duplicate(true)
+	new_power.data = dict
+	active_player_powers[player.id].append(new_power)
 	print("Power Activated ", active_player_powers[player.id])
 
 func _process_power_cooldowns(player):

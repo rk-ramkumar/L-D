@@ -33,8 +33,7 @@ func is_accept(power):
 		return false
 	if actor.power.is_empty():
 		actor.power = power
-		Observer.power_added.emit(power, actor)
-		Observer.power_activated.emit(power, GameManager.playground.player)
+		Observer.power_activated.emit(power, GameManager.playground.player, {actor = actor})
 		return true
 	else:
 		return false
