@@ -4,11 +4,7 @@ extends Timer
 
 func _ready():
 	Observer.move_started.connect(startTimer)
-	Observer.turn_started.connect(_handle_stop)
-	Observer.actor_move_started.connect(_handle_stop)
-
-func _handle_stop(_actor):
-	stopTimer()
+	Observer.move_completed.connect(stopTimer)
 
 # Online Multiplayer
 func startTimer():
@@ -17,7 +13,7 @@ func startTimer():
 	start(waitTime)
 
 @rpc("any_peer", "call_local", "reliable")
-func stopTimer():
+func stopTimer(_actor):
 	stop()
 
 func _onMoveMade():

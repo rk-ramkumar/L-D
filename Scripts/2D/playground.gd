@@ -12,6 +12,7 @@ var actor_scene = preload("res://Scenes/2D/blackNoir.tscn")
 var player = {}
 var selected_actor
 var player_bot
+var moved = false
 
 func _ready():
 	player = GameManager.Players[1]
@@ -31,6 +32,7 @@ func _connect_signals():
 	Observer.move_started.connect(_on_move_started)
 	Observer.actor_selected.connect(_on_actor_selected)
 	Observer.move_failed.connect(_on_move_failed)
+	Observer.actor_move_completed.connect(_handle_actor_move_completed)
 
 func _on_move_started():
 	if GameManager.player.id == player.id:
@@ -42,7 +44,19 @@ func _on_actor_selected(actor):
 	target_position_indicator.handle_actor_selected(selected_actor)
 
 func _on_move_failed():
+	if moved:
+		moved = false
+		Observer.move_completed.emit(player)
+		_turn_over()
+		return
+
 	player_bot.decide_and_move()
+	_turn_over()
+
+func _handle_actor_move_completed(_actor):
+	if player.id != GameManager.player.id:
+		return
+	moved = true
 
 func _add_npc_players():
 	for Player in GameManager.Players.values():
@@ -95,5 +109,8 @@ func _on_die_rolled(number):
 
 func _on_turn_over_button_clicked():
 	Observer.move_completed.emit(player)
+	_turn_over()
+
+func _turn_over():
 	ui.set_turn_over_btn_disable(true)
 	tile_map.can_move = false
