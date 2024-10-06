@@ -50,3 +50,22 @@ expand_to_text_length = true
 context_menu_enabled = false
 virtual_keyboard_enabled = false
 clear_button_enabled = true
+
+[node name="InfoLabel" type="RichTextLabel" parent="."]
+visible = false
+custom_minimum_size = Vector2(720, 100)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -363.0
+offset_top = 100.0
+offset_right = 357.0
+offset_bottom = 200.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/bold_font_size = 24
+bbcode_enabled = true

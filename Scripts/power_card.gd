@@ -34,13 +34,17 @@ func _on_gui_input(event):
 	if event is InputEventScreenTouch:
 		if event.is_pressed():
 			if selected:
-				deselect()
+				_handle_double_tap(event)
 			else:
 				select()
 		if event.is_released():
 			_handle_drag_end(event)
+	
 
 	if event is InputEventScreenDrag:
+		if data.used_on == "player":
+			MessageManager.add_info("Double tap to activate.")
+			return
 		Observer.power_card_move.emit(data)
 		_handle_drag(event)
 
@@ -57,6 +61,16 @@ func deselectOtherCard():
 	for card in parent.power_cards.values():
 		if card.card != self and card.card.selected:
 			card.card.deselect()
+
+func _handle_double_tap(event):
+	if data.used_on == "player" and event.double_tap:
+		update_count(-1)
+		# Remove card
+		if count == 0:
+			parent.add_empty_card(1)
+			remove_card()
+	else:
+		deselect()
 
 func _handle_drag(_event):
 	if !picked:
@@ -78,6 +92,7 @@ func _handle_drag_end(_event):
 		parent.PowerCardHolder.move_end()
 
 func remove_card():
+	gui_input.disconnect(_on_gui_input)
 	var tween = create_tween()
 	tween.tween_method(dissolve_card, 0.0, 1.0, 1)
 	tween.tween_callback(func():
