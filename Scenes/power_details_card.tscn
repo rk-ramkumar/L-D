@@ -11,10 +11,12 @@ script/source = "extends Panel
 @onready var texture_rect = $CardContainer/PowerDetailsCard/PowerCard/HBoxContainer/Panel/TextureRect
 @onready var label = $CardContainer/PowerDetailsCard/PowerCard/HBoxContainer/Label
 @onready var rich_text_label = $CardContainer/PowerDetailsCard/VBoxContainer/RichTextLabel
+@onready var panel = $CardContainer/PowerDetailsCard/PowerCard/HBoxContainer/Panel
 
 var data
 
 func _ready():
+	panel.add_theme_stylebox_override(\"panel\", PowersManager.bg[data.used_on])
 	texture_rect.texture = load(data.image)
 	label.text = data.name
 	rich_text_label.text = rich_text_label.text.format(data)

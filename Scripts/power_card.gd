@@ -5,10 +5,6 @@ extends Panel
 @onready var animation_player = $AnimationPlayer
 @onready var panel = $MarginContainer/Panel
 
-var bg = {
-	player =  preload("res://Assets/Resources/player_power_card.tres"),
-	actor = preload("res://Assets/Resources/store_card_background.tres")
-}
 var count = 0
 var data = {}
 var picked
@@ -18,7 +14,7 @@ var selected = false
 func _ready():
 	parent = get_parent().get_owner()
 	add_theme_stylebox_override("panel", get_theme_stylebox("panel").duplicate())
-	panel.add_theme_stylebox_override("panel", bg[data.used_on])
+	panel.add_theme_stylebox_override("panel", PowersManager.bg[data.used_on])
 	power_texture.texture = load(data.image)
 	power_texture.material = power_texture.material.duplicate()
 	update_count(1)
