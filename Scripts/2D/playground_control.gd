@@ -6,6 +6,7 @@ extends Control
 @onready var user_coin_label = $Panel/UserCoinLabel
 
 @export var move_time: int = 20
+@export var critical_time: int = 5
 @export var playground: Node2D
 
 var user_coin_text = ""
@@ -26,12 +27,16 @@ func set_turn_over_btn_disable(value):
 
 func _on_turn_started(_player):
 	timer_label.text = ""
+	if AudioController.heartbeat.is_playing():
+		AudioController.heartbeat.stop()
 
 func _on_move_started():
 	timer_label.text = str(move_time)
 
 func _on_timeout():
 	timer_label.text = str(int(timer_label.text) - 1)
+	if int(timer_label.text) == critical_time:
+		AudioController.heartbeat.play()
 	if int(timer_label.text) == 0:
 		Observer.move_failed.emit()
 
