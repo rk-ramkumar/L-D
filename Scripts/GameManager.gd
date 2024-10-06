@@ -64,7 +64,7 @@ func connect_signals():
 	Observer.extra_turn.connect(_handle_extra_turn)
 	Observer.turn_started.connect(_handle_turn_started)
 	Observer.roll_started.connect(_handle_roll_started)
-#	Observer.actor_move_completed.connect(_handle_actor_move_completed)
+	Observer.actor_move_completed.connect(_handle_actor_move_completed)
 
 func register_resource(dict):
 	tile_map = dict.tile_map
@@ -87,8 +87,6 @@ func _set_movable(actors):
 	## Check for powers that stop movable
 	for actor in actors:
 		actor.movable = true
-		if (actor.has_recent_capture):
-			actor.movable = false
 
 func _handle_actor_move_completed(actor):
 	var captured_actor = tile_map.is_actor_present(
@@ -97,8 +95,8 @@ func _handle_actor_move_completed(actor):
 	)
 	#Check for kill happen
 	if captured_actor:
-		Observer.actor_captured.emit(captured_actor, actor)
-		return
+		var data = PowersManager.check_fortuna_shield(captured_actor, actor)
+		Observer.actor_captured.emit(data[0], data[1])
 
 func _handle_next_turn():
 	currentPlayerTurn = _get_next_id()

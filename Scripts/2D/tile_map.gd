@@ -53,7 +53,7 @@ func _is_valid_position():
 		return false
 
 	#Check for any actor already present in the tile
-	if is_actor_present(selected_id, playground.selected_actor.team):
+	if is_actor_present(selected_id+1, playground.selected_actor.team):
 		MessageManager.add_info("Actor already in position.")
 		return false
 
@@ -82,13 +82,21 @@ func _unhandled_input(event):
 				GameManager.decrease_coin(data.step)
 
 func is_actor_present(position_id, team):
-	if position_id <= 7: # Home lane
+	if position_id <= 6: # Home lane
 		return false
-	if (position_id - 1) % 6 == 0: # Safe tile
-		return false 
+
+	if is_safe_tile(position_id): # Safe tile
+		return false
 
 	var actors = GameManager.teamList[team].actors.filter(func(actor):
 		return actor.position_id == position_id)
 
 	if actors.size() > 0:
 		return actors.front()
+
+func is_safe_tile(id):
+	var data = get_cell_tile_data(layer.BLOCKS, blocks[id - 1])
+	if data:
+		return data.get_custom_data("safe_tile")
+	else:
+		return false

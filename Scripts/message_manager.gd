@@ -51,7 +51,8 @@ func start_info_timer(duration):
 	label_tween.tween_callback(_reset_info_label)
 
 func _reset_info_label():
-	label_tween.kill()
+	if label_tween:
+		label_tween.kill()
 	info_label.modulate = Color.WHITE
 	info_label.hide()
 	

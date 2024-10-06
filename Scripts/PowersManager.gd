@@ -14,7 +14,8 @@ var player_power_effects = {
 		"extra_space": 3
 	}
 }
-var end_check_powers = ["RelentlessMarch", "HermesDash"]
+var move_based_powers = ["RelentlessMarch", "HermesDash"]
+var turn_based_powers = ["TimeWarp", "ZeusFavor", "AetherBlessing", "SanctuarySeal", "FortunaShield"]
 
 func _ready():
 	Observer.turn_started.connect(_on_turn_started)
@@ -22,10 +23,10 @@ func _ready():
 	Observer.power_activated.connect(_on_power_activated)
 
 func _on_turn_started(player):
-	_process_power_cooldowns(player)
+	_process_power_cooldowns(player, turn_based_powers)
 
 func _on_move_completed(player):
-	_handle_end_power_cooldowns(player)
+	_process_power_cooldowns(player, move_based_powers)
 
 func _on_power_activated(power, player, dict = {}):
 	if !active_player_powers.has(player.id):
@@ -35,20 +36,12 @@ func _on_power_activated(power, player, dict = {}):
 	active_player_powers[player.id].append(new_power)
 	print("Power Activated ", active_player_powers[player.id])
 
-func _process_power_cooldowns(player):
+func _process_power_cooldowns(player, list):
 	if !active_player_powers.has(player.id):
 		return
 	for player_id in active_player_powers.keys():
 		for power in active_player_powers[player_id]:
-			if power.id not in end_check_powers: 
-				_adjust_power_cooldown(power, player_id)
-
-func _handle_end_power_cooldowns(player):
-	if !active_player_powers.has(player.id):
-		return
-	for player_id in active_player_powers.keys():
-		for power in active_player_powers[player_id]:
-			if power.id in end_check_powers: 
+			if power.id in list: 
 				_adjust_power_cooldown(power, player_id)
 
 func _adjust_power_cooldown(power, player_id):
@@ -62,7 +55,11 @@ func _adjust_power_cooldown(power, player_id):
 	elif power.expiry == 0:
 		Observer.power_expired.emit(power, player_id)
 		print("Power expired")
-	
+
+func has_active_power(power_id, player_id):
+	if !active_player_powers.has(player_id):
+		return false
+	return active_player_powers[player_id].any(func(power): return power.id == power_id)
 
 func get_power_boosts(player):
 	var res = {
@@ -88,11 +85,21 @@ func get_power_boosts(player):
 	return res
 
 func has_timewarp_power(player):
-	if !active_player_powers.has(player.id):
-		return false
-	return active_player_powers[player.id].any(func(power): return power.id == "TimeWarp")
+	return _is_active_power(player.id, "TimeWarp")
 
-func has_active_power(power_id, player_id):
+func check_fortuna_shield(captured_actor, actor):
+	if !captured_actor.power.is_empty():
+		if actor.power.is_empty(): # "FortunaSheild: Reverse an opponent's capture attempt and capture their piece instead."
+			if captured_actor.power.id == "FortunaShield": # Check whether captured_actor have FortunaSheild power
+				Observer.power_used.emit(captured_actor.power, captured_actor)
+				return [actor, captured_actor]
+		else:
+			if captured_actor.power.id == "FortunaShield" and actor.power.id == "FortunaShield": # Check whether both actor have FortunaSheild power
+				Observer.power_used.emit(actor.power, actor)
+
+	return [captured_actor, actor]
+
+func _is_active_power(player_id, power_id):
 	if !active_player_powers.has(player_id):
 		return false
 	return active_player_powers[player_id].any(func(power): return power.id == power_id)

@@ -38,7 +38,6 @@ func animate_move():
 	if sprites.size() < block_positions.size():
 		for i in block_positions.size() - sprites.size():
 			_create_sprite()
-
 	for idx in block_positions.size():
 		sprites[idx].position = tile_map.map_to_local(block_positions[idx]) - position
 		sprites[idx].show()
@@ -58,6 +57,7 @@ func handle_actor_selected(actor):
 		return
 	if actor == null:
 		hide()
+		hide_sprites()
 		return
 	animate_move()
 
@@ -69,4 +69,9 @@ func _create_sprite():
 func _reset():
 	is_move_started = false
 	animation_player.stop()
+	hide_sprites()
 	hide()
+	
+func hide_sprites():
+	sprites.map(func(sprite): sprite.hide())
+

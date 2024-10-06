@@ -30,6 +30,7 @@ func _ready():
 	_set_direction(get_angle_to(position))
 	_update_animation("_idle")
 	Observer.actor_captured.connect(_on_capture)
+	Observer.power_used.connect(_on_power_used)
 
 func _set_current_state():
 	if current_state == GameManager.player_state.AT_HOME:
@@ -42,16 +43,16 @@ func _set_direction(position_angle = get_local_mouse_position().angle()):
 	angle = wrapi(int(angle), 0, 8)
 	current_direction = str(directions[angle])
 
-func start_moving(data):
+func start_moving(chosen_move):
 	if !is_moving:
 		is_moving = true
 		Observer.actor_move_started.emit(self)
-		position_id = position_id + data.step
+		position_id = position_id + chosen_move.step
 		if position_id == GameManager.max_tile_id:
-			finished(data.positions.back())
+			finished(chosen_move.positions.back())
 			return
 		current_state = GameManager.player_state.ON_FIELD
-		for target_position in data.positions:
+		for target_position in chosen_move.positions:
 			target_position = tile_map.map_to_local(target_position)
 			_set_direction(get_angle_to(target_position))
 			_update_animation("_walk")
@@ -73,6 +74,7 @@ func finished(pos):
 func start_moving_home():
 	current_state = GameManager.player_state.CAPTURED
 	var pos = data.positions.pick_random()
+	position_id = 0
 	_set_direction(get_angle_to(pos))
 	_update_animation("_walk")
 	_lerp_to_pos(pos)
@@ -149,26 +151,11 @@ func select(value):
 
 func _on_capture(captured_actor, actor):
 	if actor == self:
-		has_recent_capture = true
-		await Observer.next_turn
-		has_recent_capture = false
-	
-	if captured_actor == self:
-		if !power.is_empty():
-#			"FortunaSheild: Reverse an opponent's capture attempt and capture their piece instead."
-			if power.id == "FortunaShield" and power.id != "FortunaShield": # Check whether captured_actor have FortunaSheild power
-				Observer.power_used.emit(power, captured_actor)
-				Observer.actor_captured.emit(actor, captured_actor)
-				captured_actor.power = {}
-				return
-			elif power.id == "FortunaShield" and power.id == "FortunaShield": # Check whether both actor have FortunaSheild power
-				Observer.power_used.emit(power, actor)
-				Observer.actor_captured.emit(captured_actor, actor)
-				captured_actor.power = {}
-				actor.power = {}
-				return
+		movable = false
 
+	if captured_actor == self:
 		start_moving_home()
-		Observer.extra_turn.emit()
-		return
-	
+
+func _on_power_used(power, _actor):
+	if power == power:
+		power = {}
