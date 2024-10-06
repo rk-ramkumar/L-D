@@ -60,6 +60,9 @@ func deselectOtherCard():
 
 func _handle_double_tap(event):
 	if data.used_on == "player" and event.double_tap:
+		if PowersManager.has_active_power(data.id, parent.playground.player.id):
+			print("In Cooldown")
+			return
 		Observer.power_activated.emit(data, parent.playground.player)
 		update_count(-1)
 		# Remove card
@@ -70,6 +73,10 @@ func _handle_double_tap(event):
 		deselect()
 
 func _handle_drag(_event):
+	if PowersManager.has_active_power(data.id, parent.playground.player.id):
+		print("In Cooldown")
+		return
+
 	if !picked:
 		picked = true
 		parent.PowerCardHolder.move_start(data)

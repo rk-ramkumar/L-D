@@ -48,10 +48,10 @@ func _on_power_used(_power, actor):
 	if actor == data.actor:
 		power_texture.texture = null
 
-func _on_power_activated(power, _player, dict):
-	if dict.actor == data.actor:
+func _on_power_activated(power, _player, dict = {}):
+	if power.used_on == "actor" and dict.actor == data.actor:
 		power_texture.texture = load(power.image)
 	
 func _on_power_expired(power, _player_id):
-	if power.data.actor == data.actor:
+	if power.used_on == "actor" and power.data.actor == data.actor:
 		power_texture.texture = null

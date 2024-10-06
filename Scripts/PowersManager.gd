@@ -27,7 +27,7 @@ func _on_turn_started(player):
 func _on_move_completed(player):
 	_handle_end_power_cooldowns(player)
 
-func _on_power_activated(power, player, dict):
+func _on_power_activated(power, player, dict = {}):
 	if !active_player_powers.has(player.id):
 		active_player_powers[player.id] = []
 	var new_power = power.duplicate(true)
@@ -87,5 +87,12 @@ func get_power_boosts(player):
 
 	return res
 
+func has_timewarp_power(player):
+	if !active_player_powers.has(player.id):
+		return false
+	return active_player_powers[player.id].any(func(power): return power.id == "TimeWarp")
+
 func has_active_power(power_id, player_id):
+	if !active_player_powers.has(player_id):
+		return false
 	return active_player_powers[player_id].any(func(power): return power.id == power_id)

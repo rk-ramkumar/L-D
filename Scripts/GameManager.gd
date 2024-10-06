@@ -124,6 +124,9 @@ func _handle_extra_turn():
 	Observer.turn_started.emit(player)
 
 func _get_next_id():
+	if !player.is_empty() and PowersManager.has_timewarp_power(player):
+		return ((currentPlayerTurn + 1) % playerLoaded) + 1 # Skip next player turn
+
 	return (currentPlayerTurn % playerLoaded) + 1
 
 func increase_coin(amount):
