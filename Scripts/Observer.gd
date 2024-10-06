@@ -12,7 +12,7 @@ signal game_won
 signal game_over
 signal invalid_move_attempted
 signal actor_selected(actor)
-signal actor_move_started(actor)
+signal actor_move_started(actor, step)
 signal actor_move_completed(actor)
 signal actor_captured(captured_actor, actor)
 signal actor_completed(actor)

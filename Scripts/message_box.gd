@@ -35,11 +35,11 @@ func _on_turn_started(player):
 	)
 	MessageManager.add_message(get_user_name() + "'s turn to play.")
 
-func _on_actor_move_started(actor):
+func _on_actor_move_started(actor, step):
 	log_game_event("actor_move_started", {
 		player_name = get_user_name(),
 		start_tile = actor.position_id,
-		end_tile = actor.position_id + GameManager.currentDieNumber
+		end_tile = actor.position_id + step
 		}
 	)
 
@@ -114,4 +114,3 @@ func log_game_event(event_type, extra_info = {}):
 	
 	# Log the event to the chat
 	append_chat_line_escaped(event_text)
-

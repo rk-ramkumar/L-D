@@ -43,8 +43,7 @@ func decide_and_move():
 		move_multiple_pieces()
 	else:
 		move_single_piece()
-
-	await get_tree().create_timer(2).timeout
+	await get_tree().create_timer(5).timeout
 	Observer.move_completed.emit(player)
 	
 # Moves multiple actors using available LD (coins)
@@ -122,7 +121,7 @@ func calculate_all_moves(actor):
 
 # Get movement path from actor's current position to target
 func get_movement_path(actor, target_position):
-	var end = min(actor.position_id + target_position, GameManager.max_tile_id)
+	var end = min(target_position, GameManager.max_tile_id)
 	return tile_map.blocks.slice(actor.position_id, end).map(func(pos):
 		return Vector2(pos.x, -pos.y if player.team == "D" else pos.y)
 	)
@@ -207,6 +206,8 @@ func calculate_actor_score(target_position, opponent_positions):
 	
 	# Penalize if moving into a heavily contested area
 	var opponent_count = opponent_actors.reduce(func(acc, cur):
+		if target_position <= 7:
+			return acc
 		if target_position - cur.position_id < PROXIMITY_THRESHOLD:
 			acc += 1
 		return acc,

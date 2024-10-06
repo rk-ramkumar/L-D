@@ -46,7 +46,7 @@ func _set_direction(position_angle = get_local_mouse_position().angle()):
 func start_moving(chosen_move):
 	if !is_moving:
 		is_moving = true
-		Observer.actor_move_started.emit(self)
+		Observer.actor_move_started.emit(self, chosen_move.step)
 		position_id = position_id + chosen_move.step
 		if position_id == GameManager.max_tile_id:
 			finished(chosen_move.positions.back())
