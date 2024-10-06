@@ -45,7 +45,7 @@ func decide_and_move():
 		move_single_piece()
 
 	await get_tree().create_timer(2).timeout
-	Observer.move_completed.emit()
+	Observer.move_completed.emit(player)
 	
 # Moves multiple actors using available LD (coins)
 func move_multiple_pieces():

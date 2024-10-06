@@ -28,9 +28,9 @@ func _on_roll_completed(die_value):
 		}
 	)
 
-func _on_turn_started():
+func _on_turn_started(player):
 	log_game_event("turn_started", {
-		player_name = get_user_name(),
+		player_name = player.name,
 		}
 	)
 	MessageManager.add_message(get_user_name() + "'s turn to play.")

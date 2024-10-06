@@ -14,7 +14,7 @@ var selected = false
 func _ready():
 	parent = get_parent().get_owner()
 	add_theme_stylebox_override("panel", get_theme_stylebox("panel").duplicate())
-	panel.add_theme_stylebox_override("panel", PowersManager.bg[data.used_on])
+	panel.add_theme_stylebox_override("panel", PowersManager.card_backgrounds[data.used_on])
 	power_texture.texture = load(data.image)
 	power_texture.material = power_texture.material.duplicate()
 	update_count(1)
@@ -60,6 +60,7 @@ func deselectOtherCard():
 
 func _handle_double_tap(event):
 	if data.used_on == "player" and event.double_tap:
+		Observer.power_activated.emit(data, parent.playground.player)
 		update_count(-1)
 		# Remove card
 		if count == 0:

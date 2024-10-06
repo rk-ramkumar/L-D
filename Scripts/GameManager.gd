@@ -80,7 +80,7 @@ func _on_roll_completed(_die_value):
 	else:
 		Observer.next_turn.emit()
 
-func _on_move_completed():
+func _on_move_completed(_player):
 	Observer.next_turn.emit()
 
 func _set_movable(actors):
@@ -103,9 +103,9 @@ func _handle_actor_move_completed(actor):
 func _handle_next_turn():
 	currentPlayerTurn = _get_next_id()
 	player = Players[currentPlayerTurn]
-	Observer.turn_started.emit()
+	Observer.turn_started.emit(player)
 
-func _handle_turn_started():
+func _handle_turn_started(_player):
 	Observer.roll_started.emit()
 
 func _handle_roll_started():
@@ -121,7 +121,7 @@ func has_extra_turn():
 	return currentDieNumber == 1
 
 func _handle_extra_turn():
-	Observer.turn_started.emit()
+	Observer.turn_started.emit(player)
 
 func _get_next_id():
 	return (currentPlayerTurn % playerLoaded) + 1
@@ -135,8 +135,10 @@ func decrease_coin(amount):
 	Observer.coin_changed.emit(player)
  
 func generate_ld(current_player):
-	var coin_gained = randi_range(3, 6) 
-	current_player.coin = min(current_player.coin + coin_gained, super_number)
+	var effects = PowersManager.get_power_boosts(current_player)
+	var coin_gained = randi_range(3, 6)
+	current_player.coin = min(current_player.coin + coin_gained, super_number + effects.extra_space)
+	current_player.coin += effects.extra_ld
 	var half_coin = coin_gained / 2
 
 	return [half_coin, coin_gained - half_coin]

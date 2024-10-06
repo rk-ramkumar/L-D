@@ -94,6 +94,6 @@ func _on_die_rolled(number):
 		dice_numbers = []
 
 func _on_turn_over_button_clicked():
-	Observer.move_completed.emit()
+	Observer.move_completed.emit(player)
 	ui.set_turn_over_btn_disable(true)
 	tile_map.can_move = false

@@ -2,12 +2,12 @@ extends Node
 
 signal roll_completed(dice_value)
 signal roll_started
-signal move_completed
+signal move_completed(player)
 signal move_started
 signal move_failed
 signal next_turn
 signal extra_turn
-signal turn_started
+signal turn_started(player)
 signal game_won
 signal game_over
 signal invalid_move_attempted
@@ -21,3 +21,6 @@ signal coin_changed(player)
 signal power_card_move(power)
 signal power_used(power, actor)
 signal power_added(power, actor)
+signal power_activated(power, player)
+signal power_cooldown_finished(power, player_id)
+signal power_expired(power, player_id)

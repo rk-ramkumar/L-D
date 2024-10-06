@@ -15,6 +15,7 @@ func _ready():
 	Observer.actor_completed.connect(_on_actor_completed)
 	Observer.power_used.connect(_on_power_used)
 	Observer.power_added.connect(_on_power_added)
+	Observer.power_expired.connect(_on_power_expired)
 
 func _on_gui_input(event):
 	if event is InputEventScreenTouch:
@@ -51,3 +52,5 @@ func _on_power_added(power, actor):
 	if actor == data.actor:
 		power_texture.texture = load(power.image)
 	
+func _on_power_expired(power, player_id):
+	pass

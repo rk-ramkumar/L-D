@@ -16,7 +16,7 @@ func _ready():
 	var new_stylebox_panel = get_theme_stylebox("panel").duplicate()
 	add_theme_stylebox_override("panel", new_stylebox_panel)
 	price_panel.add_theme_stylebox_override("panel", price_panel.get_theme_stylebox("panel").duplicate())
-	panel.add_theme_stylebox_override("panel", PowersManager.bg[data.used_on])
+	panel.add_theme_stylebox_override("panel", PowersManager.card_backgrounds[data.used_on])
 	texture_rect.texture = load(data.image)
 	rich_text_label.text = rich_text_label.text.format(data)
 	label.text = label.text.format(data)

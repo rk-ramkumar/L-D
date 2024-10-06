@@ -50,7 +50,7 @@ func  _on_move_started():
 	is_move_started = true
 	set_process(true)
 
-func _on_turn_started():
+func _on_turn_started(_player):
 	_reset()
 
 func handle_actor_selected(actor):

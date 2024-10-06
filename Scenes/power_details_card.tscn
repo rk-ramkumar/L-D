@@ -15,7 +15,7 @@ script/source = "extends Panel
 var data
 
 func _ready():
-	panel.add_theme_stylebox_override(\"panel\", PowersManager.bg[data.used_on])
+	panel.add_theme_stylebox_override(\"panel\", PowersManager.card_backgrounds[data.used_on])
 	texture_rect.texture = load(data.image)
 	label.text = data.name
 	rich_text_label.text = rich_text_label.text.format(data)

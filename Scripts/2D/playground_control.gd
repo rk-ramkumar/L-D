@@ -24,7 +24,7 @@ func _ready():
 func set_turn_over_btn_disable(value):
 	turn_over_button.disabled = value
 
-func _on_turn_started():
+func _on_turn_started(_player):
 	timer_label.text = ""
 
 func _on_move_started():

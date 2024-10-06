@@ -4,10 +4,10 @@ extends Timer
 
 func _ready():
 	Observer.move_started.connect(startTimer)
-	Observer.turn_started.connect(stopTimer)
-	Observer.actor_move_started.connect(_on_move_started)
+	Observer.turn_started.connect(_handle_stop)
+	Observer.actor_move_started.connect(_handle_stop)
 
-func _on_move_started(_actor):
+func _handle_stop(_actor):
 	stopTimer()
 
 # Online Multiplayer
