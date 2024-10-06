@@ -151,7 +151,8 @@ func select(value):
 
 func _on_capture(captured_actor, actor):
 	if actor == self:
-		movable = false
+		movable = PowersManager.has_relentless_march(self)
+		Observer.power_used.emit(power, actor)
 
 	if captured_actor == self:
 		start_moving_home()

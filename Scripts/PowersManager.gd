@@ -34,6 +34,8 @@ func _on_power_activated(power, player, dict = {}):
 	var new_power = power.duplicate(true)
 	new_power.data = dict
 	active_player_powers[player.id].append(new_power)
+	if power.id == "RelentlessMarch": # Activate the power immediately
+		_activate_relentless_march(power, dict.actor)
 	print("Power Activated ", active_player_powers[player.id])
 
 func _process_power_cooldowns(player, list):
@@ -98,6 +100,16 @@ func check_fortuna_shield(captured_actor, actor):
 				Observer.power_used.emit(actor.power, actor)
 
 	return [captured_actor, actor]
+
+func has_relentless_march(actor):
+	if actor.power.is_empty():
+		return false
+	return actor.power.has("RelentlessMarch")
+
+func _activate_relentless_march(power, actor):
+	if !actor.movable:
+		actor.movable = true
+		Observer.power_used.emit(power, actor)
 
 func _is_active_power(player_id, power_id):
 	if !active_player_powers.has(player_id):
