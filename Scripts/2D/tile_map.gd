@@ -86,7 +86,7 @@ func is_actor_present(position_id, team):
 		return false
 
 	if is_safe_tile(position_id): # Safe tile
-		return false
+		return PowersManager.has_sanctuary_seal(position_id, team)
 
 	var actors = GameManager.teamList[team].actors.filter(func(actor):
 		return actor.position_id == position_id)

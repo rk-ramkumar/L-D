@@ -106,6 +106,15 @@ func has_relentless_march(actor):
 		return false
 	return actor.power.has("RelentlessMarch")
 
+func has_sanctuary_seal(id, team):
+	var opponent_actors = GameManager.teamList[GameManager.get_opponent_team(team)].actors
+	return opponent_actors.any(func(actor):
+		if actor.power.is_empty() or actor.id != id:
+			return false
+		else:
+			return actor.power.id == "SanctuarySeal"
+	)
+
 func _activate_relentless_march(power, actor):
 	if !actor.movable:
 		actor.movable = true
