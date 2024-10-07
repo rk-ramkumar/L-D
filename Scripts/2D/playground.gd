@@ -6,6 +6,7 @@ extends Node2D
 @onready var actors_parent = $TopLevelProps/Actors
 @onready var players_card_carousel = $CanvasLayer/UI/HBoxContainer/PlayersCardCarousel
 @onready var target_position_indicator = $TopLevelProps/TargetPositionIndicator
+@onready var game_over_popup = $GameOverPopup
 
 var dice_numbers = []
 var actor_scene = preload("res://Scenes/2D/blackNoir.tscn")
@@ -33,6 +34,7 @@ func _connect_signals():
 	Observer.actor_selected.connect(_on_actor_selected)
 	Observer.move_failed.connect(_on_move_failed)
 	Observer.actor_move_completed.connect(_handle_actor_move_completed)
+	Observer.game_over.connect(_on_game_over)
 
 func _on_move_started():
 	if GameManager.player.id == player.id:
@@ -57,6 +59,10 @@ func _handle_actor_move_completed(_actor):
 	if player.id != GameManager.player.id:
 		return
 	moved = true
+
+func _on_game_over(team):
+	var data = "victory" if player.team == team else "defeat"
+	game_over_popup.game_over(data)
 
 func _add_npc_players():
 	for Player in GameManager.Players.values():

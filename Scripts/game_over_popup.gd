@@ -14,8 +14,9 @@ var message = {
 @onready var animation_player = $Control/AnimationPlayer
 
 func _ready():
+	hide()
+
+func game_over(data):
+	rich_text_label.text = rich_text_label.text.format(message[data])
 	animation_player.play("fade_in")
-
-
-func _on_exit_button_clicked():
-	pass # Replace with function body.
+	

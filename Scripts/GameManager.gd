@@ -99,7 +99,8 @@ func _handle_actor_move_completed(actor):
 		var data = PowersManager.check_fortuna_shield(captured_actor, actor)
 		Observer.actor_captured.emit(data[0], data[1])
 
-func _on_actor_completed(team):
+func _on_actor_completed(actor):
+	var team = actor.team
 	var complete_status = teamList[team].actors.all(func(actor): 
 		return actor.current_state == player_state.COMPLETED
 	)
