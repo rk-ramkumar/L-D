@@ -1,6 +1,6 @@
 extends Node
 
-@onready var game_start_time = Time.get_ticks_msec()
+@onready var game_start_time
 var scene_paths = {
 	"Playground": "res://Scenes/2D/play_ground.tscn",
 	"MatchMaking": "res://Scenes/match_making.tscn",
@@ -78,6 +78,7 @@ func _on_game_over(_team):
 	reset()
 
 func reset_game_state():
+	disconnect_signals()
 	Players = {}
 	playerLoaded = 0
 	reset()
@@ -142,6 +143,8 @@ func _handle_extra_turn():
 	Observer.turn_started.emit(player)
 
 func _get_next_id():
+	if playerLoaded == 0:
+		return
 	if !player.is_empty() and PowersManager.has_timewarp_power(player):
 		return ((currentPlayerTurn + 1) % playerLoaded) + 1 # Skip next player turn
 

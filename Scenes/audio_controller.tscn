@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scenes/audio_controller.gd" id="1_bgus7"]
 [ext_resource type="AudioStream" uid="uid://dpwwydcwrs5d0" path="res://Assets/Audio/nature_birds.mp3" id="1_u3mdf"]
-[ext_resource type="AudioStream" uid="uid://chpjvfklcq26o" path="res://Assets/Audio/hot_loop.mp3" id="2_p7v1g"]
+[ext_resource type="AudioStream" uid="uid://u07etas0d8ii" path="res://Assets/Audio/bgm1.mp3" id="2_jlu4n"]
 [ext_resource type="AudioStream" uid="uid://guaya83uisnm" path="res://Assets/Audio/heartbeat_loop.mp3" id="4_7v5rd"]
 [ext_resource type="AudioStream" uid="uid://bhad2ubvs6k5c" path="res://Assets/Audio/game_bonus.mp3" id="5_qpsho"]
 [ext_resource type="AudioStream" uid="uid://bu25enk5ow8xl" path="res://Assets/Audio/item_pick_up.mp3" id="6_lv2ou"]
@@ -13,8 +13,8 @@
 script = ExtResource("1_bgus7")
 
 [node name="MainBackground" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("2_p7v1g")
-autoplay = true
+stream = ExtResource("2_jlu4n")
+volume_db = -10.0
 bus = &"BGM"
 
 [node name="SecondaryBackground" type="AudioStreamPlayer" parent="."]
