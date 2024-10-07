@@ -1,14 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://36fw7fg4ovuu"]
 
 [ext_resource type="Script" path="res://Scripts/exit_popup.gd" id="1_2snhu"]
+[ext_resource type="StyleBox" uid="uid://b6mjv4un1uulv" path="res://Assets/Resources/popup_background.tres" id="2_5uppv"]
 [ext_resource type="PackedScene" uid="uid://cmrna0h0dmrhj" path="res://Components/custom_button.tscn" id="2_h47s6"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1wttn"]
-bg_color = Color(0.796078, 0.74902, 0.658824, 1)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
 
 [sub_resource type="LabelSettings" id="LabelSettings_3p40w"]
 font_size = 64
@@ -49,7 +43,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_1wttn")
+theme_override_styles/panel = ExtResource("2_5uppv")
 
 [node name="ConfirmLabel" type="Label" parent="Popup"]
 layout_mode = 1

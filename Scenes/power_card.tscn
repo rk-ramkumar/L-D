@@ -149,6 +149,7 @@ _data = {
 custom_minimum_size = Vector2(90, 120)
 offset_right = 80.0
 offset_bottom = 100.0
+pivot_offset = Vector2(45, 60)
 theme_override_styles/panel = SubResource("StyleBoxFlat_p0ta3")
 script = ExtResource("1_4pbeq")
 
