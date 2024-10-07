@@ -122,9 +122,11 @@ func has_hermes_dash(power):
 		return power.id == "HermesDash"
 
 func activate_hermes_dash(data, actor):
-	var step = (6 - (actor.position_id % 6)) # Add steps to safe tile
-	data.step += step
-	data.positions = GameManager.tile_map.blocks.slice(actor.position_id, actor.position_id + data.step)
+	var current_step = actor.position_id+data.step
+	var steps_to_safe_tile = 7 - (current_step % 6)    # Add steps to safe tile
+	steps_to_safe_tile += current_step
+	var end = min(actor.position_id + steps_to_safe_tile, GameManager.max_tile_id)
+	data.positions = GameManager.tile_map.blocks.slice(actor.position_id, end)
 	Observer.power_used.emit(actor.power, actor)
 
 func _activate_relentless_march(power, actor):

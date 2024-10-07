@@ -106,6 +106,11 @@ func _create_actors(args, id):
 	actors_parent.add_child(actor)
 	return actor
 
+func _remove_actors():
+	for actor in actors_parent.get_children():
+		actors_parent.remove_child(actor)
+		actor.queue_free()
+
 func _on_die_rolled(number):
 	dice_numbers.append(number)
 	if dice_numbers.size() == 2:

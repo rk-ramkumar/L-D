@@ -5,6 +5,7 @@ extends Timer
 func _ready():
 	Observer.move_started.connect(startTimer)
 	Observer.move_completed.connect(stopTimer)
+	Observer.game_over.connect(stopTimer)
 
 # Online Multiplayer
 func startTimer():

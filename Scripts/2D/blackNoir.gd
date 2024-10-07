@@ -73,7 +73,6 @@ func start_moving(chosen_move):
 func finished(pos):
 	position_id = position_id + GameManager.currentDieNumber
 	current_state = GameManager.player_state.COMPLETED
-	Observer.actor_completed.emit(self)
 	pos = tile_map.map_to_local(pos)
 	_set_direction(get_angle_to(pos))
 	_update_animation("_walk")
@@ -97,6 +96,7 @@ func _lerp_to_finish(pos, speed = SPEED):
 	tween.tween_callback(_on_finish)
 
 func _on_finish():
+	Observer.actor_completed.emit(self)
 	tween.kill()
 	visible = false
 

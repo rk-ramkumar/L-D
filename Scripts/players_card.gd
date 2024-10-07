@@ -41,6 +41,8 @@ func deselect():
 
 func _on_actor_completed(actor):
 	if data.actor == actor:
+		deselect()
+		await animation_player.animation_finished
 		animation_player.play("completed")
 		gui_input.disconnect(_on_gui_input)
 

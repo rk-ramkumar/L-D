@@ -200,5 +200,3 @@ color = Color(0, 0, 0, 1)
 libraries = {
 "": SubResource("AnimationLibrary_8m6rm")
 }
-
-[connection signal="clicked" from="Control/Panel/MarginContainer/HBoxContainer/ExitButton" to="." method="_on_exit_button_clicked"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://b0ud7gjcvmw17"]
+[gd_scene load_steps=50 format=3 uid="uid://b0ud7gjcvmw17"]
 
 [ext_resource type="Script" path="res://Scripts/2D/playground.gd" id="1_5tede"]
 [ext_resource type="Texture2D" uid="uid://7b8r3ycl6y2t" path="res://Assets/Textures/soft_grass.png" id="2_fxc78"]
@@ -29,6 +29,7 @@
 [ext_resource type="FontFile" uid="uid://b6kavaot5h80t" path="res://Assets/font/Comic Story.ttf" id="25_oc1yu"]
 [ext_resource type="FontFile" uid="uid://dhnxuxk0xio8j" path="res://Assets/font/Ghost Stories Deluxe.ttf" id="26_srsld"]
 [ext_resource type="PackedScene" uid="uid://d4ldby2yfrycw" path="res://Scenes/store.tscn" id="28_vl6wd"]
+[ext_resource type="PackedScene" uid="uid://cu6l523j4yynu" path="res://Scenes/game_over_popup.tscn" id="30_2p3dt"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_t6d53"]
 tile_data = PackedInt32Array(0, 2, 0, 65536, 4, 0)
@@ -739,6 +740,8 @@ scroll_active = false
 [node name="Store" parent="CanvasLayer/UI" instance=ExtResource("28_vl6wd")]
 layer = 2
 visible = false
+
+[node name="GameOverPopup" parent="." instance=ExtResource("30_2p3dt")]
 
 [connection signal="roll_finished" from="TopLevelProps/Die1" to="." method="_on_die_rolled"]
 [connection signal="roll_finished" from="TopLevelProps/Die2" to="." method="_on_die_rolled"]

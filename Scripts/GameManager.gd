@@ -97,9 +97,8 @@ func _handle_actor_move_completed(actor, captured_actor):
 
 func _on_actor_completed(actor):
 	var team = actor.team
-	var complete_status = teamList[team].actors.all(func(actor): 
-		return actor.current_state == player_state.COMPLETED
-	)
+	teamList[team].actors.erase(actor)
+	var complete_status = teamList[team].actors.is_empty()
 	if complete_status:
 		Observer.game_over.emit(team)
 
