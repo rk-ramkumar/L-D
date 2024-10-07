@@ -109,11 +109,23 @@ func has_relentless_march(actor):
 func has_sanctuary_seal(id, team):
 	var opponent_actors = GameManager.teamList[GameManager.get_opponent_team(team)].actors
 	return opponent_actors.any(func(actor):
-		if actor.power.is_empty() or actor.id != id:
+		if actor.power.is_empty() or actor.position_id != id:
 			return false
 		else:
 			return actor.power.id == "SanctuarySeal"
 	)
+
+func has_hermes_dash(power):
+	if power.is_empty():
+		return false
+	else:
+		return power.id == "HermesDash"
+
+func activate_hermes_dash(data, actor):
+	var step = (6 - (actor.position_id % 6)) # Add steps to safe tile
+	data.step += step
+	data.positions = GameManager.tile_map.blocks.slice(actor.position_id, actor.position_id + data.step)
+	Observer.power_used.emit(actor.power, actor)
 
 func _activate_relentless_march(power, actor):
 	if !actor.movable:

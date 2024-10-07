@@ -36,6 +36,8 @@ func _set_current_state():
 	if current_state == GameManager.player_state.AT_HOME:
 		home_state_timer.start(5)
 	else:
+		if tween:
+			tween.kill()
 		home_state_timer.stop()
 
 func _set_direction(position_angle = get_local_mouse_position().angle()):
@@ -46,6 +48,8 @@ func _set_direction(position_angle = get_local_mouse_position().angle()):
 func start_moving(chosen_move):
 	if !is_moving:
 		is_moving = true
+		if PowersManager.has_hermes_dash(power): # Check for hermes dash power
+			PowersManager.activate_hermes_dash(chosen_move, self)
 		Observer.actor_move_started.emit(self, chosen_move.step)
 		position_id = position_id + chosen_move.step
 		if position_id == GameManager.max_tile_id:
@@ -157,6 +161,6 @@ func _on_capture(captured_actor, actor):
 	if captured_actor == self:
 		start_moving_home()
 
-func _on_power_used(power, _actor):
-	if power == power:
+func _on_power_used(power, actor):
+	if actor == self:
 		power = {}
