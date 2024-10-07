@@ -6,6 +6,7 @@
 
 [sub_resource type="Animation" id="Animation_5r1o2"]
 resource_name = "fade_in"
+length = 2.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -13,10 +14,10 @@ tracks/0/path = NodePath("ColorRect2:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.5, 0.8, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1), Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -25,7 +26,7 @@ tracks/1/path = NodePath("Panel:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0.8, 1.6),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(1, 1)]
@@ -33,26 +34,26 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Panel:pivot_offset")
+tracks/2/path = NodePath("..:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(360, 240)]
+"update": 1,
+"values": [true]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("..:visible")
+tracks/3/path = NodePath("ColorRect2:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [true]
+"values": [true, false]
 }
 
 [sub_resource type="Animation" id="Animation_6jr36"]
@@ -84,26 +85,26 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Panel:pivot_offset")
+tracks/2/path = NodePath("..:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(360, 240)]
+"update": 1,
+"values": [true]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("..:visible")
+tracks/3/path = NodePath("ColorRect2:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8m6rm"]
@@ -168,6 +169,11 @@ custom_minimum_size = Vector2(500, 200)
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 5
 theme_override_font_sizes/normal_font_size = 64
 bbcode_enabled = true
 text = "[center][color={color}]{text}[/color][/center]"
@@ -200,3 +206,6 @@ color = Color(0, 0, 0, 1)
 libraries = {
 "": SubResource("AnimationLibrary_8m6rm")
 }
+
+[connection signal="clicked" from="Control/Panel/MarginContainer/HBoxContainer/ExitButton" to="." method="_on_exit_button_clicked"]
+[connection signal="clicked" from="Control/Panel/MarginContainer/HBoxContainer/PlayAgainButton" to="." method="_on_play_again_button_clicked"]

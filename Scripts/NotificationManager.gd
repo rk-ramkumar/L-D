@@ -8,3 +8,6 @@ func _notification(what):
 				get_tree().quit()
 				return
 			get_tree().root.get_node("ExitPopup").handle_back_request()
+
+func back_request(screen_name):
+	get_tree().root.get_node("ExitPopup").handle_back_request(screen_name)

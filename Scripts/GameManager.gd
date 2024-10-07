@@ -14,7 +14,6 @@ var super_number = 13
 var playerLoaded: int = 0
 var availableId = [1, 2, 3, 4]
 var teamList = { "L": {"actors": []}, "D": {"actors": []} }
-var gameOver: bool = false
 var max_tile_id = 80
 var currentPlayerTurn: int = 0
 var currentDieNumber: int :
@@ -39,15 +38,9 @@ var loading_scene = preload("res://Scenes/loading.tscn")
 func get_opponent_team(team):
 	return "L" if team == "D" else "D"
 
-func _ready():
-	connect_signals()
-
 func reset():
-	Players = {}
 	player = {}
-	playerLoaded = 0
 	teamList = { "L": {"actors": []}, "D": {"actors": []} }
-	gameOver = false
 	currentPlayerTurn = 0
 	tile_map = null
 	playground = null
@@ -66,10 +59,33 @@ func connect_signals():
 	Observer.roll_started.connect(_handle_roll_started)
 	Observer.actor_move_completed.connect(_handle_actor_move_completed)
 	Observer.actor_completed.connect(_on_actor_completed)
+	Observer.game_over.connect(_on_game_over)
+
+func disconnect_signals():
+	Observer.roll_completed.disconnect(_on_roll_completed)
+	Observer.move_completed.disconnect(_on_move_completed)
+	Observer.next_turn.disconnect(_handle_next_turn)
+	Observer.extra_turn.disconnect(_handle_extra_turn)
+	Observer.turn_started.disconnect(_handle_turn_started)
+	Observer.roll_started.disconnect(_handle_roll_started)
+	Observer.actor_move_completed.disconnect(_handle_actor_move_completed)
+	Observer.actor_completed.disconnect(_on_actor_completed)
+	Observer.game_over.disconnect(_on_game_over)
+
+func _on_game_over(_team):
+	disconnect_signals()
+	Players.values().map(func(player): player.coin = 0)
+	reset()
+
+func reset_game_state():
+	Players = {}
+	playerLoaded = 0
+	reset()
 
 func register_resource(dict):
 	tile_map = dict.tile_map
 	playground = dict.playground
+	connect_signals()
 
 func _on_roll_completed(_die_value):
 	Observer.coin_changed.emit(player)

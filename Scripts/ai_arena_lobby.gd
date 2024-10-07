@@ -90,7 +90,6 @@ func _on_start_button_clicked():
 	containers.map(func(container): 
 		container.get_children().map(func(child):
 			var profile = child.get_meta("profile")
-			profile.can_play = false
 			profile.coin = 0
 			GameManager.Players[profile.id] = profile
 		))

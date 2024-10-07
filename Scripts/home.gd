@@ -11,7 +11,6 @@ var match_making = preload("res://Scenes/ai_arena_lobby.tscn")
 var powers_detail_scene = preload("res://Scenes/powers_details.tscn")
 
 func _ready():
-	GameManager.reset()
 	if AudioController.secondary_background.is_playing():
 		AudioController.secondary_background.stop()
 	var player_name = Profile.get_value("Player", "name")
