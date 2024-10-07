@@ -63,6 +63,7 @@ func _handle_actor_move_completed(_actor, _captured_actor):
 func _on_game_over(team):
 	var data = "victory" if player.team == team else "defeat"
 	game_over_popup.game_over(data)
+	_remove_actors()
 
 func _add_npc_players():
 	for Player in GameManager.Players.values():

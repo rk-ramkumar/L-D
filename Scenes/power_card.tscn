@@ -181,6 +181,7 @@ theme_override_constants/separation = 10
 [node name="BackgroundPanel" type="Panel" parent="MarginContainer/Panel/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_pr0fo")
 
 [node name="CardCount" type="Label" parent="MarginContainer/Panel/VBoxContainer/BackgroundPanel"]

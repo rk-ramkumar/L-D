@@ -162,14 +162,17 @@ mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_ck1wn")
 
 [node name="Label" type="RichTextLabel" parent="Panel/VBoxContainer/Panel"]
-custom_minimum_size = Vector2(100, 50)
+custom_minimum_size = Vector2(100, 60)
 layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -5.0
+offset_top = -5.0
+offset_right = -5.0
+offset_bottom = 5.0
 grow_horizontal = 2
-grow_vertical = 0
+grow_vertical = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 theme_override_colors/default_color = Color(1, 1, 1, 1)
