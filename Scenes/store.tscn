@@ -76,7 +76,7 @@ theme_override_constants/v_separation = 50
 columns = 3
 
 [node name="BuyButton" parent="Control/Panel" instance=ExtResource("5_lxcsb")]
-custom_minimum_size = Vector2(126, 100)
+custom_minimum_size = Vector2(132, 80)
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -85,8 +85,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -165.0
 offset_top = -130.0
-offset_right = -37.0
-offset_bottom = -30.0
+offset_right = -33.0
+offset_bottom = -50.0
 grow_horizontal = 0
 grow_vertical = 0
 size_flags_horizontal = 6
