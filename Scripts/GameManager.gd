@@ -65,6 +65,7 @@ func connect_signals():
 	Observer.turn_started.connect(_handle_turn_started)
 	Observer.roll_started.connect(_handle_roll_started)
 	Observer.actor_move_completed.connect(_handle_actor_move_completed)
+	Observer.actor_completed.connect(_on_actor_completed)
 
 func register_resource(dict):
 	tile_map = dict.tile_map
@@ -97,6 +98,13 @@ func _handle_actor_move_completed(actor):
 	if captured_actor:
 		var data = PowersManager.check_fortuna_shield(captured_actor, actor)
 		Observer.actor_captured.emit(data[0], data[1])
+
+func _on_actor_completed(team):
+	var complete_status = teamList[team].actors.all(func(actor): 
+		return actor.current_state == player_state.COMPLETED
+	)
+	if complete_status:
+		Observer.game_over.emit(team)
 
 func _handle_next_turn():
 	currentPlayerTurn = _get_next_id()

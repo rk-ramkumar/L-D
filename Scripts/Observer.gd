@@ -9,7 +9,7 @@ signal next_turn
 signal extra_turn
 signal turn_started(player)
 signal game_won
-signal game_over
+signal game_over(team)
 signal invalid_move_attempted
 signal actor_selected(actor)
 signal actor_move_started(actor, step)

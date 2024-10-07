@@ -12,7 +12,7 @@ func _ready():
 	Observer.actor_move_completed.connect(_on_actor_move_completed)
 	Observer.actor_captured.connect(_on_actor_captured)
 	Observer.extra_turn.connect(_on_extra_turn)
-	Observer.game_won.connect(_on_game_won)
+	Observer.game_over.connect(_on_game_won)
 
 func _on_button_toggled(button_pressed):
 	if button_pressed:
