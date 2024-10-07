@@ -16,7 +16,7 @@ run/main_scene="res://Scenes/splash_screen.tscn"
 config/quit_on_go_back=false
 config/features=PackedStringArray("4.1", "Mobile")
 boot_splash/bg_color=Color(0.0392157, 0.0392157, 0.0392157, 1)
-boot_splash/show_image=false
+boot_splash/image="res://Assets/Textures/splash_screen_transparent.png"
 config/icon="res://Assets/Textures/app_logo.png"
 
 [autoload]
