@@ -55,7 +55,7 @@ func _on_move_failed():
 	player_bot.decide_and_move(1)
 	_turn_over()
 
-func _handle_actor_move_completed(_actor):
+func _handle_actor_move_completed(_actor, _captured_actor):
 	if player.id != GameManager.player.id:
 		return
 	moved = true

@@ -55,7 +55,7 @@ func move_multiple_pieces():
 		var possible_moves = calculate_all_moves(actor)
 		var chosen_move = evaluate_moves(possible_moves)
 		if chosen_move:
-			actor.start_moving({positions = chosen_move.blocks, step = chosen_move.steps})
+			actor.start_moving({positions = chosen_move.blocks, step = chosen_move.steps, captured_actor = chosen_move.captured_actor})
 			GameManager.decrease_coin(chosen_move.steps)
 
 # Moves a single piece with human-like randomness
@@ -65,7 +65,7 @@ func move_single_piece():
 		var possible_moves = calculate_all_moves(selected_actor)
 		var chosen_move = evaluate_moves(possible_moves)
 		if chosen_move:
-			selected_actor.start_moving({positions = chosen_move.blocks, step = chosen_move.steps})
+			selected_actor.start_moving({positions = chosen_move.blocks, step = chosen_move.steps, captured_actor = chosen_move.captured_actor})
 			GameManager.decrease_coin(chosen_move.steps)
 
 # Randomly picks actors for multiple moves
@@ -115,7 +115,15 @@ func calculate_all_moves(actor):
 	for step in range(1, player.coin + 1):
 		var target_position = current_position + step
 		var blocks = get_movement_path(actor, target_position)
-		possible_moves.append({ "blocks": blocks, "steps": step, "target_position": target_position })
+		var captured_actor = tile_map.is_actor_present(target_position-1, GameManager.get_opponent_team(actor.team))
+		possible_moves.append(
+			{
+				"blocks": blocks,
+				"steps": step,
+				"target_position": target_position,
+				"captured_actor": captured_actor
+			}
+		)
 
 	return possible_moves
 

@@ -89,11 +89,7 @@ func _set_movable(actors):
 	for actor in actors:
 		actor.movable = true
 
-func _handle_actor_move_completed(actor):
-	var captured_actor = tile_map.is_actor_present(
-		actor.position_id,
-		get_opponent_team(actor.team)
-	)
+func _handle_actor_move_completed(actor, captured_actor):
 	#Check for kill happen
 	if captured_actor:
 		var data = PowersManager.check_fortuna_shield(captured_actor, actor)

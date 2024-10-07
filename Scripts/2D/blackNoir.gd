@@ -23,6 +23,7 @@ var current_state = GameManager.player_state.AT_HOME:
 	set(new_state):
 		current_state = new_state
 		_set_current_state()
+var captured_actor
 
 func _ready():
 	position = data.positions.pick_random()
@@ -36,8 +37,6 @@ func _set_current_state():
 	if current_state == GameManager.player_state.AT_HOME:
 		home_state_timer.start(5)
 	else:
-		if tween:
-			tween.kill()
 		home_state_timer.stop()
 
 func _set_direction(position_angle = get_local_mouse_position().angle()):
@@ -48,14 +47,19 @@ func _set_direction(position_angle = get_local_mouse_position().angle()):
 func start_moving(chosen_move):
 	if !is_moving:
 		is_moving = true
+
 		if PowersManager.has_hermes_dash(power): # Check for hermes dash power
 			PowersManager.activate_hermes_dash(chosen_move, self)
+
 		Observer.actor_move_started.emit(self, chosen_move.step)
 		position_id = position_id + chosen_move.step
+
 		if position_id == GameManager.max_tile_id:
 			finished(chosen_move.positions.back())
 			return
 		current_state = GameManager.player_state.ON_FIELD
+		if chosen_move.captured_actor:
+			captured_actor = chosen_move.captured_actor
 		for target_position in chosen_move.positions:
 			target_position = tile_map.map_to_local(target_position)
 			_set_direction(get_angle_to(target_position))
@@ -95,7 +99,6 @@ func _lerp_to_finish(pos, speed = SPEED):
 func _on_finish():
 	tween.kill()
 	visible = false
-	Observer.actor_move_completed.emit(self)
 
 func _lerp_to_pos(pos, speed = SPEED):
 	if tween:
@@ -137,7 +140,8 @@ func _on_tween_position_finished():
 		tween.kill()
 		tween = null
 		if current_state == GameManager.player_state.ON_FIELD:
-			Observer.actor_move_completed.emit(self)
+			Observer.actor_move_completed.emit(self, captured_actor)
+			captured_actor = null
 	)
 
 func _on_home_state_timer_timeout():
@@ -153,14 +157,14 @@ func select(value):
 	pivot.visible = value
 	gpu_particles_2d.emitting = value
 
-func _on_capture(captured_actor, actor):
+func _on_capture(capture_actor, actor):
 	if actor == self:
 		movable = PowersManager.has_relentless_march(self)
 		Observer.power_used.emit(power, actor)
 
-	if captured_actor == self:
+	if capture_actor == self:
 		start_moving_home()
 
-func _on_power_used(power, actor):
+func _on_power_used(_power, actor):
 	if actor == self:
 		power = {}

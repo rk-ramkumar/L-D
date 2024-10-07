@@ -43,7 +43,7 @@ func _on_actor_move_started(actor, step):
 		}
 	)
 
-func _on_actor_move_completed(actor):
+func _on_actor_move_completed(actor, _captured_actor):
 	log_game_event("actor_move_completed", {
 		player_name = get_user_name(),
 		end_tile = actor.position_id
