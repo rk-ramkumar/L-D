@@ -70,6 +70,8 @@ func _on_game_won(team):
 	)
 
 func get_user_name():
+	if !GameManager.player:
+		return ""
 	return GameManager.player.name
 
 # Appends the user's message with escaping.
