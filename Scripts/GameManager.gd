@@ -74,7 +74,7 @@ func disconnect_signals():
 
 func _on_game_over(_team):
 	disconnect_signals()
-	Players.values().map(func(player): player.coin = 0)
+	Players.values().map(func(profile): profile.coin = 0)
 	reset()
 
 func reset_game_state():
