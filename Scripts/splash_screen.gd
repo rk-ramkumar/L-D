@@ -9,7 +9,7 @@ func _ready():
 	animation_player.play("splash_start")
 	audio_stream_player.play()
 
-func _on_animation_player_animation_finished(anim_name):
+func _on_animation_player_animation_finished(_anim_name):
 	animation_player.stop()
 	AudioController.main_background.play()
 	Global.load_scene("Home", self)
