@@ -3,7 +3,7 @@ extends CanvasLayer
 var message = {
 	"victory": {
 		text = "Congratulations ! You Won !",
-		color = "ff5055"
+		color = "198754"
 	},
 	"defeat":{ 
 		text = "Game Over !  You Lost !",
