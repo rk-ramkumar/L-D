@@ -6,8 +6,6 @@ var resource_names = []
 @onready var fade_color_rect = $FadeColorRect
 
 func _ready():
-	if Time.get_ticks_msec() - GameManager.game_start_time < 1000:
-		resource_names = ["Home"]
 	_load_resources()
 
 func _load_resources():
@@ -69,7 +67,7 @@ func add_resource_name(resource_name):
 	resource_names.append(resource_name)
 
 func get_resource_path(resource_name):
-	return GameManager.scene_paths[resource_name]
+	return Global.scene_paths[resource_name]
 
 func _is_path_exists(resource_name):
-	return GameManager.scene_paths.has(resource_name)
+	return Global.scene_paths.has(resource_name)

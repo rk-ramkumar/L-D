@@ -21,6 +21,7 @@ config/icon="res://Assets/Textures/app_logo.png"
 
 [autoload]
 
+Global="*res://Scripts/Global.gd"
 AudioController="*res://Scenes/audio_controller.tscn"
 Helpers="*res://Scripts/Helpers.gd"
 RandomName="*res://Scripts/RandomNameGenerator.gd"

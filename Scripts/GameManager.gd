@@ -1,12 +1,5 @@
 extends Node
 
-@onready var game_start_time
-var scene_paths = {
-	"Playground": "res://Scenes/2D/play_ground.tscn",
-	"MatchMaking": "res://Scenes/match_making.tscn",
-	"AIArenaLobby": "res://Scenes/ai_arena_lobby.tscn",
-	"Home": "res://Scenes/home.tscn"
-}
 var Players = {}
 var player = {}
 var actors_count = 6
@@ -33,7 +26,6 @@ enum player_state {
 var tile_map : TileMap
 var playground
 var extra_chance_dice = [1, 5, 6, 12]
-var loading_scene = preload("res://Scenes/loading.tscn")
 
 func get_opponent_team(team):
 	return "L" if team == "D" else "D"
@@ -44,11 +36,6 @@ func reset():
 	currentPlayerTurn = 0
 	tile_map = null
 	playground = null
-
-func load_scene(resource, _current_scene):
-	var loading = GameManager.loading_scene.instantiate()
-	loading.add_resource_name(resource)
-	get_tree().root.add_child(loading)
 
 func connect_signals():
 	Observer.roll_completed.connect(_on_roll_completed)

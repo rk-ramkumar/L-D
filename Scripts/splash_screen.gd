@@ -10,7 +10,6 @@ func _ready():
 	audio_stream_player.play()
 
 func _on_animation_player_animation_finished(anim_name):
-	GameManager.game_start_time = Time.get_ticks_msec()
 	animation_player.stop()
 	AudioController.main_background.play()
-	get_tree().change_scene_to_packed(loading_scene)
+	Global.load_scene("Home", self)

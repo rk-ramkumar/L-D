@@ -14,7 +14,7 @@ func _on_ok_button_clicked():
 			get_tree().quit()
 		"Playground":
 			GameManager.reset_game_state()
-			GameManager.load_scene("Home", current_scene)
+			Global.load_scene("Home", current_scene)
 			
 
 func _on_background_gui_input(event):
@@ -33,4 +33,4 @@ func handle_back_request(screen_name = ""):
 		"Playground":
 			visible = true
 		_:
-			GameManager.load_scene("Home", current_scene)
+			Global.load_scene("Home", current_scene)
