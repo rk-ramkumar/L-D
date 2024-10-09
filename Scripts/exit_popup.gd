@@ -28,9 +28,7 @@ func handle_back_request(screen_name = ""):
 	match current_scene.name if screen_name.is_empty() else screen_name:
 		"Home":
 			visible = true
-		"Loading":
-			pass
 		"Playground":
 			visible = true
 		_:
-			Global.load_scene("Home", current_scene)
+			Global.load_scene("Home", current_scene, false)

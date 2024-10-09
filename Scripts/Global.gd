@@ -11,7 +11,10 @@ var scene_paths = {
 
 var loading_scene = preload("res://Scenes/loading.tscn")
 
-func load_scene(resource, _current_scene):
-	var loading = loading_scene.instantiate()
-	loading.add_resource_name(resource)
-	get_tree().root.add_child(loading)
+func load_scene(resource, _current_scene, should_load = true):
+	if should_load:
+		var loading = loading_scene.instantiate()
+		loading.add_resource_name(resource)
+		get_tree().root.add_child(loading)
+	else:
+		get_tree().change_scene_to_file(scene_paths[resource])
