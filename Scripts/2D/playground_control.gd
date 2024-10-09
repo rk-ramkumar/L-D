@@ -27,6 +27,7 @@ func set_turn_over_btn_disable(value):
 
 func _on_turn_started(_player):
 	timer_label.text = ""
+	timer_label.label_settings.font_color = Color.WHITE
 	if AudioController.heartbeat.is_playing():
 		AudioController.heartbeat.stop()
 
@@ -36,6 +37,7 @@ func _on_move_started():
 func _on_timeout():
 	timer_label.text = str(int(timer_label.text) - 1)
 	if int(timer_label.text) == critical_time:
+		timer_label.label_settings.font_color = Color.RED
 		AudioController.heartbeat.play()
 	if int(timer_label.text) == 0:
 		Observer.move_failed.emit()
@@ -53,3 +55,7 @@ func _on_coin_changed(player):
 
 func _lerp_coin(amount):
 	user_coin_label.text = user_coin_text.format({coin=int(amount)})
+
+func _exit_tree():
+	if AudioController.heartbeat.is_playing():
+		AudioController.heartbeat.stop()
