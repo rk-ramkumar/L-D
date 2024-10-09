@@ -116,7 +116,14 @@ func calculate_all_moves(actor):
 		var target_position = current_position + step
 		var blocks = get_movement_path(actor, target_position)
 		var refain_position = min(GameManager.max_tile_id, target_position) - 1
-		var captured_actor = tile_map.is_actor_present(refain_position, GameManager.get_opponent_team(actor.team))
+		var is_actor_present = tile_map.is_actor_present(refain_position, actor.team)
+		if is_actor_present:
+			continue
+		var captured_actor = tile_map.is_actor_present(
+			refain_position,
+			GameManager.get_opponent_team(actor.team),
+			blocks.back()
+		)
 		possible_moves.append(
 			{
 				"blocks": blocks,

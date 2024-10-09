@@ -35,7 +35,7 @@ func get_spawn_position(opposite = false):
 
 func _is_valid_position():
 	var clicked_cell = local_to_map(get_local_mouse_position())
-	var end = min(playground.selected_actor.position_id + playground.player.coin + 1, GameManager.max_tile_id)
+	var end = min(playground.selected_actor.position_id + playground.player.coin, GameManager.max_tile_id)
 	var target_ids = range(playground.selected_actor.position_id, end)
 	var selected_id
 	var step
@@ -58,7 +58,8 @@ func _is_valid_position():
 		return false
 	var captured_actor = is_actor_present(
 		selected_id,
-		GameManager.get_opponent_team(playground.selected_actor.team)
+		GameManager.get_opponent_team(playground.selected_actor.team),
+		blocks[selected_id]
 	)
 
 	return {
@@ -86,15 +87,16 @@ func _unhandled_input(event):
 				playground.selected_actor.start_moving(data)
 				GameManager.decrease_coin(data.step)
 
-func is_actor_present(position_id, team):
+func is_actor_present(position_id, team, pos = null):
 	if position_id <= 6: # Home lane
 		return false
 
 	if is_safe_tile(position_id): # Safe tile
 		return PowersManager.has_sanctuary_seal(position_id, team)
 
+	var target_pos = Vector2i(pos) if pos else blocks[position_id]
 	var actors = GameManager.teamList[team].actors.filter(func(actor):
-		return local_to_map(actor.position) == blocks[position_id])
+		return local_to_map(actor.position) == target_pos)
 
 	if actors.size() > 0:
 		return actors.front()
