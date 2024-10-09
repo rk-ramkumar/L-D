@@ -93,4 +93,4 @@ func _on_start_button_clicked():
 			profile.coin = 0
 			GameManager.Players[profile.id] = profile
 		))
-	GameManager.load_scene("Playground", get_parent())
+	Global.load_scene("Playground", get_parent())

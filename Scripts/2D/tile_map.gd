@@ -43,7 +43,7 @@ func _is_valid_position():
 	for id in target_ids.size():
 		var target_cel = Vector2(blocks[target_ids[id]])
 		#Select the tile that is closets to the clicked cell
-		if target_cel.distance_squared_to(clicked_cell) < 1:
+		if target_cel.distance_squared_to(clicked_cell) <= 1:
 			selected_id = target_ids[id]
 			step = id + 1
 			break
