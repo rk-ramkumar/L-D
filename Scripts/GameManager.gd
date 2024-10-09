@@ -26,54 +26,53 @@ enum player_state {
 var tile_map : TileMap
 var playground
 var extra_chance_dice = [1, 5, 6, 12]
+var events = {
+	"roll_completed": _on_roll_completed,
+	"move_completed": _on_move_completed,
+	"next_turn": _handle_next_turn,
+	"extra_turn": _handle_extra_turn,
+	"turn_started": _handle_turn_started,
+	"roll_started": _handle_roll_started,
+	"actor_move_completed": _on_roll_completed,
+	"actor_completed": _on_actor_completed,
+	"game_over": _on_game_over
+}
+
+func connect_signals():
+	for event in events:
+		if !Observer.is_connected(event, events[event]):
+			Observer.connect(event, events[event])
+
+func disconnect_signals():
+	for event in events:
+		if Observer.is_connected(event, events[event]):
+			Observer[event].disconnect(events[event])
+
+func _on_game_over(_team):
+	Players.values().map(func(profile): profile.coin = 0)
+	reset()
+	
+func reset_game_state():
+	Players = {}
+	playerLoaded = 0
+	reset()
 
 func get_opponent_team(team):
 	return "L" if team == "D" else "D"
 
 func reset():
+	disconnect_signals()
 	player = {}
 	teamList = { "L": {"actors": []}, "D": {"actors": []} }
 	currentPlayerTurn = 0
 	tile_map = null
 	playground = null
 
-func connect_signals():
-	Observer.roll_completed.connect(_on_roll_completed)
-	Observer.move_completed.connect(_on_move_completed)
-	Observer.next_turn.connect(_handle_next_turn)
-	Observer.extra_turn.connect(_handle_extra_turn)
-	Observer.turn_started.connect(_handle_turn_started)
-	Observer.roll_started.connect(_handle_roll_started)
-	Observer.actor_move_completed.connect(_handle_actor_move_completed)
-	Observer.actor_completed.connect(_on_actor_completed)
-	Observer.game_over.connect(_on_game_over)
-
-func disconnect_signals():
-	Observer.roll_completed.disconnect(_on_roll_completed)
-	Observer.move_completed.disconnect(_on_move_completed)
-	Observer.next_turn.disconnect(_handle_next_turn)
-	Observer.extra_turn.disconnect(_handle_extra_turn)
-	Observer.turn_started.disconnect(_handle_turn_started)
-	Observer.roll_started.disconnect(_handle_roll_started)
-	Observer.actor_move_completed.disconnect(_handle_actor_move_completed)
-	Observer.actor_completed.disconnect(_on_actor_completed)
-	Observer.game_over.disconnect(_on_game_over)
-
-func _on_game_over(_team):
-	disconnect_signals()
-	Players.values().map(func(profile): profile.coin = 0)
-	reset()
-
-func reset_game_state():
-	disconnect_signals()
-	Players = {}
-	playerLoaded = 0
-	reset()
-
 func register_resource(dict):
 	tile_map = dict.tile_map
 	playground = dict.playground
 	connect_signals()
+	PowersManager.connect_signals()
 
 func _on_roll_completed(_die_value):
 	Observer.coin_changed.emit(player)

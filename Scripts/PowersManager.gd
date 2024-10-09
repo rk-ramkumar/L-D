@@ -16,11 +16,25 @@ var player_power_effects = {
 }
 var move_based_powers = ["RelentlessMarch", "HermesDash"]
 var turn_based_powers = ["TimeWarp", "ZeusFavor", "AetherBlessing", "SanctuarySeal", "FortunaShield"]
+var events = {
+	"power_activated": _on_power_activated,
+	"move_completed": _on_move_completed,
+	"turn_started": _on_turn_started
+}
 
-func _ready():
-	Observer.turn_started.connect(_on_turn_started)
-	Observer.move_completed.connect(_on_move_completed)
-	Observer.power_activated.connect(_on_power_activated)
+func reset_game_state():
+	disconnect_signals()
+	active_player_powers = {}
+
+func connect_signals():
+	for event in events:
+		if !Observer.is_connected(event, events[event]):
+			Observer.connect(event, events[event])
+
+func disconnect_signals():
+	for event in events:
+		if Observer.is_connected(event, events[event]):
+			Observer[event].disconnect(events[event])
 
 func _on_turn_started(player):
 	_process_power_cooldowns(player, turn_based_powers)

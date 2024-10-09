@@ -18,3 +18,7 @@ func load_scene(resource, _current_scene, should_load = true):
 		get_tree().root.add_child(loading)
 	else:
 		get_tree().change_scene_to_file(scene_paths[resource])
+
+func reset_game_state():
+	GameManager.reset_game_state()
+	PowersManager.reset_game_state()
