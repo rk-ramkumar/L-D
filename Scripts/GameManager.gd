@@ -33,7 +33,7 @@ var events = {
 	"extra_turn": _handle_extra_turn,
 	"turn_started": _handle_turn_started,
 	"roll_started": _handle_roll_started,
-	"actor_move_completed": _on_roll_completed,
+	"actor_move_completed": _handle_actor_move_completed,
 	"actor_completed": _on_actor_completed,
 	"game_over": _on_game_over
 }

@@ -93,7 +93,7 @@ func get_power_boosts(player):
 		return res
 
 	for power in filtered_active_player_powers:
-		if power.expiry == 0:
+		if power.expiry <= 0:
 			continue
 		
 		res.merge(player_power_effects[power.id], true)

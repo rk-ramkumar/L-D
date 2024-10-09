@@ -18,6 +18,10 @@ func _ready():
 	power_texture.texture = load(data.image)
 	power_texture.material = power_texture.material.duplicate()
 	update_count(1)
+	Observer.power_cooldown_finished.connect(_on_power_cooldown_finished)
+	Observer.power_activated.connect(_on_power_activated)
+	if PowersManager.has_active_power(data.id, parent.playground.player.id):
+		_on_cooldown()
 
 func update_count(amount):
 	count += amount
@@ -81,11 +85,15 @@ func _handle_drag(_event):
 		picked = true
 		parent.PowerCardHolder.move_start(data)
 		update_count(-1)
+		animation_player.play_backwards("select")
+		await animation_player.animation_finished
+		animation_player.play("drag")
 	parent.PowerCardHolder.update_position()
 
 func _handle_drag_end(_event):
 	if picked:
 		picked = false
+		animation_player.play_backwards("drag")
 		# Check for any actor selected.
 		if !parent.PowerCardHolder.is_accept(data):
 			update_count(1)
@@ -96,7 +104,8 @@ func _handle_drag_end(_event):
 		parent.PowerCardHolder.move_end()
 
 func remove_card():
-	gui_input.disconnect(_on_gui_input)
+	if gui_input.is_connected(_on_gui_input):
+		gui_input.disconnect(_on_gui_input)
 	var tween = create_tween()
 	tween.tween_method(dissolve_card, 0.0, 1.0, 1)
 	tween.tween_callback(func():
@@ -107,3 +116,16 @@ func remove_card():
 
 func dissolve_card(value):
 	power_texture.material.set_shader_parameter("dissolve_amount", value)
+
+func _on_power_cooldown_finished(power, _player_id):
+	if power.id == data.id:
+		gui_input.connect(_on_gui_input)
+		animation_player.play_backwards("cooldown")
+
+func _on_power_activated(power, _player, _dist={}):
+	if power.id == data.id:
+		_on_cooldown()
+	
+func _on_cooldown():
+	gui_input.disconnect(_on_gui_input)
+	animation_player.play("cooldown")
