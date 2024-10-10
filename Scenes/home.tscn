@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://13kx8nxkpowt"]
+[gd_scene load_steps=17 format=3 uid="uid://13kx8nxkpowt"]
 
 [ext_resource type="Script" path="res://Scripts/home.gd" id="1_sdkj4"]
 [ext_resource type="Texture2D" uid="uid://cx5kb0elsotip" path="res://Assets/anime-night.png" id="2_jo11e"]
@@ -6,7 +6,9 @@
 [ext_resource type="FontFile" uid="uid://dhnxuxk0xio8j" path="res://Assets/font/Ghost Stories Deluxe.ttf" id="5_2yo6i"]
 [ext_resource type="Texture2D" uid="uid://1dmne5d2u88r" path="res://Assets/Icons/whiteNoir.png" id="6_dm5hj"]
 [ext_resource type="Texture2D" uid="uid://b55w1ppiuqcer" path="res://Assets/Icons/dice_3D_detailed.svg" id="7_hctlm"]
+[ext_resource type="StyleBox" uid="uid://c6c7vnmp51u4l" path="res://Assets/Resources/profile_background.tres" id="7_of6em"]
 [ext_resource type="Texture2D" uid="uid://dvtvcij7aspuv" path="res://Assets/Icons/blackNoir.png" id="7_yp7dl"]
+[ext_resource type="Texture2D" uid="uid://cabykwyvml45n" path="res://Assets/Icons/ld_logo.png" id="8_otltl"]
 
 [sub_resource type="Shader" id="Shader_hk51n"]
 code = "shader_type canvas_item;
@@ -28,7 +30,7 @@ border_width_left = 5
 border_width_right = 5
 expand_margin_left = 5.0
 expand_margin_top = 5.0
-expand_margin_right = 55.0
+expand_margin_right = 5.0
 expand_margin_bottom = 5.0
 
 [sub_resource type="Animation" id="Animation_o16bq"]
@@ -182,7 +184,7 @@ theme_override_constants/shadow_offset_y = 5
 theme_override_constants/shadow_outline_size = 10
 theme_override_constants/outline_size = 10
 theme_override_fonts/normal_font = ExtResource("5_2yo6i")
-theme_override_font_sizes/normal_font_size = 128
+theme_override_font_sizes/normal_font_size = 100
 bbcode_enabled = true
 text = "[center]LIGHT [wave amp=50.0 freq=5.0 connected=0][color=9958ff]VS[/color][/wave][color=black][outline_color=white] DARK[/outline_color][/color][/center]"
 
@@ -248,9 +250,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -250.0
-offset_top = -104.5
+offset_top = -240.0
 offset_right = 250.0
-offset_bottom = 104.5
+offset_bottom = 240.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 20
@@ -260,7 +262,27 @@ theme_override_constants/margin_bottom = 20
 
 [node name="CenterContainer" type="VBoxContainer" parent="ProfileContainer"]
 layout_mode = 2
-theme_override_constants/separation = 20
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="Panel" type="Panel" parent="ProfileContainer/CenterContainer"]
+clip_children = 2
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+tooltip_text = "Click to change icon."
+theme_override_styles/panel = ExtResource("7_of6em")
+
+[node name="ProfileIconButton" type="TextureButton" parent="ProfileContainer/CenterContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("8_otltl")
+ignore_texture_size = true
+stretch_mode = 5
 
 [node name="ProfileLabel" type="LineEdit" parent="ProfileContainer/CenterContainer"]
 layout_mode = 2
@@ -268,6 +290,7 @@ theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxFlat_xt5ic")
 placeholder_text = "ENTER NAME"
 alignment = 1
+clear_button_enabled = true
 caret_blink = true
 
 [node name="RandomButton" type="TextureButton" parent="ProfileContainer/CenterContainer/ProfileLabel"]
@@ -277,9 +300,10 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_top = -24.5
-offset_right = 64.0
-offset_bottom = 38.5
+offset_left = 10.0
+offset_top = -24.0
+offset_right = 74.0
+offset_bottom = 39.0
 grow_horizontal = 0
 grow_vertical = 2
 scale = Vector2(0.8, 0.8)
@@ -295,7 +319,17 @@ libraries = {
 "": SubResource("AnimationLibrary_xwmcr")
 }
 
+[node name="FileDialog" type="FileDialog" parent="."]
+title = "Open a File"
+size = Vector2i(329, 146)
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+root_subfolder = "/storage/emulated/0"
+
 [connection signal="clicked" from="Container/MarginContainer/MainContainer/ButtonContainer/PlayButton" to="." method="_on_play_button_clicked"]
 [connection signal="clicked" from="Container/MarginContainer/MainContainer/ButtonContainer/PowersButton" to="." method="_on_powers_button_clicked"]
+[connection signal="pressed" from="ProfileContainer/CenterContainer/Panel/ProfileIconButton" to="." method="_on_profile_icon_button_pressed"]
 [connection signal="pressed" from="ProfileContainer/CenterContainer/ProfileLabel/RandomButton" to="." method="_on_random_button_pressed"]
 [connection signal="clicked" from="ProfileContainer/CenterContainer/EnterButton" to="." method="_on_enter_button_clicked"]
+[connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]

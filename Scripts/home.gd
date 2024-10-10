@@ -6,6 +6,7 @@ extends Control
 @onready var profile_label = $ProfileContainer/CenterContainer/ProfileLabel
 @onready var enter_button = $ProfileContainer/CenterContainer/EnterButton
 @onready var button_container = $Container/MarginContainer/MainContainer/ButtonContainer
+@onready var file_dialog = $FileDialog
 
 var match_making = preload("res://Scenes/ai_arena_lobby.tscn")
 var powers_detail_scene = preload("res://Scenes/powers_details.tscn")
@@ -39,3 +40,9 @@ func _on_enter_button_clicked():
 
 func _on_powers_button_clicked():
 	get_tree().change_scene_to_packed(powers_detail_scene)
+
+func _on_profile_icon_button_pressed():
+	file_dialog.popup_centered_ratio()
+
+func _on_file_dialog_file_selected(path):
+	pass # Replace with function body.
